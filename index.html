@@ -206,11 +206,10 @@ main{position:relative;z-index:1;padding:20px 5vw;max-width:1100px;margin:auto}
    ============================================================ */
 .modal{position:fixed;inset:0;background:#000;display:none;z-index:99999;padding:0;margin:0;overflow:hidden}
 .modal.on{display:block}
-.wrap{position:fixed;inset:0;width:100dvw;height:100dvh;background:#000;overflow:hidden}
-.frame{position:absolute;inset:0;width:100%;height:100%;background:#000;overflow:hidden}
-.frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0;background:#000;overflow:hidden}
-.frame iframe.active{pointer-events:auto}
-.close{position:absolute;top:14px;right:14px;background:rgba(0,0,0,0.85);border:2px solid var(--gold);color:var(--gold);font-size:20px;font-weight:900;line-height:1;width:44px;height:44px;border-radius:50%;cursor:pointer;z-index:100000;display:flex;align-items:center;justify-content:center;transition:all .3s;opacity:0;pointer-events:auto;box-shadow:0 4px 12px rgba(0,0,0,0.5)}
+.wrap{position:absolute;inset:0;background:#000;overflow:hidden}
+.frame{position:absolute;inset:0;background:#000;overflow:hidden}
+.frame iframe{position:absolute;inset:0;border:0;background:#000}
+.frame iframe.active{pointer-events:auto}.close{position:absolute;top:14px;right:14px;background:rgba(0,0,0,0.85);border:2px solid var(--gold);color:var(--gold);font-size:20px;font-weight:900;line-height:1;width:44px;height:44px;border-radius:50%;cursor:pointer;z-index:100000;display:flex;align-items:center;justify-content:center;transition:all .3s;opacity:0;pointer-events:auto;box-shadow:0 4px 12px rgba(0,0,0,0.5)}
 .wrap.show-controls .close{opacity:1}
 .close:hover{background:var(--gold);color:#000;transform:scale(1.1)}
 .video-overlay{position:absolute;inset:0;background:rgba(0,0,0,0.92);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:999999;cursor:pointer;transition:opacity .3s;touch-action:manipulation}
@@ -308,12 +307,6 @@ main{position:relative;z-index:1;padding:20px 5vw;max-width:1100px;margin:auto}
   #who{max-width:65%}
 }
 
-/* CORRECCIÓ ESPECÍFICA PER IPAD/IPHONE */
-@media screen and (max-width: 1024px) and (-webkit-min-device-pixel-ratio: 2) {
-  .modal.on body{overflow:hidden;height:100vh}
-  .wrap{width:100dvw;height:100dvh}
-  .frame{width:100%;height:100%}
-}
 </style>
 </head>
 <body>
@@ -2032,30 +2025,26 @@ $('langToggle').onclick = function () {
 
 var currentVideoSrc = '';
 function openFullscreenVideo(src) {
-  // Si és mòbil o tablet, obrir directament el reproductor de Drive en nova pestanya
-  if (isMobileDevice()) {
-    // IMPORTANT: obrim l'URL /preview tal qual (reproductor anònim).
-    // NO el convertim a /view, perquè la pàgina de Drive demana compte de Google.
-    window.open(src, '_blank');
-    return;
-  }
-  
-  // Per a PC, fer servir el modal actual
   currentVideoSrc = src;
   var player = $('player');
   var overlay = $('videoOverlay');
-  
+
   player.src = '';
   player.classList.remove('active');
   $('modal').classList.add('on');
-  
   if (overlay) overlay.classList.remove('hidden');
-  
+
+  // CLAU ANTI-FRANGES: mentre el modal és obert treiem el zoom del html.
+  // Així les unitats de pantalla i el iframe coincideixen exactament (adios franges a iPad).
+  document.documentElement.style.zoom = '1';
+
   var wrap = document.querySelector('.wrap');
   if (wrap.requestFullscreen) wrap.requestFullscreen().catch(function () {});
   else if (wrap.webkitRequestFullscreen) wrap.webkitRequestFullscreen();
 }
 function closeVideoPlayer() {
+  // Restaurem el zoom original del CSS
+  document.documentElement.style.zoom = '';
   if (document.exitFullscreen && document.fullscreenElement) document.exitFullscreen();
   else { $('modal').classList.remove('on'); $('player').src = ''; }
 }
@@ -2095,7 +2084,11 @@ if (frameEl) {
 $('xPlayer').onclick = closeVideoPlayer;
 $('modal').addEventListener('click', function (e) { if (e.target.id === 'modal') closeVideoPlayer(); });
 document.addEventListener('fullscreenchange', function () {
-  if (!document.fullscreenElement) { $('player').src = ''; $('modal').classList.remove('on'); }
+  if (!document.fullscreenElement) {
+    document.documentElement.style.zoom = '';
+    $('player').src = '';
+    $('modal').classList.remove('on');
+  }
 });
 
 // Botó de tancar que apareix en moure el ratolí
