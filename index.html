@@ -271,51 +271,27 @@ main{position:relative;z-index:1;padding:20px 5vw;max-width:1100px;margin:auto}
 /* ============================================================
    11. RESPONSIVE
    ============================================================ */
-@media(max-width:900px){.donuts{grid-template-columns:repeat(3,1fr)}.blkcol{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:900px){
+  .donuts{grid-template-columns:repeat(3,1fr)}
+  .blkcol{grid-template-columns:repeat(3,1fr)}
+
+  /* CAPÇALERA MÒBIL/TABLET: fila 1 = modes, fila 2 = utilitats */
+  .hdr{display:flex;flex-wrap:wrap;gap:8px;width:100%;align-items:stretch}
+  .modes{display:contents} /* els botons fills passen a ser items de .hdr */
+
+  /* Fila 1: els dos modes principals, mateixa mida */
+  #mTrack{order:1;flex:1 1 45%;width:auto;height:46px;font-size:13px;font-weight:800}
+  #mFree{order:2;flex:1 1 45%;width:auto;height:46px;font-size:13px;font-weight:800}
+
+  /* Fila 2: apps, faq, ajuda i idioma, tots quatre en línia */
+  #mApps{order:3;flex:1 1 20%;width:auto;height:38px;font-size:12px}
+  #mInfo{order:4;flex:1 1 20%;width:auto;height:38px;font-size:12px}
+  #mHelp{order:5;flex:1 1 20%;width:auto;height:38px;font-size:12px;padding:0 8px;justify-content:center}
+  #langToggle{order:6;flex:1 1 20%;width:auto;height:38px;font-size:12px;padding:0 8px;justify-content:center}
+}
 @media(max-width:768px){
   html{zoom:1}
   .wrap{width:100dvw;height:100dvh}
-  
-  /* BOTONS EN DUES FILES: PRIMERA FILA TRACK/FREE, SEGONA FILA RESTA */
-  .modes{
-    flex-direction:column;
-    width:100%;
-    gap:8px;
-  }
-  .modes button{
-    width:100%;
-    height:42px;
-    font-size:13px;
-  }
-  #mTrack, #mFree{
-    width:100%;
-    height:46px;
-    font-size:14px;
-    font-weight:800;
-  }
-  
-  /* Segona fila amb els botons petits */
-  .hdr{
-    flex-direction:row;
-    flex-wrap:wrap;
-    justify-content:center;
-    align-items:center;
-    gap:8px;
-    margin-top:8px;
-  }
-  #mApps, #mInfo, #mHelp{
-    width:auto;
-    min-width:60px;
-    height:36px;
-    font-size:11px;
-    padding:0 12px;
-  }
-  .langbtn{
-    width:auto;
-    justify-content:center;
-    padding:8px 16px;
-  }
-  
   .blkcol{grid-template-columns:repeat(2,1fr)}
   .vgrid{grid-template-columns:1fr}
   .ritem{flex-direction:column;align-items:flex-start;gap:8px}
