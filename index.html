@@ -258,8 +258,12 @@ main{position:relative;z-index:1;padding:20px 5vw;max-width:1100px;margin:auto}
   .faq-item h3{font-size:15px}
   .vidadjpills{flex-direction:column}
   .vidadjpills a{width:100%;justify-content:center}
-  /* Botó de tancar visible i clicable en mòbil */
+  /* En mòbil, la creu està amagada per defecte (Android tanca amb el botó enrere) */
   .modal.on .close {
+    display: none !important;
+  }
+  /* Només en iOS mostrem la creu per poder tancar fàcilment */
+  .modal.on.ios-device .close {
     display: flex !important;
     opacity: 1 !important;
     background: rgba(232,176,75,0.95) !important;
@@ -1608,44 +1612,68 @@ function openFullscreenVideo(src) {
   currentVideoSrc = src;
   var player = $('player');
   var overlay = $('videoOverlay');
+  var modal = $('modal');
+
+  var isIOSDevice = /iPad|iPhone|iPod/.test(navigator.userAgent) || 
+                    (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
 
   if (isMobileDevice()) {
-    $('modal').classList.add('on');
-    var finalSrc = currentVideoSrc.includes('?') 
-      ? currentVideoSrc + '&autoplay=1&authuser=0' 
-      : currentVideoSrc + '?autoplay=1&authuser=0';
+    modal.classList.add('on');
     
-    player.src = finalSrc;
-    player.classList.add('active');
-    
-    if (overlay) {
-      overlay.classList.remove('hidden');
-      var isIOSDevice = /iPad|iPhone|iPod/.test(navigator.userAgent) || 
-                        (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+    if (isIOSDevice) {
+      // === IPAD / IPHONE ===
+      modal.classList.add('ios-device'); // Activa la creu de tancar
       
-      if (LS.lang === 'ca') {
-        $('overlayText').textContent = isIOSDevice
-          ? 'QUAN DESAPAREGUI AQUEST MISSATGE, CLICA SOBRE LA PANTALLA PER REPRODUIR EL VÍDEO.\n\nPer sortir, clica la icona de sortida (↗) a la cantonada superior dreta.'
-          : 'Toca la pantalla per iniciar el vídeo';
+      var finalSrc = currentVideoSrc.includes('?') 
+        ? currentVideoSrc + '&authuser=0' 
+        : currentVideoSrc + '?authuser=0';
+      
+      player.src = finalSrc;
+      player.classList.add('active');
+      
+      if (overlay) {
+        overlay.classList.remove('hidden');
+        if (LS.lang === 'ca') {
+          $('overlayText').textContent = 'QUAN DESAPAREGUI AQUEST MISSATGE, CLICA SOBRE LA PANTALLA PER REPRODUIR EL VÍDEO.\n\nPER SORTIR, CLICA LA ICONA DE SORTIDA (↗) A LA CANTONADA SUPERIOR DRETA.';
+        } else {
+          $('overlayText').textContent = 'CUANDO DESAPAREZCA ESTE MENSAJE, TOCA LA PANTALLA PARA REPRODUCIR EL VÍDEO.\n\nPARA SALIR, TOCA EL ICONO DE SALIDA (↗) EN LA ESQUINA SUPERIOR DERECHA.';
+        }
+        setTimeout(function() {
+          overlay.classList.add('hidden');
+        }, 6000);
       }
+      document.documentElement.style.zoom = '1';
       
-      setTimeout(function() {
+    } else {
+      // === ANDROID ===
+      modal.classList.remove('ios-device'); // Assegura que la creu no es vegi
+      
+      var finalSrc = currentVideoSrc.includes('?') 
+        ? currentVideoSrc + '&autoplay=1&authuser=0' 
+        : currentVideoSrc + '?autoplay=1&authuser=0';
+      
+      player.src = finalSrc;
+      player.classList.add('active');
+      
+      // Amagar l'overlay immediatament en Android (el vídeo ja es reprodueix sol)
+      if (overlay) {
         overlay.classList.add('hidden');
-      }, 4000);
+      }
+      document.documentElement.style.zoom = '1';
     }
-    
-    document.documentElement.style.zoom = '1';
   } else {
-    // PC
+    // === PC ===
     player.src = '';
     player.classList.remove('active');
-    $('modal').classList.add('on');
+    modal.classList.add('on');
+    modal.classList.remove('ios-device');
     if (overlay) overlay.classList.remove('hidden');
     
     var wrap = document.querySelector('.wrap');
     if (wrap.requestFullscreen) wrap.requestFullscreen().catch(function () {});
     else if (wrap.webkitRequestFullscreen) wrap.webkitRequestFullscreen();
   }
+
 }function closeVideoPlayer() {
   document.documentElement.style.zoom = '';
   if (document.exitFullscreen && document.fullscreenElement) document.exitFullscreen();
