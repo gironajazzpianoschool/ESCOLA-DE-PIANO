@@ -124,11 +124,9 @@ main{position:relative;z-index:1;padding:20px 5vw;max-width:1100px;margin:auto}
 .vr .play{width:32px;height:32px;flex:none;border-radius:50%;border:1px solid var(--gold);color:var(--gold);background:none;cursor:pointer;font-size:12px;transition:all .2s}
 .vr .play:hover{background:rgba(232,176,75,0.1)}
 .vt{flex:1;font-size:var(--fs);font-weight:600}
-/* Icona d'importància (visible sempre): cantonada dreta */
 .vid-importance{position:absolute;top:8px;right:8px;font-size:20px;cursor:help;transition:transform .2s}
 .vid-importance:hover{transform:scale(1.2)}
 .vid-importance.editable{cursor:pointer}
-/* Globus de número d'ordre (només mode edició): a l'esquerra de la icona */
 .vid-number{position:absolute;top:8px;right:36px;background:var(--gold);color:#141414;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;z-index:5;box-shadow:0 2px 8px rgba(232,176,75,0.3)}
 .vid-number.editable{cursor:pointer;transition:all .2s}
 .vid-number.editable:hover{transform:scale(1.1);box-shadow:0 4px 12px rgba(232,176,75,0.5)}
@@ -141,7 +139,6 @@ main{position:relative;z-index:1;padding:20px 5vw;max-width:1100px;margin:auto}
 .acts button.nt.active{border-color:var(--gold);color:var(--gold);animation:notePulse 2s infinite}
 @keyframes notePulse{0%,100%{box-shadow:0 0 0 0 rgba(232,176,75,0.7)}50%{box-shadow:0 0 0 6px rgba(232,176,75,0)}}
 .vidadjpills{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-start}
-/* Reproductor incrustat dins la targeta */
 .inl{display:none;margin-top:10px;aspect-ratio:16/9;background:#000;border-radius:10px;overflow:hidden;position:relative}
 .inl.on{display:block}
 .inl iframe{width:100%;height:100%;border:0}
@@ -150,11 +147,9 @@ main{position:relative;z-index:1;padding:20px 5vw;max-width:1100px;margin:auto}
 .inlb button:hover{border-color:var(--gold)}
 .vd{color:var(--mut);font-size:var(--fs-sm);margin-top:9px;line-height:1.5}
 .editing{outline:1px dashed var(--gold);background:rgba(232,176,75,.07);cursor:text;border-radius:6px;padding:2px 5px;color:var(--ink)}
-/* Panell d'adjunts del bloc */
 .docs{display:none;margin:0 0 14px}.docs.on{display:block}
 .doc{display:flex;gap:10px;align-items:center;color:var(--mut);font-size:var(--fs-btn);padding:6px 9px;border:1px dashed var(--line);border-radius:8px;margin-top:7px}
 .doc a{color:var(--ok);text-decoration:none;font-weight:700}
-/* Notes personals */
 .notes{display:none;margin-top:10px;border-top:1px dashed var(--line);padding-top:10px}.notes.on{display:block}
 .ntitle{color:var(--gold);font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:6px}
 .note{background:#1a1f28;border-radius:10px;padding:8px 10px;font-size:var(--fs-btn);margin-bottom:7px;color:var(--mut);position:relative}
@@ -167,7 +162,7 @@ main{position:relative;z-index:1;padding:20px 5vw;max-width:1100px;margin:auto}
 .save-note-btn:hover{background:#f0c060}
 
 /* ============================================================
-   7. BOTONS D'EDICIÓ SOBRE EL VÍDEU (moure / eliminar)
+   7. BOTONS D'EDICIÓ SOBRE EL VÍDEU
    ============================================================ */
 .vid-del-btn{background:var(--danger);color:#fff;border:none;border-radius:50%;width:28px;height:28px;font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;flex-shrink:0}
 .vid-del-btn:hover{transform:scale(1.1)}
@@ -185,7 +180,8 @@ main{position:relative;z-index:1;padding:20px 5vw;max-width:1100px;margin:auto}
 .appcard:hover{border-color:var(--gold)}
 .appcard .ae{font-size:38px;line-height:1}
 .appcard .ae img{width:48px;height:48px;object-fit:contain;vertical-align:middle}
-.appcard h3{color:var(--gold);margin:9px 0 7px;font-size:15px;letter-spacing:1px}.appcard p{color:var(--mut);font-size:var(--fs-btn);margin-bottom:12px;line-height:1.5}
+.appcard h3{color:var(--gold);margin:9px 0 7px;font-size:15px;letter-spacing:1px}
+.appcard p{color:var(--mut);font-size:var(--fs-btn);margin-bottom:12px;line-height:1.5}
 .appcard button{background:var(--gold);color:#141414;border:none;border-radius:9px;padding:8px 18px;font-weight:800;font-size:var(--fs-btn);cursor:pointer;transition:all .2s}
 .appcard button:hover{background:#f0c060}
 .info-container{max-width:780px;margin:0 auto}
@@ -209,15 +205,18 @@ main{position:relative;z-index:1;padding:20px 5vw;max-width:1100px;margin:auto}
 .wrap{position:absolute;inset:0;background:#000;overflow:hidden}
 .frame{position:absolute;inset:0;background:#000;overflow:hidden}
 .frame iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:0;background:#000}
-.frame iframe.active{pointer-events:auto}.close{position:absolute;top:14px;right:14px;background:rgba(0,0,0,0.85);border:2px solid var(--gold);color:var(--gold);font-size:20px;font-weight:900;line-height:1;width:44px;height:44px;border-radius:50%;cursor:pointer;z-index:100000;display:flex;align-items:center;justify-content:center;transition:all .3s;opacity:0;pointer-events:auto;box-shadow:0 4px 12px rgba(0,0,0,0.5)}
+.frame iframe.active{pointer-events:auto}
+.close{position:absolute;top:14px;right:14px;background:rgba(0,0,0,0.85);border:2px solid var(--gold);color:var(--gold);font-size:20px;font-weight:900;line-height:1;width:44px;height:44px;border-radius:50%;cursor:pointer;z-index:100000;display:flex;align-items:center;justify-content:center;transition:all .3s;opacity:0;pointer-events:auto;box-shadow:0 4px 12px rgba(0,0,0,0.5)}
 .wrap.show-controls .close{opacity:1}
 .close:hover{background:var(--gold);color:#000;transform:scale(1.1)}
 .video-overlay{position:absolute;inset:0;background:rgba(0,0,0,0.92);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:999999;cursor:pointer;transition:opacity .3s;touch-action:manipulation}
 .video-overlay.hidden{opacity:0;pointer-events:none}
 .video-overlay .icon{font-size:58px;color:var(--gold);margin-bottom:16px;animation:pulse 1.5s infinite;pointer-events:none}
 .video-overlay .text{color:#fff;font-size:16px;font-weight:700;text-align:center;max-width:80%;line-height:1.5;pointer-events:none}
-@keyframes pulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.1);opacity:.8}}/* ============================================================
-   10. MODALS (login, selector d'adjunts, celebració)
+@keyframes pulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.1);opacity:.8}}
+
+/* ============================================================
+   10. MODALS (login, selector d'adjunts, celebració, ajuda)
    ============================================================ */
 .lgin,.adjsel{position:fixed;inset:0;background:rgba(5,6,10,.98);z-index:60;display:none;align-items:center;justify-content:center;padding:5vw}
 .lgin.on,.adjsel.on{display:flex}
@@ -247,7 +246,6 @@ main{position:relative;z-index:1;padding:20px 5vw;max-width:1100px;margin:auto}
 .aselbox .actions .go:hover{background:#f0c060}
 .aselbox .actions .go.secondary{background:transparent;color:var(--ink);border:1px solid var(--line)}
 .aselbox .actions .go.secondary:hover{border-color:var(--gold)}
-/* Celebració de graduació amb trofeu giratori */
 .celebration{background:linear-gradient(135deg,rgba(232,176,75,0.05),rgba(232,176,75,0.02));border:2px solid var(--gold);border-radius:var(--rad-lg);padding:40px 30px;text-align:center;margin-bottom:30px;box-shadow:0 8px 32px rgba(232,176,75,0.2)}
 .celebration h2{font-size:28px;color:var(--gold);margin-bottom:8px;font-weight:800;text-shadow:0 2px 8px rgba(232,176,75,0.3)}
 .celebration .subtitle{font-size:16px;color:var(--mut);margin-bottom:30px}
@@ -261,7 +259,6 @@ main{position:relative;z-index:1;padding:20px 5vw;max-width:1100px;margin:auto}
 .gift-card:hover{transform:translateY(-4px);box-shadow:0 8px 24px rgba(232,176,75,0.3);border-color:#f0c060}
 .gift-card h3{color:var(--gold);font-size:16px;margin-bottom:10px}
 .gift-card p{color:var(--mut);font-size:13px;line-height:1.5}
-/* Modal d'ajuda per a alumnes */
 .help-item{display:flex;gap:12px;align-items:flex-start;background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin-bottom:10px}
 .help-item .help-ico{font-size:22px;flex:none;line-height:1.2}
 .help-item h3{color:var(--gold);font-size:14px;margin-bottom:4px}
@@ -273,16 +270,10 @@ main{position:relative;z-index:1;padding:20px 5vw;max-width:1100px;margin:auto}
 @media(max-width:900px){
   .donuts{grid-template-columns:repeat(3,1fr)}
   .blkcol{grid-template-columns:repeat(3,1fr)}
-
-  /* CAPÇALERA MÒBIL/TABLET: fila 1 = modes, fila 2 = utilitats */
   .hdr{display:flex;flex-wrap:wrap;gap:8px;width:100%;align-items:stretch}
-  .modes{display:contents} /* els botons fills passen a ser items de .hdr */
-
-  /* Fila 1: els dos modes principals, mateixa mida */
+  .modes{display:contents}
   #mTrack{order:1;flex:1 1 45%;width:auto;height:46px;font-size:13px;font-weight:800}
   #mFree{order:2;flex:1 1 45%;width:auto;height:46px;font-size:13px;font-weight:800}
-
-  /* Fila 2: apps, faq, ajuda i idioma, tots quatre en línia */
   #mApps{order:3;flex:1 1 20%;width:auto;height:38px;font-size:12px}
   #mInfo{order:4;flex:1 1 20%;width:auto;height:38px;font-size:12px}
   #mHelp{order:5;flex:1 1 20%;width:auto;height:38px;font-size:12px;padding:0 8px;justify-content:center}
@@ -299,13 +290,8 @@ main{position:relative;z-index:1;padding:20px 5vw;max-width:1100px;margin:auto}
   .faq-item h3{font-size:15px}
   .vidadjpills{flex-direction:column}
   .vidadjpills a{width:100%;justify-content:center}
-  /* CORRECCIÓ PER A ANDROID/IPAD EN HORITZONTAL */
   @media (orientation: landscape) {
-    .frame iframe {
-      width: 100dvw !important;
-      height: 100dvh !important;
-      object-fit: cover;
-    }
+    .frame iframe { width: 100dvw !important; height: 100dvh !important; object-fit: cover; }
   }
 }
 @media(max-width:480px){
@@ -314,7 +300,6 @@ main{position:relative;z-index:1;padding:20px 5vw;max-width:1100px;margin:auto}
   .userblock{width:100%;justify-content:space-between}
   #who{max-width:65%}
 }
-
 </style>
 </head>
 <body>
@@ -350,7 +335,6 @@ main{position:relative;z-index:1;padding:20px 5vw;max-width:1100px;margin:auto}
   <div id="infoView" style="display:none"></div>
 </main>
 
-<!-- Reproductor de vídeo a pantalla completa -->
 <div class="modal" id="modal">
   <div class="wrap">
     <button class="close" id="xPlayer" title="Tancar">✕</button>
@@ -364,7 +348,6 @@ main{position:relative;z-index:1;padding:20px 5vw;max-width:1100px;margin:auto}
   </div>
 </div>
 
-<!-- Modal de login -->
 <div class="lgin" id="login">
   <div class="lbox">
     <h2 id="lgTitle">Login</h2>
@@ -377,7 +360,6 @@ main{position:relative;z-index:1;padding:20px 5vw;max-width:1100px;margin:auto}
   </div>
 </div>
 
-<!-- Modal selector d'adjunts per vídeo -->
 <div class="adjsel" id="adjSelModal">
   <div class="aselbox">
     <h2 id="adjSelTitle"></h2>
@@ -391,68 +373,8 @@ main{position:relative;z-index:1;padding:20px 5vw;max-width:1100px;margin:auto}
 
 <script>
 /* ================================================================
-   10b. GUIA D'AJUDA PER A ALUMNES (botó ❓)
-   ================================================================ */
-
-var HELP = [
-  { ico: '🎯', t: { ca: 'Seguiment Continuat', es: 'Seguimiento Continuo' }, p: { ca: 'És el teu itinerari guiat. La targeta «Ara et toca» t\'indica el següent vídeo que has de mirar. Quan l\'hagis vist i practicat, prem «Marcar fet» i l\'aula et proposarà automàticament el següent pas.', es: 'Es tu itinerario guiado. La tarjeta «Ahora te toca» te indica el siguiente vídeo que debes ver. Cuando lo hayas visto y practicado, pulsa «Marcar hecho» y el aula te propondrá automáticamente el siguiente paso.' } },
-  { ico: '📁', t: { ca: 'Navegació Lliure', es: 'Navegación Libre' }, p: { ca: 'Per explorar al teu aire: tria el nivell al desplegable i el bloc (Tècnica, Teoria, Ritme, Auditiu o Pràctica) per veure\'n tots els vídeos i materials.', es: 'Para explorar a tu aire: elige el nivel en el desplegable y el bloque (Técnica, Teoría, Ritmo, Auditivo o Práctica) para ver todos sus vídeos y materiales.' } },
-  { ico: '⭐', t: { ca: 'Vídeos importants i opcionals', es: 'Vídeos importantes y opcionales' }, p: { ca: 'Cada vídeo porta una icona: ⭐ important (no te\'l saltis) o ⭕ opcional (pots deixar-lo per més endavant si tens pressa). Passa-hi el ratolí per sobre per veure\'n el significat.', es: 'Cada vídeo lleva un icono: ⭐ importante (no te lo saltes) o ⭕ opcional (puedes dejarlo para más adelante si tienes prisa). Pasa el ratón por encima para ver su significado.' } },
-  { ico: '🔖', t: { ca: 'La teva llista de repàs', es: 'Tu lista de repaso' }, p: { ca: 'Amb el botó «Repassar» marques un vídeo per tenir-lo sempre a mà. Els trobaràs tots reunits a la llista de repàs, a sota de cada vista.', es: 'Con el botón «Repasar» marcas un vídeo para tenerlo siempre a mano. Los encontrarás todos reunidos en la lista de repaso, debajo de cada vista.' } },
-  { ico: '📝', t: { ca: 'Notes personals', es: 'Notas personales' }, p: { ca: 'Cada vídeo té un espai de notes per apuntar dubtes o observacions. Podràs enviar-les al professor quan ho necessitis.', es: 'Cada vídeo tiene un espacio de notas para apuntar dudas u observaciones. Podrás enviárselas al profesor cuando lo necesites.' } },
-  { ico: '📎', t: { ca: 'Adjunts i partitures', es: 'Adjuntos y partituras' }, p: { ca: 'Els documents de cada bloc (partitures, play-alongs, PDFs) s\'obren amb el botó «Adjunts». Alguns vídeos també tenen material propi just a sota.', es: 'Los documentos de cada bloque (partituras, play-alongs, PDFs) se abren con el botón «Adjuntos». Algunos vídeos también tienen material propio justo debajo.' } },
-  { ico: '🎧', t: { ca: 'Aplicacions d\'entrenament', es: 'Aplicaciones de entrenamiento' }, p: { ca: 'A la pestanya Apps trobaràs laboratoris exclusius com TONAL EMOTIONS, per entrenar l\'oïda jugant.', es: 'En la pestaña Apps encontrarás laboratorios exclusivos como TONAL EMOTIONS, para entrenar el oído jugando.' } },
-  { ico: '🎓', t: { ca: 'I en acabar el nivell…', es: 'Y al terminar el nivel…' }, p: { ca: 'Quan completis tots els vídeos del nivell rebràs un regal de graduació molt especial. Però això… millor descobreix-ho tu mateix! 😉', es: 'Cuando completes todos los vídeos del nivel recibirás un regalo de graduación muy especial. Pero eso… ¡mejor descúbrelo tú mismo! 😉' } }
-];
-
-function showHelp() {
-  $('helpTitle').textContent = LS.lang === 'ca' ? 'Com funciona aquest web' : 'Cómo funciona esta web';
-  var intro = LS.lang === 'ca'
-    ? 'Benvingut/da a l\'aula virtual! Aquesta guia ràpida t\'explica com treure-li tot el partit en 2 minuts.'
-    : '¡Bienvenido/a al aula virtual! Esta guía rápida te explica cómo sacarle todo el partido en 2 minutos.';
-  var h = '<p style="color:var(--mut);font-size:var(--fs);line-height:1.6;margin-bottom:16px;">' + intro + '</p>';
-  HELP.forEach(function (s, i) {
-    var title = helpText(i, 't', s.t[LS.lang]);
-    var para = helpText(i, 'p', s.p[LS.lang]);
-    var cls = editModeOn ? ' editing' : '';
-    h += '<div class="help-item"><span class="help-ico">' + s.ico + '</span><div>' +
-      '<h3 class="help-title' + cls + '" data-hi="' + i + '" data-hk="t">' + esc(title) + '</h3>' +
-      '<p class="help-para' + cls + '" data-hi="' + i + '" data-hk="p">' + esc(para) + '</p>' +
-      '</div></div>';
-  });
-  $('helpContent').innerHTML = h;
-  // En mode edició: activa contentEditable sobre els títols i paràgrafs
-  if (editModeOn) {
-    $('helpContent').querySelectorAll('[data-hi]').forEach(function (el) {
-      el.contentEditable = 'true';
-    });
-  }
-  $('helpModal').classList.add('on');
-}
-
-/* ================================================================
-   GIRONA JAZZ PIANO SCHOOL — AULA VIRTUAL
-   Índex de seccions:
-     1.  Utilitats i estat global
-     2.  Usuaris i sessió
-     3.  Dades del curs (nivells, blocs, vídeos, enllaços)
-     4.  Textos d'interfície (CA/ES) i FAQ
-     5.  OV: dades editables persistides dins del fitxer
-     6.  Sistema d'ordre global de reproducció
-     7.  Adjunts (del bloc i per vídeo)
-     8.  Mode edició i guardat del fitxer
-     9.  Construcció de la targeta de vídeo (makeVid)
-     10. Vistes: Seguiment, Lliure, Apps, Info
-     11. Login i canvi d'idioma
-     12. Reproductor a pantalla completa
-     13. Arrencada
-     10b. Guia d'ajuda per a alumnes
-   ================================================================ */
-
-/* ================================================================
    1. UTILITATS I ESTAT GLOBAL
    ================================================================ */
-// Mostra errors JS en una franja vermella (depuració)
 window.onerror = function (m, s, l) {
   var f = document.getElementById('fatal');
   f.style.display = 'block';
@@ -460,50 +382,42 @@ window.onerror = function (m, s, l) {
   return false;
 };
 
-// localStorage amb reserva en memòria si el navegador el bloqueja
 var mem = {};
 function lsGet(k) { try { return window.localStorage.getItem(k); } catch (e) { return (k in mem) ? mem[k] : null; } }
 function lsSet(k, v) { try { window.localStorage.setItem(k, v); } catch (e) { mem[k] = v; } }
 function lsJSON(k, def) { var r = lsGet(k); if (!r) return def; try { return JSON.parse(r); } catch (e) { return def; } }
 
-// Estat global de l'aplicació
 var LS = {
-  lang: lsGet('gjps_lang') || 'ca',   // idioma actiu
-  mode: lsGet('gjps_mode') || 'track',// vista activa: track | free | apps | info
-  user: lsGet('gjps_session') || '',  // usuari loguejat
-  done: {}                            // vídeos marcats com a fets (es carrega al login)
+  lang: lsGet('gjps_lang') || 'ca',
+  mode: lsGet('gjps_mode') || 'track',
+  user: lsGet('gjps_session') || '',
+  done: {}
 };
 
-// Navegació lliure: nivell i bloc seleccionats
 var freeBlock = 'w';
 var freeLevel = 0;
-// Si és true, en entrar a Navegació Lliure el sistema tria el nivell
-// (benvinguda o primer nivell pendent). Si l'usuari canvia el desplegable, passa a false.
 var autoLevelPending = true;
+var editModeOn = false;
+var faqOpen = {};
+var reviewCollapsed = true;
 
-var editModeOn = false;      // mode edició actiu (només admin)
-var faqOpen = {};            // estat dels acordion de la FAQ
-var reviewCollapsed = true;  // llista de repàs plegada per defecte
-
-// Detectar si és mòbil o tablet
 function isMobileDevice() {
   return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || 
-         (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1); // iPad amb Safari
+         (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
 }
-var BO = ['w', 't', 'g', 'r', 'a', 'p'];            // ordre dels blocs
-var BC = { t: '#e8b04b', g: '#39d98a', r: '#4cc9f0', a: '#8c52ff', p: '#ff2bd6' }; // colors per bloc
-var DI = { d: '📄', s: '🎼', a: '🎧' };              // icones de tipus de document
+
+var BO = ['w', 't', 'g', 'r', 'a', 'p'];
+var BC = { t: '#e8b04b', g: '#39d98a', r: '#4cc9f0', a: '#8c52ff', p: '#ff2bd6' };
+var DI = { d: '📄', s: '🎼', a: '🎧' };
 
 function $(id) { return document.getElementById(id); }
-function t() { return UI[LS.lang]; }                // textos d'interfície de l'idioma actiu
-function li() { return LS.lang === 'ca' ? 0 : 1; }  // índex de idioma dins dels arrays [ca, es]
+function t() { return UI[LS.lang]; }
+function li() { return LS.lang === 'ca' ? 0 : 1; }
 function esc(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
 
 /* ================================================================
    2. USUARIS I SESSIÓ
    ================================================================ */
-
-// Contrasenya diària per al compte "Invitat": dia + mes + 42
 function getDailyPassword() {
   var avui = new Date();
   return String(avui.getDate() + (avui.getMonth() + 1) + 42);
@@ -555,12 +469,8 @@ function currentUserRole() {
   var u = findUser(LS.user);
   return u ? u.role : 'guest';
 }
-
-// Progrés de vídeos fets, per usuari
 function loadDone() { LS.done = LS.user ? lsJSON('gjps_done_' + LS.user, {}) : {}; }
 function saveDone() { if (LS.user) lsSet('gjps_done_' + LS.user, JSON.stringify(LS.done)); }
-
-// Marcadors (llista de repàs), per usuari
 function getBookmarks() { return lsJSON('gjps_bookmarks_' + LS.user, []); }
 function setBookmarks(arr) { lsSet('gjps_bookmarks_' + LS.user, JSON.stringify(arr)); }
 function isBookmarked(id) { return getBookmarks().indexOf(id) >= 0; }
@@ -574,7 +484,6 @@ function toggleBookmark(id) {
 /* ================================================================
    3. DADES DEL CURS
    ================================================================ */
-
 var LEVELS = [
   { id: 0, n: { ca: 'Vídeos de benvinguda', es: 'Vídeos de bienvenida' }, active: true },
   { id: 1, n: { ca: 'Nivell Fonamental', es: 'Nivel Fundamental' }, active: true },
@@ -589,7 +498,6 @@ var APPS = [
   { e: 'logo', n: { ca: 'TONAL EMOTIONS', es: 'TONAL EMOTIONS' }, d: { ca: 'Laboratori auditiu i ear training: reconeixement emocional de notes en context tonal. Modes Escolta, Pràctica, Test i Batalla.', es: 'Laboratorio auditivo y ear training: reconocimiento emocional de notas en contexto tonal. Modos Escucha, Práctica, Test y Batalla.' }, url: 'apps/TONAL EMOTIONS.html' }
 ];
 
-// IDs de Google Drive dels vídeos, per bloc i idioma
 var LINKS = {
   r: {
     cat: ['1B0keL0UC2u8HQJ9ZsidlYRgAHU67QDse','1KbtqX7jMbyanCzpD0aVXEInudOop4Uie','1I_hoZCdMvIHplsa5n8kxKvAoioH9vy2B','1G8ql4nEzH6I-I0mYX7w1a3qwsZ8Q9FDu','1ZI7Xw2zcbmdXp8gQgr-ixdaCGHY0xyaA','1XeX2j2RrdZFEc7Al1UJrFJIMu1_xL1zf','1nU-ixKtfFOXOHh058DVoWAB6ioJpymCH','1UVYULkrIppofoV5-RZ4nGRwrZOR7mfuT','1h0o_6CcV4F3e0Sdo1ZQKIsE1Kl4mwX9Z','1N32IzKMse_hXrRRUYiDgVXtRUJJ_YV0h','1diOC2djV_xxfV6hn7r55KFJVZlTcfVst'],
@@ -621,12 +529,6 @@ function getLink(type, idx) {
   return null;
 }
 
-/* Estructura del curs:
-   D[nivell] = { n: noms, u: [ unitats ] }
-   D[nivell].u[unitat][bloc] = { v: [vídeos], d: [documents] }
-     vídeo  = [títol CA, título ES, idDrive]
-     doc    = [nom CA, nombre ES, tipus (d|s|a)]
-   Blocs: w=benvinguda, t=tècnica, g=teoria, r=ritme, a=auditiu, p=pràctica        */
 var D = [
   { n: { ca: 'Benvinguda', es: 'Bienvenida' }, u: [
     { w: { v: [
@@ -637,13 +539,13 @@ var D = [
   ] },
   { n: { ca: 'Fonaments', es: 'Fundamentos' }, u: [
     { g: { v: [['Notes al piano: Introducció Essencial','Notas en el piano: Introducción Esencial',getLink('t',0)],['Claus musicals: Com Llegir i Col·locar Mans','Claves musicales: Cómo Leer y Colocar las Manos',getLink('t',1)]] }, r: { v: [['Pols i Tempo: Figures bàsiques','Pulso y Tempo: Figuras básicas',getLink('r',0)]] } },
-    { t: { v: [['Funcionament de les Rutines','Funcionamiento de las Rutinas']] }, g: { d: [['Notació Anglosaxona','Notación Anglosajona','d']] }, r: { d: [['Entrenament Rítmic 1-12','Entrenamiento Rítmico 1-12','a']] }, a: { v: [['Fonaments de l\'Oïda Musical','Fundamentos del Oído Musical',getLink('a',0)]] }, p: { v: [['La Xocolatera (tema)','La Chocolatera (tema']] , d: [['La Xocolatera (partitura)','La Chocolatera (partitura)','s']] } },
+    { t: { v: [['Funcionament de les Rutines','Funcionamiento de las Rutinas']] }, g: { d: [['Notació Anglosaxona','Notación Anglosajona','d']] }, r: { d: [['Entrenament Rítmic 1-12','Entrenamiento Rítmico 1-12','a']] }, a: { v: [['Fonaments de l\'Oïda Musical','Fundamentos del Oído Musical',getLink('a',0)]] }, p: { v: [['La Xocolatera (tema)','La Chocolatera (tema)']], d: [['La Xocolatera (partitura)','La Chocolatera (partitura)','s']] } },
     { t: { v: [['Postura al Piano: Posició Corporal Correcta','Postura al Piano: Posición Corporal Correcta'],['Rutines 01-10','Rutinas 01-10']] }, g: { d: [['Notació Anglosaxona','Notación Anglosajona','d']] }, r: { v: [['Puntet, Lligadura de prolongació i Contratemps','Puntillo, Ligadura de prolongación y Contratiempo',getLink('r',1)]] }, p: { v: [['Himne Alegria (I)','Himno Alegría (I)']], d: [['La Xocolatera (partitura)','La Chocolatera (partitura)','s'],['Himne Alegria v.1 (partitura)','Himno Alegría v.1 (partitura)','s']] } },
     { t: { v: [['Rutines 11-20','Rutinas 11-20']] }, g: { d: [['Notació Anglosaxona','Notación Anglosajona','d']] }, a: { v: [['Evita Memoritzar Intervals','Evita Memorizar Intervalos',getLink('a',1)]] }, p: { v: [['Perestroika (SAU)','Perestroika (SAU)']], d: [['Himne Alegria v.1 (partitura)','Himno Alegría v.1 (partitura)','s'],['Perestroika (play-along)','Perestroika (play-along)','a']] } }
   ] },
   { n: { ca: 'Consolidació', es: 'Consolidación' }, u: [
     { t: { v: [['Rutines 21-30','Rutinas 21-30']] }, g: { v: [['Introducció a les Tríades','Introducción a las Tríadas',getLink('t',2)]] }, r: { v: [['Síncopa Musical','Síncopa Musical',getLink('r',2)]] }, a: { v: [['Emocions: Notes Diatòniques','Emociones: Notas Diatónicas',getLink('a',2)]] }, p: { v: [['Aunque Tú No Lo Sepas','Aunque Tú No Lo Sepas']], d: [['Himne Alegria v.1 (partitura)','Himno Alegría v.1 (partitura)','s'],['Perestroika (play-along)','Perestroika (play-along)','a'],['Aunque... (play-along)','Aunque... (play-along)','a']] } },
-    { t: { v: [['Rutines 31-40','Rutinas 31-40']] }, g: { d: [['Notació Anglosaxona','Notación Anglosajona','d']] }, r: { d: [['Entrenament Rítmic 13-24','Entrenamiento Rítmico 13-24','a']] }, p: { v: [['Tríades Majors: CT1','Tríadas Mayores: CT1']], d: [['Perestroika (play-along)','Perestroika (play-along)','a'],['Aunque... (play-along)','Aunque... (play-along)','a'],['Himne Alegria v.2 (partitura)','Himno Alegría v.2 (partitura','s']] } },
+    { t: { v: [['Rutines 31-40','Rutinas 31-40']] }, g: { d: [['Notació Anglosaxona','Notación Anglosajona','d']] }, r: { d: [['Entrenament Rítmic 13-24','Entrenamiento Rítmico 13-24','a']] }, p: { v: [['Tríades Majors: CT1','Tríadas Mayores: CT1']], d: [['Perestroika (play-along)','Perestroika (play-along)','a'],['Aunque... (play-along)','Aunque... (play-along)','a'],['Himne Alegria v.2 (partitura)','Himno Alegría v.2 (partitura)','s']] } },
     { t: { v: [['Rutines 41-50','Rutinas 41-50']] }, r: { v: [['Semicorxeres (I)','Semicorcheas (I)',getLink('r',3)]] }, p: { d: [['Perestroika (play-along)','Perestroika (play-along)','a'],['Aunque... (play-along)','Aunque... (play-along)','a'],['Himne Alegria v.2 (partitura)','Himno Alegría v.2 (partitura)','s'],['Tríades Majors CT1 (cicle)','Tríadas Mayores CT1 (ciclo)','d']] } },
     { t: { v: [['Rutines 51-60','Rutinas 51-60']] }, g: { d: [['Notació Anglosaxona','Notación Anglosajona','d']] }, a: { v: [['Instruccions i Correcció del Test','Instrucciones y Corrección del Test',getLink('a',3)]] }, p: { d: [['Perestroika (play-along)','Perestroika (play-along)','a'],['Aunque... (play-along)','Aunque... (play-along)','a'],['Himne Alegria v.2 (partitura)','Himno Alegría v.2 (partitura)','s'],['Play-along Tríades Majors CT1','Play-along Tríadas Mayores CT1','a']] } }
   ] },
@@ -673,7 +575,6 @@ var D = [
   ] }
 ];
 
-// Regals de graduació (es mostren en completar-ho tot)
 var GIFT = [
   ['Masterclass 1: Història de la Música', 'Masterclass 1: Historia de la Música', getLink('gift_classic')],
   ['Masterclass 2: Història del Jazz', 'Masterclass 2: Historia del Jazz', getLink('gift_jazz')]
@@ -682,7 +583,6 @@ var GIFT = [
 /* ================================================================
    4. TEXTOS D'INTERFÍCIE (CA/ES) I FAQ
    ================================================================ */
-
 var UI = {
   ca: {
     overlayText: 'Fes clic per reproduir',
@@ -758,38 +658,33 @@ var FAQS = [
   { ico: '🚪', q: { ca: 'Me\'n puc donar de baixa quan vulgui?', es: '¿Me puedo dar de baja cuando quiera?' }, a: { ca: 'I tant. No hi ha permanència. Pots cancel·lar la teva subscripció en qualsevol moment amb un parell de clics.\nA més, si en inscriure\'t no estàs content amb el contingut, t\'oferim una garantia de devolució de 7 dies.', es: 'Por supuesto. No hay permanencia. Puedes cancelar tu suscripción en cualquier momento con un par de clics. Además, si al inscribirte no estás contento con el contenido, te ofrecemos una garantía de devolución de 7 días.' } }
 ];
 
+var HELP = [
+  { ico: '🎯', t: { ca: 'Seguiment Continuat', es: 'Seguimiento Continuo' }, p: { ca: 'És el teu itinerari guiat. La targeta «Ara et toca» t\'indica el següent vídeo que has de mirar. Quan l\'hagis vist i practicat, prem «Marcar fet» i l\'aula et proposarà automàticament el següent pas.', es: 'Es tu itinerario guiado. La tarjeta «Ahora te toca» te indica el siguiente vídeo que debes ver. Cuando lo hayas visto y practicado, pulsa «Marcar hecho» y el aula te propondrá automáticamente el siguiente paso.' } },
+  { ico: '📁', t: { ca: 'Navegació Lliure', es: 'Navegación Libre' }, p: { ca: 'Per explorar al teu aire: tria el nivell al desplegable i el bloc (Tècnica, Teoria, Ritme, Auditiu o Pràctica) per veure\'n tots els vídeos i materials.', es: 'Para explorar a tu aire: elige el nivel en el desplegable y el bloque (Técnica, Teoría, Ritmo, Auditivo o Práctica) para ver todos sus vídeos y materiales.' } },
+  { ico: '⭐', t: { ca: 'Vídeos importants i opcionals', es: 'Vídeos importantes y opcionales' }, p: { ca: 'Cada vídeo porta una icona: ⭐ important (no te\'l saltis) o ⭕ opcional (pots deixar-lo per més endavant si tens pressa). Passa-hi el ratolí per sobre per veure\'n el significat.', es: 'Cada vídeo lleva un icono: ⭐ importante (no te lo saltes) o ⭕ opcional (puedes dejarlo para más adelante si tienes prisa). Pasa el ratón por encima para ver su significado.' } },
+  { ico: '🔖', t: { ca: 'La teva llista de repàs', es: 'Tu lista de repaso' }, p: { ca: 'Amb el botó «Repassar» marques un vídeo per tenir-lo sempre a mà. Els trobaràs tots reunits a la llista de repàs, a sota de cada vista.', es: 'Con el botón «Repasar» marcas un vídeo para tenerlo siempre a mano. Los encontrarás todos reunidos en la lista de repaso, debajo de cada vista.' } },
+  { ico: '📝', t: { ca: 'Notes personals', es: 'Notas personales' }, p: { ca: 'Cada vídeo té un espai de notes per apuntar dubtes o observacions. Podràs enviar-les al professor quan ho necessitis.', es: 'Cada vídeo tiene un espacio de notas para apuntar dudas u observaciones. Podrás enviárselas al profesor cuando lo necesites.' } },
+  { ico: '📎', t: { ca: 'Adjunts i partitures', es: 'Adjuntos y partituras' }, p: { ca: 'Els documents de cada bloc (partitures, play-alongs, PDFs) s\'obren amb el botó «Adjunts». Alguns vídeos també tenen material propi just a sota.', es: 'Los documentos de cada bloque (partituras, play-alongs, PDFs) se abren con el botón «Adjuntos». Algunos vídeos también tienen material propio justo debajo.' } },
+  { ico: '🎧', t: { ca: 'Aplicacions d\'entrenament', es: 'Aplicaciones de entrenamiento' }, p: { ca: 'A la pestanya Apps trobaràs laboratoris exclusius com TONAL EMOTIONS, per entrenar l\'oïda jugant.', es: 'En la pestaña Apps encontrarás laboratorios exclusivos como TONAL EMOTIONS, para entrenar el oído jugando.' } },
+  { ico: '🎓', t: { ca: 'I en acabar el nivell…', es: 'Y al terminar el nivel…' }, p: { ca: 'Quan completis tots els vídeos del nivell rebràs un regal de graduació molt especial. Però això… millor descobreix-ho tu mateix! 😉', es: 'Cuando completes todos los vídeos del nivel recibirás un regalo de graduación muy especial. Pero eso… ¡mejor descúbrelo tú mismo! 😉' } }
+];
+
 /* ================================================================
    5. OV: DADES EDITABLES PERSISTIDES DINS DEL FITXER
-   Entre els marcadors OV-START / OV-END es guarda (en guardar amb 💾):
-     t    : títols de vídeo sobreescrits      { id: {ca, es} }
-     d    : descripcions sobreescrites        { id: {ca, es} }
-     l    : enllaços Drive per idioma         { id: {ca, es} }
-     f    : textos de FAQ sobreescrits        { i: {q:{ca,es}, a:{ca,es}} }
-     a    : textos d'apps sobreescrits        { i: {n:{ca,es}, d:{ca,es}} }
-     adj  : enllaços Drive dels documents     { 'si.ui.b.idx': idDrive }
-     va   : adjunts assignats a cada vídeo    { idVideo: ['si.ui.idx', ...] }
-     order: ordre global de reproducció        [ idVideo, ... ]
-     imp  : importància de cada vídeo         { idVideo: 'important'|'optional' }
-     h    : textos d'ajuda sobreescrits       { i: {t:{ca,es}, p:{ca,es}} }
    ================================================================ */
 var OV = /*OV-START*/{"t":{},"d":{},"l":{},"f":{},"a":{},"adj":{},"va":{},"order":[],"imp":{},"h":{}};/*OV-END*/
 
 function faqGet(i, k) { var o = OV.f[i]; if (o && o[k] && o[k][LS.lang]) return esc(o[k][LS.lang]); return esc(FAQS[i][k][LS.lang]); }
 function appName(a, i) { var o = OV.a && OV.a[i]; return (o && o.n && o.n[LS.lang]) ? esc(o.n[LS.lang]) : a.n[LS.lang]; }
 function appDesc(a, i) { var o = OV.a && OV.a[i]; return (o && o.d && o.d[LS.lang]) ? esc(o.d[LS.lang]) : a.d[LS.lang]; }
-
-// Text d'ajuda (amb possible sobreescriptura editorial)
 function helpText(i, k, fallback) {
   var o = OV.h && OV.h[i];
   if (o && o[k] && o[k][LS.lang]) return o[k][LS.lang];
   return fallback;
 }
-
-// Títol i descripció d'un vídeo (amb possible sobreescriptura editorial)
 function vidTitle(v, id) { var o = OV.t[id]; return (o && o[LS.lang]) ? esc(o[LS.lang]) : v[li()]; }
 function vidDesc(v, id, b) { var o = OV.d[id]; return (o && o[LS.lang]) ? esc(o[LS.lang]) : t().desc[b]; }
 
-// Enllaç de reproducció Drive d'un vídeo
 function driveSrc(v, id) {
   var L = (OV.l[id] && OV.l[id][LS.lang]) || OV.l[id];
   if (L !== undefined && L !== '') {
@@ -807,12 +702,9 @@ function driveSrc(v, id) {
 /* ================================================================
    6. SISTEMA D'ORDRE GLOBAL DE REPRODUCCIÓ
    ================================================================ */
-
 function isWelcomeId(id) { return parseInt(id.split('.')[0], 10) === 0; }
 function isGiftId(id) { return id.indexOf('gift.') === 0; }
 
-// Assegura que OV.order contingui exactament tots els vídeos actuals:
-// elimina els que ja no existeixen i afegeix al final els nous.
 function initializeOrder() {
   if (!OV.order || !Array.isArray(OV.order)) OV.order = [];
   var all = allVids();
@@ -823,7 +715,6 @@ function initializeOrder() {
   all.forEach(function (v) { if (OV.order.indexOf(v.id) === -1) OV.order.push(v.id); });
 }
 
-// Intercanvia dues posicions dins de l'ordre global i refresca la vista
 function swapOrder(idA, idB) {
   initializeOrder();
   var ia = OV.order.indexOf(idA);
@@ -834,7 +725,6 @@ function swapOrder(idA, idB) {
   render();
 }
 
-// Número visible d'un vídeo (1..N). Benvinguda = 0 (sense número), regals = al final.
 function getVideoOrder(videoId) {
   initializeOrder();
   if (isWelcomeId(videoId)) return 0;
@@ -849,7 +739,6 @@ function getVideoOrder(videoId) {
   return 9999;
 }
 
-// Mou un vídeo a una posició concreta intercanviant-lo amb qui l'ocupa
 function reorderVideo(videoId, newOrder) {
   initializeOrder();
   var numbered = OV.order.filter(function (id) { return !isWelcomeId(id) && !isGiftId(id); });
@@ -860,7 +749,6 @@ function reorderVideo(videoId, newOrder) {
   swapOrder(videoId, numbered[target]);
 }
 
-// Importància d'un vídeo: 'important' (⭐) per defecte o 'optional' (⭕)
 function getVideoImportance(videoId) {
   if (!OV.imp || typeof OV.imp !== 'object') OV.imp = {};
   return OV.imp[videoId] === 'optional' ? 'optional' : 'important';
@@ -871,7 +759,6 @@ function toggleVideoImportance(videoId) {
   render();
 }
 
-// Llista plana de tots els vídeos del curs (id, dades, nivell, unitat, bloc)
 function allVids() {
   var o = [];
   D.forEach(function (s, si) {
@@ -894,8 +781,6 @@ function findVidById(id) {
   return null;
 }
 
-// Següent vídeo pendent, seguint l'ORDRE GLOBAL.
-// Inclou la benvinguda (si no està feta, es proposa primer). Els regals mai.
 function findNext() {
   initializeOrder();
   for (var i = 0; i < OV.order.length; i++) {
@@ -908,9 +793,7 @@ function findNext() {
   }
   return null;
 }
-// Nivell intel·ligent per a Navegació Lliure:
-//  - si la benvinguda NO està completa → nivell 0, bloc 'w'
-//  - si està completa → primer nivell (segons ordre global) amb algun vídeo pendent
+
 function smartFreeLevel() {
   var all = allVids();
   var welcome = all.filter(function (x) { return x.si === 0; });
@@ -932,7 +815,6 @@ function smartFreeLevel() {
   if (freeBlock === 'w') freeBlock = 't';
 }
 
-// Progrés (fets / total / %) d'una llista de vídeos
 function prog(l) {
   var d = 0;
   l.forEach(function (x) { if (LS.done[x.id]) d++; });
@@ -942,21 +824,18 @@ function prog(l) {
 /* ================================================================
    7. ADJUNTS (DEL BLOC I PER VÍDEO)
    ================================================================ */
-
 function docsOf(si, ui, b) {
   if (!D[si] || !D[si].u || !D[si].u[ui]) return [];
   var bl = D[si].u[ui][b];
   return (bl && bl.d) ? bl.d : [];
 }
 
-// Enllaç Drive d'un document del bloc
 function getAdjLink(si, ui, b, docIdx) { var key = si + '.' + ui + '.' + b + '.' + docIdx; return OV.adj && OV.adj[key] ? OV.adj[key] : null; }
 function setAdjLink(si, ui, b, docIdx, val) { OV.adj = OV.adj || {}; var key = si + '.' + ui + '.' + b + '.' + docIdx; if (val === null || val === '') delete OV.adj[key]; else OV.adj[key] = val; }
 
-// Adjunts assignats a un vídeo concret
 function getVidAdjKeys(id) {
   var keys = (OV.va && OV.va[id]) || [];
-  if (keys.length > 0 && typeof keys[0] === 'number') return []; // dades antigues: ignorar
+  if (keys.length > 0 && typeof keys[0] === 'number') return [];
   return keys;
 }
 function setVidAdjKeys(id, keysArr) {
@@ -975,20 +854,16 @@ function parseDriveId(val) {
   return val;
 }
 
-// Construeix el botó + panell desplegable d'adjunts d'un bloc
 function mkAdj(docs, si, ui, b) {
   var btn = document.createElement('button');
   btn.className = 'adjb';
   btn.textContent = t().adj + ' (' + docs.length + ')';
-
   var box = document.createElement('div');
   box.className = 'docs';
-
   var headerHTML = '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid var(--line)">';
   headerHTML += '<span style="font-size:12px;color:var(--mut);font-weight:600">Documents d\'aquest bloc</span>';
   if (editModeOn && si !== null && ui !== null) headerHTML += '<button class="add-doc-btn">+ Nou document</button>';
   headerHTML += '</div>';
-
   var rows = '';
   docs.forEach(function (dc, idx) {
     var driveId = getAdjLink(si, ui, b, idx);
@@ -1008,11 +883,8 @@ function mkAdj(docs, si, ui, b) {
       '<span style="flex:1;font-weight:600">' + dc[li()] + '</span>' + linkHtml +
       '</div>' + editHtml + '</div>';
   });
-
   box.innerHTML = headerHTML + rows;
   btn.onclick = function () { box.classList.toggle('on'); };
-
-  // En mode edició: wiregem els controls de cada document
   if (editModeOn) {
     setTimeout(function () {
       var addBtn = box.querySelector('.add-doc-btn');
@@ -1065,7 +937,6 @@ function adjParts(si, ui, b) {
   return mkAdj(docs, si, ui, b);
 }
 
-// Modal per assignar adjunts del bloc a un vídeo concret
 var adjSelState = null;
 function openAdjSelector(id, si, ui, b) {
   var allDocs = [];
@@ -1083,14 +954,11 @@ function openAdjSelector(id, si, ui, b) {
     });
   });
   if (!allDocs.length) return;
-
   var currentSelection = getVidAdjKeys(id);
   adjSelState = { id: id, allDocs: allDocs, currentSelection: currentSelection.slice() };
-
   $('adjSelTitle').textContent = t().vidAdjSelTitle;
   $('adjSelCancel').textContent = t().vidAdjCancel;
   $('adjSelOk').textContent = t().vidAdjOk;
-
   var list = $('adjSelList');
   list.innerHTML = '';
   allDocs.forEach(function (item) {
@@ -1138,7 +1006,6 @@ document.addEventListener('keydown', function (e) {
 /* ================================================================
    8. MODE EDICIÓ I GUARDAT DEL FITXER
    ================================================================ */
-// Recull dels elements contentEditable els textos editats i els guarda a OV
 function collectAll() {
   document.querySelectorAll('[data-ovid]').forEach(function (el) {
     var id = el.dataset.ovid, k = el.dataset.ovk, txt = el.innerText.trim();
@@ -1174,21 +1041,17 @@ function applyLinkLabel(row, id) {
   b.textContent = hasLink ? '🔗✔' : '🔗';
 }
 
-// Afegeix/treu els controls d'edició (link, adjunts, contentEditable) a cada vídeo
 function applyEditState() {
   document.querySelectorAll('.vt[data-ovid],.vd[data-ovid],.faqtxt[data-fqi],.faq-item p[data-fqi],.appcard h3[data-ovaid],.appcard p[data-ovaid],.help-title[data-hi],.help-para[data-hi]').forEach(function (el) {
     if (editModeOn) { el.contentEditable = 'true'; el.classList.add('editing'); }
     else { el.removeAttribute('contenteditable'); el.classList.remove('editing'); }
   });
-
   document.querySelectorAll('.vid').forEach(function (row) {
     var acts = row.querySelector('.acts');
     var ex = row.querySelector('.lkbtn');
     var vex = row.querySelector('.vadbtn');
     var id = row.id.slice(2);
-
     if (editModeOn) {
-      // Botó d'enllaç Drive del vídeo
       if (!ex) {
         var b = document.createElement('button');
         b.className = 'lkbtn';
@@ -1215,7 +1078,6 @@ function applyEditState() {
         acts.appendChild(b);
         applyLinkLabel(row, id);
       }
-      // Botó d'adjunts assignables al vídeo
       if (!vex) {
         var parts = id.split('.');
         if (parts.length >= 4) {
@@ -1248,7 +1110,6 @@ function toggleEditMode(force) {
   render();
 }
 
-// Descàrrega de seguretat si el navegador no suporta showSaveFilePicker
 function fallbackDownload(html) {
   var b = new Blob([html], { type: 'text/html' });
   var a = document.createElement('a');
@@ -1260,7 +1121,6 @@ function fallbackDownload(html) {
   alert(t().savedOk);
 }
 
-// Genera un index.html nou amb OV actualitzat i el desa
 function saveAsFile() {
   collectAll();
   var wasEdit = editModeOn;
@@ -1287,37 +1147,32 @@ function saveAsFile() {
 /* ================================================================
    9. CONSTRUCCIÓ DE LA TARGETA DE VÍDEO
    ================================================================ */
-
 function makeVid(v, id, track, tag) {
   var b = id.split('.')[2];
   var si = parseInt(id.split('.')[0], 10);
   var ui = parseInt(id.split('.')[1], 10);
-
   var row = document.createElement('div');
   row.className = 'vid';
   row.id = 'v_' + id;
 
-  // --- Número d'ordre i icona d'importància ---
   var orderNum = getVideoOrder(id);
   var importance = getVideoImportance(id);
   var importanceIcon = importance === 'important' ? '⭐' : '⭕';
   var importanceTitle = importance === 'important'
     ? (LS.lang === 'ca' ? 'Vídeo important: no te\'l saltis' : 'Vídeo importante: no te lo saltes')
     : (LS.lang === 'ca' ? 'Vídeo opcional: pots saltar-lo si tens pressa' : 'Vídeo opcional: puedes saltarlo si tienes prisa');
+  
   var numberHtml = '';
   var importanceHtml = '';
   if (si !== 0 && !isGiftId(id)) {
     if (editModeOn) {
-      // Admin: número editable + icona editable
       numberHtml = '<div class="vid-number editable" title="' + (LS.lang === 'ca' ? 'Canviar ordre' : 'Cambiar orden') + '">' + orderNum + '</div>';
       importanceHtml = '<div class="vid-importance editable" title="' + importanceTitle + '">' + importanceIcon + '</div>';
     } else {
-      // Alumne: només la icona d'importància
       importanceHtml = '<div class="vid-importance" title="' + importanceTitle + '">' + importanceIcon + '</div>';
     }
   }
 
-  // --- Notes personals ---
   var nkey = 'gjps_notes_' + LS.user + '_' + id;
   var hasNotes = false;
   try { hasNotes = lsJSON(nkey, []).length > 0; } catch (e) {}
@@ -1342,7 +1197,6 @@ function makeVid(v, id, track, tag) {
       '<button class="save-note-btn" style="display:none;">' + t().saveNote + '</button>' +
     '</div>';
 
-  // --- Accions bàsiques ---
   row.querySelector('.play').onclick = function () { var src = driveSrc(v, id); if (!src) { alert(t().soon); return; } openFullscreenVideo(src); };
   row.querySelector('.mx').onclick = function () { var src = driveSrc(v, id); if (src) openFullscreenVideo(src); };
   row.querySelector('.cl').onclick = function () { row.querySelector('.inl').classList.remove('on'); row.querySelector('.inl iframe').src = ''; };
@@ -1355,16 +1209,13 @@ function makeVid(v, id, track, tag) {
   row.querySelector('.bk').onclick = function () { if (editModeOn) return; toggleBookmark(id); render(); };
   row.querySelector('.bk').title = isBookmarked(id) ? tt().bkOff : tt().bkOn;
 
-  // --- Edició d'ordre i importància (només admin) ---
   if (editModeOn && si !== 0 && !isGiftId(id)) {
     var numEl = row.querySelector('.vid-number.editable');
     if (numEl) {
       numEl.onclick = function (e) {
         e.stopPropagation();
         var currentOrder = getVideoOrder(id);
-        var answer = prompt(LS.lang === 'ca'
-          ? 'Nou número d\'ordre (actual: ' + currentOrder + '):'
-          : 'Nuevo número de orden (actual: ' + currentOrder + '):', currentOrder);
+        var answer = prompt(LS.lang === 'ca' ? 'Nou número d\'ordre (actual: ' + currentOrder + '):' : 'Nuevo número de orden (actual: ' + currentOrder + '):', currentOrder);
         if (answer === null) return;
         var num = parseInt(answer, 10);
         if (isNaN(num) || num < 1) return;
@@ -1377,7 +1228,6 @@ function makeVid(v, id, track, tag) {
     }
   }
 
-  // --- Notes personals: lògica interna ---
   var nbox = row.querySelector('.notes');
   var nta = nbox.querySelector('textarea');
   var nlist = nbox.querySelector('.nlist');
@@ -1389,9 +1239,7 @@ function makeVid(v, id, track, tag) {
     if (currentNotes.length > 0) {
       ntBtn.classList.add('has-notes');
       ntBtn.innerHTML = '✏️';
-      ntBtn.title = (LS.lang === 'ca'
-        ? 'Tens ' + currentNotes.length + ' nota' + (currentNotes.length > 1 ? 's' : '') + ' en aquest vídeo'
-        : 'Tienes ' + currentNotes.length + ' nota' + (currentNotes.length > 1 ? 's' : '') + ' en este vídeo');
+      ntBtn.title = (LS.lang === 'ca' ? 'Tens ' + currentNotes.length + ' nota' + (currentNotes.length > 1 ? 's' : '') + ' en aquest vídeo' : 'Tienes ' + currentNotes.length + ' nota' + (currentNotes.length > 1 ? 's' : '') + ' en este vídeo');
     } else {
       ntBtn.classList.remove('has-notes');
       ntBtn.innerHTML = t().notes;
@@ -1442,7 +1290,6 @@ function makeVid(v, id, track, tag) {
   });
   updateNoteButton();
 
-  // --- Adjunts assignats al vídeo (píndoles visibles) ---
   var adjSection = document.createElement('div');
   adjSection.className = 'vid-specific-adj';
   adjSection.style.cssText = 'margin-top:12px; padding-top:12px; border-top:1px dashed var(--line); display:none;';
@@ -1475,7 +1322,6 @@ function makeVid(v, id, track, tag) {
   return row;
 }
 
-// Tooltips d'acció de la llista de repàs
 function tt() {
   return LS.lang === 'ca'
     ? { open: 'Obrir aquest vídeo', remove: 'Treure de la llista de repàs', done: 'Marcar com a fet i treure de la llista', bkOn: 'Marcar per repassar més endavant', bkOff: 'Ja és a la llista de repàs. Clica per treure\'l.' }
@@ -1486,8 +1332,6 @@ function blockName(b) { return t().blocks[b] || b; }
 /* ================================================================
    10. VISTES
    ================================================================ */
-
-// --- Llista de repàs (comú a totes les vistes que el necessitin) ---
 function renderReviewBox(container) {
   var bm = getBookmarks();
   if (!bm.length) return;
@@ -1519,7 +1363,6 @@ function renderReviewBox(container) {
   container.appendChild(box);
 }
 
-// --- Gràfics de progrés ---
 function donut(pct, color) {
   return '<svg viewBox="0 0 42 42"><circle cx="21" cy="21" r="15.9155" fill="none" stroke="#242a35" stroke-width="4.5"></circle><circle cx="21" cy="21" r="15.9155" fill="none" stroke="' + color + '" stroke-width="4.5" stroke-linecap="round" stroke-dasharray="' + pct + ' ' + (100 - pct) + '" stroke-dashoffset="25"></circle><text x="21" y="23.8" text-anchor="middle" font-size="9" font-weight="700" fill="#f2f2f2">' + pct + '%</text></svg>';
 }
@@ -1539,25 +1382,17 @@ function fmtDate(ts) {
   return pad(d.getDate()) + '/' + pad(d.getMonth() + 1) + '/' + d.getFullYear() + ' ' + pad(d.getHours()) + ':' + pad(d.getMinutes());
 }
 
-// --- VISTA: SEGUIMENT CONTINUAT ---
 function renderTrack() {
   initializeOrder();
   var all = allVids();
   var next = findNext();
   var tv = $('trackView');
   tv.innerHTML = '';
-
   var allDone = all.length > 0 && all.every(function (vid) { return LS.done[vid.id]; });
-
   if (allDone) {
-    // Celebració de graduació amb trofeu giratori i regals
     var celebration = document.createElement('div');
     celebration.className = 'celebration';
-    celebration.innerHTML =
-      '<h2>🎓 FELICITATS! 🎓</h2>' +
-      '<div class="subtitle">' + t().allDone + '</div>' +
-      '<div class="trophy-container"><div class="trophy-glow"></div><div class="trophy">🏆</div></div>' +
-      '<div class="subtitle">' + t().giftTxt + '</div>';
+    celebration.innerHTML = '<h2>🎓 FELICITATS! 🎓</h2><div class="subtitle">' + t().allDone + '</div><div class="trophy-container"><div class="trophy-glow"></div><div class="trophy">🏆</div></div><div class="subtitle">' + t().giftTxt + '</div>';
     var giftGrid = document.createElement('div');
     giftGrid.className = 'gift-grid';
     GIFT.forEach(function (g, i) {
@@ -1572,15 +1407,12 @@ function renderTrack() {
   } else if (next) {
     var now = document.createElement('div');
     now.className = 'now';
-    now.innerHTML = '<div class="ctx">' + D[next.si].n[LS.lang] + ' · ' + t().unit + ' ' + (next.ui + 1) + '</div>' +
-      '<div class="nowlbl">' + t().now + ' ' + t().blocks[next.b] + '</div>';
+    now.innerHTML = '<div class="ctx">' + D[next.si].n[LS.lang] + ' · ' + t().unit + ' ' + (next.ui + 1) + '</div><div class="nowlbl">' + t().now + ' ' + t().blocks[next.b] + '</div>';
     now.appendChild(makeVid(next.v, next.id, true, ''));
     var ap = adjParts(next.si, next.ui, next.b);
     if (ap) { now.appendChild(ap.btn); now.appendChild(ap.box); }
     tv.appendChild(now);
   }
-
-  // Donuts de progrés per bloc (sense comptar la benvinguda)
   var dw = document.createElement('div');
   dw.className = 'donuts';
   var h = '';
@@ -1592,22 +1424,16 @@ function renderTrack() {
   h += '<div class="donut tot">' + donut(pt.p, '#e8b04b') + '<div class="lbl">' + t().total + '</div></div>';
   dw.innerHTML = h;
   tv.appendChild(dw);
-
   renderReviewBox(tv);
 }
 
-// --- VISTA: NAVEGACIÓ LLIURE ---
 function renderFree() {
-  // Si el sistema ha de triar el nivell (entrada al mode o càrrega), ho fem ara
   if (autoLevelPending) {
     smartFreeLevel();
     autoLevelPending = false;
   }
-
   var fv = $('freeView');
   fv.innerHTML = '';
-
-  // Selector de nivell
   var lr = document.createElement('div');
   lr.className = 'lvls';
   var sel = document.createElement('select');
@@ -1625,13 +1451,11 @@ function renderFree() {
     freeLevel = parseInt(this.value, 10);
     if (freeLevel !== 0 && freeBlock === 'w') freeBlock = 't';
     if (freeLevel === 0) freeBlock = 'w';
-    autoLevelPending = false; // l'usuari mana a partir d'ara
+    autoLevelPending = false;
     render();
   };
   lr.appendChild(sel);
   fv.appendChild(lr);
-
-  // Nivells no actius: cartell de "en construcció" o "properament"
   var LV = null;
   LEVELS.forEach(function (L) { if (L.id === freeLevel) LV = L; });
   if (!LV || !LV.active) {
@@ -1642,8 +1466,6 @@ function renderFree() {
     fv.appendChild(w);
     return;
   }
-
-  // Botons de bloc (ocults al nivell de benvinguda)
   if (freeLevel !== 0) {
     var col = document.createElement('div');
     col.className = 'blkcol';
@@ -1666,8 +1488,6 @@ function renderFree() {
     });
     fv.appendChild(col);
   }
-
-  // Bloc "Repàs": llista de marcadors
   if (freeBlock === 'b') {
     var bm = getBookmarks();
     var gridB = document.createElement('div');
@@ -1686,10 +1506,7 @@ function renderFree() {
     fv.appendChild(gridB);
     return;
   }
-
-  // Vídeos del bloc seleccionat (nivell 0 = només benvinguda; resta = tots els nivells)
-  var vids = [];
-  var seen = {};
+  var vids = [], seen = {};
   D.forEach(function (s, si) {
     if (!s.u) return;
     if (freeLevel === 0 && si !== 0) return;
@@ -1703,12 +1520,8 @@ function renderFree() {
       });
     });
   });
-  // Ordenem segons l'ordre global de reproducció
   vids.sort(function (a, b) { return getVideoOrder(a.id) - getVideoOrder(b.id); });
-
-  // Documents del bloc
-  var docs = [];
-  var dseen = {};
+  var docs = [], dseen = {};
   D.forEach(function (s, si) {
     if (!s.u) return;
     if (freeLevel === 0 && si !== 0) return;
@@ -1722,12 +1535,9 @@ function renderFree() {
       });
     });
   });
-
   var head = document.createElement('div');
   head.className = 'blkhead';
   head.innerHTML = '<span class="blkt">' + t().blocks[freeBlock] + '</span>';
-
-  // Unitat on penjarem els documents del bloc (per al mode edició)
   var targetUi = 0;
   if (D[freeLevel] && D[freeLevel].u) {
     for (var uIdx = 0; uIdx < D[freeLevel].u.length; uIdx++) {
@@ -1743,20 +1553,15 @@ function renderFree() {
   } else {
     fv.appendChild(head);
   }
-
-  // Graella de vídeos + controls d'edició
   var grid = document.createElement('div');
   grid.className = 'vgrid';
   vids.forEach(function (x) {
     var vidEl = makeVid(x.v, x.id, false, x.tag);
-
     if (editModeOn) {
       var vIdx = -1;
       for (var i = 0; i < vids.length; i++) { if (vids[i].id === x.id) { vIdx = i; break; } }
-
       var editBtns = document.createElement('div');
       editBtns.style.cssText = 'position:absolute;top:48px;right:8px;display:flex;gap:8px;z-index:10';
-
       if (vIdx > 0) {
         var upBtn = document.createElement('button');
         upBtn.className = 'vid-order-btn';
@@ -1773,7 +1578,6 @@ function renderFree() {
         downBtn.onclick = function (e) { e.stopPropagation(); swapOrder(x.id, vids[vIdx + 1].id); };
         editBtns.appendChild(downBtn);
       }
-
       var delBtn = document.createElement('button');
       delBtn.className = 'vid-del-btn';
       delBtn.innerHTML = '🗑️';
@@ -1797,8 +1601,6 @@ function renderFree() {
     }
     grid.appendChild(vidEl);
   });
-
-  // Botó d'afegir vídeo nou (mode edició)
   if (editModeOn) {
     var addVidBtn = document.createElement('button');
     addVidBtn.className = 'add-vid-btn';
@@ -1820,7 +1622,6 @@ function renderFree() {
   fv.appendChild(grid);
 }
 
-// --- VISTA: APPS ---
 function renderApps() {
   var av = $('appsView');
   av.innerHTML = '';
@@ -1829,10 +1630,7 @@ function renderApps() {
   APPS.forEach(function (a, i) {
     var c = document.createElement('div');
     c.className = 'appcard';
-    // Si la icona és 'logo', mostrar la imatge; si no, l'emoji
-    var iconHtml = (a.e === 'logo')
-      ? '<img src="img/LOGO.png" alt="">'
-      : esc(a.e);
+    var iconHtml = (a.e === 'logo') ? '<img src="img/LOGO.png" alt="">' : esc(a.e);
     c.innerHTML = '<div class="ae">' + iconHtml + '</div><h3 data-ovaid="' + i + '" data-ovak="n">' + appName(a, i) + '</h3><p data-ovaid="' + i + '" data-ovak="d">' + appDesc(a, i) + '</p><button>' + t().appsOpen + '</button>';
     c.querySelector('button').onclick = function () { if (a.url) window.open(a.url, '_blank'); else alert(t().appsSoon); };
     g.appendChild(c);
@@ -1841,7 +1639,6 @@ function renderApps() {
   applyEditState();
 }
 
-// --- VISTA: FAQ ---
 function renderInfo() {
   var iv = $('infoView');
   var h = '<h2>' + (LS.lang === 'ca' ? 'Preguntes Freqüents' : 'Preguntas Frecuentes') + '</h2>';
@@ -1863,7 +1660,6 @@ function renderInfo() {
   }, 0);
 }
 
-// FAQ per a visitants sense login
 function showGuestFAQ() {
   var h = '';
   FAQS.forEach(function (f, i) {
@@ -1879,16 +1675,32 @@ function showGuestFAQ() {
   }, 0);
 }
 
+function showHelp() {
+  $('helpTitle').textContent = LS.lang === 'ca' ? 'Com funciona aquest web' : 'Cómo funciona esta web';
+  var intro = LS.lang === 'ca' ? 'Benvingut/da a l\'aula virtual! Aquesta guia ràpida t\'explica com treure-li tot el partit en 2 minuts.' : '¡Bienvenido/a al aula virtual! Esta guía rápida te explica cómo sacarle todo el partido en 2 minutos.';
+  var h = '<p style="color:var(--mut);font-size:var(--fs);line-height:1.6;margin-bottom:16px;">' + intro + '</p>';
+  HELP.forEach(function (s, i) {
+    var title = helpText(i, 't', s.t[LS.lang]);
+    var para = helpText(i, 'p', s.p[LS.lang]);
+    var cls = editModeOn ? ' editing' : '';
+    h += '<div class="help-item"><span class="help-ico">' + s.ico + '</span><div>' +
+      '<h3 class="help-title' + cls + '" data-hi="' + i + '" data-hk="t">' + esc(title) + '</h3>' +
+      '<p class="help-para' + cls + '" data-hi="' + i + '" data-hk="p">' + esc(para) + '</p>' +
+      '</div></div>';
+  });
+  $('helpContent').innerHTML = h;
+  if (editModeOn) {
+    $('helpContent').querySelectorAll('[data-hi]').forEach(function (el) { el.contentEditable = 'true'; });
+  }
+  $('helpModal').classList.add('on');
+}
+
 /* ================================================================
    11. LOGIN I CANVI D'IDIOMA
    ================================================================ */
-
 function showLogin() {
   $('login').classList.add('on');
-  $('lgTitle').innerHTML =
-    '<div style="font-size:22px;font-weight:800;background:linear-gradient(90deg,#f7dc9a 0%,var(--gold) 45%,#c98f3a 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;margin-bottom:4px;">GIRONA JAZZ PIANO SCHOOL®</div>' +
-    '<div style="font-size:14px;color:var(--mut);font-weight:400;">' + (LS.lang === 'ca' ? 'Inicia sessió a l\'aula virtual' : 'Inicia sesión en el aula virtual') + '</div>';
-
+  $('lgTitle').innerHTML = '<div style="font-size:22px;font-weight:800;background:linear-gradient(90deg,#f7dc9a 0%,var(--gold) 45%,#c98f3a 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;margin-bottom:4px;">GIRONA JAZZ PIANO SCHOOL®</div><div style="font-size:14px;color:var(--mut);font-weight:400;">' + (LS.lang === 'ca' ? 'Inicia sessió a l\'aula virtual' : 'Inicia sesión en el aula virtual') + '</div>';
   var langDiv = $('loginLangSwitcher');
   langDiv.innerHTML = '';
   ['ca', 'es'].forEach(function (lang) {
@@ -1898,7 +1710,6 @@ function showLogin() {
     btn.onclick = function () { LS.lang = lang; lsSet('gjps_lang', lang); setLabels(); showLogin(); };
     langDiv.appendChild(btn);
   });
-
   var oldFaqBtn = $('lgFaqBtn');
   if (oldFaqBtn) oldFaqBtn.remove();
   var faqBtn = document.createElement('button');
@@ -1908,7 +1719,6 @@ function showLogin() {
   faqBtn.textContent = (LS.lang === 'ca' ? '📖 Preguntes Freqüents (FAQ)' : '📖 Preguntas Frecuentes (FAQ)');
   faqBtn.onclick = function () { showGuestFAQ(); };
   $('loginLangSwitcher').parentNode.insertBefore(faqBtn, $('loginLangSwitcher'));
-
   $('lgName').placeholder = t().lgName;
   $('lgPin').placeholder = t().lgPin;
   $('lgBtn').textContent = t().lgBtn;
@@ -1924,7 +1734,6 @@ function showLogin() {
 function startSession(n) {
   LS.user = n;
   lsSet('gjps_session', n);
-  // Sempre començar a Seguiment Continuat en cada login
   LS.mode = 'track';
   lsSet('gjps_mode', 'track');
   loadDone();
@@ -1958,53 +1767,44 @@ $('btnUser').onclick = function () {
 function setLabels() {
   $('mTrack').textContent = t().mTrack;
   $('mFree').textContent = t().mFree;
-  $('mApps').innerHTML = APPS_ICON() + ' Apps';
+  $('mApps').innerHTML = '<svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor" style="vertical-align:middle"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg> Apps';
   $('mInfo').textContent = 'FAQ';
   $('mHelp').title = LS.lang === 'ca' ? 'Com funciona' : 'Cómo funciona';
   $('mEdit').textContent = t().edit;
   $('overlayText').textContent = t().overlayText;
   $('langCur').textContent = (LS.lang === 'ca') ? 'CAT' : 'ESP';
 }
-function APPS_ICON() {
-  return '<svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor" style="vertical-align:middle"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>';
-}
 
 /* ================================================================
    12. RENDER GENERAL I CANVI DE MODE
    ================================================================ */
-
 function render() {
   if (LS.user && !findUser(LS.user)) { lsSet('gjps_session', ''); LS.user = ''; LS.done = {}; }
   if (!LS.user) { showLogin(); return; }
-
   var isAdmin = currentUserRole() === 'admin';
   $('mEdit').style.display = isAdmin ? 'flex' : 'none';
   if (!isAdmin && editModeOn) { editModeOn = false; $('mEdit').classList.remove('on'); }
   $('mSave').style.display = (isAdmin && editModeOn) ? 'flex' : 'none';
-
   $('mFree').classList.toggle('on', LS.mode === 'free');
   $('mTrack').classList.toggle('on', LS.mode === 'track');
   $('mApps').classList.toggle('on', LS.mode === 'apps');
   $('mInfo').classList.toggle('on', LS.mode === 'info');
   $('who').innerHTML = t().hello + ', <b>' + LS.user + '</b>';
-
   $('trackView').style.display = LS.mode === 'track' ? 'block' : 'none';
   $('freeView').style.display = LS.mode === 'free' ? 'block' : 'none';
   $('appsView').style.display = LS.mode === 'apps' ? 'block' : 'none';
   $('infoView').style.display = LS.mode === 'info' ? 'block' : 'none';
-
   if (LS.mode === 'track') renderTrack();
   else if (LS.mode === 'free') renderFree();
   else if (LS.mode === 'apps') renderApps();
   else if (LS.mode === 'info') renderInfo();
-
   applyEditState();
 }
 
 function setMode(m) {
   LS.mode = m;
   lsSet('gjps_mode', m);
-  if (m === 'free') autoLevelPending = true;  // en entrar, que triï el sistema
+  if (m === 'free') autoLevelPending = true;
   if (m === 'track') reviewCollapsed = true;
   if (m === 'info') faqOpen = {};
   render();
@@ -2030,48 +1830,36 @@ $('langToggle').onclick = function () {
 /* ================================================================
    13. REPRODUCTOR A PANTALLA COMPLETA
    ================================================================ */
-
 var currentVideoSrc = '';
+
 function openFullscreenVideo(src) {
   currentVideoSrc = src;
   var player = $('player');
   var overlay = $('videoOverlay');
 
-  // 1. Preparem l'URL amb autoplay i authuser=0 (evita peticions de compte i bugs d'UI)
-  var finalSrc = currentVideoSrc.includes('?') 
-    ? currentVideoSrc + '&autoplay=1&authuser=0' 
-    : currentVideoSrc + '?autoplay=1&authuser=0';
-  
-  // 2. Assignem la font IMMEDIATAMENT (aprofitant el gest de l'usuari en clicar la targeta)
-  player.src = finalSrc;
-  player.classList.add('active');
-
-  // 3. Mostrem el modal
-  $('modal').classList.add('on');
-  document.documentElement.style.zoom = '1';
-
-  // 4. Gestionem l'overlay temporal
-  if (overlay) {
-    overlay.classList.remove('hidden');
-    // Actualitzem el text per ser més clar
-    $('overlayText').textContent = LS.lang === 'ca' 
-      ? 'Toca la pantalla per iniciar el vídeo' 
-      : 'Toca la pantalla para iniciar el vídeo';
-    
-    // L'ocultem automàticament al cap de 3 segons (deixant passar els clics a l'iframe)
-    setTimeout(function() {
-      overlay.classList.add('hidden');
-    }, 3000);
-  }
-
-  // 5. Fullscreen NOMÉS en PC (evita el missatge de GitHub i millora els controls a Android)
-  if (!isMobileDevice()) {
+  if (isMobileDevice()) {
+    $('modal').classList.add('on');
+    var finalSrc = currentVideoSrc.includes('?') ? currentVideoSrc + '&autoplay=1&authuser=0' : currentVideoSrc + '?autoplay=1&authuser=0';
+    player.src = finalSrc;
+    player.classList.add('active');
+    if (overlay) {
+      overlay.classList.remove('hidden');
+      $('overlayText').textContent = LS.lang === 'ca' ? 'Toca la pantalla per iniciar el vídeo' : 'Toca la pantalla para iniciar el vídeo';
+      setTimeout(function() { overlay.classList.add('hidden'); }, 3000);
+    }
+    document.documentElement.style.zoom = '1';
+  } else {
+    player.src = '';
+    player.classList.remove('active');
+    $('modal').classList.add('on');
+    if (overlay) overlay.classList.remove('hidden');
     var wrap = document.querySelector('.wrap');
     if (wrap.requestFullscreen) wrap.requestFullscreen().catch(function () {});
     else if (wrap.webkitRequestFullscreen) wrap.webkitRequestFullscreen();
   }
-}}function closeVideoPlayer() {
-  // Restaurem el zoom original del CSS
+}
+
+function closeVideoPlayer() {
   document.documentElement.style.zoom = '';
   if (document.exitFullscreen && document.fullscreenElement) document.exitFullscreen();
   else { $('modal').classList.remove('on'); $('player').src = ''; }
@@ -2080,10 +1868,18 @@ function openFullscreenVideo(src) {
 var overlayEl = $('videoOverlay');
 if (overlayEl) {
   overlayEl.addEventListener('click', function () {
-    // Només ocultem l'overlay perquè el proper clic arribi directament a l'iframe
+    var player = $('player');
+    if (currentVideoSrc) {
+      var finalSrc = currentVideoSrc.includes('?') 
+        ? currentVideoSrc + '&autoplay=1' 
+        : currentVideoSrc + '?autoplay=1';
+      player.src = finalSrc;
+      player.classList.add('active');
+    }
     this.classList.add('hidden');
   });
 }
+
 var frameEl = document.querySelector('.frame');
 if (frameEl) {
   frameEl.addEventListener('click', function (e) {
@@ -2091,6 +1887,7 @@ if (frameEl) {
     if (ov && !ov.classList.contains('hidden') && e.target === frameEl) ov.click();
   });
 }
+
 $('xPlayer').onclick = closeVideoPlayer;
 $('modal').addEventListener('click', function (e) { if (e.target.id === 'modal') closeVideoPlayer(); });
 document.addEventListener('fullscreenchange', function () {
@@ -2101,7 +1898,6 @@ document.addEventListener('fullscreenchange', function () {
   }
 });
 
-// Botó de tancar que apareix en moure el ratolí
 var wrapEl = document.querySelector('.wrap');
 var hideTimer;
 function showCloseBtn() {
@@ -2127,7 +1923,6 @@ try {
 }
 </script>
 
-<!-- Modal de FAQ per a visitants (sense login) -->
 <div class="lgin" id="faqModal">
   <div class="lbox" style="width:min(800px,92vw);max-height:85vh;overflow-y:auto;text-align:left;padding:24px;">
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;border-bottom:1px solid var(--line);padding-bottom:12px;">
@@ -2138,7 +1933,6 @@ try {
   </div>
 </div>
 
-<!-- Modal d'ajuda per a alumnes -->
 <div class="lgin" id="helpModal">
   <div class="lbox" style="width:min(700px,92vw);max-height:85vh;overflow-y:auto;text-align:left;padding:24px;">
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;border-bottom:1px solid var(--line);padding-bottom:12px;">
