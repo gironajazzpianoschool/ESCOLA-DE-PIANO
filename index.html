@@ -2037,22 +2037,40 @@ function openFullscreenVideo(src) {
   var player = $('player');
   var overlay = $('videoOverlay');
 
-  player.src = '';
-  player.classList.remove('active');
-  $('modal').classList.add('on');
-  if (overlay) overlay.classList.remove('hidden');
+  // 1. Preparem l'URL amb autoplay i authuser=0 (evita peticions de compte i bugs d'UI)
+  var finalSrc = currentVideoSrc.includes('?') 
+    ? currentVideoSrc + '&autoplay=1&authuser=0' 
+    : currentVideoSrc + '?autoplay=1&authuser=0';
+  
+  // 2. Assignem la font IMMEDIATAMENT (aprofitant el gest de l'usuari en clicar la targeta)
+  player.src = finalSrc;
+  player.classList.add('active');
 
-  // CLAU ANTI-FRANGES: mentre el modal és obert treiem el zoom del html.
+  // 3. Mostrem el modal
+  $('modal').classList.add('on');
   document.documentElement.style.zoom = '1';
 
-  // NOMÉS demanem fullscreen en PC. En mòbils/tablets, l'iframe ja ocupa tota la pantalla
-  // i el botó de fullscreen del propi reproductor de Drive funciona millor (evita el missatge de GitHub).
+  // 4. Gestionem l'overlay temporal
+  if (overlay) {
+    overlay.classList.remove('hidden');
+    // Actualitzem el text per ser més clar
+    $('overlayText').textContent = LS.lang === 'ca' 
+      ? 'Toca la pantalla per iniciar el vídeo' 
+      : 'Toca la pantalla para iniciar el vídeo';
+    
+    // L'ocultem automàticament al cap de 3 segons (deixant passar els clics a l'iframe)
+    setTimeout(function() {
+      overlay.classList.add('hidden');
+    }, 3000);
+  }
+
+  // 5. Fullscreen NOMÉS en PC (evita el missatge de GitHub i millora els controls a Android)
   if (!isMobileDevice()) {
     var wrap = document.querySelector('.wrap');
     if (wrap.requestFullscreen) wrap.requestFullscreen().catch(function () {});
     else if (wrap.webkitRequestFullscreen) wrap.webkitRequestFullscreen();
   }
-}function closeVideoPlayer() {
+}}function closeVideoPlayer() {
   // Restaurem el zoom original del CSS
   document.documentElement.style.zoom = '';
   if (document.exitFullscreen && document.fullscreenElement) document.exitFullscreen();
@@ -2061,31 +2079,10 @@ function openFullscreenVideo(src) {
 
 var overlayEl = $('videoOverlay');
 if (overlayEl) {
-  overlayEl.addEventListener('click', function (e) {
-    e.stopPropagation(); // Assegura que el clic es registri al contenidor principal
-    var player = $('player');
-    if (currentVideoSrc) {
-      // Afegim authuser=0 per forçar la visualització anònima i evitar bugs d'UI
-      var finalSrc = currentVideoSrc.includes('?') 
-        ? currentVideoSrc + '&autoplay=1&authuser=0' 
-        : currentVideoSrc + '?autoplay=1&authuser=0';
-      
-      player.src = finalSrc;
-      player.classList.add('active');      
-      // Truc per a iOS/Android: forçar el focus i intentar activar el play
-      setTimeout(function() {
-        player.focus();
-        try { player.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*'); } catch(err) {}
-      }, 100);
-    }
+  overlayEl.addEventListener('click', function () {
+    // Només ocultem l'overlay perquè el proper clic arribi directament a l'iframe
     this.classList.add('hidden');
   });
-  
-  // Assegurem que els elements fills no bloquegin el clic tàctil
-  var icon = overlayEl.querySelector('.icon');
-  var text = overlayEl.querySelector('.text');
-  if(icon) icon.style.pointerEvents = 'none';
-  if(text) text.style.pointerEvents = 'none';
 }
 var frameEl = document.querySelector('.frame');
 if (frameEl) {
