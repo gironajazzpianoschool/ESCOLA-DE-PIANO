@@ -258,7 +258,7 @@ main{position:relative;z-index:1;padding:20px 5vw;max-width:1100px;margin:auto}
   .faq-item h3{font-size:15px}
   .vidadjpills{flex-direction:column}
   .vidadjpills a{width:100%;justify-content:center}
-  /* Botó de tancar sempre visible en mòbil (per sobre de tot) */
+  /* Botó de tancar sempre visible en mòbil (per sobre de TOT) */
   .modal.on .close {
     opacity: 1 !important;
     background: rgba(232,176,75,0.95) !important;
@@ -267,6 +267,10 @@ main{position:relative;z-index:1;padding:20px 5vw;max-width:1100px;margin:auto}
     display: flex !important;
     z-index: 9999999 !important;
     pointer-events: auto !important;
+    position: absolute !important;
+    top: 14px !important;
+    right: 14px !important;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.5) !important;
   }
     @media (orientation: portrait) {
     .modal.on .wrap{width:100vh !important;height:100vw !important;transform:rotate(90deg);transform-origin:top left;position:fixed;top:0;left:100vw}
@@ -1623,11 +1627,11 @@ function openFullscreenVideo(src) {
       
       if (LS.lang === 'ca') {
         $('overlayText').textContent = isIOSDevice
-          ? 'Toca dues vegades a la pantalla per iniciar' 
+          ? 'CLICA DUES VEGADES LENTAMENT PER REPRODUIR' 
           : 'Toca la pantalla per iniciar el vídeo';
       } else {
         $('overlayText').textContent = isIOSDevice
-          ? 'Toca dos veces la pantalla para iniciar' 
+          ? 'CLICA DOS VECES LENTAMENTE PARA REPRODUCIR' 
           : 'Toca la pantalla para iniciar el vídeo';
       }
       
