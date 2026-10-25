@@ -258,15 +258,17 @@ main{position:relative;z-index:1;padding:20px 5vw;max-width:1100px;margin:auto}
   .faq-item h3{font-size:15px}
   .vidadjpills{flex-direction:column}
   .vidadjpills a{width:100%;justify-content:center}
-  /* Botó de tancar sempre visible en mòbil */
+  /* Botó de tancar sempre visible en mòbil (per sobre de tot) */
   .modal.on .close {
     opacity: 1 !important;
-    background: rgba(232,176,75,0.9) !important;
+    background: rgba(232,176,75,0.95) !important;
     color: #000 !important;
     border-color: #fff !important;
     display: flex !important;
-    z-index: 100001 !important;
-  }  @media (orientation: portrait) {
+    z-index: 9999999 !important;
+    pointer-events: auto !important;
+  }
+    @media (orientation: portrait) {
     .modal.on .wrap{width:100vh !important;height:100vw !important;transform:rotate(90deg);transform-origin:top left;position:fixed;top:0;left:100vw}
     .modal.on .close{top:14px !important;right:14px !important}
   }
@@ -317,8 +319,8 @@ main{position:relative;z-index:1;padding:20px 5vw;max-width:1100px;margin:auto}
 </main>
 
 <div class="modal" id="modal">
+  <button class="close" id="xPlayer" title="Tancar">✕</button>
   <div class="wrap">
-    <button class="close" id="xPlayer" title="Tancar"></button>
     <div class="frame">
       <iframe id="player" allow="autoplay; fullscreen; encrypted-media; picture-in-picture" src="" scrolling="no"></iframe>
       <div class="video-overlay" id="videoOverlay">
@@ -1607,12 +1609,17 @@ function openFullscreenVideo(src) {
 
   if (isMobileDevice()) {
     $('modal').classList.add('on');
+    var finalSrc = currentVideoSrc.includes('?') 
+      ? currentVideoSrc + '&autoplay=1&authuser=0' 
+      : currentVideoSrc + '?autoplay=1&authuser=0';
     
-    var isIOSDevice = /iPad|iPhone|iPod/.test(navigator.userAgent) || 
-                      (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+    player.src = finalSrc;
+    player.classList.add('active');
     
     if (overlay) {
       overlay.classList.remove('hidden');
+      var isIOSDevice = /iPad|iPhone|iPod/.test(navigator.userAgent) || 
+                        (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
       
       if (LS.lang === 'ca') {
         $('overlayText').textContent = isIOSDevice
@@ -1624,28 +1631,12 @@ function openFullscreenVideo(src) {
           : 'Toca la pantalla para iniciar el vídeo';
       }
       
-      // En iOS, NO amagar automàticament (esperar el primer clic)
-      if (!isIOSDevice) {
-        setTimeout(function() {
-          overlay.classList.add('hidden');
-        }, 3000);
-      }
+      // El missatge marxa sol al cap de 3 segons (com abans)
+      setTimeout(function() {
+        overlay.classList.add('hidden');
+      }, 3000);
     }
     
-    // En iOS, carregar el src SENSE autoplay (el segon clic l'iniciarà)
-    var finalSrc = currentVideoSrc.includes('?') 
-      ? currentVideoSrc + '&authuser=0' 
-      : currentVideoSrc + '?authuser=0';
-    
-    if (isIOSDevice) {
-      player.src = finalSrc; // Sense autoplay
-    } else {
-      // En Android, amb autoplay
-      finalSrc = finalSrc.includes('?') ? finalSrc + '&autoplay=1' : finalSrc + '?autoplay=1';
-      player.src = finalSrc;
-    }
-    
-    player.classList.add('active');
     document.documentElement.style.zoom = '1';
   } else {
     // PC: modal amb fullscreen automàtic
@@ -1659,7 +1650,6 @@ function openFullscreenVideo(src) {
     else if (wrap.webkitRequestFullscreen) wrap.webkitRequestFullscreen();
   }
 }
-
 function closeVideoPlayer() {
   document.documentElement.style.zoom = '';
   if (document.exitFullscreen && document.fullscreenElement) document.exitFullscreen();
