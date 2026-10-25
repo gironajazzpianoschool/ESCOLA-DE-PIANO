@@ -258,9 +258,17 @@ main{position:relative;z-index:1;padding:20px 5vw;max-width:1100px;margin:auto}
   .faq-item h3{font-size:15px}
   .vidadjpills{flex-direction:column}
   .vidadjpills a{width:100%;justify-content:center}
-  /* En mòbil, amaguem la creu (l'usuari fa servir els controls nadius) */
+  /* Botó de tancar visible i clicable en mòbil */
   .modal.on .close {
-    display: none !important;
+    display: flex !important;
+    opacity: 1 !important;
+    background: rgba(232,176,75,0.95) !important;
+    color: #000 !important;
+    border-color: #fff !important;
+    z-index: 9999999 !important;
+    pointer-events: auto !important;
+    top: 14px !important;
+    right: 14px !important;
   }
     @media (orientation: portrait) {
     .modal.on .wrap{width:100vh !important;height:100vw !important;transform:rotate(90deg);transform-origin:top left;position:fixed;top:0;left:100vw}
@@ -1601,54 +1609,34 @@ function openFullscreenVideo(src) {
   var player = $('player');
   var overlay = $('videoOverlay');
 
-  // Detectar iOS específicament
-  var isIOSDevice = /iPad|iPhone|iPod/.test(navigator.userAgent) || 
-                    (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
-
-  if (isIOSDevice) {
-    // === IPAD/IPHONE ===
+  if (isMobileDevice()) {
     $('modal').classList.add('on');
-    
-    // Carregar el vídeo sense autoplay (iOS ho bloqueja igual)
     var finalSrc = currentVideoSrc.includes('?') 
-      ? currentVideoSrc + '&authuser=0' 
-      : currentVideoSrc + '?authuser=0';
+      ? currentVideoSrc + '&autoplay=1&authuser=0' 
+      : currentVideoSrc + '?autoplay=1&authuser=0';
+    
     player.src = finalSrc;
     player.classList.add('active');
     
     if (overlay) {
       overlay.classList.remove('hidden');
-      // L'overlay NO rep clics durant 5 segons
-      overlay.style.pointerEvents = 'none';
+      var isIOSDevice = /iPad|iPhone|iPod/.test(navigator.userAgent) || 
+                        (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
       
-      $('overlayText').textContent = LS.lang === 'ca'
-        ? 'QUAN DESAPAREGUI AQUEST MISSATGE, CLICA SOBRE LA PANTALLA PER REPRODUIR EL VÍDEO.\n\nPer sortir, clica la icona de sortida (↗) a la cantonada superior dreta.'
-        : 'CUANDO DESAPAREZCA ESTE MENSAJE, TOCA LA PANTALLA PARA REPRODUCIR EL VÍDEO.\n\nPara salir, toca el icono de salida (↗) en la esquina superior derecha.';
+      if (LS.lang === 'ca') {
+        $('overlayText').textContent = isIOSDevice
+          ? 'QUAN DESAPAREGUI AQUEST MISSATGE, CLICA SOBRE LA PANTALLA PER REPRODUIR EL VÍDEO.\n\nPer sortir, clica la icona de sortida (↗) a la cantonada superior dreta.'
+          : 'Toca la pantalla per iniciar el vídeo';
+      }
       
-      // Després de 5 segons, l'overlay esdevé clicable (per si l'usuari vol tancar-lo abans)
       setTimeout(function() {
-        overlay.style.pointerEvents = 'auto';
         overlay.classList.add('hidden');
-      }, 5000);
+      }, 4000);
     }
     
     document.documentElement.style.zoom = '1';
-    
-  } else if (isMobileDevice()) {
-    // === ANDROID ===
-    // Carregar directament sense overlay (l'usuari fa servir els controls natius)
-    $('modal').classList.add('on');
-    var finalSrc = currentVideoSrc.includes('?') 
-      ? currentVideoSrc + '&autoplay=1&authuser=0' 
-      : currentVideoSrc + '?autoplay=1&authuser=0';
-    player.src = finalSrc;
-    player.classList.add('active');
-    
-    if (overlay) overlay.classList.add('hidden');
-    document.documentElement.style.zoom = '1';
-    
   } else {
-    // === PC ===
+    // PC
     player.src = '';
     player.classList.remove('active');
     $('modal').classList.add('on');
@@ -1658,8 +1646,7 @@ function openFullscreenVideo(src) {
     if (wrap.requestFullscreen) wrap.requestFullscreen().catch(function () {});
     else if (wrap.webkitRequestFullscreen) wrap.webkitRequestFullscreen();
   }
-}
-function closeVideoPlayer() {
+}function closeVideoPlayer() {
   document.documentElement.style.zoom = '';
   if (document.exitFullscreen && document.fullscreenElement) document.exitFullscreen();
   else { $('modal').classList.remove('on'); $('player').src = ''; }
