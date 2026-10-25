@@ -1879,17 +1879,29 @@ function openFullscreenVideo(src) {
     player.src = finalSrc;
     player.classList.add('active');
     
+    // 1. INTENTAR FORÇAR PANTALLA COMPLETA AUTOMÀTICA
+    var wrap = document.querySelector('.wrap');
+    if (wrap.requestFullscreen) {
+        wrap.requestFullscreen().catch(function() {
+            // Si falla, no passa res, l'usuari podrà usar la icona de Drive
+        });
+    } else if (wrap.webkitRequestFullscreen) {
+        wrap.webkitRequestFullscreen();
+    }
+
     if (overlay) {
       overlay.classList.remove('hidden');
-      // Detectar si és iOS per mostrar missatge específic
+      
+      // 2. DETECTAR iOS PER AL MISSATGE DE DOBLE TOC
       var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+      
       if (LS.lang === 'ca') {
         $('overlayText').textContent = isIOS
-          ? 'Toca per iniciar. Després toca el vídeo (limitació Apple)' 
+          ? 'Toca dues vegades a la pantalla per iniciar' 
           : 'Toca la pantalla per iniciar el vídeo';
       } else {
         $('overlayText').textContent = isIOS
-          ? 'Toca para iniciar. Luego toca el vídeo (limitación Apple)' 
+          ? 'Toca dos veces la pantalla para iniciar' 
           : 'Toca la pantalla para iniciar el vídeo';
       }
       
@@ -1900,6 +1912,7 @@ function openFullscreenVideo(src) {
     
     document.documentElement.style.zoom = '1';
   } else {
+    // Comportament per a PC
     player.src = '';
     player.classList.remove('active');
     $('modal').classList.add('on');
