@@ -1,0 +1,2097 @@
+<!DOCTYPE html>
+<html lang="ca"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Girona Jazz Piano School®</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   1. VARIABLES I RESET
+   ============================================================ */
+:root{
+--bg:#0a0c10;--card:#13171f;--ink:#f2f2f2;--mut:#9aa0ab;--gold:#e8b04b;--ok:#39d98a;--line:#2a2f3a;--danger:#ff5577;
+--fs:14px;--fs-sm:12.5px;--fs-xs:11px;--fs-btn:13px;
+--fs-h1:clamp(19px,2.3vw,26px);--fs-h2:24px;
+--hbtn:42px;--rad:10px;--rad-lg:14px;--wm-op:.4;
+}
+*{box-sizing:border-box;margin:0;padding:0}html{overflow-y:scroll}
+@media (min-width: 769px) { html { zoom: .95; } }
+body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.55;font-size:var(--fs)}
+
+/* Marca d'aigua de fons */
+#wm{position:fixed;inset:0;z-index:0;pointer-events:none;background:url('img/LOGO.png') center/42% no-repeat;filter:blur(0) brightness(1.05) contrast(1.15) saturate(1.05);opacity:var(--wm-op)}
+#wm::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(10,12,16,.10) 0%,rgba(10,12,16,.85) 78%)}
+
+/* ============================================================
+   2. CAPÇALERA
+   ============================================================ */
+header{position:relative;z-index:1;background:var(--bg);padding:13px 5vw;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:13px}
+.hbrand{display:flex;flex-direction:column;gap:6px;align-items:flex-start}
+.hbrand h1{font-size:var(--fs-h1);letter-spacing:1.2px;font-weight:800;background:linear-gradient(90deg,#f7dc9a 0%,var(--gold) 45%,#c98f3a 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent}
+.userblock{display:flex;align-items:center;gap:10px;max-width:100%;flex-wrap:wrap}
+#who{color:var(--mut);font-size:var(--fs-sm);max-width:220px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#who b{color:var(--ok)}
+.ubtn{height:34px;padding:0 11px;background:var(--card);border:1px solid var(--line);color:var(--ink);border-radius:7px;cursor:pointer;font-weight:700;font-size:var(--fs-sm);display:inline-flex;align-items:center;justify-content:center;gap:7px;transition:all .2s;white-space:nowrap}
+.ubtn:hover{border-color:var(--gold);color:var(--ink)}
+.ubtn.logoutbtn{height:26px;padding:0 10px;font-size:11px;letter-spacing:.5px;color:var(--mut)}
+.ubtn.logoutbtn:hover{color:var(--danger);border-color:var(--danger)}
+.hdr{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.modes{display:inline-flex;align-items:center;gap:8px;flex-wrap:wrap}
+.modes button{height:var(--hbtn);line-height:1;padding:0 9px;background:linear-gradient(135deg,rgba(232,176,75,0.08),rgba(232,176,75,0.02));border:1.5px solid var(--line);color:var(--ink);border-radius:var(--rad);cursor:pointer;font-weight:700;font-size:var(--fs-btn);display:inline-flex;align-items:center;justify-content:center;gap:7px;transition:all .2s;text-shadow:0 1px 2px rgba(0,0,0,0.3);white-space:nowrap;overflow:hidden}
+.modes button:hover{border-color:var(--gold);background:linear-gradient(135deg,rgba(232,176,75,0.18),rgba(232,176,75,0.06))}
+.modes button.on{border-color:var(--gold);color:var(--gold);background:linear-gradient(135deg,rgba(232,176,75,0.28),rgba(232,176,75,0.1));box-shadow:0 0 14px rgba(232,176,75,0.22),inset 0 1px 0 rgba(255,255,255,0.05)}
+#mTrack{width:205px;font-weight:800;letter-spacing:.3px}
+#mFree{width:165px}
+#mApps{width:82px}
+#mInfo{width:52px}
+.langbtn{height:34px;padding:0 14px;background:var(--card);border:1px solid var(--line);border-radius:999px;color:var(--mut);cursor:pointer;font-weight:800;font-size:var(--fs-sm);letter-spacing:1px;display:inline-flex;align-items:center;gap:7px;transition:all .2s}
+.langbtn:hover{border-color:var(--gold);color:var(--ink)}
+.langbtn #langCur{color:var(--gold)}
+
+/* Botons flotants d'edició i guardat */
+#mEdit{position:fixed;right:18px;bottom:18px;z-index:70;width:46px;height:46px;border-radius:50%;background:var(--card);border:1.5px solid var(--line);color:var(--ink);cursor:pointer;font-size:18px;display:none;align-items:center;justify-content:center;transition:all .2s;box-shadow:0 6px 18px rgba(0,0,0,.45)}
+#mEdit:hover{border-color:var(--gold);transform:translateY(-2px)}
+#mEdit.on{border-color:var(--ok);color:var(--ok);background:rgba(57,217,138,0.1)}
+#mSave{position:fixed;right:18px;bottom:72px;z-index:9999;width:46px;height:46px;border-radius:50%;background:#39d98a;border:none;color:#0a0c10;cursor:pointer;font-size:18px;display:none;align-items:center;justify-content:center;box-shadow:0 6px 18px rgba(0,0,0,.5);transition:all .2s}
+#mSave:hover{transform:translateY(-2px);box-shadow:0 8px 22px rgba(57,217,138,.45)}
+
+/* ============================================================
+   3. LAYOUT PRINCIPAL I SELECTOR DE NIVELL
+   ============================================================ */
+main{position:relative;z-index:1;padding:20px 5vw;max-width:1100px;margin:auto}
+.lvls{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:18px}
+.lvls select{background:var(--card);border:1px solid var(--line);color:var(--ink);border-radius:999px;padding:9px 36px 9px 18px;cursor:pointer;font-weight:700;font-size:var(--fs-btn);min-width:195px;appearance:none;-webkit-appearance:none;-moz-appearance:none;background-image:url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23e8b04b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");background-repeat:no-repeat;background-position:right 12px center;background-size:14px;transition:all .2s;font-family:'Inter',system-ui,sans-serif}
+.lvls select:hover{border-color:var(--gold);color:var(--ink)}
+.lvls select:focus{border-color:var(--gold);outline:none;box-shadow:0 0 0 2px rgba(232,176,75,0.2)}
+.lvls select option{background:var(--card);color:var(--ink);padding:9px}
+.wipbox{background:var(--card);border:2px dashed var(--gold);border-radius:var(--rad-lg);padding:30px 22px;text-align:center;color:var(--mut)}
+.wipbox h3{color:var(--gold);letter-spacing:2px;text-transform:uppercase;margin-bottom:8px;font-size:17px}
+.wipbox p{font-size:var(--fs);line-height:1.6}
+.wipbox .wipicon{font-size:44px;margin-bottom:10px}
+
+/* ============================================================
+   4. SEGUMENT CONTINUAT (targeta "ara et toca", donuts, repàs)
+   ============================================================ */
+.now{background:var(--card);border:1px solid var(--gold);border-radius:var(--rad-lg);padding:16px;margin-bottom:24px;box-shadow:0 6px 24px rgba(232,176,75,0.12)}
+.ctx{color:var(--gold);font-size:11px;letter-spacing:2px;text-transform:uppercase;margin-bottom:6px;font-weight:800}
+.nowlbl{font-size:var(--fs-btn);color:var(--mut);margin-bottom:12px}
+.donuts{display:grid;grid-template-columns:repeat(6,1fr);gap:12px}
+.donut{background:var(--card);border:1px solid var(--line);border-radius:var(--rad-lg);padding:11px 8px;text-align:center}
+.donut svg{width:76px;height:76px;display:block;margin:0 auto 7px}
+.donut .lbl{font-size:var(--fs-xs);color:var(--mut);letter-spacing:1px;text-transform:uppercase;font-weight:700}
+.donut.tot{border-color:var(--gold)}.donut.tot .lbl{color:var(--gold)}
+.reviewbox{background:var(--card);border:1px solid var(--gold);border-radius:var(--rad-lg);padding:16px;margin-top:24px;box-shadow:0 6px 24px rgba(232,176,75,0.12)}
+.reviewbox h3{color:var(--gold);font-size:14px;letter-spacing:2px;text-transform:uppercase;margin-bottom:12px;font-weight:800;display:flex;align-items:center;justify-content:space-between;cursor:pointer}
+.reviewbox h3 .toggle{font-size:18px;transition:transform .2s}
+.reviewbox.collapsed h3 .toggle{transform:rotate(-90deg)}
+.reviewbox .rlist{display:flex;flex-direction:column;gap:8px}
+.reviewbox.collapsed .rlist{display:none}
+.ritem{background:#151a23;border:1px solid var(--line);border-radius:8px;padding:8px 12px;display:flex;align-items:center;gap:10px;font-size:var(--fs-btn)}
+.ritem .rtitle{flex:1;color:var(--ink);font-weight:600}
+.ritem .rblk{color:var(--mut);font-size:10px;letter-spacing:1px;text-transform:uppercase}
+.ritem button{background:none;border:1px solid var(--line);color:var(--mut);border-radius:6px;padding:4px 8px;cursor:pointer;font-size:11px;transition:all .2s}
+.ritem button:hover{border-color:var(--gold);color:var(--ink)}
+
+/* ============================================================
+   5. NAVEGACIÓ LLIURE (bloc de botons, capçalera, graella)
+   ============================================================ */
+.blkcol{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin-bottom:16px}
+.blkcol button{background:var(--card);border:1px solid var(--line);color:var(--mut);border-radius:12px;padding:11px 12px;cursor:pointer;font-weight:700;font-size:var(--fs-btn);letter-spacing:1px;text-transform:uppercase;transition:all .2s;display:flex;align-items:center;justify-content:space-between;gap:10px;min-height:42px}
+.blkcol button .bname{flex:1;text-align:center}
+.blkcol button .bmini{flex:none;display:flex;align-items:center;gap:7px}
+.blkcol button .bmini svg{width:22px;height:22px;flex:none}
+.blkcol button .bmini .bpct{font-size:10px;font-weight:700;color:var(--mut);min-width:28px;text-align:right}
+.blkcol button .bmini .bcount{font-size:15px;font-weight:800;color:var(--gold);min-width:22px;text-align:right}
+.blkcol button .bmini .bico{font-size:17px;line-height:1}
+.blkcol button.on .bmini .bpct{color:var(--gold)}
+.blkcol button:hover{border-color:var(--gold);color:var(--ink)}
+.blkcol button.on{border-color:var(--gold);color:var(--gold);background:linear-gradient(180deg,rgba(232,176,75,0.08),var(--card))}
+.blkhead{display:flex;justify-content:space-between;align-items:center;gap:10px;margin:8px 0 12px}
+.blkt{color:var(--gold);font-size:15px;letter-spacing:2px;text-transform:uppercase;font-weight:800}
+.adjb{background:none;border:1px solid var(--line);color:var(--mut);border-radius:8px;padding:6px 9px;cursor:pointer;font-size:11px;white-space:nowrap;transition:all .2s}
+.adjb:hover{border-color:var(--gold);color:var(--ink)}
+.vgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(275px,1fr));gap:12px}
+
+/* ============================================================
+   6. TARGETA DE VÍDEO
+   ============================================================ */
+.vid{border:1px solid var(--line);border-radius:12px;padding:9px 11px;background:#151a23;transition:border-color .2s;position:relative}
+.vid:hover{border-color:var(--gold)}
+.stagetag{color:var(--mut);font-size:var(--fs-xs);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:6px;opacity:.8}
+.vr{display:flex;gap:10px;align-items:center;position:relative}
+.vr .play{width:32px;height:32px;flex:none;border-radius:50%;border:1px solid var(--gold);color:var(--gold);background:none;cursor:pointer;font-size:12px;transition:all .2s}
+.vr .play:hover{background:rgba(232,176,75,0.1)}
+.vt{flex:1;font-size:var(--fs);font-weight:600}
+/* Icona d'importància (visible sempre): cantonada dreta */
+.vid-importance{position:absolute;top:8px;right:8px;font-size:20px;cursor:help;transition:transform .2s}
+.vid-importance:hover{transform:scale(1.2)}
+.vid-importance.editable{cursor:pointer}
+/* Globus de número d'ordre (només mode edició): a l'esquerra de la icona */
+.vid-number{position:absolute;top:8px;right:36px;background:var(--gold);color:#141414;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;z-index:5;box-shadow:0 2px 8px rgba(232,176,75,0.3)}
+.vid-number.editable{cursor:pointer;transition:all .2s}
+.vid-number.editable:hover{transform:scale(1.1);box-shadow:0 4px 12px rgba(232,176,75,0.5)}
+.acts{display:flex;gap:6px;margin-top:9px;flex-wrap:wrap}
+.acts button{background:none;border:1px solid var(--line);color:var(--mut);border-radius:8px;padding:4px 7px;cursor:pointer;font-size:11px;white-space:nowrap;transition:all .2s}
+.acts button:hover{border-color:var(--gold);color:var(--ink)}
+.acts button.done{border-color:var(--ok);color:var(--ok)}
+.acts button.bookmarked{border-color:var(--gold);color:var(--gold);background:rgba(232,176,75,0.08)}
+.acts button.nt.has-notes{border-color:var(--gold);color:var(--gold);font-weight:700}
+.acts button.nt.active{border-color:var(--gold);color:var(--gold);animation:notePulse 2s infinite}
+@keyframes notePulse{0%,100%{box-shadow:0 0 0 0 rgba(232,176,75,0.7)}50%{box-shadow:0 0 0 6px rgba(232,176,75,0)}}
+.vidadjpills{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-start}
+/* Reproductor incrustat dins la targeta */
+.inl{display:none;margin-top:10px;aspect-ratio:16/9;background:#000;border-radius:10px;overflow:hidden;position:relative}
+.inl.on{display:block}
+.inl iframe{width:100%;height:100%;border:0}
+.inlb{position:absolute;top:8px;right:8px;display:flex;gap:8px}
+.inlb button{background:rgba(0,0,0,.7);border:1px solid var(--line);color:#fff;border-radius:8px;cursor:pointer;padding:4px 8px;font-size:12px;transition:all .2s}
+.inlb button:hover{border-color:var(--gold)}
+.vd{color:var(--mut);font-size:var(--fs-sm);margin-top:9px;line-height:1.5}
+.editing{outline:1px dashed var(--gold);background:rgba(232,176,75,.07);cursor:text;border-radius:6px;padding:2px 5px;color:var(--ink)}
+/* Panell d'adjunts del bloc */
+.docs{display:none;margin:0 0 14px}.docs.on{display:block}
+.doc{display:flex;gap:10px;align-items:center;color:var(--mut);font-size:var(--fs-btn);padding:6px 9px;border:1px dashed var(--line);border-radius:8px;margin-top:7px}
+.doc a{color:var(--ok);text-decoration:none;font-weight:700}
+/* Notes personals */
+.notes{display:none;margin-top:10px;border-top:1px dashed var(--line);padding-top:10px}.notes.on{display:block}
+.ntitle{color:var(--gold);font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:6px}
+.note{background:#1a1f28;border-radius:10px;padding:8px 10px;font-size:var(--fs-btn);margin-bottom:7px;color:var(--mut);position:relative}
+.note .ndate{color:var(--mut);font-size:10px;opacity:.7;margin-right:8px}
+.note .ndel{position:absolute;top:6px;right:8px;background:none;border:none;color:var(--danger);cursor:pointer;font-size:12px;opacity:.5;padding:2px 6px}
+.note .ndel:hover{opacity:1}
+.notes textarea{width:100%;background:var(--bg);border:1px solid var(--line);border-radius:8px;color:var(--ink);padding:8px 10px;font-size:var(--fs-btn);margin-top:6px;font-family:inherit;resize:vertical;min-height:60px;transition:border-color .2s}
+.notes textarea:focus{border-color:var(--gold);outline:none}
+.save-note-btn{margin-top:8px;padding:6px 12px;background:var(--gold);color:#141414;border:none;border-radius:6px;font-weight:700;cursor:pointer;font-size:12px}
+.save-note-btn:hover{background:#f0c060}
+
+/* ============================================================
+   7. BOTONS D'EDICIÓ SOBRE EL VÍDEU (moure / eliminar)
+   ============================================================ */
+.vid-del-btn{background:var(--danger);color:#fff;border:none;border-radius:50%;width:28px;height:28px;font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;flex-shrink:0}
+.vid-del-btn:hover{transform:scale(1.1)}
+.vid-order-btn{background:var(--gold);border:none;border-radius:50%;width:28px;height:28px;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0;transition:all .2s;flex-shrink:0}
+.vid-order-btn:hover{transform:scale(1.1);background:#f0c060}
+.vid-order-btn svg{width:14px;height:14px}
+.add-vid-btn{border:2px dashed var(--gold);background:rgba(232,176,75,0.05);border-radius:12px;padding:20px;color:var(--gold);cursor:pointer;font-weight:700;font-size:13px;transition:all .2s;display:flex;align-items:center;justify-content:center;min-height:100px}
+.add-vid-btn:hover{background:rgba(232,176,75,0.15)}
+
+/* ============================================================
+   8. APPS I FAQ
+   ============================================================ */
+.appgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px}
+.appcard{background:var(--card);border:1px solid var(--line);border-radius:var(--rad-lg);padding:18px;text-align:center;transition:border-color .2s}
+.appcard:hover{border-color:var(--gold)}
+.appcard .ae{font-size:38px;line-height:1}
+.appcard .ae img{width:48px;height:48px;object-fit:contain;vertical-align:middle}
+.appcard h3{color:var(--gold);margin:9px 0 7px;font-size:15px;letter-spacing:1px}.appcard p{color:var(--mut);font-size:var(--fs-btn);margin-bottom:12px;line-height:1.5}
+.appcard button{background:var(--gold);color:#141414;border:none;border-radius:9px;padding:8px 18px;font-weight:800;font-size:var(--fs-btn);cursor:pointer;transition:all .2s}
+.appcard button:hover{background:#f0c060}
+.info-container{max-width:780px;margin:0 auto}
+.info-container h2{color:var(--gold);margin-bottom:22px;text-align:center;font-size:var(--fs-h2);font-weight:800}
+.faq-item{background:var(--card);border:1px solid var(--line);border-radius:12px;margin-bottom:10px;overflow:hidden;transition:border-color .2s}
+.faq-item:hover{border-color:var(--gold)}
+.faq-item h3{padding:13px;margin:0;font-size:14px;color:var(--ink);cursor:pointer;display:flex;align-items:center;font-weight:600;gap:12px}
+.faq-item h3 .faqico{flex:none;display:inline-flex;align-items:center;justify-content:center;font-size:18px}
+.faq-item h3 .faqico img{width:26px;height:26px;object-fit:contain}
+.faq-item h3 .faqtxt{flex:1}
+.faq-item h3::after{content:'+';font-size:18px;color:var(--gold);font-weight:300;flex:none}
+.faq-item.open h3::after{content:'−'}
+.faq-item p{padding:0 13px 13px;margin:0;color:var(--mut);font-size:var(--fs);line-height:1.7;display:none;white-space:pre-wrap}
+.faq-item.open p{display:block}
+
+/* ============================================================
+   9. REPRODUCTOR A PANTALLA COMPLETA
+   ============================================================ */
+.modal{position:fixed;inset:0;background:#000;display:none;align-items:center;justify-content:center;z-index:99999;padding:0;margin:0}
+.modal.on{display:flex}
+.wrap{position:relative;width:105.2632vw;height:105.2632vh;background:#000}
+.frame{position:relative;width:100%;height:100%;background:#000;border:none;border-radius:0;overflow:hidden}
+.frame iframe{width:100%;height:100%;border:0;object-fit:contain;pointer-events:none}
+.frame iframe.active{pointer-events:auto}
+.close{position:absolute;top:14px;right:14px;background:rgba(0,0,0,0.85);border:2px solid var(--gold);color:var(--gold);font-size:20px;font-weight:900;line-height:1;width:44px;height:44px;border-radius:50%;cursor:pointer;z-index:100000;display:flex;align-items:center;justify-content:center;transition:all .3s;opacity:0;pointer-events:auto;box-shadow:0 4px 12px rgba(0,0,0,0.5)}
+.wrap.show-controls .close{opacity:1}
+.close:hover{background:var(--gold);color:#000;transform:scale(1.1)}
+.video-overlay{position:absolute;inset:0;background:rgba(0,0,0,0.92);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:999999;cursor:pointer;transition:opacity .3s}
+.video-overlay.hidden{opacity:0;pointer-events:none}
+.video-overlay .icon{font-size:58px;color:var(--gold);margin-bottom:16px;animation:pulse 1.5s infinite}
+.video-overlay .text{color:#fff;font-size:16px;font-weight:700;text-align:center;max-width:80%;line-height:1.5}
+@keyframes pulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.1);opacity:.8}}
+
+/* ============================================================
+   10. MODALS (login, selector d'adjunts, celebració)
+   ============================================================ */
+.lgin,.adjsel{position:fixed;inset:0;background:rgba(5,6,10,.98);z-index:60;display:none;align-items:center;justify-content:center;padding:5vw}
+.lgin.on,.adjsel.on{display:flex}
+.lbox{background:var(--card);border:1px solid var(--gold);border-radius:var(--rad-lg);padding:24px 27px;width:min(395px,92vw);text-align:center;box-shadow:0 10px 32px rgba(232,176,75,0.2)}
+.lbox h2{color:var(--gold);font-size:17px;margin-bottom:14px;font-weight:800}
+.login-lang{display:flex;gap:8px;justify-content:center;margin:14px 0 8px 0;position:relative;top:20px}
+.login-lang button{background:var(--bg);border:1px solid var(--line);color:var(--mut);border-radius:6px;padding:4px 10px;cursor:pointer;font-size:12px;font-weight:700;transition:all .2s}
+.login-lang button:hover{border-color:var(--gold);color:var(--ink)}
+.login-lang button.on{border-color:var(--gold);color:var(--gold);background:rgba(232,176,75,0.08)}
+.lbox input{width:92%;background:var(--bg);border:1px solid var(--line);border-radius:9px;color:var(--ink);padding:9px;font-size:var(--fs);margin:6px auto;display:block;transition:border-color .2s}
+.lbox input:focus{border-color:var(--gold);outline:none}
+.lbox .go{width:60%;background:var(--gold);color:#141414;border:none;border-radius:9px;padding:16px;font-weight:800;font-size:var(--fs);cursor:pointer;margin:12px auto 0 auto;transition:all .2s;letter-spacing:.3px}
+.lbox .go:hover{background:#f0c060}
+.lbox .go.secondary{background:transparent;color:var(--ink);border:1px solid var(--line)}
+.lbox .go.secondary:hover{border-color:var(--gold)}
+.lerr{color:var(--danger);font-size:var(--fs-btn);margin-top:9px;min-height:17px}
+.aselbox{background:var(--card);border:1px solid var(--gold);border-radius:var(--rad-lg);padding:24px 27px;width:min(480px,92vw);box-shadow:0 10px 32px rgba(232,176,75,0.2);max-height:80vh;overflow-y:auto}
+.aselbox h2{color:var(--gold);font-size:17px;margin-bottom:14px;font-weight:800;text-align:center}
+.aselbox .adlist{display:flex;flex-direction:column;gap:6px;margin-bottom:14px}
+.aselbox .aditem{display:flex;align-items:center;gap:10px;background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:8px 12px;cursor:pointer;transition:all .2s;font-size:var(--fs-btn)}
+.aselbox .aditem:hover{border-color:var(--gold)}
+.aselbox .aditem.sel{border-color:var(--gold);background:rgba(232,176,75,0.08)}
+.aselbox .aditem input[type="checkbox"]{accent-color:var(--gold);width:16px;height:16px;cursor:pointer}
+.aselbox .aditem .adi{flex:1;color:var(--ink)}
+.aselbox .actions{display:flex;gap:10px}
+.aselbox .actions .go{flex:1;background:var(--gold);color:#141414;border:none;border-radius:9px;padding:10px;font-weight:800;font-size:var(--fs);cursor:pointer;transition:all .2s}
+.aselbox .actions .go:hover{background:#f0c060}
+.aselbox .actions .go.secondary{background:transparent;color:var(--ink);border:1px solid var(--line)}
+.aselbox .actions .go.secondary:hover{border-color:var(--gold)}
+/* Celebració de graduació amb trofeu giratori */
+.celebration{background:linear-gradient(135deg,rgba(232,176,75,0.05),rgba(232,176,75,0.02));border:2px solid var(--gold);border-radius:var(--rad-lg);padding:40px 30px;text-align:center;margin-bottom:30px;box-shadow:0 8px 32px rgba(232,176,75,0.2)}
+.celebration h2{font-size:28px;color:var(--gold);margin-bottom:8px;font-weight:800;text-shadow:0 2px 8px rgba(232,176,75,0.3)}
+.celebration .subtitle{font-size:16px;color:var(--mut);margin-bottom:30px}
+.trophy-container{position:relative;display:inline-block;margin:30px 0;perspective:1000px}
+.trophy{font-size:80px;animation:trophyRotate 6s linear infinite;filter:drop-shadow(0 0 20px rgba(232,176,75,0.6));display:inline-block}
+@keyframes trophyRotate{0%{transform:rotateY(0deg)}100%{transform:rotateY(360deg)}}
+.trophy-glow{position:absolute;inset:-20px;background:radial-gradient(circle,rgba(232,176,75,0.3) 0%,transparent 70%);border-radius:50%;animation:glowPulse 2s ease-in-out infinite;pointer-events:none}
+@keyframes glowPulse{0%,100%{opacity:0.6;transform:scale(1)}50%{opacity:1;transform:scale(1.1)}}
+.gift-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px;margin-top:30px}
+.gift-card{background:var(--card);border:2px solid var(--gold);border-radius:var(--rad-lg);padding:20px;text-align:center;transition:all .3s;cursor:pointer}
+.gift-card:hover{transform:translateY(-4px);box-shadow:0 8px 24px rgba(232,176,75,0.3);border-color:#f0c060}
+.gift-card h3{color:var(--gold);font-size:16px;margin-bottom:10px}
+.gift-card p{color:var(--mut);font-size:13px;line-height:1.5}
+/* Modal d'ajuda per a alumnes */
+.help-item{display:flex;gap:12px;align-items:flex-start;background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin-bottom:10px}
+.help-item .help-ico{font-size:22px;flex:none;line-height:1.2}
+.help-item h3{color:var(--gold);font-size:14px;margin-bottom:4px}
+.help-item p{color:var(--mut);font-size:var(--fs-sm);line-height:1.6}
+
+/* ============================================================
+   11. RESPONSIVE
+   ============================================================ */
+@media(max-width:900px){.donuts{grid-template-columns:repeat(3,1fr)}.blkcol{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:768px){
+  html{zoom:1}
+  .wrap{width:100vw;height:100vh}
+  .modes{flex-direction:column;width:100%;align-items:stretch}
+  .modes button{width:100%;height:46px;font-size:14px}
+  .hdr{flex-direction:column;align-items:stretch;gap:12px}
+  .langbtn{align-self:center;width:100%;justify-content:center}
+  .blkcol{grid-template-columns:repeat(2,1fr)}
+  .vgrid{grid-template-columns:1fr}
+  .ritem{flex-direction:column;align-items:flex-start;gap:8px}
+  .ritem button{width:100%;text-align:center;padding:8px}
+  .lbox{width:95vw;padding:20px}
+  .faq-item h3{font-size:15px}
+  .vidadjpills{flex-direction:column}
+  .vidadjpills a{width:100%;justify-content:center}
+}
+@media(max-width:480px){
+  .blkcol{grid-template-columns:1fr}
+  .donuts{grid-template-columns:repeat(2,1fr)}
+  .userblock{width:100%;justify-content:space-between}
+  #who{max-width:65%}
+}
+</style>
+</head>
+<body>
+<div id="wm"></div>
+<div id="fatal" style="display:none;position:fixed;top:0;left:0;right:0;z-index:999;background:#7a0029;color:#fff;padding:10px 16px;font-family:Consolas,monospace;font-size:13px;white-space:pre-wrap;"></div>
+
+<header>
+  <div class="hbrand">
+    <h1>GIRONA JAZZ PIANO SCHOOL®</h1>
+    <div class="userblock">
+      <span id="who"></span>
+      <button id="btnUser" class="ubtn logoutbtn" title="Tanca sessió / Cerrar sesión">Logout</button>
+    </div>
+  </div>
+  <div class="hdr">
+    <span class="modes">
+      <button id="mTrack">🎯 Seguiment Continuat</button>
+      <button id="mFree">📁 Navegació Lliure</button>
+      <button id="mApps"></button>
+      <button id="mInfo">FAQ</button>
+    </span>
+    <button id="langToggle" class="langbtn" title="Canvia d'idioma / Cambiar de idioma">🌐 <span id="langCur">CAT</span></button>
+    <button id="mHelp" class="langbtn" title="Com funciona / Cómo funciona">❓</button>
+    <button id="mEdit" title="Mode edició">⚙️</button>
+    <button id="mSave" title="Guardar">💾</button>
+  </div>
+</header>
+
+<main>
+  <div id="trackView" style="display:none"></div>
+  <div id="freeView" style="display:none"></div>
+  <div id="appsView" style="display:none"></div>
+  <div id="infoView" style="display:none"></div>
+</main>
+
+<!-- Reproductor de vídeo a pantalla completa -->
+<div class="modal" id="modal">
+  <div class="wrap">
+    <button class="close" id="xPlayer" title="Tancar">✕</button>
+    <div class="frame">
+      <iframe id="player" allow="autoplay; fullscreen" src=""></iframe>
+      <div class="video-overlay" id="videoOverlay">
+        <div class="icon">▶</div>
+        <div class="text" id="overlayText">Fes clic per reproduir</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal de login -->
+<div class="lgin" id="login">
+  <div class="lbox">
+    <h2 id="lgTitle">Login</h2>
+    <input id="lgName" autocomplete="username" list="userlist" placeholder="">
+    <datalist id="userlist"></datalist>
+    <input id="lgPin" type="password" autocomplete="current-password" maxlength="32" placeholder="">
+    <button class="go" id="lgBtn"></button>
+    <div class="login-lang" id="loginLangSwitcher"></div>
+    <div class="lerr" id="lgErr"></div>
+  </div>
+</div>
+
+<!-- Modal selector d'adjunts per vídeo -->
+<div class="adjsel" id="adjSelModal">
+  <div class="aselbox">
+    <h2 id="adjSelTitle"></h2>
+    <div class="adlist" id="adjSelList"></div>
+    <div class="actions">
+      <button class="go secondary" id="adjSelCancel"></button>
+      <button class="go" id="adjSelOk"></button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ================================================================
+   10b. GUIA D'AJUDA PER A ALUMNES (botó ❓)
+   ================================================================ */
+
+var HELP = [
+  { ico: '🎯', t: { ca: 'Seguiment Continuat', es: 'Seguimiento Continuo' }, p: { ca: 'És el teu itinerari guiat. La targeta «Ara et toca» t\'indica el següent vídeo que has de mirar. Quan l\'hagis vist i practicat, prem «Marcar fet» i l\'aula et proposarà automàticament el següent pas.', es: 'Es tu itinerario guiado. La tarjeta «Ahora te toca» te indica el siguiente vídeo que debes ver. Cuando lo hayas visto y practicado, pulsa «Marcar hecho» y el aula te propondrá automáticamente el siguiente paso.' } },
+  { ico: '📁', t: { ca: 'Navegació Lliure', es: 'Navegación Libre' }, p: { ca: 'Per explorar al teu aire: tria el nivell al desplegable i el bloc (Tècnica, Teoria, Ritme, Auditiu o Pràctica) per veure\'n tots els vídeos i materials.', es: 'Para explorar a tu aire: elige el nivel en el desplegable y el bloque (Técnica, Teoría, Ritmo, Auditivo o Práctica) para ver todos sus vídeos y materiales.' } },
+  { ico: '⭐', t: { ca: 'Vídeos importants i opcionals', es: 'Vídeos importantes y opcionales' }, p: { ca: 'Cada vídeo porta una icona: ⭐ important (no te\'l saltis) o ⭕ opcional (pots deixar-lo per més endavant si tens pressa). Passa-hi el ratolí per sobre per veure\'n el significat.', es: 'Cada vídeo lleva un icono: ⭐ importante (no te lo saltes) o ⭕ opcional (puedes dejarlo para más adelante si tienes prisa). Pasa el ratón por encima para ver su significado.' } },
+  { ico: '🔖', t: { ca: 'La teva llista de repàs', es: 'Tu lista de repaso' }, p: { ca: 'Amb el botó «Repassar» marques un vídeo per tenir-lo sempre a mà. Els trobaràs tots reunits a la llista de repàs, a sota de cada vista.', es: 'Con el botón «Repasar» marcas un vídeo para tenerlo siempre a mano. Los encontrarás todos reunidos en la lista de repaso, debajo de cada vista.' } },
+  { ico: '📝', t: { ca: 'Notes personals', es: 'Notas personales' }, p: { ca: 'Cada vídeo té un espai de notes per apuntar dubtes o observacions. Podràs enviar-les al professor quan ho necessitis.', es: 'Cada vídeo tiene un espacio de notas para apuntar dudas u observaciones. Podrás enviárselas al profesor cuando lo necesites.' } },
+  { ico: '📎', t: { ca: 'Adjunts i partitures', es: 'Adjuntos y partituras' }, p: { ca: 'Els documents de cada bloc (partitures, play-alongs, PDFs) s\'obren amb el botó «Adjunts». Alguns vídeos també tenen material propi just a sota.', es: 'Los documentos de cada bloque (partituras, play-alongs, PDFs) se abren con el botón «Adjuntos». Algunos vídeos también tienen material propio justo debajo.' } },
+  { ico: '🎧', t: { ca: 'Aplicacions d\'entrenament', es: 'Aplicaciones de entrenamiento' }, p: { ca: 'A la pestanya Apps trobaràs laboratoris exclusius com TONAL EMOTIONS, per entrenar l\'oïda jugant.', es: 'En la pestaña Apps encontrarás laboratorios exclusivos como TONAL EMOTIONS, para entrenar el oído jugando.' } },
+  { ico: '🎓', t: { ca: 'I en acabar el nivell…', es: 'Y al terminar el nivel…' }, p: { ca: 'Quan completis tots els vídeos del nivell rebràs un regal de graduació molt especial. Però això… millor descobreix-ho tu mateix! 😉', es: 'Cuando completes todos los vídeos del nivel recibirás un regalo de graduación muy especial. Pero eso… ¡mejor descúbrelo tú mismo! 😉' } }
+];
+
+function showHelp() {
+  $('helpTitle').textContent = LS.lang === 'ca' ? 'Com funciona aquest web' : 'Cómo funciona esta web';
+  var intro = LS.lang === 'ca'
+    ? 'Benvingut/da a l\'aula virtual! Aquesta guia ràpida t\'explica com treure-li tot el partit en 2 minuts.'
+    : '¡Bienvenido/a al aula virtual! Esta guía rápida te explica cómo sacarle todo el partido en 2 minutos.';
+  var h = '<p style="color:var(--mut);font-size:var(--fs);line-height:1.6;margin-bottom:16px;">' + intro + '</p>';
+  HELP.forEach(function (s, i) {
+    var title = helpText(i, 't', s.t[LS.lang]);
+    var para = helpText(i, 'p', s.p[LS.lang]);
+    var cls = editModeOn ? ' editing' : '';
+    h += '<div class="help-item"><span class="help-ico">' + s.ico + '</span><div>' +
+      '<h3 class="help-title' + cls + '" data-hi="' + i + '" data-hk="t">' + esc(title) + '</h3>' +
+      '<p class="help-para' + cls + '" data-hi="' + i + '" data-hk="p">' + esc(para) + '</p>' +
+      '</div></div>';
+  });
+  $('helpContent').innerHTML = h;
+  // En mode edició: activa contentEditable sobre els títols i paràgrafs
+  if (editModeOn) {
+    $('helpContent').querySelectorAll('[data-hi]').forEach(function (el) {
+      el.contentEditable = 'true';
+    });
+  }
+  $('helpModal').classList.add('on');
+}
+
+/* ================================================================
+   GIRONA JAZZ PIANO SCHOOL — AULA VIRTUAL
+   Índex de seccions:
+     1.  Utilitats i estat global
+     2.  Usuaris i sessió
+     3.  Dades del curs (nivells, blocs, vídeos, enllaços)
+     4.  Textos d'interfície (CA/ES) i FAQ
+     5.  OV: dades editables persistides dins del fitxer
+     6.  Sistema d'ordre global de reproducció
+     7.  Adjunts (del bloc i per vídeo)
+     8.  Mode edició i guardat del fitxer
+     9.  Construcció de la targeta de vídeo (makeVid)
+     10. Vistes: Seguiment, Lliure, Apps, Info
+     11. Login i canvi d'idioma
+     12. Reproductor a pantalla completa
+     13. Arrencada
+     10b. Guia d'ajuda per a alumnes
+   ================================================================ */
+
+/* ================================================================
+   1. UTILITATS I ESTAT GLOBAL
+   ================================================================ */
+// Mostra errors JS en una franja vermella (depuració)
+window.onerror = function (m, s, l) {
+  var f = document.getElementById('fatal');
+  f.style.display = 'block';
+  f.textContent = '⚠️ Error JS: ' + m + ' (línia ' + l + ')';
+  return false;
+};
+
+// localStorage amb reserva en memòria si el navegador el bloqueja
+var mem = {};
+function lsGet(k) { try { return window.localStorage.getItem(k); } catch (e) { return (k in mem) ? mem[k] : null; } }
+function lsSet(k, v) { try { window.localStorage.setItem(k, v); } catch (e) { mem[k] = v; } }
+function lsJSON(k, def) { var r = lsGet(k); if (!r) return def; try { return JSON.parse(r); } catch (e) { return def; } }
+
+// Estat global de l'aplicació
+var LS = {
+  lang: lsGet('gjps_lang') || 'ca',   // idioma actiu
+  mode: lsGet('gjps_mode') || 'track',// vista activa: track | free | apps | info
+  user: lsGet('gjps_session') || '',  // usuari loguejat
+  done: {}                            // vídeos marcats com a fets (es carrega al login)
+};
+
+// Navegació lliure: nivell i bloc seleccionats
+var freeBlock = 'w';
+var freeLevel = 0;
+// Si és true, en entrar a Navegació Lliure el sistema tria el nivell
+// (benvinguda o primer nivell pendent). Si l'usuari canvia el desplegable, passa a false.
+var autoLevelPending = true;
+
+var editModeOn = false;      // mode edició actiu (només admin)
+var faqOpen = {};            // estat dels acordion de la FAQ
+var reviewCollapsed = true;  // llista de repàs plegada per defecte
+
+var BO = ['w', 't', 'g', 'r', 'a', 'p'];            // ordre dels blocs
+var BC = { t: '#e8b04b', g: '#39d98a', r: '#4cc9f0', a: '#8c52ff', p: '#ff2bd6' }; // colors per bloc
+var DI = { d: '📄', s: '🎼', a: '🎧' };              // icones de tipus de document
+
+function $(id) { return document.getElementById(id); }
+function t() { return UI[LS.lang]; }                // textos d'interfície de l'idioma actiu
+function li() { return LS.lang === 'ca' ? 0 : 1; }  // índex de idioma dins dels arrays [ca, es]
+function esc(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
+
+/* ================================================================
+   2. USUARIS I SESSIÓ
+   ================================================================ */
+
+// Contrasenya diària per al compte "Invitat": dia + mes + 42
+function getDailyPassword() {
+  var avui = new Date();
+  return String(avui.getDate() + (avui.getMonth() + 1) + 42);
+}
+
+var USERS_DB = [
+  { n: 'admin', p: 'quake', role: 'admin' },
+  { n: 'Student-01', p: 'piano7aM', role: 'client' },
+  { n: 'Student-02', p: 'jazz3kQ9', role: 'client' },
+  { n: 'Student-03', p: 'blues8tR', role: 'client' },
+  { n: 'Student-04', p: 'chord2xP', role: 'client' },
+  { n: 'Student-05', p: 'scale5vN', role: 'client' },
+  { n: 'Student-06', p: 'tempo6hL', role: 'client' },
+  { n: 'Student-07', p: 'rhythm9wY', role: 'client' },
+  { n: 'Student-08', p: 'note4jB', role: 'client' },
+  { n: 'Student-09', p: 'beat1cF', role: 'client' },
+  { n: 'Student-10', p: 'treble5gH', role: 'client' },
+  { n: 'Student-11', p: 'bass8mK', role: 'client' },
+  { n: 'Student-12', p: 'sharp3nZ', role: 'client' },
+  { n: 'Student-13', p: 'flat7pQ', role: 'client' },
+  { n: 'Student-14', p: 'octave2sT', role: 'client' },
+  { n: 'Student-15', p: 'minor6uV', role: 'client' },
+  { n: 'Student-16', p: 'major9wX', role: 'client' },
+  { n: 'Student-17', p: 'melody4yA', role: 'client' },
+  { n: 'Student-18', p: 'harmony1zC', role: 'client' },
+  { n: 'Student-19', p: 'sonata5eG', role: 'client' },
+  { n: 'Student-20', p: 'nocturn8iJ', role: 'client' },
+  { n: 'Student-21', p: 'prelude3kL', role: 'client' },
+  { n: 'Student-22', p: 'fugue7mN', role: 'client' },
+  { n: 'Student-23', p: 'cadence9oP', role: 'client' },
+  { n: 'Student-24', p: 'arpeggio2qR', role: 'client' },
+  { n: 'Student-25', p: 'glissando5sT', role: 'client' },
+  { n: 'Student-26', p: 'staccato8uV', role: 'client' },
+  { n: 'Student-27', p: 'legato1wX', role: 'client' },
+  { n: 'Student-28', p: 'fermata4yZ', role: 'client' },
+  { n: 'Student-29', p: 'tremolo6aB', role: 'client' },
+  { n: 'Student-30', p: 'vibrato9cD', role: 'client' },
+  { n: 'Invitat', p: getDailyPassword(), role: 'client' }
+];
+
+function findUser(name) {
+  var low = String(name).toLowerCase();
+  for (var i = 0; i < USERS_DB.length; i++) {
+    if (USERS_DB[i].n.toLowerCase() === low) return USERS_DB[i];
+  }
+  return null;
+}
+function currentUserRole() {
+  var u = findUser(LS.user);
+  return u ? u.role : 'guest';
+}
+
+// Progrés de vídeos fets, per usuari
+function loadDone() { LS.done = LS.user ? lsJSON('gjps_done_' + LS.user, {}) : {}; }
+function saveDone() { if (LS.user) lsSet('gjps_done_' + LS.user, JSON.stringify(LS.done)); }
+
+// Marcadors (llista de repàs), per usuari
+function getBookmarks() { return lsJSON('gjps_bookmarks_' + LS.user, []); }
+function setBookmarks(arr) { lsSet('gjps_bookmarks_' + LS.user, JSON.stringify(arr)); }
+function isBookmarked(id) { return getBookmarks().indexOf(id) >= 0; }
+function toggleBookmark(id) {
+  var b = getBookmarks();
+  var i = b.indexOf(id);
+  if (i >= 0) b.splice(i, 1); else b.push(id);
+  setBookmarks(b);
+}
+
+/* ================================================================
+   3. DADES DEL CURS
+   ================================================================ */
+
+var LEVELS = [
+  { id: 0, n: { ca: 'Vídeos de benvinguda', es: 'Vídeos de bienvenida' }, active: true },
+  { id: 1, n: { ca: 'Nivell Fonamental', es: 'Nivel Fundamental' }, active: true },
+  { id: 2, n: { ca: 'Nivell 2', es: 'Nivel 2' }, active: false, wip: true },
+  { id: 3, n: { ca: 'Nivell 3', es: 'Nivel 3' }, active: false, pending: true },
+  { id: 4, n: { ca: 'Nivell 4', es: 'Nivel 4' }, active: false, pending: true },
+  { id: 5, n: { ca: 'Nivell 5', es: 'Nivel 5' }, active: false, pending: true },
+  { id: 6, n: { ca: 'Nivell 6', es: 'Nivel 6' }, active: false, pending: true }
+];
+
+var APPS = [
+  { e: 'logo', n: { ca: 'TONAL EMOTIONS', es: 'TONAL EMOTIONS' }, d: { ca: 'Laboratori auditiu i ear training: reconeixement emocional de notes en context tonal. Modes Escolta, Pràctica, Test i Batalla.', es: 'Laboratorio auditivo y ear training: reconocimiento emocional de notas en contexto tonal. Modos Escucha, Práctica, Test y Batalla.' }, url: 'apps/TONAL EMOTIONS.html' }
+];
+
+// IDs de Google Drive dels vídeos, per bloc i idioma
+var LINKS = {
+  r: {
+    cat: ['1B0keL0UC2u8HQJ9ZsidlYRgAHU67QDse','1KbtqX7jMbyanCzpD0aVXEInudOop4Uie','1I_hoZCdMvIHplsa5n8kxKvAoioH9vy2B','1G8ql4nEzH6I-I0mYX7w1a3qwsZ8Q9FDu','1ZI7Xw2zcbmdXp8gQgr-ixdaCGHY0xyaA','1XeX2j2RrdZFEc7Al1UJrFJIMu1_xL1zf','1nU-ixKtfFOXOHh058DVoWAB6ioJpymCH','1UVYULkrIppofoV5-RZ4nGRwrZOR7mfuT','1h0o_6CcV4F3e0Sdo1ZQKIsE1Kl4mwX9Z','1N32IzKMse_hXrRRUYiDgVXtRUJJ_YV0h','1diOC2djV_xxfV6hn7r55KFJVZlTcfVst'],
+    sp:  ['1JFnVd-R442wbUI-zHGgHpylVk2Ua2tmZ','1vvYih6EhhGHbJaqYVWNqfODJDz9bNtlX','1DEF_WLBTIQcRb78qNhRYo-wRJGkBn7xj','1cJGljT6Qlbc9NCOUUzjJqxkbbj3Lwr7i','1d7e0ffPQ8laYqqnahr1OQ8biRzKYUg5S','1jzF-6Io1CHt6DQGdvzJzqlQ5T0bTnLkv','1iIG9rTGmxO7Q0Fyw6tX4DlLmeMavihwf','1zpFwJ0PrWq13c4LKJLCBJXULzxMYv2XV','1Ub0aiaQXFDtJYZ2LwUf5ebvTvYHmz_sl','1tgU-sT_AbAWT7QvJp3nkFueDE2nT45Lj','10EQuIBUZTMaalzK9Uc3Noi_zSgArh04G']
+  },
+  a: {
+    cat: ['1Jk1odT5P1JEeX_UZBFjmX1YfFgYMuYPT','1rUZZckM1muEFKNPP6GQdOh7BGnjW6qoY','1OQMVd-DMxvH-Y9TRv4I8GZH-z_cv1APq','1mE1mD-mPJeiVVBD-aStek6u7MFLLc832','1MQHBogWbvjm9y9vKnEHISdaN--yZMJbU','1GTK-UaZ__wx5Msg1qp9-hedBZdDl4q-D','1BXkDyB59_uFPQjkHM1dxDbT2D1Lxd2tE','14uPrMyyKLlOQIzbHWlMbq6rPGIOlLoPx','12hgmR9rtRNGqML6AEdKXm7YMl2vSZP43','1JZNTwfzkNfbzodfNWTLK4ETNME5HkT_N','1uaIbVGqpQpgRoG7N3HiFtHQTFWxcYgZe'],
+    sp:  ['1q1uGcQnCcJs05AiaZCoFATTXwazP1H1O','1e5K8CNKCpbyxwzHewyK0FmJbHDtHFetM','1AAtCHcDOk3dRH2fIPDYGmhxeSH8vBtvf','1xAcozy8FLHhVL2FHXqgbrItbj4EAlMP9','15LvqjTo6zQUGpDW52_LPAcCJ_7FnztML','1noTW5PdsWPp0M-plkaNVmJVy-7QeBDlW','1PHOJiHVaTaEQivhZY4rYIcDf_AXg0s9h','1bR1QqucC6eOATqWNYEP_yvs6HAsPjL42','1re1JZXvw-bnPEn4beaIrS_prrigbpjBF','1U1DnI2DLtB0WUmyln9AkRzv0wCMU7kE-','19Tcxnhl9cAX1Mj3G7PvjXTtQIFDe0Wl2']
+  },
+  t: {
+    cat: ['1VeU8NSwOsN_eubIbfoQsKo4YFDnlqM5F','1GAbFwRM9HEhGVTkQ4LxveFnbK6hj_gww','1VAjy_fhDiHK7QacaqRAggjCkJNlTq5r6','1rC-hzFKjkNSlBhfzbNKuXr-zuSxikuW1','1zN7p0do8nezfm1zClu1IggfoPEPA9O1H','1x7I-fDE0SSsv-8SnyraMCtjFJ5zwgFV5'],
+    sp:  ['1pfzM2lUFMe0p1D90i_m79SXHgtKOhAUK','1mZw0Qkhl2H_YkQuw8i2g_ia_PvkDU0D_','19bXw4EyI_u2eD6o8xMQxcZx3yM47_zqH','16t3LcAE3E6EWCSmY2Z2_WtTWe1y3TRih','1RlHXbwc2_A6cA-JSmljCJUyFsWhDp9rl','1z4osLC6yqSQgTRafjv_ocq4rSgHZJED_']
+  },
+  gift: {
+    classic: { cat: '16VAaCCvSqD1I-QuGXq6CBU8YhLV26vDA', sp: '1qyi41EYduAG3aeSs40VB3JT8L2Ni1H2Y' },
+    jazz:    { cat: '1OFThJqwDq46Fa_qeBf-FroHmiCXwHgLl', sp: '19ZY_CzFGSKnMfNgRFarYokOiZRwBVbX9' }
+  }
+};
+
+function getLink(type, idx) {
+  var lang = LS.lang === 'ca' ? 'cat' : 'sp';
+  if (type === 'gift_classic') return LINKS.gift.classic[lang] || LINKS.gift.classic.cat;
+  if (type === 'gift_jazz') return LINKS.gift.jazz[lang] || LINKS.gift.jazz.cat;
+  var links = LINKS[type] && LINKS[type][lang];
+  if (links && links[idx]) return links[idx];
+  var otherLang = lang === 'cat' ? 'sp' : 'cat';
+  var otherLinks = LINKS[type] && LINKS[type][otherLang];
+  if (otherLinks && otherLinks[idx]) return otherLinks[idx];
+  return null;
+}
+
+/* Estructura del curs:
+   D[nivell] = { n: noms, u: [ unitats ] }
+   D[nivell].u[unitat][bloc] = { v: [vídeos], d: [documents] }
+     vídeo  = [títol CA, título ES, idDrive]
+     doc    = [nom CA, nombre ES, tipus (d|s|a)]
+   Blocs: w=benvinguda, t=tècnica, g=teoria, r=ritme, a=auditiu, p=pràctica        */
+var D = [
+  { n: { ca: 'Benvinguda', es: 'Bienvenida' }, u: [
+    { w: { v: [
+      ['Presentació de l\'Escola', 'Presentación de la Escuela', ''],
+      ['Com funciona aquesta web', 'Cómo funciona esta web', ''],
+      ['Quin teclat comprar?', '¿Qué teclado comprar?', '']
+    ] } }
+  ] },
+  { n: { ca: 'Fonaments', es: 'Fundamentos' }, u: [
+    { g: { v: [['Notes al piano: Introducció Essencial','Notas en el piano: Introducción Esencial',getLink('t',0)],['Claus musicals: Com Llegir i Col·locar Mans','Claves musicales: Cómo Leer y Colocar las Manos',getLink('t',1)]] }, r: { v: [['Pols i Tempo: Figures bàsiques','Pulso y Tempo: Figuras básicas',getLink('r',0)]] } },
+    { t: { v: [['Funcionament de les Rutines','Funcionamiento de las Rutinas']] }, g: { d: [['Notació Anglosaxona','Notación Anglosajona','d']] }, r: { d: [['Entrenament Rítmic 1-12','Entrenamiento Rítmico 1-12','a']] }, a: { v: [['Fonaments de l\'Oïda Musical','Fundamentos del Oído Musical',getLink('a',0)]] }, p: { v: [['La Xocolatera (tema)','La Chocolatera (tema']] , d: [['La Xocolatera (partitura)','La Chocolatera (partitura)','s']] } },
+    { t: { v: [['Postura al Piano: Posició Corporal Correcta','Postura al Piano: Posición Corporal Correcta'],['Rutines 01-10','Rutinas 01-10']] }, g: { d: [['Notació Anglosaxona','Notación Anglosajona','d']] }, r: { v: [['Puntet, Lligadura de prolongació i Contratemps','Puntillo, Ligadura de prolongación y Contratiempo',getLink('r',1)]] }, p: { v: [['Himne Alegria (I)','Himno Alegría (I)']], d: [['La Xocolatera (partitura)','La Chocolatera (partitura)','s'],['Himne Alegria v.1 (partitura)','Himno Alegría v.1 (partitura)','s']] } },
+    { t: { v: [['Rutines 11-20','Rutinas 11-20']] }, g: { d: [['Notació Anglosaxona','Notación Anglosajona','d']] }, a: { v: [['Evita Memoritzar Intervals','Evita Memorizar Intervalos',getLink('a',1)]] }, p: { v: [['Perestroika (SAU)','Perestroika (SAU)']], d: [['Himne Alegria v.1 (partitura)','Himno Alegría v.1 (partitura)','s'],['Perestroika (play-along)','Perestroika (play-along)','a']] } }
+  ] },
+  { n: { ca: 'Consolidació', es: 'Consolidación' }, u: [
+    { t: { v: [['Rutines 21-30','Rutinas 21-30']] }, g: { v: [['Introducció a les Tríades','Introducción a las Tríadas',getLink('t',2)]] }, r: { v: [['Síncopa Musical','Síncopa Musical',getLink('r',2)]] }, a: { v: [['Emocions: Notes Diatòniques','Emociones: Notas Diatónicas',getLink('a',2)]] }, p: { v: [['Aunque Tú No Lo Sepas','Aunque Tú No Lo Sepas']], d: [['Himne Alegria v.1 (partitura)','Himno Alegría v.1 (partitura)','s'],['Perestroika (play-along)','Perestroika (play-along)','a'],['Aunque... (play-along)','Aunque... (play-along)','a']] } },
+    { t: { v: [['Rutines 31-40','Rutinas 31-40']] }, g: { d: [['Notació Anglosaxona','Notación Anglosajona','d']] }, r: { d: [['Entrenament Rítmic 13-24','Entrenamiento Rítmico 13-24','a']] }, p: { v: [['Tríades Majors: CT1','Tríadas Mayores: CT1']], d: [['Perestroika (play-along)','Perestroika (play-along)','a'],['Aunque... (play-along)','Aunque... (play-along)','a'],['Himne Alegria v.2 (partitura)','Himno Alegría v.2 (partitura','s']] } },
+    { t: { v: [['Rutines 41-50','Rutinas 41-50']] }, r: { v: [['Semicorxeres (I)','Semicorcheas (I)',getLink('r',3)]] }, p: { d: [['Perestroika (play-along)','Perestroika (play-along)','a'],['Aunque... (play-along)','Aunque... (play-along)','a'],['Himne Alegria v.2 (partitura)','Himno Alegría v.2 (partitura)','s'],['Tríades Majors CT1 (cicle)','Tríadas Mayores CT1 (ciclo)','d']] } },
+    { t: { v: [['Rutines 51-60','Rutinas 51-60']] }, g: { d: [['Notació Anglosaxona','Notación Anglosajona','d']] }, a: { v: [['Instruccions i Correcció del Test','Instrucciones y Corrección del Test',getLink('a',3)]] }, p: { d: [['Perestroika (play-along)','Perestroika (play-along)','a'],['Aunque... (play-along)','Aunque... (play-along)','a'],['Himne Alegria v.2 (partitura)','Himno Alegría v.2 (partitura)','s'],['Play-along Tríades Majors CT1','Play-along Tríadas Mayores CT1','a']] } }
+  ] },
+  { n: { ca: 'Descobriment del Sistema Tonal', es: 'Descubrimiento del Sistema Tonal' }, u: [
+    { t: { v: [['Rutines 61-70','Rutinas 61-70']] }, g: { v: [['Escala Major: Patró Universal','Escala Mayor: Patrón Universal',getLink('t',3)]] }, r: { v: [['Semicorxeres (II)','Semicorcheas (II)',getLink('r',4)]] }, a: { v: [['Test de Notes Diatòniques','Test de Notas Diatónicas',getLink('a',4)]] }, p: { v: [['Let it Be','Let it Be'],['Tríades Majors: CT2','Tríadas Mayores: CT2']] } },
+    { t: { v: [['Rutines 71-80','Rutinas 71-80']] }, r: { d: [['Entrenament Rítmic 25-36','Entrenamiento Rítmico 25-36','a']] }, a: { v: [['Emocions: Notes No Diatòniques','Emociones: Notas No Diatónicas',getLink('a',5)]] }, p: { d: [['Let it Be (play-along)','Let it Be (play-along)','a'],['Tríades Majors CT2 (cicle)','Tríadas Mayores CT2 (ciclo)','d']] } },
+    { t: { v: [['Rutines 81-90','Rutinas 81-90']] }, g: { v: [['Introducció al Sistema Tonal','Introducción al Sistema Tonal']] }, r: { v: [['Valors Irregulars: El Tresillo (I)','Valores Irregulares: El Tresillo (I)',getLink('r',5)]] }, p: { v: [['Himne Alegria (II)','Himno Alegría (II)']], d: [['Himne Alegria v.3 (partitura)','Himno Alegría v.3 (partitura)','s'],['Let it Be (play-along)','Let it Be (play-along)','a'],['Play-along Tríades Majors CT2','Play-along Tríadas Mayores CT2','a']] } },
+    { t: { v: [['Rutines 91-100','Rutinas 91-100']] }, r: { d: [['Entrenament Rítmic 37-45','Entrenamiento Rítmico 37-45','a']] }, p: { v: [['Tríades Majors: CC','Tríadas Mayores: CC']], d: [['Himne Alegria v.4 (partitura)','Himno Alegría v.4 (partitura)','s'],['Let it Be (play-along)','Let it Be (play-along)','a'],['Tríades Majors CTC (cicle)','Tríadas Mayores CTC (ciclo)','d']] } }
+  ] },
+  { n: { ca: 'Desenvolupament Harmònic', es: 'Desarrollo Armónico' }, u: [
+    { t: { v: [['Rutines 101-110','Rutinas 101-110']] }, g: { v: [['Inversió de Tríades Majors i Menors','Inversión de Tríadas Mayores y Menores',getLink('t',4)]] }, r: { v: [['Valors Irregulars: El Tresillo (II)','Valores Irregulares: El Tresillo (II)',getLink('r',6)]] }, p: { d: [['Himne Alegria v.4 (partitura)','Himno Alegría v.4 (partitura)','s'],['Silent Night (partitura)','Silent Night (partitura)','s'],['Amélie (partitura)','Amélie (partitura)','s'],['Play-along Tríades Majors CCA i CCD','Play-along Tríadas Mayores CCA y CCD','a']] } },
+    { t: { v: [['Rutines 111-120','Rutinas 111-120']] }, r: { d: [['Entrenament Rítmic 46-48','Entrenamiento Rítmico 46-48','a']] }, p: { v: [['Tríades Menors: CT1','Tríadas Menores: CT1']], d: [['Himne Alegria v.4 (partitura)','Himno Alegría v.4 (partitura)','s'],['Silent Night (partitura)','Silent Night (partitura)','s'],['Amélie (partitura)','Amélie (partitura)','s'],['Greensleeves (partitura)','Greensleeves (partitura)','s']] } },
+    { t: { v: [['Rutines 121-130','Rutinas 121-130']] }, g: { v: [['Tríades Majors i Menors en Posició Oberta','Tríadas Mayores y Menores en Posición Abierta',getLink('t',5)]] }, r: { v: [['Mètrica Simple i Composta','Métrica Simple y Compuesta',getLink('r',7)]] }, a: { v: [['Test de Notes No Diatòniques','Test de Notas No Diatónicas',getLink('a',6)]] }, p: { d: [['Amélie (partitura)','Amélie (partitura)','s'],['Greensleeves (partitura)','Greensleeves (partitura)','s'],['The Entertainer (partitura)','The Entertainer (partitura)','s'],['Für Elise (partitura)','Für Elise (partitura)','s'],['Tríades Menors CT1 (cicle)','Tríadas Menores CT1 (ciclo)','d']] } },
+    { t: { v: [['Rutines 131-140','Rutinas 131-140']] }, r: { d: [['Entrenament Rítmic 49-60: Descobrir Mètrica i Solucions','Entrenamiento Rítmico 49-60: Descubrir Métrica y Soluciones','a']] }, a: { v: [['Emocions: Notes Diatòniques + No Diatòniques','Emociones: Notas Diatónicas + No Diatónicas',getLink('a',7)]] }, p: { d: [['Für Elise (partitura)','Für Elise (partitura)','s'],['The Piano (partitura)','The Piano (partitura)','s'],['Amélie (partitura)','Amélie (partitura)','s'],['Greensleeves (partitura)','Greensleeves (partitura)','s'],['The Entertainer (partitura)','The Entertainer (partitura)','s'],['Play-along Tríades Menors CT1','Play-along Tríadas Menores CT1','a']] } }
+  ] },
+  { n: { ca: 'Domini del Nivell Fonamental', es: 'Dominio del Nivel Fundamental' }, u: [
+    { t: { v: [['Rutines 141-150','Rutinas 141-150']] }, g: { v: [['Voicings Triàdics a Dues Mans','Voicings Triádicos a Dos Manos']] }, r: { v: [['Entrenament Rítmic','Entrenamiento Rítmico',getLink('r',8)]] }, p: { v: [['Tríades Menors: CT2','Tríadas Menores: CT2']], d: [['Für Elise (partitura)','Für Elise (partitura)','s'],['The Piano (partitura)','The Piano (partitura)','s'],['The Entertainer (partitura)','The Entertainer (partitura)','s']] } },
+    { t: { v: [['Rutines 151-160','Rutinas 151-160']] }, r: { d: [['Entrenament Rítmic 61-72','Entrenamiento Rítmico 61-72','a']] }, p: { d: [['Für Elise (partitura)','Für Elise (partitura)','s'],['The Piano (partitura)','The Piano (partitura)','s'],['Play-along Tríades Menors CT2','Play-along Tríadas Menores CT2','a']] } },
+    { t: { v: [['Rutines 161-170','Rutinas 161-170']] }, g: { v: [['Introducció al Solfeig','Introducción al Solfeo']] }, r: { v: [['Introducció a la Mètrica Irregular','Introducción a la Métrica Irregular',getLink('r',9)]] }, p: { v: [['Tríades Menors: CC','Tríadas Menores: CC']], d: [['Für Elise (partitura)','Für Elise (partitura)','s'],['The Piano (partitura)','The Piano (partitura)','s']] } },
+    { t: { v: [['Rutines 171-180','Rutinas 171-180']] }, r: { d: [['Entrenament Rítmic 73-84','Entrenamiento Rítmico 73-84','a']] }, p: { v: [['Interstellar','Interstellar']], d: [['Play-along Tríades Menors CC','Play-along Tríadas Menores CC','a']] } }
+  ] },
+  { n: { ca: 'Integració i Connexió de Tríades', es: 'Integración y Conexión de Tríadas' }, u: [
+    { g: { v: [['Funcions Tonals Bàsiques','Funciones Tonales Básicas']] }, p: { v: [['Heaven (Bryan Adams)','Heaven (Bryan Adams)']], d: [['Interstellar (play-along)','Interstellar (play-along)','a']] } },
+    { a: { v: [['Test de Notes Diatòniques + No Diatòniques','Test de Notas Diatónicas + No Diatónicas',getLink('a',8)]] }, p: { v: [['Time','Time']], d: [['Heaven (play-along)','Heaven (play-along)','a'],['Interstellar (play-along)','Interstellar (play-along)','a']] } },
+    { g: { v: [['Introducció a la Connexió de Tríades','Introducción a la Conexión de Tríadas']] }, r: { v: [['Repàs de Ritme del Nivell Fonamental','Repaso de Ritmo del Nivel Fundamental',getLink('r',10)]] }, a: { v: [['La Tònica com a Única Referència','La Tónica como Única Referencia',getLink('a',9)]] }, p: { d: [['Heaven (play-along)','Heaven (play-along)','a'],['Interstellar (play-along)','Interstellar (play-along)','a'],['Time (play-along)','Time (play-along)','a']] } },
+    { r: { d: [['Entrenament Rítmic 73-84','Entrenamiento Rítmico 73-84','a']] }, a: { v: [['TONAL EMOTIONS: El teu Laboratori Auditiu','TONAL EMOTIONS: Tu Laboratorio Auditivo',getLink('a',10)]] }, p: { v: [['Someone Like You','Someone Like You'],['Introducció als FNG','Introducción a los FNG']], d: [['Someone Like You (partitura + play-along)','Someone Like You (partitura + play-along)','s']] } }
+  ] }
+];
+
+// Regals de graduació (es mostren en completar-ho tot)
+var GIFT = [
+  ['Masterclass 1: Història de la Música', 'Masterclass 1: Historia de la Música', getLink('gift_classic')],
+  ['Masterclass 2: Història del Jazz', 'Masterclass 2: Historia del Jazz', getLink('gift_jazz')]
+];
+
+/* ================================================================
+   4. TEXTOS D'INTERFÍCIE (CA/ES) I FAQ
+   ================================================================ */
+
+var UI = {
+  ca: {
+    overlayText: 'Fes clic per reproduir',
+    blocks: { w: 'Benvinguda', t: 'Tècnica', g: 'Teoria', r: 'Ritme', a: 'Auditiu', p: 'Pràctica', b: 'Repàs' },
+    unit: 'Unitat', done: 'Fet ✔', mark: 'Marcar fet', doneCont: 'Fet ✔ i continuar', undo: '↺ Desfer',
+    bookmark: '🔖 Repassar', bookmarked: '🔖 Marcat', notes: '📝 Notes', notesTitle: 'Notes personals',
+    notesPh: 'Escriu una nota sobre aquest vídeo...', saveNote: 'Guardar nota', hello: 'Hola',
+    mFree: '📁 Navegació Lliure', mTrack: '🎯 Seguiment Continuat', mApps: ' Apps', total: 'TOTAL NIVELL',
+    now: 'Ara et toca:', allDone: '🎉 Ho tens tot fet! Enhorabona!',
+    giftTxt: 'Gaudeix del teu regal de graduació mentre prepares el Nivell 2:', giftTag: 'Regal de graduació',
+    reviewTitle: '🔖 La teva llista de repàs', soon: 'Properament', adj: '📎 Adjunts', vidAdjBtn: '📎',
+    vidAdjSelTitle: 'Selecciona quins adjunts del bloc han d\'aparèixer en aquest vídeo:',
+    vidAdjCancel: 'Cancel·lar', vidAdjOk: 'Aplicar', appsOpen: 'OBRE',
+    appsSoon: 'Enllaç properament: configura\'l a l\'array APPS del codi.',
+    wipTitle: 'Nivell en construcció',
+    wipMsg: 'Aquest nivell encara s\'està coent: vídeos, documents i exercicis arribaran quan el mètode estigui llest. Mentrestant, gaudeix i domina el Nivell Fonamental!',
+    lgTitle: 'Inicia sessió', lgName: 'Usuari', lgPin: 'Contrasenya', lgBtn: 'Entrar',
+    lgErrPin: 'Contrasenya incorrecta.', lgErrName: 'Usuari no trobat.', lgErrEmpty: 'Escriu un nom d\'usuari.',
+    edit: '⚙️', editSave: '💾 Guardar com a…', savedOk: '✅ Nou index.html desat!',
+    linkPrompt: 'Enganxa l\'enllaç de Google Drive del vídeo (o deixa-ho buit per treure\'l):',
+    adjLinkPrompt: 'Enganxa l\'enllaç de Google Drive del PDF (o deixa-ho buit per treure\'l):',
+    pendingIcon: '⏳', pendingMsg: 'Aquest nivell encara no està disponible. Es desenvoluparà properament.',
+    desc: {
+      t: 'Segueix la rutina amb metrònom i respecta la postura.',
+      g: 'Pots dedicar-li una sessió sencera o només un tros: cadascú avança al seu ritme.',
+      r: 'Practica primer sense piano i després amb metrònom.',
+      a: 'Fes-ho amb calma i, quan toca, amb TONAL EMOTIONS oberta.',
+      p: 'Amb el backing track i les tríades en posició fonamental.'
+    }
+  },
+  es: {
+    overlayText: 'Haz clic para reproducir',
+    blocks: { w: 'Bienvenida', t: 'Técnica', g: 'Teoría', r: 'Ritmo', a: 'Auditivo', p: 'Práctica', b: 'Repaso' },
+    unit: 'Unidad', done: 'Hecho ✔', mark: 'Marcar hecho', doneCont: 'Hecho ✔ y continuar', undo: '↺ Deshacer',
+    bookmark: '🔖 Repasar', bookmarked: '🔖 Marcado', notes: '📝 Notas', notesTitle: 'Notas personales',
+    notesPh: 'Escribe una nota sobre este vídeo...', saveNote: 'Guardar nota', hello: 'Hola',
+    mFree: '📁 Navegación Libre', mTrack: '🎯 Seguimiento Continuo', mApps: ' Apps', total: 'TOTAL NIVEL',
+    now: 'Ahora te toca:', allDone: '🎉 ¡Lo tienes todo hecho! ¡Enhorabuena!',
+    giftTxt: 'Disfruta de tu regalo de graduación mientras preparas el Nivel 2:', giftTag: 'Regalo de graduación',
+    reviewTitle: '🔖 Tu lista de repaso', soon: 'Próximamente', adj: '📎 Adjuntos', vidAdjBtn: '📎',
+    vidAdjSelTitle: 'Selecciona qué adjuntos del bloque deben aparecer en este vídeo:',
+    vidAdjCancel: 'Cancelar', vidAdjOk: 'Aplicar', appsOpen: 'ABRE',
+    appsSoon: 'Enlace próximamente: configúralo en el array APPS del código.',
+    wipTitle: 'Nivel en construcción',
+    wipMsg: 'Este nivel todavía se está cociendo: vídeos, documentos y ejercicios llegarán cuando el método esté listo. Mientras tanto, ¡disfruta y domina el Nivel Fundamental!',
+    lgTitle: 'Inicia sesión', lgName: 'Usuario', lgPin: 'Contraseña', lgBtn: 'Entrar',
+    lgErrPin: 'Contraseña incorrecta.', lgErrName: 'Usuario no encontrado.', lgErrEmpty: 'Escribe un nombre de usuario.',
+    edit: '⚙️', editSave: '💾 Guardar como…', savedOk: '✅ ¡Nuevo index.html guardado!',
+    linkPrompt: 'Pega el enlace de Google Drive del vídeo (o déjalo vacío para quitarlo):',
+    adjLinkPrompt: 'Pega el enlace de Google Drive del PDF (o déjalo vacío para quitarlo):',
+    pendingIcon: '⏳', pendingMsg: 'Este nivel aún no está disponible. Se desarrollará próximamente.',
+    desc: {
+      t: 'Sigue la rutina con metrónomo y respeta la postura.',
+      g: 'Puedes dedicarle una sesión entera o solo un trozo: cada uno avanza a su ritmo.',
+      r: 'Practica primero sin piano y después con metrónomo.',
+      a: 'Hazlo con calma y, cuando toque, con TONAL EMOTIONS abierta.',
+      p: 'Con el backing track y las tríadas en posición fundamental.'
+    }
+  }
+};
+
+var FAQS = [
+  { ico: 'logo', q: { ca: 'Què és Girona Jazz Piano School?', es: '¿Qué es Girona Jazz Piano School?' }, a: { ca: 'És una escola de piano online amb un mètode propi que combina tècniques d\'aprenentatge de la música moderna i de la clàssica. L\'alumnat gaudeix d\'un seguiment continuat i d\'accés 24/7 a tot el contingut.', es: 'Es una escuela de piano online con método propio que combina técnicas de aprendizaje de la música moderna y de la clásica. El alumnado disfruta de un seguimiento continuado y de acceso 24/7 a todo el contenido.' } },
+  { ico: '👤', q: { ca: 'Qui hi ha darrere de GJPS?', es: '¿Quién hay detrás de GJPS?' }, a: { ca: 'Girona Jazz Piano School és un projecte personal creat per un pianista i professor apassionat per la didàctica del piano modern i el jazz. Amb anys d\'experiència formant músics, he desenvolupat aquest mètode progressiu pensat per a adults que volen aprendre a tocar de veritat, entenent la música des de dins i adquirint autonomia al teclat pas a pas.', es: 'Girona Jazz Piano School es un proyecto personal creado por un pianista y profesor apasionado por la didáctica del piano moderno y el jazz. Con años de experiencia formando músicos, he desarrollado este método progresivo pensado para adultos que quieren aprender a tocar de verdad, entendiendo la música desde dentro y adquiriendo autonomía en el teclado paso a paso.' } },
+  { ico: '🎻', q: { ca: 'Vinc del conservatori, em servirà aquest mètode?', es: 'Vengo del conservatorio, ¿me servirá este método?' }, a: { ca: 'I tant! El mètode està pensat per a qualsevol perfil, tant si comences de zero com si ja tens una base. Si véns del conservatori (de piano o de qualsevol altre instrument), trobaràs que aquí s\'aprèn a entendre la música des de dins, adquirint habilitats tant per tocar repertori clàssic com modern (pop, rock, bandes sonores...). El mètode t\'ajudarà a guanyar autonomia al teclat, a improvisar, a acompanyar i a entendre l\'harmonia d\'una manera pràctica que sovint al conservatori tradicional queda en segon pla.', es: '¡Por supuesto! El método está pensado para cualquier perfil, tanto si empiezas de cero como si ya tienes una base. Si vienes del conservatorio (de piano o de cualquier otro instrumento), encontrarás que aquí se aprende a entender la música desde dentro, adquiriendo habilidades tanto para tocar repertorio clásico como moderno (pop, rock, bandas sonoras...). El método te ayudará a ganar autonomía en el teclado, a improvisar, a acompañar y a entender la armonía de una manera práctica que a menudo en el conservatorio tradicional queda en segundo plano.' } },
+  { ico: '💻', q: { ca: 'És presencial o 100% online?', es: '¿Es presencial o 100% online?' }, a: { ca: 'És un curs 100% online amb un itinerari ordenat i de seguiment continuat. A través de vídeos didàctics, partitures i un sistema propi de rutines tècniques, està pensat per formar músics autònoms a llarg termini.', es: 'Es un curso 100% online con un itinerario ordenado y de seguimiento continuado que combina vídeos didácticos, partituras y un sistema propio de rutinas técnicas, está pensado para formar músicos autónomos a largo plazo.' } },
+  { ico: '📚', q: { ca: 'Com es desenvolupen els cursos?', es: '¿Cómo se desarrollan los cursos?' }, a: { ca: 'Cada nivell s\'estructura en blocs que es combinen dins del seguiment continuat per formar el músic des de zero. Al primer nivell, per exemple, trobaràs 5 blocs: Tècnica, Teoria, Ritme, Auditiu i Pràctica funcional.\nSeguint els vídeos en ordre, aniràs adquirint pas a pas tot el que necessites per posar-ho en pràctica al piano.', es: 'Cada nivel se estructura en bloques que se combinan dentro del seguimiento continuado para formar al músico desde cero. En el primer nivel, por ejemplo, encontrarás 5 bloques: Técnica, Teoría, Ritmo, Audición y Práctica funcional. Siguiendo los vídeos en orden, irás adquiriendo paso a paso todo lo que necesitas para ponerlo en práctica en el piano.' } },
+  { ico: '🎷', q: { ca: 'Quan començaré a tocar estàndards de jazz?', es: '¿Cuándo empezaré a tocar estándares de jazz?' }, a: { ca: 'Els estàndards de jazz arriben al Nivell 2, un cop hagis consolidat el Nivell Fonamental. Això és intencionat: abans de submergir-te en el blues i el jazz, necessites una base sòlida de tècnica, ritme, oïda i harmonia bàsica que et permeti afrontar aquests llenguatges amb garanties.\nAl Nivell 2 hi haurà dues línies de treball paral·leles que podràs anar completant al teu ritme: una línia de repertori clàssic i una altra de moderna/jazz, de manera que cada bloc tindrà contingut per a totes dues vessants. Així podràs especialitzar-te en el que més t\'interessi, o bé formar-te com a músic complet.', es: 'Los estándares de jazz llegan en el Nivel 2, una vez hayas consolidado el Nivel Fundamental. Esto es intencionado: antes de sumergirte en el blues y el jazz, necesitas una base sólida de técnica, ritmo, oído y armonía básica que te permita abordar estos lenguajes con garantías.\nEn el Nivel 2 habrá dos líneas de trabajo paralelas que podrás ir completando a tu ritmo: una línea de repertorio clásico y otra de moderna/jazz, de modo que cada bloque tendrá contenido para ambas vertientes. Así podrás especializarte en lo que más te interese, o bien formarte como músico completo.' } },
+  { ico: '📈', q: { ca: 'Com veig el meu progrés i com em corregiu?', es: '¿Cómo veo mi progreso y cómo me corregís?' }, a: { ca: 'El mode de Seguiment Continuat 🎯 t\'indica exactament quin és el següent pas i mesura el teu percentatge de progrés. A més, cada vídeo disposa d\'un espai de notes personals on pots apuntar dubtes o observacions, i el mètode es complementa amb aplicacions interactives d\'entrenament exclusives d\'aquesta escola.', es: 'El modo de Seguimiento Continuo te indica exactamente cuál es el siguiente paso y mide tu porcentaje de progreso. Además, cada vídeo dispone de un espacio de notas personales donde puedes apuntar dudas u observaciones, y el método se complementa con aplicaciones interactivas de entrenamiento exclusivas de esta escuela.' } },
+  { ico: '🎸', q: { ca: '"Jo només vull tocar acords"', es: '"Yo solo quiero tocar acordes"' }, a: { ca: 'Perfecte! Aprendràs a acompanyar amb acords des del primer dia. No obstant això, compta que és només una petita part de l\'ensenyament: el mètode es construeix amb una combinació de disciplines per entendre la música de veritat.', es: '¡Perfecto! Aprenderás a acompañar con acordes desde el primer día. No obstante, ten en cuenta que es solo una pequeña parte de la enseñanza: el método se construye con una combinación de disciplinas para entender la música de verdad.' } },
+  { ico: '🎼', q: { ca: 'Puc aprendre sense saber música?', es: '¿Puedo aprender sin saber música?' }, a: { ca: 'I tant! El mètode està dissenyat per començar des de zero. Aprendràs a tocar acords i melodies sense necessitat de saber solfeig inicialment, tot i que el mètode t\'ensenyarà gradualment els conceptes teòrics necessaris.', es: '¡Por supuesto! El método está diseñado para empezar desde cero. Aprenderás a tocar acordes y melodías sin necesidad de saber solfeo inicialmente, aunque el método te enseñará gradualmente los conceptos teóricos necesarios.' } },
+  { ico: '📞', q: { ca: 'Et puc trucar per dubtes?', es: '¿Te puedo llamar por dudas?' }, a: { ca: 'No, no em pots trucar. Quan tinguis dubtes, pots utilitzar l\'espai de notes personals de cada vídeo i enviar-les per em@il al professor si ho necessites.', es: 'No, no me puedes llamar. Cuando tengas dudas, puedes utilizar el espacio de notas personales de cada vídeo y enviarlas por em@il al profesor si lo necesitas.' } },
+  { ico: '🚪', q: { ca: 'Me\'n puc donar de baixa quan vulgui?', es: '¿Me puedo dar de baja cuando quiera?' }, a: { ca: 'I tant. No hi ha permanència. Pots cancel·lar la teva subscripció en qualsevol moment amb un parell de clics.\nA més, si en inscriure\'t no estàs content amb el contingut, t\'oferim una garantia de devolució de 7 dies.', es: 'Por supuesto. No hay permanencia. Puedes cancelar tu suscripción en cualquier momento con un par de clics. Además, si al inscribirte no estás contento con el contenido, te ofrecemos una garantía de devolución de 7 días.' } }
+];
+
+/* ================================================================
+   5. OV: DADES EDITABLES PERSISTIDES DINS DEL FITXER
+   Entre els marcadors OV-START / OV-END es guarda (en guardar amb 💾):
+     t    : títols de vídeo sobreescrits      { id: {ca, es} }
+     d    : descripcions sobreescrites        { id: {ca, es} }
+     l    : enllaços Drive per idioma         { id: {ca, es} }
+     f    : textos de FAQ sobreescrits        { i: {q:{ca,es}, a:{ca,es}} }
+     a    : textos d'apps sobreescrits        { i: {n:{ca,es}, d:{ca,es}} }
+     adj  : enllaços Drive dels documents     { 'si.ui.b.idx': idDrive }
+     va   : adjunts assignats a cada vídeo    { idVideo: ['si.ui.idx', ...] }
+     order: ordre global de reproducció        [ idVideo, ... ]
+     imp  : importància de cada vídeo         { idVideo: 'important'|'optional' }
+     h    : textos d'ajuda sobreescrits       { i: {t:{ca,es}, p:{ca,es}} }
+   ================================================================ */
+var OV = /*OV-START*/{"t":{},"d":{},"l":{},"f":{},"a":{},"adj":{},"va":{},"order":[],"imp":{},"h":{}};/*OV-END*/
+
+function faqGet(i, k) { var o = OV.f[i]; if (o && o[k] && o[k][LS.lang]) return esc(o[k][LS.lang]); return esc(FAQS[i][k][LS.lang]); }
+function appName(a, i) { var o = OV.a && OV.a[i]; return (o && o.n && o.n[LS.lang]) ? esc(o.n[LS.lang]) : a.n[LS.lang]; }
+function appDesc(a, i) { var o = OV.a && OV.a[i]; return (o && o.d && o.d[LS.lang]) ? esc(o.d[LS.lang]) : a.d[LS.lang]; }
+
+// Text d'ajuda (amb possible sobreescriptura editorial)
+function helpText(i, k, fallback) {
+  var o = OV.h && OV.h[i];
+  if (o && o[k] && o[k][LS.lang]) return o[k][LS.lang];
+  return fallback;
+}
+
+// Títol i descripció d'un vídeo (amb possible sobreescriptura editorial)
+function vidTitle(v, id) { var o = OV.t[id]; return (o && o[LS.lang]) ? esc(o[LS.lang]) : v[li()]; }
+function vidDesc(v, id, b) { var o = OV.d[id]; return (o && o[LS.lang]) ? esc(o[LS.lang]) : t().desc[b]; }
+
+// Enllaç de reproducció Drive d'un vídeo
+function driveSrc(v, id) {
+  var L = (OV.l[id] && OV.l[id][LS.lang]) || OV.l[id];
+  if (L !== undefined && L !== '') {
+    if (/^https?:\/\//.test(L)) {
+      var m = L.match(/\/d\/([a-zA-Z0-9_-]+)/);
+      var m2 = L.match(/[?&]id=([a-zA-Z0-9_-]+)/);
+      var pid = m ? m[1] : (m2 ? m2[1] : null);
+      return pid ? 'https://drive.google.com/file/d/' + pid + '/preview' : L;
+    }
+    return 'https://drive.google.com/file/d/' + L + '/preview';
+  }
+  return v[2] ? 'https://drive.google.com/file/d/' + v[2] + '/preview' : null;
+}
+
+/* ================================================================
+   6. SISTEMA D'ORDRE GLOBAL DE REPRODUCCIÓ
+   ================================================================ */
+
+function isWelcomeId(id) { return parseInt(id.split('.')[0], 10) === 0; }
+function isGiftId(id) { return id.indexOf('gift.') === 0; }
+
+// Assegura que OV.order contingui exactament tots els vídeos actuals:
+// elimina els que ja no existeixen i afegeix al final els nous.
+function initializeOrder() {
+  if (!OV.order || !Array.isArray(OV.order)) OV.order = [];
+  var all = allVids();
+  OV.order = OV.order.filter(function (id) {
+    for (var i = 0; i < all.length; i++) { if (all[i].id === id) return true; }
+    return false;
+  });
+  all.forEach(function (v) { if (OV.order.indexOf(v.id) === -1) OV.order.push(v.id); });
+}
+
+// Intercanvia dues posicions dins de l'ordre global i refresca la vista
+function swapOrder(idA, idB) {
+  initializeOrder();
+  var ia = OV.order.indexOf(idA);
+  var ib = OV.order.indexOf(idB);
+  if (ia === -1 || ib === -1) return;
+  OV.order[ia] = idB;
+  OV.order[ib] = idA;
+  render();
+}
+
+// Número visible d'un vídeo (1..N). Benvinguda = 0 (sense número), regals = al final.
+function getVideoOrder(videoId) {
+  initializeOrder();
+  if (isWelcomeId(videoId)) return 0;
+  if (isGiftId(videoId)) return 9998;
+  var count = 0;
+  for (var i = 0; i < OV.order.length; i++) {
+    var id = OV.order[i];
+    if (isWelcomeId(id) || isGiftId(id)) continue;
+    count++;
+    if (id === videoId) return count;
+  }
+  return 9999;
+}
+
+// Mou un vídeo a una posició concreta intercanviant-lo amb qui l'ocupa
+function reorderVideo(videoId, newOrder) {
+  initializeOrder();
+  var numbered = OV.order.filter(function (id) { return !isWelcomeId(id) && !isGiftId(id); });
+  var cur = numbered.indexOf(videoId);
+  if (cur === -1) return;
+  var target = newOrder - 1;
+  if (target < 0 || target >= numbered.length || target === cur) return;
+  swapOrder(videoId, numbered[target]);
+}
+
+// Importància d'un vídeo: 'important' (⭐) per defecte o 'optional' (⭕)
+function getVideoImportance(videoId) {
+  if (!OV.imp || typeof OV.imp !== 'object') OV.imp = {};
+  return OV.imp[videoId] === 'optional' ? 'optional' : 'important';
+}
+function toggleVideoImportance(videoId) {
+  if (!OV.imp || typeof OV.imp !== 'object') OV.imp = {};
+  OV.imp[videoId] = (getVideoImportance(videoId) === 'important') ? 'optional' : 'important';
+  render();
+}
+
+// Llista plana de tots els vídeos del curs (id, dades, nivell, unitat, bloc)
+function allVids() {
+  var o = [];
+  D.forEach(function (s, si) {
+    if (!s.u) return;
+    s.u.forEach(function (u, ui) {
+      BO.forEach(function (b) {
+        var bl = u[b];
+        if (bl && bl.v) bl.v.forEach(function (v, vi) {
+          o.push({ id: si + '.' + ui + '.' + b + '.' + vi, v: v, si: si, ui: ui, b: b });
+        });
+      });
+    });
+  });
+  return o;
+}
+
+function findVidById(id) {
+  var all = allVids();
+  for (var i = 0; i < all.length; i++) { if (all[i].id === id) return all[i]; }
+  return null;
+}
+
+// Següent vídeo pendent, seguint l'ORDRE GLOBAL.
+// Inclou la benvinguda (si no està feta, es proposa primer). Els regals mai.
+function findNext() {
+  initializeOrder();
+  for (var i = 0; i < OV.order.length; i++) {
+    var id = OV.order[i];
+    if (isGiftId(id)) continue;
+    if (!LS.done[id]) {
+      var v = findVidById(id);
+      if (v) return v;
+    }
+  }
+  return null;
+}
+// Nivell intel·ligent per a Navegació Lliure:
+//  - si la benvinguda NO està completa → nivell 0, bloc 'w'
+//  - si està completa → primer nivell (segons ordre global) amb algun vídeo pendent
+function smartFreeLevel() {
+  var all = allVids();
+  var welcome = all.filter(function (x) { return x.si === 0; });
+  var welcomeDone = welcome.length > 0 && welcome.every(function (x) { return LS.done[x.id]; });
+  if (!welcomeDone) {
+    freeLevel = 0;
+    freeBlock = 'w';
+    return;
+  }
+  initializeOrder();
+  for (var i = 0; i < OV.order.length; i++) {
+    var id = OV.order[i];
+    if (isWelcomeId(id) || isGiftId(id)) continue;
+    if (!LS.done[id]) {
+      var v = findVidById(id);
+      if (v) { freeLevel = v.si; break; }
+    }
+  }
+  if (freeBlock === 'w') freeBlock = 't';
+}
+
+// Progrés (fets / total / %) d'una llista de vídeos
+function prog(l) {
+  var d = 0;
+  l.forEach(function (x) { if (LS.done[x.id]) d++; });
+  return { d: d, n: l.length, p: l.length ? Math.round(d / l.length * 100) : 0 };
+}
+
+/* ================================================================
+   7. ADJUNTS (DEL BLOC I PER VÍDEO)
+   ================================================================ */
+
+function docsOf(si, ui, b) {
+  if (!D[si] || !D[si].u || !D[si].u[ui]) return [];
+  var bl = D[si].u[ui][b];
+  return (bl && bl.d) ? bl.d : [];
+}
+
+// Enllaç Drive d'un document del bloc
+function getAdjLink(si, ui, b, docIdx) { var key = si + '.' + ui + '.' + b + '.' + docIdx; return OV.adj && OV.adj[key] ? OV.adj[key] : null; }
+function setAdjLink(si, ui, b, docIdx, val) { OV.adj = OV.adj || {}; var key = si + '.' + ui + '.' + b + '.' + docIdx; if (val === null || val === '') delete OV.adj[key]; else OV.adj[key] = val; }
+
+// Adjunts assignats a un vídeo concret
+function getVidAdjKeys(id) {
+  var keys = (OV.va && OV.va[id]) || [];
+  if (keys.length > 0 && typeof keys[0] === 'number') return []; // dades antigues: ignorar
+  return keys;
+}
+function setVidAdjKeys(id, keysArr) {
+  OV.va = OV.va || {};
+  if (!keysArr || !keysArr.length) delete OV.va[id]; else OV.va[id] = keysArr;
+}
+
+function parseDriveId(val) {
+  if (!val) return null;
+  val = val.trim();
+  if (!val) return null;
+  var m = val.match(/\/d\/([a-zA-Z0-9_-]+)/);
+  if (m) return m[1];
+  var m2 = val.match(/[?&]id=([a-zA-Z0-9_-]+)/);
+  if (m2) return m2[1];
+  return val;
+}
+
+// Construeix el botó + panell desplegable d'adjunts d'un bloc
+function mkAdj(docs, si, ui, b) {
+  var btn = document.createElement('button');
+  btn.className = 'adjb';
+  btn.textContent = t().adj + ' (' + docs.length + ')';
+
+  var box = document.createElement('div');
+  box.className = 'docs';
+
+  var headerHTML = '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid var(--line)">';
+  headerHTML += '<span style="font-size:12px;color:var(--mut);font-weight:600">Documents d\'aquest bloc</span>';
+  if (editModeOn && si !== null && ui !== null) headerHTML += '<button class="add-doc-btn">+ Nou document</button>';
+  headerHTML += '</div>';
+
+  var rows = '';
+  docs.forEach(function (dc, idx) {
+    var driveId = getAdjLink(si, ui, b, idx);
+    var linkHtml = '';
+    if (driveId) linkHtml = ' <a href="https://drive.google.com/file/d/' + driveId + '/view" target="_blank" style="color:var(--ok)">↗</a>';
+    var editHtml = '';
+    if (editModeOn) {
+      editHtml = '<div style="display:flex;gap:5px;align-items:center;margin-top:4px">';
+      editHtml += '<input type="text" class="doc-name-edit" data-si="' + si + '" data-ui="' + ui + '" data-b="' + b + '" data-idx="' + idx + '" value="' + esc(dc[li()]) + '" style="flex:1;background:var(--bg);border:1px solid var(--line);border-radius:4px;padding:3px 6px;font-size:11px;color:var(--ink)">';
+      editHtml += '<input type="text" class="doc-link-edit" data-si="' + si + '" data-ui="' + ui + '" data-b="' + b + '" data-idx="' + idx + '" value="' + (driveId || '') + '" placeholder="ID de Google Drive" style="flex:1.5;background:var(--bg);border:1px solid var(--line);border-radius:4px;padding:3px 6px;font-size:11px;color:var(--ink)">';
+      editHtml += '<button class="del-doc-btn" data-si="' + si + '" data-ui="' + ui + '" data-b="' + b + '" data-idx="' + idx + '" style="background:var(--danger);color:#fff;border:none;border-radius:4px;padding:3px 6px;font-size:10px;cursor:pointer">🗑️</button>';
+      editHtml += '</div>';
+    }
+    rows += '<div class="doc" style="flex-direction:column;align-items:stretch;padding:8px 10px">' +
+      '<div style="display:flex;align-items:center;gap:8px">' +
+      '<span style="font-size:14px">' + (DI[dc[2]] || '📄') + '</span>' +
+      '<span style="flex:1;font-weight:600">' + dc[li()] + '</span>' + linkHtml +
+      '</div>' + editHtml + '</div>';
+  });
+
+  box.innerHTML = headerHTML + rows;
+  btn.onclick = function () { box.classList.toggle('on'); };
+
+  // En mode edició: wiregem els controls de cada document
+  if (editModeOn) {
+    setTimeout(function () {
+      var addBtn = box.querySelector('.add-doc-btn');
+      if (addBtn) {
+        addBtn.onclick = function () {
+          var name = prompt('Nom del document (en ' + LS.lang + '):', 'Nou document');
+          if (!name) return;
+          var link = prompt('ID de Google Drive (deixa buit si no tens):', '');
+          docs.push([name, name, 'd']);
+          var newIdx = docs.length - 1;
+          if (link && link.trim() !== '') setAdjLink(si, ui, b, newIdx, parseDriveId(link));
+          render();
+        };
+      }
+      box.querySelectorAll('.doc-name-edit').forEach(function (input) {
+        input.onchange = function () {
+          var doc = docsOf(+this.dataset.si, +this.dataset.ui, this.dataset.b)[+this.dataset.idx];
+          var newName = this.value.trim();
+          if (!doc || !newName) return;
+          var lang = LS.lang === 'ca' ? 0 : 1;
+          doc[lang] = newName;
+          if (!doc[lang === 0 ? 1 : 0]) doc[lang === 0 ? 1 : 0] = newName;
+        };
+        input.onblur = input.onchange;
+      });
+      box.querySelectorAll('.doc-link-edit').forEach(function (input) {
+        input.onchange = function () {
+          setAdjLink(+this.dataset.si, +this.dataset.ui, this.dataset.b, +this.dataset.idx, parseDriveId(this.value));
+        };
+        input.onblur = input.onchange;
+      });
+      box.querySelectorAll('.del-doc-btn').forEach(function (btnDel) {
+        btnDel.onclick = function () {
+          if (!confirm('Segur que vols eliminar aquest document?')) return;
+          var si2 = +this.dataset.si, ui2 = +this.dataset.ui, b2 = this.dataset.b, idx2 = +this.dataset.idx;
+          var key = si2 + '.' + ui2 + '.' + b2 + '.' + idx2;
+          if (OV.adj && OV.adj[key]) delete OV.adj[key];
+          docsOf(si2, ui2, b2).splice(idx2, 1);
+          render();
+        };
+      });
+    }, 0);
+  }
+  return { btn: btn, box: box };
+}
+
+function adjParts(si, ui, b) {
+  var docs = docsOf(si, ui, b);
+  if (!docs.length) return null;
+  return mkAdj(docs, si, ui, b);
+}
+
+// Modal per assignar adjunts del bloc a un vídeo concret
+var adjSelState = null;
+function openAdjSelector(id, si, ui, b) {
+  var allDocs = [];
+  var seen = {};
+  D.forEach(function (s, sIdx) {
+    if (!s.u) return;
+    s.u.forEach(function (u, uIdx) {
+      docsOf(sIdx, uIdx, b).forEach(function (dc, dIdx) {
+        var keyName = dc[li()];
+        if (!seen[keyName]) {
+          seen[keyName] = true;
+          allDocs.push({ dc: dc, si: sIdx, ui: uIdx, idx: dIdx, uniqueKey: sIdx + '.' + uIdx + '.' + dIdx });
+        }
+      });
+    });
+  });
+  if (!allDocs.length) return;
+
+  var currentSelection = getVidAdjKeys(id);
+  adjSelState = { id: id, allDocs: allDocs, currentSelection: currentSelection.slice() };
+
+  $('adjSelTitle').textContent = t().vidAdjSelTitle;
+  $('adjSelCancel').textContent = t().vidAdjCancel;
+  $('adjSelOk').textContent = t().vidAdjOk;
+
+  var list = $('adjSelList');
+  list.innerHTML = '';
+  allDocs.forEach(function (item) {
+    var isSelected = currentSelection.indexOf(item.uniqueKey) >= 0;
+    var driveId = getAdjLink(item.si, item.ui, b, item.idx);
+    var div = document.createElement('div');
+    div.className = 'aditem' + (isSelected ? ' sel' : '');
+    var cb = document.createElement('input');
+    cb.type = 'checkbox';
+    cb.checked = isSelected;
+    cb.onchange = function () {
+      if (this.checked) {
+        if (adjSelState.currentSelection.indexOf(item.uniqueKey) < 0) adjSelState.currentSelection.push(item.uniqueKey);
+      } else {
+        var pos = adjSelState.currentSelection.indexOf(item.uniqueKey);
+        if (pos >= 0) adjSelState.currentSelection.splice(pos, 1);
+      }
+      div.classList.toggle('sel', this.checked);
+    };
+    var span = document.createElement('span');
+    span.className = 'adi';
+    span.textContent = (DI[item.dc[2]] || '📄') + ' ' + item.dc[li()] + (driveId ? ' (🔗)' : '');
+    div.appendChild(cb);
+    div.appendChild(span);
+    list.appendChild(div);
+  });
+  $('adjSelModal').classList.add('on');
+}
+
+$('adjSelCancel').onclick = function () { $('adjSelModal').classList.remove('on'); adjSelState = null; };
+$('adjSelOk').onclick = function () {
+  if (!adjSelState) return;
+  setVidAdjKeys(adjSelState.id, adjSelState.currentSelection);
+  $('adjSelModal').classList.remove('on');
+  adjSelState = null;
+  render();
+};
+document.addEventListener('keydown', function (e) {
+  if (e.key !== 'Escape') return;
+  if ($('adjSelModal').classList.contains('on')) $('adjSelCancel').onclick();
+  else if ($('helpModal').classList.contains('on')) $('helpModal').classList.remove('on');
+  else if ($('faqModal').classList.contains('on')) $('faqModal').classList.remove('on');
+});
+
+/* ================================================================
+   8. MODE EDICIÓ I GUARDAT DEL FITXER
+   ================================================================ */
+// Recull dels elements contentEditable els textos editats i els guarda a OV
+function collectAll() {
+  document.querySelectorAll('[data-ovid]').forEach(function (el) {
+    var id = el.dataset.ovid, k = el.dataset.ovk, txt = el.innerText.trim();
+    if (k === 't') { OV.t[id] = OV.t[id] || {}; OV.t[id][LS.lang] = txt; }
+    else { OV.d[id] = OV.d[id] || {}; OV.d[id][LS.lang] = txt; }
+  });
+  document.querySelectorAll('[data-fqi]').forEach(function (el) {
+    var i = el.dataset.fqi, k = el.dataset.fqk;
+    OV.f[i] = OV.f[i] || { q: {}, a: {} };
+    OV.f[i][k] = OV.f[i][k] || {};
+    OV.f[i][k][LS.lang] = el.innerText.trim();
+  });
+  document.querySelectorAll('[data-ovaid]').forEach(function (el) {
+    var i = el.dataset.ovaid, k = el.dataset.ovak, txt = el.innerText.trim();
+    OV.a = OV.a || {};
+    OV.a[i] = OV.a[i] || { n: {}, d: {} };
+    OV.a[i][k] = OV.a[i][k] || {};
+    OV.a[i][k][LS.lang] = txt;
+  });
+  document.querySelectorAll('[data-hi]').forEach(function (el) {
+    var i = el.dataset.hi, k = el.dataset.hk, txt = el.innerText.trim();
+    OV.h = OV.h || {};
+    OV.h[i] = OV.h[i] || { t: {}, p: {} };
+    OV.h[i][k] = OV.h[i][k] || {};
+    OV.h[i][k][LS.lang] = txt;
+  });
+}
+
+function applyLinkLabel(row, id) {
+  var b = row.querySelector('.lkbtn');
+  if (!b) return;
+  var hasLink = (OV.l[id] && OV.l[id][LS.lang]) || OV.l[id];
+  b.textContent = hasLink ? '🔗✔' : '🔗';
+}
+
+// Afegeix/treu els controls d'edició (link, adjunts, contentEditable) a cada vídeo
+function applyEditState() {
+  document.querySelectorAll('.vt[data-ovid],.vd[data-ovid],.faqtxt[data-fqi],.faq-item p[data-fqi],.appcard h3[data-ovaid],.appcard p[data-ovaid],.help-title[data-hi],.help-para[data-hi]').forEach(function (el) {
+    if (editModeOn) { el.contentEditable = 'true'; el.classList.add('editing'); }
+    else { el.removeAttribute('contenteditable'); el.classList.remove('editing'); }
+  });
+
+  document.querySelectorAll('.vid').forEach(function (row) {
+    var acts = row.querySelector('.acts');
+    var ex = row.querySelector('.lkbtn');
+    var vex = row.querySelector('.vadbtn');
+    var id = row.id.slice(2);
+
+    if (editModeOn) {
+      // Botó d'enllaç Drive del vídeo
+      if (!ex) {
+        var b = document.createElement('button');
+        b.className = 'lkbtn';
+        b.type = 'button';
+        b.onclick = function (e) {
+          e.stopPropagation();
+          var cur = (OV.l[id] && OV.l[id][LS.lang]) || OV.l[id] || '';
+          var val = prompt(t().linkPrompt, cur);
+          if (val === null) return;
+          val = val.trim();
+          if (!val) {
+            if (OV.l[id] && OV.l[id][LS.lang]) delete OV.l[id][LS.lang];
+            if (OV.l[id] && Object.keys(OV.l[id]).length === 0) delete OV.l[id];
+            applyLinkLabel(row, id);
+            return;
+          }
+          var m = val.match(/\/d\/([a-zA-Z0-9_-]+)/);
+          if (m) val = m[1];
+          else { var m2 = val.match(/[?&]id=([a-zA-Z0-9_-]+)/); if (m2) val = m2[1]; }
+          OV.l[id] = OV.l[id] || {};
+          OV.l[id][LS.lang] = val;
+          applyLinkLabel(row, id);
+        };
+        acts.appendChild(b);
+        applyLinkLabel(row, id);
+      }
+      // Botó d'adjunts assignables al vídeo
+      if (!vex) {
+        var parts = id.split('.');
+        if (parts.length >= 4) {
+          var si = parseInt(parts[0], 10), ui = parseInt(parts[1], 10), blk = parts[2];
+          var vb = document.createElement('button');
+          vb.className = 'vadbtn';
+          vb.type = 'button';
+          vb.textContent = t().vidAdjBtn;
+          vb.title = t().vidAdjSelTitle;
+          vb.onclick = function (e) { e.stopPropagation(); openAdjSelector(id, si, ui, blk); };
+          acts.appendChild(vb);
+        }
+      }
+    } else {
+      if (ex) ex.remove();
+      if (vex) vex.remove();
+    }
+  });
+}
+
+function toggleEditMode(force) {
+  var newState = (force === undefined) ? !editModeOn : force;
+  if (newState && !editModeOn && currentUserRole() !== 'admin') {
+    alert(LS.lang === 'ca' ? 'Només l\'administrador pot entrar en mode edició.' : 'Solo el administrador puede entrar en modo edición.');
+    return;
+  }
+  editModeOn = newState;
+  if (!editModeOn) collectAll();
+  $('mEdit').classList.toggle('on', editModeOn);
+  render();
+}
+
+// Descàrrega de seguretat si el navegador no suporta showSaveFilePicker
+function fallbackDownload(html) {
+  var b = new Blob([html], { type: 'text/html' });
+  var a = document.createElement('a');
+  a.href = URL.createObjectURL(b);
+  a.download = 'index.html';
+  document.body.appendChild(a);
+  a.click();
+  setTimeout(function () { URL.revokeObjectURL(a.href); a.remove(); }, 500);
+  alert(t().savedOk);
+}
+
+// Genera un index.html nou amb OV actualitzat i el desa
+function saveAsFile() {
+  collectAll();
+  var wasEdit = editModeOn;
+  toggleEditMode(false);
+  $('trackView').innerHTML = ''; $('freeView').innerHTML = ''; $('appsView').innerHTML = ''; $('infoView').innerHTML = '';
+  var html = '<!DOCTYPE html>\n' + document.documentElement.outerHTML;
+  html = html.replace(/\/\*OV-START\*\/[\s\S]*?\/\*OV-END\*\//, '/*OV-START*/' + JSON.stringify(OV) + ';/*OV-END*/');
+  toggleEditMode(wasEdit);
+  render();
+  if (window.showSaveFilePicker) {
+    showSaveFilePicker({ suggestedName: 'index.html', types: [{ description: 'Pàgina HTML', accept: { 'text/html': ['.html'] } }] })
+      .then(function (h) { return h.createWritable(); })
+      .then(function (w) { return w.write(html).then(function () { return w.close(); }); })
+      .then(function () { alert(t().savedOk); })
+      .catch(function (e) {
+        if (e && (e.name === 'AbortError' || String(e).toLowerCase().includes('cancel'))) console.log('Guardat cancel·lat');
+        else fallbackDownload(html);
+      });
+  } else {
+    fallbackDownload(html);
+  }
+}
+
+/* ================================================================
+   9. CONSTRUCCIÓ DE LA TARGETA DE VÍDEO
+   ================================================================ */
+
+function makeVid(v, id, track, tag) {
+  var b = id.split('.')[2];
+  var si = parseInt(id.split('.')[0], 10);
+  var ui = parseInt(id.split('.')[1], 10);
+
+  var row = document.createElement('div');
+  row.className = 'vid';
+  row.id = 'v_' + id;
+
+  // --- Número d'ordre i icona d'importància ---
+  var orderNum = getVideoOrder(id);
+  var importance = getVideoImportance(id);
+  var importanceIcon = importance === 'important' ? '⭐' : '⭕';
+  var importanceTitle = importance === 'important'
+    ? (LS.lang === 'ca' ? 'Vídeo important: no te\'l saltis' : 'Vídeo importante: no te lo saltes')
+    : (LS.lang === 'ca' ? 'Vídeo opcional: pots saltar-lo si tens pressa' : 'Vídeo opcional: puedes saltarlo si tienes prisa');
+  var numberHtml = '';
+  var importanceHtml = '';
+  if (si !== 0 && !isGiftId(id)) {
+    if (editModeOn) {
+      // Admin: número editable + icona editable
+      numberHtml = '<div class="vid-number editable" title="' + (LS.lang === 'ca' ? 'Canviar ordre' : 'Cambiar orden') + '">' + orderNum + '</div>';
+      importanceHtml = '<div class="vid-importance editable" title="' + importanceTitle + '">' + importanceIcon + '</div>';
+    } else {
+      // Alumne: només la icona d'importància
+      importanceHtml = '<div class="vid-importance" title="' + importanceTitle + '">' + importanceIcon + '</div>';
+    }
+  }
+
+  // --- Notes personals ---
+  var nkey = 'gjps_notes_' + LS.user + '_' + id;
+  var hasNotes = false;
+  try { hasNotes = lsJSON(nkey, []).length > 0; } catch (e) {}
+  var ntClass = 'nt' + (hasNotes ? ' has-notes' : '');
+
+  row.innerHTML =
+    (tag ? '<div class="stagetag">' + tag + '</div>' : '') +
+    numberHtml + importanceHtml +
+    '<div style="position:relative" class="vr">' +
+      '<button class="play">▶</button>' +
+      '<div class="vt" data-ovid="' + id + '" data-ovk="t">' + vidTitle(v, id) + '</div>' +
+    '</div>' +
+    '<div class="acts">' +
+      '<button class="ck' + (LS.done[id] ? ' done' : '') + '">' + (LS.done[id] ? t().undo : (track ? t().doneCont : t().mark)) + '</button>' +
+      '<button class="bk' + (isBookmarked(id) ? ' bookmarked' : '') + '">' + (isBookmarked(id) ? t().bookmarked : t().bookmark) + '</button>' +
+      '<button class="' + ntClass + '">' + t().notes + '</button>' +
+    '</div>' +
+    '<div class="inl"><iframe allow="autoplay" src=""></iframe><div class="inlb"><button class="mx">⛶</button><button class="cl">✕</button></div></div>' +
+    '<div class="vd" data-ovid="' + id + '" data-ovk="d">' + vidDesc(v, id, b) + '</div>' +
+    '<div class="notes"><div class="ntitle">' + t().notesTitle + '</div><div class="nlist"></div>' +
+      '<textarea placeholder="' + t().notesPh + '"></textarea>' +
+      '<button class="save-note-btn" style="display:none;">' + t().saveNote + '</button>' +
+    '</div>';
+
+  // --- Accions bàsiques ---
+  row.querySelector('.play').onclick = function () { var src = driveSrc(v, id); if (!src) { alert(t().soon); return; } openFullscreenVideo(src); };
+  row.querySelector('.mx').onclick = function () { var src = driveSrc(v, id); if (src) openFullscreenVideo(src); };
+  row.querySelector('.cl').onclick = function () { row.querySelector('.inl').classList.remove('on'); row.querySelector('.inl iframe').src = ''; };
+  row.querySelector('.ck').onclick = function () {
+    if (editModeOn) return;
+    if (LS.done[id]) delete LS.done[id]; else LS.done[id] = 1;
+    saveDone();
+    render();
+  };
+  row.querySelector('.bk').onclick = function () { if (editModeOn) return; toggleBookmark(id); render(); };
+  row.querySelector('.bk').title = isBookmarked(id) ? tt().bkOff : tt().bkOn;
+
+  // --- Edició d'ordre i importància (només admin) ---
+  if (editModeOn && si !== 0 && !isGiftId(id)) {
+    var numEl = row.querySelector('.vid-number.editable');
+    if (numEl) {
+      numEl.onclick = function (e) {
+        e.stopPropagation();
+        var currentOrder = getVideoOrder(id);
+        var answer = prompt(LS.lang === 'ca'
+          ? 'Nou número d\'ordre (actual: ' + currentOrder + '):'
+          : 'Nuevo número de orden (actual: ' + currentOrder + '):', currentOrder);
+        if (answer === null) return;
+        var num = parseInt(answer, 10);
+        if (isNaN(num) || num < 1) return;
+        reorderVideo(id, num);
+      };
+    }
+    var impEl = row.querySelector('.vid-importance.editable');
+    if (impEl) {
+      impEl.onclick = function (e) { e.stopPropagation(); toggleVideoImportance(id); };
+    }
+  }
+
+  // --- Notes personals: lògica interna ---
+  var nbox = row.querySelector('.notes');
+  var nta = nbox.querySelector('textarea');
+  var nlist = nbox.querySelector('.nlist');
+  var ntBtn = row.querySelector('.nt');
+  var saveBtn = nbox.querySelector('.save-note-btn');
+
+  function updateNoteButton() {
+    var currentNotes = lsJSON(nkey, []);
+    if (currentNotes.length > 0) {
+      ntBtn.classList.add('has-notes');
+      ntBtn.innerHTML = '✏️';
+      ntBtn.title = (LS.lang === 'ca'
+        ? 'Tens ' + currentNotes.length + ' nota' + (currentNotes.length > 1 ? 's' : '') + ' en aquest vídeo'
+        : 'Tienes ' + currentNotes.length + ' nota' + (currentNotes.length > 1 ? 's' : '') + ' en este vídeo');
+    } else {
+      ntBtn.classList.remove('has-notes');
+      ntBtn.innerHTML = t().notes;
+      ntBtn.title = (LS.lang === 'ca' ? 'Afegir notes personals sobre aquest vídeo' : 'Añadir notas personales sobre este vídeo');
+    }
+  }
+
+  function paintN() {
+    var currentNotes = lsJSON(nkey, []);
+    var h = '';
+    currentNotes.slice().reverse().forEach(function (n, ri) {
+      var realIdx = currentNotes.length - 1 - ri;
+      h += '<div class="note"><button class="ndel" data-idx="' + realIdx + '">✕</button><span class="ndate">' + fmtDate(n.t) + '</span>' + esc(n.n) + '</div>';
+    });
+    nlist.innerHTML = h;
+    nlist.querySelectorAll('.ndel').forEach(function (d) {
+      d.onclick = function () {
+        var notes = lsJSON(nkey, []);
+        notes.splice(parseInt(this.dataset.idx, 10), 1);
+        lsSet(nkey, JSON.stringify(notes));
+        paintN();
+      };
+    });
+    updateNoteButton();
+  }
+
+  function saveNote() {
+    var txt = nta.value.trim();
+    if (!txt) return;
+    var notes = lsJSON(nkey, []);
+    notes.push({ t: Date.now(), n: txt });
+    lsSet(nkey, JSON.stringify(notes));
+    nta.value = '';
+    paintN();
+  }
+
+  ntBtn.onclick = function () {
+    if (editModeOn) return;
+    var isOpen = nbox.classList.contains('on');
+    nbox.classList.toggle('on');
+    ntBtn.classList.toggle('active', !isOpen);
+    paintN();
+    saveBtn.style.display = !isOpen ? 'block' : 'none';
+  };
+  saveBtn.onclick = saveNote;
+  nta.addEventListener('keydown', function (e) {
+    if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) { e.preventDefault(); saveNote(); }
+  });
+  updateNoteButton();
+
+  // --- Adjunts assignats al vídeo (píndoles visibles) ---
+  var adjSection = document.createElement('div');
+  adjSection.className = 'vid-specific-adj';
+  adjSection.style.cssText = 'margin-top:12px; padding-top:12px; border-top:1px dashed var(--line); display:none;';
+  adjSection.innerHTML = '<div style="font-size:11px; color:var(--mut); font-weight:700; margin-bottom:8px; text-transform:uppercase; letter-spacing:1px;">📎 Material d\'aquest vídeo</div><div class="vid-adj-links" style="display:flex; gap:8px; flex-wrap:wrap;"></div>';
+  row.appendChild(adjSection);
+
+  setTimeout(function () {
+    var selectedKeys = getVidAdjKeys(id);
+    if (!selectedKeys || !selectedKeys.length) return;
+    adjSection.style.display = 'block';
+    var linksContainer = row.querySelector('.vid-adj-links');
+    selectedKeys.forEach(function (key) {
+      var parts = key.split('.');
+      var docs = docsOf(+parts[0], +parts[1], b);
+      var dc = docs[+parts[2]];
+      if (!dc) return;
+      var driveId = getAdjLink(+parts[0], +parts[1], b, +parts[2]);
+      if (!driveId) return;
+      var a = document.createElement('a');
+      a.href = 'https://drive.google.com/file/d/' + driveId + '/view';
+      a.target = '_blank';
+      a.style.cssText = 'background:rgba(232,176,75,0.1);border:1px solid var(--gold);color:var(--gold);border-radius:6px;padding:5px 10px;font-size:12px;font-weight:600;text-decoration:none;display:inline-flex;align-items:center;gap:6px;transition:all .2s';
+      a.innerHTML = '<span>📎</span>' + esc(dc[li()]);
+      a.onmouseover = function () { this.style.background = 'var(--gold)'; this.style.color = '#141414'; };
+      a.onmouseout = function () { this.style.background = 'rgba(232,176,75,0.1)'; this.style.color = 'var(--gold)'; };
+      linksContainer.appendChild(a);
+    });
+  }, 0);
+
+  return row;
+}
+
+// Tooltips d'acció de la llista de repàs
+function tt() {
+  return LS.lang === 'ca'
+    ? { open: 'Obrir aquest vídeo', remove: 'Treure de la llista de repàs', done: 'Marcar com a fet i treure de la llista', bkOn: 'Marcar per repassar més endavant', bkOff: 'Ja és a la llista de repàs. Clica per treure\'l.' }
+    : { open: 'Abrir este vídeo', remove: 'Quitar de la lista de repaso', done: 'Marcar como hecho y quitar de la lista', bkOn: 'Marcar para repasar más adelante', bkOff: 'Ya está en la lista de repaso. Clic para quitarlo.' };
+}
+function blockName(b) { return t().blocks[b] || b; }
+
+/* ================================================================
+   10. VISTES
+   ================================================================ */
+
+// --- Llista de repàs (comú a totes les vistes que el necessitin) ---
+function renderReviewBox(container) {
+  var bm = getBookmarks();
+  if (!bm.length) return;
+  var box = document.createElement('div');
+  box.className = 'reviewbox' + (reviewCollapsed ? ' collapsed' : '');
+  var h3 = document.createElement('h3');
+  h3.innerHTML = '<span>' + t().reviewTitle + ' (' + bm.length + ')</span><span class="toggle">▼</span>';
+  h3.onclick = function () { reviewCollapsed = !reviewCollapsed; box.classList.toggle('collapsed'); };
+  box.appendChild(h3);
+  var list = document.createElement('div');
+  list.className = 'rlist';
+  bm.forEach(function (id) {
+    var v = findVidById(id);
+    if (!v) return;
+    var item = document.createElement('div');
+    item.className = 'ritem';
+    var ti = document.createElement('span'); ti.className = 'rtitle'; ti.textContent = vidTitle(v.v, v.id);
+    var blk = document.createElement('span'); blk.className = 'rblk'; blk.textContent = blockName(v.b);
+    var bD = document.createElement('button'); bD.textContent = '✔'; bD.title = tt().done;
+    bD.onclick = function () { LS.done[id] = 1; saveDone(); toggleBookmark(id); render(); };
+    var bO = document.createElement('button'); bO.textContent = '▶'; bO.title = tt().open;
+    bO.onclick = function () { var src = driveSrc(v.v, id); if (src) openFullscreenVideo(src); };
+    var bX = document.createElement('button'); bX.textContent = '✕'; bX.title = tt().remove;
+    bX.onclick = function () { toggleBookmark(id); render(); };
+    item.appendChild(ti); item.appendChild(blk); item.appendChild(bD); item.appendChild(bO); item.appendChild(bX);
+    list.appendChild(item);
+  });
+  box.appendChild(list);
+  container.appendChild(box);
+}
+
+// --- Gràfics de progrés ---
+function donut(pct, color) {
+  return '<svg viewBox="0 0 42 42"><circle cx="21" cy="21" r="15.9155" fill="none" stroke="#242a35" stroke-width="4.5"></circle><circle cx="21" cy="21" r="15.9155" fill="none" stroke="' + color + '" stroke-width="4.5" stroke-linecap="round" stroke-dasharray="' + pct + ' ' + (100 - pct) + '" stroke-dashoffset="25"></circle><text x="21" y="23.8" text-anchor="middle" font-size="9" font-weight="700" fill="#f2f2f2">' + pct + '%</text></svg>';
+}
+function pieSlice(cx, cy, r, pct, color) {
+  if (pct <= 0) return '';
+  if (pct >= 100) return '<circle cx="' + cx + '" cy="' + cy + '" r="' + r + '" fill="' + color + '"/>';
+  var angle = pct / 100 * 2 * Math.PI;
+  var x1 = cx, y1 = cy - r;
+  var x2 = cx + r * Math.sin(angle);
+  var y2 = cy - r * Math.cos(angle);
+  var largeArc = pct > 50 ? 1 : 0;
+  return '<path d="M ' + cx + ' ' + cy + ' L ' + x1 + ' ' + y1 + ' A ' + r + ' ' + r + ' 0 ' + largeArc + ' 1 ' + x2 + ' ' + y2 + ' Z" fill="' + color + '"/>';
+}
+function fmtDate(ts) {
+  var d = new Date(ts);
+  var pad = function (n) { return n < 10 ? '0' + n : n; };
+  return pad(d.getDate()) + '/' + pad(d.getMonth() + 1) + '/' + d.getFullYear() + ' ' + pad(d.getHours()) + ':' + pad(d.getMinutes());
+}
+
+// --- VISTA: SEGUIMENT CONTINUAT ---
+function renderTrack() {
+  initializeOrder();
+  var all = allVids();
+  var next = findNext();
+  var tv = $('trackView');
+  tv.innerHTML = '';
+
+  var allDone = all.length > 0 && all.every(function (vid) { return LS.done[vid.id]; });
+
+  if (allDone) {
+    // Celebració de graduació amb trofeu giratori i regals
+    var celebration = document.createElement('div');
+    celebration.className = 'celebration';
+    celebration.innerHTML =
+      '<h2>🎓 FELICITATS! 🎓</h2>' +
+      '<div class="subtitle">' + t().allDone + '</div>' +
+      '<div class="trophy-container"><div class="trophy-glow"></div><div class="trophy">🏆</div></div>' +
+      '<div class="subtitle">' + t().giftTxt + '</div>';
+    var giftGrid = document.createElement('div');
+    giftGrid.className = 'gift-grid';
+    GIFT.forEach(function (g, i) {
+      var card = document.createElement('div');
+      card.className = 'gift-card';
+      card.innerHTML = '<h3>' + vidTitle(g, 'gift.' + i) + '</h3><p>' + (LS.lang === 'ca' ? 'Masterclass exclusiva' : 'Masterclass exclusiva') + '</p>';
+      card.onclick = function () { var src = driveSrc(g, 'gift.' + i); if (src) openFullscreenVideo(src); };
+      giftGrid.appendChild(card);
+    });
+    celebration.appendChild(giftGrid);
+    tv.appendChild(celebration);
+  } else if (next) {
+    var now = document.createElement('div');
+    now.className = 'now';
+    now.innerHTML = '<div class="ctx">' + D[next.si].n[LS.lang] + ' · ' + t().unit + ' ' + (next.ui + 1) + '</div>' +
+      '<div class="nowlbl">' + t().now + ' ' + t().blocks[next.b] + '</div>';
+    now.appendChild(makeVid(next.v, next.id, true, ''));
+    var ap = adjParts(next.si, next.ui, next.b);
+    if (ap) { now.appendChild(ap.btn); now.appendChild(ap.box); }
+    tv.appendChild(now);
+  }
+
+  // Donuts de progrés per bloc (sense comptar la benvinguda)
+  var dw = document.createElement('div');
+  dw.className = 'donuts';
+  var h = '';
+  BO.filter(function (b) { return b !== 'w'; }).forEach(function (b) {
+    var p = prog(all.filter(function (x) { return x.b === b; }));
+    h += '<div class="donut">' + donut(p.p, BC[b]) + '<div class="lbl">' + t().blocks[b] + '</div></div>';
+  });
+  var pt = prog(all);
+  h += '<div class="donut tot">' + donut(pt.p, '#e8b04b') + '<div class="lbl">' + t().total + '</div></div>';
+  dw.innerHTML = h;
+  tv.appendChild(dw);
+
+  renderReviewBox(tv);
+}
+
+// --- VISTA: NAVEGACIÓ LLIURE ---
+function renderFree() {
+  // Si el sistema ha de triar el nivell (entrada al mode o càrrega), ho fem ara
+  if (autoLevelPending) {
+    smartFreeLevel();
+    autoLevelPending = false;
+  }
+
+  var fv = $('freeView');
+  fv.innerHTML = '';
+
+  // Selector de nivell
+  var lr = document.createElement('div');
+  lr.className = 'lvls';
+  var sel = document.createElement('select');
+  LEVELS.forEach(function (L) {
+    var opt = document.createElement('option');
+    opt.value = L.id;
+    var label = L.n[LS.lang];
+    if (L.wip) label = '🚧 ' + label;
+    else if (L.pending) label = t().pendingIcon + ' ' + label;
+    opt.textContent = label;
+    if (L.id === freeLevel) opt.selected = true;
+    sel.appendChild(opt);
+  });
+  sel.onchange = function () {
+    freeLevel = parseInt(this.value, 10);
+    if (freeLevel !== 0 && freeBlock === 'w') freeBlock = 't';
+    if (freeLevel === 0) freeBlock = 'w';
+    autoLevelPending = false; // l'usuari mana a partir d'ara
+    render();
+  };
+  lr.appendChild(sel);
+  fv.appendChild(lr);
+
+  // Nivells no actius: cartell de "en construcció" o "properament"
+  var LV = null;
+  LEVELS.forEach(function (L) { if (L.id === freeLevel) LV = L; });
+  if (!LV || !LV.active) {
+    var w = document.createElement('div');
+    w.className = 'wipbox';
+    if (LV && LV.wip) w.innerHTML = '<div class="wipicon">🚧</div><h3>' + t().wipTitle + '</h3><p>' + t().wipMsg + '</p>';
+    else w.innerHTML = '<div class="wipicon">⏳</div><h3>' + (LV ? LV.n[LS.lang] : '') + '</h3><p>' + t().pendingMsg + '</p>';
+    fv.appendChild(w);
+    return;
+  }
+
+  // Botons de bloc (ocults al nivell de benvinguda)
+  if (freeLevel !== 0) {
+    var col = document.createElement('div');
+    col.className = 'blkcol';
+    var all = allVids();
+    BO.concat(['b']).forEach(function (b) {
+      if (b === 'w') return;
+      var btn = document.createElement('button');
+      if (b === freeBlock) btn.className = 'on';
+      btn.onclick = function () { freeBlock = b; render(); };
+      if (b === 'b') {
+        var n = getBookmarks().length;
+        btn.innerHTML = '<span class="bname">' + t().blocks.b + '</span><span class="bmini"><span class="bico">🔖</span><span class="bcount">' + n + '</span></span>';
+      } else {
+        var vidsInBlock = all.filter(function (x) { return x.b === b; });
+        var p = vidsInBlock.length ? prog(vidsInBlock).p : 0;
+        var miniChart = '<svg width="22" height="22" viewBox="0 0 24 24" style="flex:none"><circle cx="12" cy="12" r="11" fill="#242a35"/>' + pieSlice(12, 12, 11, p, (p === 100 ? '#39d98a' : BC[b])) + '</svg>';
+        btn.innerHTML = '<span class="bname">' + t().blocks[b] + '</span><span class="bmini">' + (p < 100 ? miniChart + '<span class="bpct">' + p + '%</span>' : '<span class="bpct" style="color:#39d98a">✔ Fet</span>') + '</span>';
+      }
+      col.appendChild(btn);
+    });
+    fv.appendChild(col);
+  }
+
+  // Bloc "Repàs": llista de marcadors
+  if (freeBlock === 'b') {
+    var bm = getBookmarks();
+    var gridB = document.createElement('div');
+    gridB.className = 'vgrid';
+    if (!bm.length) {
+      var empty = document.createElement('div');
+      empty.style.cssText = 'grid-column:1/-1;text-align:center;padding:40px;color:var(--mut);';
+      empty.innerHTML = '<div style="font-size:48px;margin-bottom:12px;opacity:.5">🔖</div><p>' + (LS.lang === 'ca' ? 'Encara no has marcat cap vídeo per repassar.' : 'Aún no has marcado ningún vídeo para repasar.') + '</p>';
+      gridB.appendChild(empty);
+    } else {
+      bm.forEach(function (id) {
+        var v = findVidById(id);
+        if (v) gridB.appendChild(makeVid(v.v, v.id, false, D[v.si].n[LS.lang]));
+      });
+    }
+    fv.appendChild(gridB);
+    return;
+  }
+
+  // Vídeos del bloc seleccionat (nivell 0 = només benvinguda; resta = tots els nivells)
+  var vids = [];
+  var seen = {};
+  D.forEach(function (s, si) {
+    if (!s.u) return;
+    if (freeLevel === 0 && si !== 0) return;
+    s.u.forEach(function (u, ui) {
+      var bl = u[freeBlock];
+      if (bl && bl.v) bl.v.forEach(function (v, vi) {
+        var key = v[li()];
+        if (seen[key]) return;
+        seen[key] = 1;
+        vids.push({ v: v, id: si + '.' + ui + '.' + freeBlock + '.' + vi, tag: s.n[LS.lang], si: si, ui: ui });
+      });
+    });
+  });
+  // Ordenem segons l'ordre global de reproducció
+  vids.sort(function (a, b) { return getVideoOrder(a.id) - getVideoOrder(b.id); });
+
+  // Documents del bloc
+  var docs = [];
+  var dseen = {};
+  D.forEach(function (s, si) {
+    if (!s.u) return;
+    if (freeLevel === 0 && si !== 0) return;
+    s.u.forEach(function (u, ui) {
+      var bl = u[freeBlock];
+      if (bl && bl.d) bl.d.forEach(function (dc) {
+        var key = dc[li()];
+        if (dseen[key]) return;
+        dseen[key] = 1;
+        docs.push(dc);
+      });
+    });
+  });
+
+  var head = document.createElement('div');
+  head.className = 'blkhead';
+  head.innerHTML = '<span class="blkt">' + t().blocks[freeBlock] + '</span>';
+
+  // Unitat on penjarem els documents del bloc (per al mode edició)
+  var targetUi = 0;
+  if (D[freeLevel] && D[freeLevel].u) {
+    for (var uIdx = 0; uIdx < D[freeLevel].u.length; uIdx++) {
+      var blk = D[freeLevel].u[uIdx][freeBlock];
+      if (blk && blk.d && blk.d.length > 0) { targetUi = uIdx; break; }
+    }
+  }
+  if (docs.length) {
+    var ap2 = mkAdj(docs, freeLevel, targetUi, freeBlock);
+    head.appendChild(ap2.btn);
+    fv.appendChild(head);
+    fv.appendChild(ap2.box);
+  } else {
+    fv.appendChild(head);
+  }
+
+  // Graella de vídeos + controls d'edició
+  var grid = document.createElement('div');
+  grid.className = 'vgrid';
+  vids.forEach(function (x) {
+    var vidEl = makeVid(x.v, x.id, false, x.tag);
+
+    if (editModeOn) {
+      var vIdx = -1;
+      for (var i = 0; i < vids.length; i++) { if (vids[i].id === x.id) { vIdx = i; break; } }
+
+      var editBtns = document.createElement('div');
+      editBtns.style.cssText = 'position:absolute;top:48px;right:8px;display:flex;gap:8px;z-index:10';
+
+      if (vIdx > 0) {
+        var upBtn = document.createElement('button');
+        upBtn.className = 'vid-order-btn';
+        upBtn.innerHTML = '<svg viewBox="0 0 24 24"><path d="M7 14l5-5 5 5z" fill="#141414"/></svg>';
+        upBtn.title = (LS.lang === 'ca' ? 'Pujar' : 'Subir');
+        upBtn.onclick = function (e) { e.stopPropagation(); swapOrder(x.id, vids[vIdx - 1].id); };
+        editBtns.appendChild(upBtn);
+      }
+      if (vIdx < vids.length - 1) {
+        var downBtn = document.createElement('button');
+        downBtn.className = 'vid-order-btn';
+        downBtn.innerHTML = '<svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z" fill="#141414"/></svg>';
+        downBtn.title = (LS.lang === 'ca' ? 'Baixar' : 'Bajar');
+        downBtn.onclick = function (e) { e.stopPropagation(); swapOrder(x.id, vids[vIdx + 1].id); };
+        editBtns.appendChild(downBtn);
+      }
+
+      var delBtn = document.createElement('button');
+      delBtn.className = 'vid-del-btn';
+      delBtn.innerHTML = '🗑️';
+      delBtn.title = (LS.lang === 'ca' ? 'Eliminar vídeo' : 'Eliminar vídeo');
+      delBtn.onclick = function (e) {
+        e.stopPropagation();
+        if (!confirm((LS.lang === 'ca' ? 'Segur que vols eliminar aquest vídeo?' : '¿Seguro que quieres eliminar este vídeo?') + '\n\n' + vidTitle(x.v, x.id))) return;
+        var bl3 = D[x.si].u[x.ui][x.id.split('.')[2]];
+        if (bl3 && bl3.v) {
+          var vIdx2 = -1;
+          for (var j = 0; j < bl3.v.length; j++) { if (bl3.v[j][li()] === x.v[li()]) { vIdx2 = j; break; } }
+          if (vIdx2 >= 0) {
+            bl3.v.splice(vIdx2, 1);
+            if (bl3.v.length === 0 && !bl3.d) delete D[x.si].u[x.ui][x.id.split('.')[2]];
+          }
+        }
+        render();
+      };
+      editBtns.appendChild(delBtn);
+      vidEl.appendChild(editBtns);
+    }
+    grid.appendChild(vidEl);
+  });
+
+  // Botó d'afegir vídeo nou (mode edició)
+  if (editModeOn) {
+    var addVidBtn = document.createElement('button');
+    addVidBtn.className = 'add-vid-btn';
+    addVidBtn.textContent = '+ ' + (LS.lang === 'ca' ? 'Afegir nou vídeo' : 'Añadir nuevo vídeo');
+    addVidBtn.onclick = function () {
+      var name = prompt((LS.lang === 'ca' ? 'Nom del vídeo (en ' + LS.lang + '):' : 'Nombre del vídeo (en ' + LS.lang + '):'), '');
+      if (!name) return;
+      var link = prompt('ID de Google Drive (deixa buit si no tens):', '');
+      var lastSi = D.length - 1;
+      var lastUi = D[lastSi].u.length - 1;
+      var bl = D[lastSi].u[lastUi][freeBlock];
+      if (!bl) bl = D[lastSi].u[lastUi][freeBlock] = { v: [] };
+      if (!bl.v) bl.v = [];
+      bl.v.push([name, name, link || '']);
+      render();
+    };
+    grid.appendChild(addVidBtn);
+  }
+  fv.appendChild(grid);
+}
+
+// --- VISTA: APPS ---
+function renderApps() {
+  var av = $('appsView');
+  av.innerHTML = '';
+  var g = document.createElement('div');
+  g.className = 'appgrid';
+  APPS.forEach(function (a, i) {
+    var c = document.createElement('div');
+    c.className = 'appcard';
+    // Si la icona és 'logo', mostrar la imatge; si no, l'emoji
+    var iconHtml = (a.e === 'logo')
+      ? '<img src="img/LOGO.png" alt="">'
+      : esc(a.e);
+    c.innerHTML = '<div class="ae">' + iconHtml + '</div><h3 data-ovaid="' + i + '" data-ovak="n">' + appName(a, i) + '</h3><p data-ovaid="' + i + '" data-ovak="d">' + appDesc(a, i) + '</p><button>' + t().appsOpen + '</button>';
+    c.querySelector('button').onclick = function () { if (a.url) window.open(a.url, '_blank'); else alert(t().appsSoon); };
+    g.appendChild(c);
+  });
+  av.appendChild(g);
+  applyEditState();
+}
+
+// --- VISTA: FAQ ---
+function renderInfo() {
+  var iv = $('infoView');
+  var h = '<h2>' + (LS.lang === 'ca' ? 'Preguntes Freqüents' : 'Preguntas Frecuentes') + '</h2>';
+  FAQS.forEach(function (f, i) {
+    var open = editModeOn ? true : !!faqOpen[i];
+    var icoHtml = (f.ico === 'logo') ? '<span class="faqico"><img src="img/LOGO.png" alt=""></span>' : '<span class="faqico">' + f.ico + '</span>';
+    h += '<div class="faq-item' + (open ? ' open' : '') + '"><h3>' + icoHtml + '<span class="faqtxt" data-fqi="' + i + '" data-fqk="q">' + faqGet(i, 'q') + '</span></h3><p data-fqi="' + i + '" data-fqk="a">' + faqGet(i, 'a') + '</p></div>';
+  });
+  iv.innerHTML = '<div class="info-container">' + h + '</div>';
+  setTimeout(function () {
+    iv.querySelectorAll('.faq-item').forEach(function (item, idx) {
+      item.querySelector('h3').onclick = function () {
+        if (editModeOn) return;
+        faqOpen[idx] = !faqOpen[idx];
+        item.classList.toggle('open');
+      };
+    });
+    applyEditState();
+  }, 0);
+}
+
+// FAQ per a visitants sense login
+function showGuestFAQ() {
+  var h = '';
+  FAQS.forEach(function (f, i) {
+    var icoHtml = (f.ico === 'logo') ? '<span class="faqico"><img src="img/LOGO.png" alt=""></span>' : '<span class="faqico">' + f.ico + '</span>';
+    h += '<div class="faq-item"><h3>' + icoHtml + '<span class="faqtxt">' + faqGet(i, 'q') + '</span></h3><p>' + faqGet(i, 'a') + '</p></div>';
+  });
+  $('faqGuestContent').innerHTML = h;
+  $('faqModal').classList.add('on');
+  setTimeout(function () {
+    $('faqGuestContent').querySelectorAll('.faq-item').forEach(function (item) {
+      item.querySelector('h3').onclick = function () { item.classList.toggle('open'); };
+    });
+  }, 0);
+}
+
+/* ================================================================
+   11. LOGIN I CANVI D'IDIOMA
+   ================================================================ */
+
+function showLogin() {
+  $('login').classList.add('on');
+  $('lgTitle').innerHTML =
+    '<div style="font-size:22px;font-weight:800;background:linear-gradient(90deg,#f7dc9a 0%,var(--gold) 45%,#c98f3a 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;margin-bottom:4px;">GIRONA JAZZ PIANO SCHOOL®</div>' +
+    '<div style="font-size:14px;color:var(--mut);font-weight:400;">' + (LS.lang === 'ca' ? 'Inicia sessió a l\'aula virtual' : 'Inicia sesión en el aula virtual') + '</div>';
+
+  var langDiv = $('loginLangSwitcher');
+  langDiv.innerHTML = '';
+  ['ca', 'es'].forEach(function (lang) {
+    var btn = document.createElement('button');
+    btn.textContent = lang === 'ca' ? 'CAT' : 'ESP';
+    if (LS.lang === lang) btn.className = 'on';
+    btn.onclick = function () { LS.lang = lang; lsSet('gjps_lang', lang); setLabels(); showLogin(); };
+    langDiv.appendChild(btn);
+  });
+
+  var oldFaqBtn = $('lgFaqBtn');
+  if (oldFaqBtn) oldFaqBtn.remove();
+  var faqBtn = document.createElement('button');
+  faqBtn.id = 'lgFaqBtn';
+  faqBtn.className = 'go secondary';
+  faqBtn.style.cssText = 'margin-top:22px;position:relative;top:20px;background:transparent;border:1px solid var(--line);color:var(--mut);font-size:var(--fs-btn);width:100%;';
+  faqBtn.textContent = (LS.lang === 'ca' ? '📖 Preguntes Freqüents (FAQ)' : '📖 Preguntas Frecuentes (FAQ)');
+  faqBtn.onclick = function () { showGuestFAQ(); };
+  $('loginLangSwitcher').parentNode.insertBefore(faqBtn, $('loginLangSwitcher'));
+
+  $('lgName').placeholder = t().lgName;
+  $('lgPin').placeholder = t().lgPin;
+  $('lgBtn').textContent = t().lgBtn;
+  $('lgErr').textContent = '';
+  $('lgPin').value = '';
+  $('lgName').value = '';
+  var dl = $('userlist');
+  dl.innerHTML = '';
+  USERS_DB.forEach(function (u) { if (u.role === 'admin') return; var o = document.createElement('option'); o.value = u.n; dl.appendChild(o); });
+  setTimeout(function () { $('lgName').focus(); }, 100);
+}
+
+function startSession(n) {
+  LS.user = n;
+  lsSet('gjps_session', n);
+  loadDone();
+  $('login').classList.remove('on');
+  render();
+}
+
+$('lgBtn').onclick = function () {
+  var err = $('lgErr');
+  err.textContent = '';
+  var name = $('lgName').value.trim();
+  var pin = $('lgPin').value;
+  if (!name) { err.textContent = t().lgErrEmpty; return; }
+  var u = findUser(name);
+  if (!u) { err.textContent = t().lgErrName; return; }
+  if (!pin) { err.textContent = t().lgErrPin; $('lgPin').focus(); return; }
+  if (u.p !== pin) { err.textContent = t().lgErrPin; $('lgPin').value = ''; $('lgPin').focus(); return; }
+  startSession(u.n);
+};
+$('lgPin').addEventListener('keydown', function (e) { if (e.key === 'Enter') $('lgBtn').onclick(); });
+$('lgName').addEventListener('keydown', function (e) { if (e.key === 'Enter') $('lgPin').focus(); });
+$('btnUser').onclick = function () {
+  lsSet('gjps_session', '');
+  LS.user = '';
+  LS.done = {};
+  editModeOn = false;
+  $('mEdit').classList.remove('on');
+  showLogin();
+};
+
+function setLabels() {
+  $('mTrack').textContent = t().mTrack;
+  $('mFree').textContent = t().mFree;
+  $('mApps').innerHTML = APPS_ICON() + ' Apps';
+  $('mInfo').textContent = 'FAQ';
+  $('mHelp').title = LS.lang === 'ca' ? 'Com funciona' : 'Cómo funciona';
+  $('mEdit').textContent = t().edit;
+  $('overlayText').textContent = t().overlayText;
+  $('langCur').textContent = (LS.lang === 'ca') ? 'CAT' : 'ESP';
+}
+function APPS_ICON() {
+  return '<svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor" style="vertical-align:middle"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>';
+}
+
+/* ================================================================
+   12. RENDER GENERAL I CANVI DE MODE
+   ================================================================ */
+
+function render() {
+  if (LS.user && !findUser(LS.user)) { lsSet('gjps_session', ''); LS.user = ''; LS.done = {}; }
+  if (!LS.user) { showLogin(); return; }
+
+  var isAdmin = currentUserRole() === 'admin';
+  $('mEdit').style.display = isAdmin ? 'flex' : 'none';
+  if (!isAdmin && editModeOn) { editModeOn = false; $('mEdit').classList.remove('on'); }
+  $('mSave').style.display = (isAdmin && editModeOn) ? 'flex' : 'none';
+
+  $('mFree').classList.toggle('on', LS.mode === 'free');
+  $('mTrack').classList.toggle('on', LS.mode === 'track');
+  $('mApps').classList.toggle('on', LS.mode === 'apps');
+  $('mInfo').classList.toggle('on', LS.mode === 'info');
+  $('who').innerHTML = t().hello + ', <b>' + LS.user + '</b>';
+
+  $('trackView').style.display = LS.mode === 'track' ? 'block' : 'none';
+  $('freeView').style.display = LS.mode === 'free' ? 'block' : 'none';
+  $('appsView').style.display = LS.mode === 'apps' ? 'block' : 'none';
+  $('infoView').style.display = LS.mode === 'info' ? 'block' : 'none';
+
+  if (LS.mode === 'track') renderTrack();
+  else if (LS.mode === 'free') renderFree();
+  else if (LS.mode === 'apps') renderApps();
+  else if (LS.mode === 'info') renderInfo();
+
+  applyEditState();
+}
+
+function setMode(m) {
+  LS.mode = m;
+  lsSet('gjps_mode', m);
+  if (m === 'free') autoLevelPending = true;  // en entrar, que triï el sistema
+  if (m === 'track') reviewCollapsed = true;
+  if (m === 'info') faqOpen = {};
+  render();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+$('mTrack').onclick = function () { setMode('track'); };
+$('mFree').onclick = function () { setMode('free'); };
+$('mApps').onclick = function () { setMode('apps'); };
+$('mInfo').onclick = function () { setMode('info'); };
+$('mHelp').onclick = function () { showHelp(); };
+$('mEdit').onclick = function () { toggleEditMode(); };
+$('mSave').onclick = function () { saveAsFile(); };
+$('langToggle').onclick = function () {
+  if (editModeOn) collectAll();
+  LS.lang = (LS.lang === 'ca') ? 'es' : 'ca';
+  lsSet('gjps_lang', LS.lang);
+  setLabels();
+  if (!LS.user) showLogin();
+  render();
+};
+
+/* ================================================================
+   13. REPRODUCTOR A PANTALLA COMPLETA
+   ================================================================ */
+
+var currentVideoSrc = '';
+function openFullscreenVideo(src) {
+  currentVideoSrc = src;
+  var player = $('player');
+  var overlay = $('videoOverlay');
+  player.src = '';
+  player.classList.remove('active');
+  $('modal').classList.add('on');
+  if (overlay) overlay.classList.remove('hidden');
+  var wrap = document.querySelector('.wrap');
+  if (wrap.requestFullscreen) wrap.requestFullscreen().catch(function () {});
+  else if (wrap.webkitRequestFullscreen) wrap.webkitRequestFullscreen();
+}
+function closeVideoPlayer() {
+  if (document.exitFullscreen && document.fullscreenElement) document.exitFullscreen();
+  else { $('modal').classList.remove('on'); $('player').src = ''; }
+}
+
+var overlayEl = $('videoOverlay');
+if (overlayEl) {
+  overlayEl.addEventListener('click', function () {
+    var player = $('player');
+    if (currentVideoSrc) {
+      var finalSrc = currentVideoSrc.includes('?') ? currentVideoSrc + '&autoplay=1' : currentVideoSrc + '?autoplay=1';
+      player.src = finalSrc;
+      player.classList.add('active');
+    }
+    this.classList.add('hidden');
+  });
+}
+var frameEl = document.querySelector('.frame');
+if (frameEl) {
+  frameEl.addEventListener('click', function (e) {
+    var ov = $('videoOverlay');
+    if (ov && !ov.classList.contains('hidden') && e.target === frameEl) ov.click();
+  });
+}
+$('xPlayer').onclick = closeVideoPlayer;
+$('modal').addEventListener('click', function (e) { if (e.target.id === 'modal') closeVideoPlayer(); });
+document.addEventListener('fullscreenchange', function () {
+  if (!document.fullscreenElement) { $('player').src = ''; $('modal').classList.remove('on'); }
+});
+
+// Botó de tancar que apareix en moure el ratolí
+var wrapEl = document.querySelector('.wrap');
+var hideTimer;
+function showCloseBtn() {
+  if (!$('modal').classList.contains('on')) return;
+  wrapEl.classList.add('show-controls');
+  clearTimeout(hideTimer);
+  hideTimer = setTimeout(function () { wrapEl.classList.remove('show-controls'); }, 2500);
+}
+document.addEventListener('mousemove', showCloseBtn);
+document.addEventListener('mouseleave', function () { wrapEl.classList.remove('show-controls'); });
+
+/* ================================================================
+   14. ARRENCADA
+   ================================================================ */
+try {
+  setLabels();
+  loadDone();
+  render();
+} catch (e) {
+  var f = document.getElementById('fatal');
+  f.style.display = 'block';
+  f.textContent = '⚠️ Error init: ' + e.message;
+}
+</script>
+
+<!-- Modal de FAQ per a visitants (sense login) -->
+<div class="lgin" id="faqModal">
+  <div class="lbox" style="width:min(800px,92vw);max-height:85vh;overflow-y:auto;text-align:left;padding:24px;">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;border-bottom:1px solid var(--line);padding-bottom:12px;">
+      <h2 style="margin:0;font-size:18px;color:var(--gold);">Preguntes Freqüents</h2>
+      <button onclick="$('faqModal').classList.remove('on')" style="background:none;border:none;color:var(--mut);font-size:22px;cursor:pointer;line-height:1;">✕</button>
+    </div>
+    <div id="faqGuestContent"></div>
+  </div>
+</div>
+
+<!-- Modal d'ajuda per a alumnes -->
+<div class="lgin" id="helpModal">
+  <div class="lbox" style="width:min(700px,92vw);max-height:85vh;overflow-y:auto;text-align:left;padding:24px;">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;border-bottom:1px solid var(--line);padding-bottom:12px;">
+      <h2 style="margin:0;font-size:18px;color:var(--gold);" id="helpTitle"></h2>
+      <button onclick="$('helpModal').classList.remove('on')" style="background:none;border:none;color:var(--mut);font-size:22px;cursor:pointer;line-height:1;">✕</button>
+    </div>
+    <div id="helpContent"></div>
+  </div>
+</div>
+</body></html>

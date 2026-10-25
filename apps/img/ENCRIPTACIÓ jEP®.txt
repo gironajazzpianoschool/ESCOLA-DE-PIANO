@@ -1,0 +1,31 @@
+EL PASSWORD PER ACCEDIR VIA HTML ÉS: musica
+
+PER ENCRIPTAR LA PARAULA DINS DEL JAVA SCRIPT, HE INSERIT EL SEGÜENT:
+// 🔐 PROTECCIÓ AMB HASH SHA-256
+// Hash real de la contrasenya "musica"
+const PASS_HASH = "e04dc6405154e1be4887eb34e8aa6237661a15a975e2c13a5e78e056d161099f";
+
+async function checkAccess() {
+    const pass = prompt("Introdueix la contrasenya d'accés:");
+    if (!pass) { 
+        document.body.innerHTML = "<h1 style='color:red; text-align:center; margin-top:20%; font-family:sans-serif'>Accés no autoritzat</h1>"; 
+        throw new Error("Accés denegat"); 
+    }
+    
+    const encoder = new TextEncoder();
+    const data = encoder.encode(pass);
+    const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+    const hashHex = Array.from(new Uint8Array(hashBuffer)).map(b => b.toString(16).padStart(2, '0')).join('');
+    
+    if (hashHex !== PASS_HASH) {
+        document.body.innerHTML = "<h1 style='color:red; text-align:center; margin-top:20%; font-family:sans-serif'>Accés no autoritzat</h1>";
+        throw new Error("Accés denegat");
+    }
+}
+
+// Executar la verificació immediatament
+checkAccess().catch(() => {});
+
+// ==========================================
+// A PARTIR D'AQUÍ, LA RESTA DEL TEU CODI JAVASCRIPT
+// ==========================================
