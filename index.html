@@ -258,8 +258,15 @@ main{position:relative;z-index:1;padding:20px 5vw;max-width:1100px;margin:auto}
   .faq-item h3{font-size:15px}
   .vidadjpills{flex-direction:column}
   .vidadjpills a{width:100%;justify-content:center}
-  .modal.on .close{opacity:1 !important;background:rgba(232,176,75,0.9) !important;color:#000 !important;border-color:#fff !important}
-  @media (orientation: portrait) {
+  /* Botó de tancar sempre visible en mòbil */
+  .modal.on .close {
+    opacity: 1 !important;
+    background: rgba(232,176,75,0.9) !important;
+    color: #000 !important;
+    border-color: #fff !important;
+    display: flex !important;
+    z-index: 100001 !important;
+  }  @media (orientation: portrait) {
     .modal.on .wrap{width:100vh !important;height:100vw !important;transform:rotate(90deg);transform-origin:top left;position:fixed;top:0;left:100vw}
     .modal.on .close{top:14px !important;right:14px !important}
   }
@@ -1609,7 +1616,6 @@ function openFullscreenVideo(src) {
     
     if (overlay) {
       overlay.classList.remove('hidden');
-      // Detectar iOS per al missatge de doble toc
       var isIOSDevice = /iPad|iPhone|iPod/.test(navigator.userAgent) || 
                         (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
       
@@ -1623,9 +1629,13 @@ function openFullscreenVideo(src) {
           : 'Toca la pantalla para iniciar el vídeo';
       }
       
-      setTimeout(function() {
-        overlay.classList.add('hidden');
-      }, 4000);
+      // NOMÉS amagar automàticament en Android, NO en iOS
+      if (!isIOSDevice) {
+        setTimeout(function() {
+          overlay.classList.add('hidden');
+        }, 3000);
+      }
+      // En iOS, l'overlay es queda visible fins que l'usuari fa el segon clic
     }
     
     document.documentElement.style.zoom = '1';
