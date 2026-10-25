@@ -1598,28 +1598,44 @@ function openFullscreenVideo(src) {
   var player = $('player');
   var overlay = $('videoOverlay');
 
-  if (isIOS()) {
-    var directUrl = src.replace('/preview', '/view');
-    window.open(directUrl, '_blank');
-    return;
-  }
-
   if (isMobileDevice()) {
     $('modal').classList.add('on');
-    var finalSrc = currentVideoSrc.includes('?') ? currentVideoSrc + '&autoplay=1&authuser=0' : currentVideoSrc + '?autoplay=1&authuser=0';
+    var finalSrc = currentVideoSrc.includes('?') 
+      ? currentVideoSrc + '&autoplay=1&authuser=0' 
+      : currentVideoSrc + '?autoplay=1&authuser=0';
+    
     player.src = finalSrc;
     player.classList.add('active');
+    
     if (overlay) {
       overlay.classList.remove('hidden');
-      $('overlayText').textContent = LS.lang === 'ca' ? 'Toca la pantalla per iniciar el vídeo' : 'Toca la pantalla para iniciar el vídeo';
-      setTimeout(function() { overlay.classList.add('hidden'); }, 3000);
+      // Detectar iOS per al missatge de doble toc
+      var isIOSDevice = /iPad|iPhone|iPod/.test(navigator.userAgent) || 
+                        (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+      
+      if (LS.lang === 'ca') {
+        $('overlayText').textContent = isIOSDevice
+          ? 'Toca dues vegades a la pantalla per iniciar' 
+          : 'Toca la pantalla per iniciar el vídeo';
+      } else {
+        $('overlayText').textContent = isIOSDevice
+          ? 'Toca dos veces la pantalla para iniciar' 
+          : 'Toca la pantalla para iniciar el vídeo';
+      }
+      
+      setTimeout(function() {
+        overlay.classList.add('hidden');
+      }, 4000);
     }
+    
     document.documentElement.style.zoom = '1';
   } else {
+    // PC: modal amb fullscreen automàtic
     player.src = '';
     player.classList.remove('active');
     $('modal').classList.add('on');
     if (overlay) overlay.classList.remove('hidden');
+    
     var wrap = document.querySelector('.wrap');
     if (wrap.requestFullscreen) wrap.requestFullscreen().catch(function () {});
     else if (wrap.webkitRequestFullscreen) wrap.webkitRequestFullscreen();
