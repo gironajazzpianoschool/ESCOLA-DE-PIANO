@@ -290,8 +290,33 @@ main{position:relative;z-index:1;padding:20px 5vw;max-width:1100px;margin:auto}
   .faq-item h3{font-size:15px}
   .vidadjpills{flex-direction:column}
   .vidadjpills a{width:100%;justify-content:center}
+  
+  /* Forçar landscape en mòbils (gir automàtic del reproductor) */
+  @media (orientation: portrait) {
+    .modal.on .wrap {
+      width: 100vh !important;
+      height: 100vw !important;
+      transform: rotate(90deg);
+      transform-origin: top left;
+      position: fixed;
+      top: 0;
+      left: 100vw;
+      z-index: 99999;
+    }
+    /* Ajustar el botó de tancar perquè quedi ben posicionat en girar */
+    .modal.on .close {
+      top: 14px !important;
+      right: 14px !important;
+    }
+  }
+  
+  /* Correcció per a Android en landscape */
   @media (orientation: landscape) {
-    .frame iframe { width: 100dvw !important; height: 100dvh !important; object-fit: cover; }
+    .frame iframe {
+      width: 100dvw !important;
+      height: 100dvh !important;
+      object-fit: cover;
+    }
   }
 }
 @media(max-width:480px){
@@ -1441,8 +1466,16 @@ function renderFree() {
     var opt = document.createElement('option');
     opt.value = L.id;
     var label = L.n[LS.lang];
-    if (L.wip) label = '🚧 ' + label;
-    else if (L.pending) label = t().pendingIcon + ' ' + label;
+    
+    // Si està en construcció o pendent, el desactivem (es veurà en gris i no es podrà clicar)
+    if (L.wip) {
+      label = '🚧 ' + label;
+      opt.disabled = true;
+    } else if (L.pending) {
+      label = t().pendingIcon + ' ' + label;
+      opt.disabled = true;
+    }
+    
     opt.textContent = label;
     if (L.id === freeLevel) opt.selected = true;
     sel.appendChild(opt);
@@ -1839,33 +1872,39 @@ function openFullscreenVideo(src) {
 
   if (isMobileDevice()) {
     $('modal').classList.add('on');
-    var finalSrc = currentVideoSrc.includes('?') ? currentVideoSrc + '&autoplay=1&authuser=0' : currentVideoSrc + '?autoplay=1&authuser=0';
+    var finalSrc = currentVideoSrc.includes('?') 
+      ? currentVideoSrc + '&autoplay=1&authuser=0' 
+      : currentVideoSrc + '?autoplay=1&authuser=0';
+    
     player.src = finalSrc;
     player.classList.add('active');
+    
     if (overlay) {
-  overlay.classList.remove('hidden');
-  // Detectar si és iOS per mostrar missatge específic
-  var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
-  if (LS.lang === 'ca') {
-    $('overlayText').textContent = isIOS
-      ? 'Toca la pantalla per iniciar. Després toca el vídeo (limitació Apple)' 
-      : 'Toca la pantalla per iniciar el vídeo';
-  } else {
-    $('overlayText').textContent = isIOS
-      ? 'Toca la pantalla para iniciar. Luego toca el vídeo (limitación Apple)' 
-      : 'Toca la pantalla para iniciar el vídeo';
-  }
-  
-  setTimeout(function() {
-    overlay.classList.add('hidden');
-  }, 4000); // Augmentem a 4 segons per donar temps a llegir
-}
+      overlay.classList.remove('hidden');
+      // Detectar si és iOS per mostrar missatge específic
+      var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+      if (LS.lang === 'ca') {
+        $('overlayText').textContent = isIOS
+          ? 'Toca per iniciar. Després toca el vídeo (limitació Apple)' 
+          : 'Toca la pantalla per iniciar el vídeo';
+      } else {
+        $('overlayText').textContent = isIOS
+          ? 'Toca para iniciar. Luego toca el vídeo (limitación Apple)' 
+          : 'Toca la pantalla para iniciar el vídeo';
+      }
+      
+      setTimeout(function() {
+        overlay.classList.add('hidden');
+      }, 4000);
+    }
+    
     document.documentElement.style.zoom = '1';
   } else {
     player.src = '';
     player.classList.remove('active');
     $('modal').classList.add('on');
     if (overlay) overlay.classList.remove('hidden');
+    
     var wrap = document.querySelector('.wrap');
     if (wrap.requestFullscreen) wrap.requestFullscreen().catch(function () {});
     else if (wrap.webkitRequestFullscreen) wrap.webkitRequestFullscreen();
