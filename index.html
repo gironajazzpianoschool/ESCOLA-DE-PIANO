@@ -212,7 +212,8 @@ main{position:relative;z-index:1;padding:20px 5vw;max-width:1100px;margin:auto}
 .video-overlay{position:absolute;inset:0;background:rgba(0,0,0,0.92);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:999999;cursor:pointer;transition:opacity .3s;touch-action:manipulation}
 .video-overlay.hidden{opacity:0;pointer-events:none}
 .video-overlay .icon{font-size:58px;color:var(--gold);margin-bottom:16px;animation:pulse 1.5s infinite;pointer-events:none}
-.video-overlay .text{color:#fff;font-size:15px;font-weight:700;text-align:center;max-width:85%;line-height:1.5;pointer-events:none;white-space:pre-line;padding:0 10px}@keyframes pulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.1);opacity:.8}}
+.video-overlay .text{color:#fff;font-size:16px;font-weight:700;text-align:center;max-width:80%;line-height:1.5;pointer-events:none}
+@keyframes pulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.1);opacity:.8}}
 
 /* ============================================================
    10. MODALS (login, selector d'adjunts, celebració, ajuda)
@@ -321,7 +322,7 @@ main{position:relative;z-index:1;padding:20px 5vw;max-width:1100px;margin:auto}
       <button id="mInfo">FAQ</button>
     </span>
     <button id="mHelp" class="langbtn" title="Com funciona / Cómo funciona">❓</button>
-    <button id="langToggle" class="langbtn" title="Canvia d'idioma / Cambiar de idioma">🌐 <span id="langCur">CAT</span></button>
+<button id="langToggle" class="langbtn" title="Canvia d'idioma / Cambiar de idioma"> <span id="langCur">CAT</span></button>
     <button id="mEdit" title="Mode edició">⚙️</button>
     <button id="mSave" title="Guardar">💾</button>
   </div>
@@ -338,7 +339,7 @@ main{position:relative;z-index:1;padding:20px 5vw;max-width:1100px;margin:auto}
   <div class="wrap">
     <button class="close" id="xPlayer" title="Tancar">✕</button>
     <div class="frame">
-      <iframe id="player" allow="autoplay; fullscreen; encrypted-media; picture-in-picture; accelerometer; gyroscope" src="" scrolling="no" playsinline webkit-playsinline></iframe>
+      <iframe id="player" allow="autoplay; fullscreen; encrypted-media; picture-in-picture" src="" scrolling="no"></iframe>
       <div class="video-overlay" id="videoOverlay">
         <div class="icon">▶</div>
         <div class="text" id="overlayText">Fes clic per reproduir</div>
@@ -1838,16 +1839,27 @@ function openFullscreenVideo(src) {
 
   if (isMobileDevice()) {
     $('modal').classList.add('on');
-    // En mòbils fem servir /embed en lloc de /preview per millorar els controls
-    var mobileSrc = currentVideoSrc.replace('/preview', '/embed');
-    var finalSrc = mobileSrc.includes('?') ? mobileSrc + '&autoplay=1&authuser=0' : mobileSrc + '?autoplay=1&authuser=0';    player.src = finalSrc;
+    var finalSrc = currentVideoSrc.includes('?') ? currentVideoSrc + '&autoplay=1&authuser=0' : currentVideoSrc + '?autoplay=1&authuser=0';
+    player.src = finalSrc;
     player.classList.add('active');
     if (overlay) {
-      overlay.classList.remove('hidden');
-      $('overlayText').textContent = LS.lang === 'ca' 
-        ? 'Toca la pantalla per iniciar el vídeo.\n(A causa de les restriccions d\'Apple, és possible que hagis de tocar un segon cop sobre el vídeo perquè comenci a reproduir-se)' 
-        : 'Toca la pantalla para iniciar el vídeo.\n(Debido a las restricciones de Apple, es posible que tengas que tocar una segunda vez sobre el vídeo para que comience a reproducirse)';      setTimeout(function() { overlay.classList.add('hidden'); }, 3000);
-    }
+  overlay.classList.remove('hidden');
+  // Detectar si és iOS per mostrar missatge específic
+  var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+  if (LS.lang === 'ca') {
+    $('overlayText').textContent = isIOS
+      ? 'Toca la pantalla per iniciar. Després toca el vídeo (limitació Apple)' 
+      : 'Toca la pantalla per iniciar el vídeo';
+  } else {
+    $('overlayText').textContent = isIOS
+      ? 'Toca la pantalla para iniciar. Luego toca el vídeo (limitación Apple)' 
+      : 'Toca la pantalla para iniciar el vídeo';
+  }
+  
+  setTimeout(function() {
+    overlay.classList.add('hidden');
+  }, 4000); // Augmentem a 4 segons per donar temps a llegir
+}
     document.documentElement.style.zoom = '1';
   } else {
     player.src = '';
