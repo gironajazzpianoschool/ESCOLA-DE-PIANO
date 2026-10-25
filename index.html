@@ -764,12 +764,31 @@ function smartFreeLevel() {
   var welcome = all.filter(function (x) { return x.si === 0; });
   var welcomeDone = welcome.length > 0 && welcome.every(function (x) { return LS.done[x.id]; });
   if (!welcomeDone) { freeLevel = 0; freeBlock = 'w'; return; }
+  
   initializeOrder();
+  var found = false;
   for (var i = 0; i < OV.order.length; i++) {
     var id = OV.order[i];
     if (isWelcomeId(id) || isGiftId(id)) continue;
-    if (!LS.done[id]) { var v = findVidById(id); if (v) { freeLevel = v.si; break; } }
+    if (!LS.done[id]) {
+      var v = findVidById(id);
+      if (v) {
+        // Comprovar que el nivell estigui actiu (no en construcció ni pendent)
+        var level = LEVELS[v.si];
+        if (level && level.active) {
+          freeLevel = v.si;
+          found = true;
+          break;
+        }
+      }
+    }
   }
+  
+  // Si no s'ha trobat cap nivell actiu amb vídeos pendents, anar al Nivell 1
+  if (!found) {
+    freeLevel = 1;
+  }
+  
   if (freeBlock === 'w') freeBlock = 't';
 }
 function prog(l) { var d = 0; l.forEach(function (x) { if (LS.done[x.id]) d++; }); return { d: d, n: l.length, p: l.length ? Math.round(d / l.length * 100) : 0 }; }
