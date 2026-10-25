@@ -299,6 +299,14 @@ main{position:relative;z-index:1;padding:20px 5vw;max-width:1100px;margin:auto}
   .faq-item h3{font-size:15px}
   .vidadjpills{flex-direction:column}
   .vidadjpills a{width:100%;justify-content:center}
+  /* CORRECCIÓ PER A ANDROID/IPAD EN HORITZONTAL */
+  @media (orientation: landscape) {
+    .frame iframe {
+      width: 100dvw !important;
+      height: 100dvh !important;
+      object-fit: cover;
+    }
+  }
 }
 @media(max-width:480px){
   .blkcol{grid-template-columns:1fr}
@@ -347,7 +355,7 @@ main{position:relative;z-index:1;padding:20px 5vw;max-width:1100px;margin:auto}
   <div class="wrap">
     <button class="close" id="xPlayer" title="Tancar">✕</button>
     <div class="frame">
-      <iframe id="player" allow="autoplay; fullscreen" src="" scrolling="no"></iframe>
+      <iframe id="player" allow="autoplay; fullscreen; encrypted-media; picture-in-picture" src="" scrolling="no"></iframe>
       <div class="video-overlay" id="videoOverlay">
         <div class="icon">▶</div>
         <div class="text" id="overlayText">Fes clic per reproduir</div>
@@ -2055,10 +2063,13 @@ if (overlayEl) {
     e.stopPropagation(); // Assegura que el clic es registri al contenidor principal
     var player = $('player');
     if (currentVideoSrc) {
-      var finalSrc = currentVideoSrc.includes('?') ? currentVideoSrc + '&autoplay=1' : currentVideoSrc + '?autoplay=1';
-      player.src = finalSrc;
-      player.classList.add('active');
+      // Afegim authuser=0 per forçar la visualització anònima i evitar bugs d'UI
+      var finalSrc = currentVideoSrc.includes('?') 
+        ? currentVideoSrc + '&autoplay=1&authuser=0' 
+        : currentVideoSrc + '?autoplay=1&authuser=0';
       
+      player.src = finalSrc;
+      player.classList.add('active');      
       // Truc per a iOS/Android: forçar el focus i intentar activar el play
       setTimeout(function() {
         player.focus();
