@@ -2032,11 +2032,11 @@ $('langToggle').onclick = function () {
 
 var currentVideoSrc = '';
 function openFullscreenVideo(src) {
-  // Si és mòbil o tablet, obrir directament Google Drive en nova pestanya
+  // Si és mòbil o tablet, obrir directament el reproductor de Drive en nova pestanya
   if (isMobileDevice()) {
-    // Convertir l'URL de preview a URL normal de Drive
-    var directUrl = src.replace('/preview', '/view');
-    window.open(directUrl, '_blank');
+    // IMPORTANT: obrim l'URL /preview tal qual (reproductor anònim).
+    // NO el convertim a /view, perquè la pàgina de Drive demana compte de Google.
+    window.open(src, '_blank');
     return;
   }
   
