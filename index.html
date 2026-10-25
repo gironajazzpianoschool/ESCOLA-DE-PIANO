@@ -1607,17 +1607,12 @@ function openFullscreenVideo(src) {
 
   if (isMobileDevice()) {
     $('modal').classList.add('on');
-    var finalSrc = currentVideoSrc.includes('?') 
-      ? currentVideoSrc + '&autoplay=1&authuser=0' 
-      : currentVideoSrc + '?autoplay=1&authuser=0';
     
-    player.src = finalSrc;
-    player.classList.add('active');
+    var isIOSDevice = /iPad|iPhone|iPod/.test(navigator.userAgent) || 
+                      (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
     
     if (overlay) {
       overlay.classList.remove('hidden');
-      var isIOSDevice = /iPad|iPhone|iPod/.test(navigator.userAgent) || 
-                        (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
       
       if (LS.lang === 'ca') {
         $('overlayText').textContent = isIOSDevice
@@ -1629,15 +1624,28 @@ function openFullscreenVideo(src) {
           : 'Toca la pantalla para iniciar el vídeo';
       }
       
-      // NOMÉS amagar automàticament en Android, NO en iOS
+      // En iOS, NO amagar automàticament (esperar el primer clic)
       if (!isIOSDevice) {
         setTimeout(function() {
           overlay.classList.add('hidden');
         }, 3000);
       }
-      // En iOS, l'overlay es queda visible fins que l'usuari fa el segon clic
     }
     
+    // En iOS, carregar el src SENSE autoplay (el segon clic l'iniciarà)
+    var finalSrc = currentVideoSrc.includes('?') 
+      ? currentVideoSrc + '&authuser=0' 
+      : currentVideoSrc + '?authuser=0';
+    
+    if (isIOSDevice) {
+      player.src = finalSrc; // Sense autoplay
+    } else {
+      // En Android, amb autoplay
+      finalSrc = finalSrc.includes('?') ? finalSrc + '&autoplay=1' : finalSrc + '?autoplay=1';
+      player.src = finalSrc;
+    }
+    
+    player.classList.add('active');
     document.documentElement.style.zoom = '1';
   } else {
     // PC: modal amb fullscreen automàtic
@@ -1693,13 +1701,19 @@ var wrapEl = document.querySelector('.wrap');
 var hideTimer;
 function showCloseBtn() {
   if (!$('modal').classList.contains('on')) return;
+  // En mòbil, no amagar el botó de tancar
+  if (isMobileDevice()) {
+    wrapEl.classList.add('show-controls');
+    return;
+  }
   wrapEl.classList.add('show-controls');
   clearTimeout(hideTimer);
   hideTimer = setTimeout(function () { wrapEl.classList.remove('show-controls'); }, 2500);
 }
 document.addEventListener('mousemove', showCloseBtn);
-document.addEventListener('mouseleave', function () { wrapEl.classList.remove('show-controls'); });
-
+document.addEventListener('mouseleave', function () { 
+  if (!isMobileDevice()) wrapEl.classList.remove('show-controls'); 
+});
 try {
   setLabels();
   loadDone();
