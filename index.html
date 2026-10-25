@@ -693,7 +693,7 @@ var UI = {
     mFree: '📁 Navegació Lliure', mTrack: '🎯 Seguiment Continuat', mApps: ' Apps', total: 'TOTAL NIVELL',
     now: 'Ara et toca:', allDone: '🎉 Ho tens tot fet! Enhorabona!',
     giftTxt: 'Gaudeix del teu regal de graduació mentre prepares el Nivell 2:', giftTag: 'Regal de graduació',
-    reviewTitle: '🔖 La teva llista de repàs', soon: 'Properament', adj: '📎 Adjunts', vidAdjBtn: '📎',
+    reviewTitle: '🔖 La teva llista de repàs', soon: 'Aquest vídeo encara no està disponible. Sentim les molèsties.', adj: '📎 Adjunts', vidAdjBtn: '📎',
     vidAdjSelTitle: 'Selecciona quins adjunts del bloc han d\'aparèixer en aquest vídeo:',
     vidAdjCancel: 'Cancel·lar', vidAdjOk: 'Aplicar', appsOpen: 'OBRE',
     appsSoon: 'Enllaç properament: configura\'l a l\'array APPS del codi.',
@@ -722,7 +722,7 @@ var UI = {
     mFree: '📁 Navegación Libre', mTrack: '🎯 Seguimiento Continuo', mApps: ' Apps', total: 'TOTAL NIVEL',
     now: 'Ahora te toca:', allDone: '🎉 ¡Lo tienes todo hecho! ¡Enhorabuena!',
     giftTxt: 'Disfruta de tu regalo de graduación mientras preparas el Nivel 2:', giftTag: 'Regalo de graduación',
-    reviewTitle: '🔖 Tu lista de repaso', soon: 'Próximamente', adj: '📎 Adjuntos', vidAdjBtn: '📎',
+    reviewTitle: '🔖 Tu lista de repaso', soon: 'Este vídeo aún no está disponible. Disculpa las molestias.', adj: '📎 Adjuntos', vidAdjBtn: '📎',
     vidAdjSelTitle: 'Selecciona qué adjuntos del bloque deben aparecer en este vídeo:',
     vidAdjCancel: 'Cancelar', vidAdjOk: 'Aplicar', appsOpen: 'ABRE',
     appsSoon: 'Enlace próximamente: configúralo en el array APPS del código.',
@@ -2043,14 +2043,16 @@ function openFullscreenVideo(src) {
   if (overlay) overlay.classList.remove('hidden');
 
   // CLAU ANTI-FRANGES: mentre el modal és obert treiem el zoom del html.
-  // Així les unitats de pantalla i el iframe coincideixen exactament (adios franges a iPad).
   document.documentElement.style.zoom = '1';
 
-  var wrap = document.querySelector('.wrap');
-  if (wrap.requestFullscreen) wrap.requestFullscreen().catch(function () {});
-  else if (wrap.webkitRequestFullscreen) wrap.webkitRequestFullscreen();
-}
-function closeVideoPlayer() {
+  // NOMÉS demanem fullscreen en PC. En mòbils/tablets, l'iframe ja ocupa tota la pantalla
+  // i el botó de fullscreen del propi reproductor de Drive funciona millor (evita el missatge de GitHub).
+  if (!isMobileDevice()) {
+    var wrap = document.querySelector('.wrap');
+    if (wrap.requestFullscreen) wrap.requestFullscreen().catch(function () {});
+    else if (wrap.webkitRequestFullscreen) wrap.webkitRequestFullscreen();
+  }
+}function closeVideoPlayer() {
   // Restaurem el zoom original del CSS
   document.documentElement.style.zoom = '';
   if (document.exitFullscreen && document.fullscreenElement) document.exitFullscreen();
