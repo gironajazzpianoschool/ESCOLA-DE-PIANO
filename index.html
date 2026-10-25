@@ -7,9 +7,6 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
-/* ============================================================
-   1. VARIABLES I RESET
-   ============================================================ */
 :root{
 --bg:#0a0c10;--card:#13171f;--ink:#f2f2f2;--mut:#9aa0ab;--gold:#e8b04b;--ok:#39d98a;--line:#2a2f3a;--danger:#ff5577;
 --fs:14px;--fs-sm:12.5px;--fs-xs:11px;--fs-btn:13px;
@@ -20,13 +17,9 @@
 @media (min-width: 769px) { html { zoom: .95; } }
 body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.55;font-size:var(--fs)}
 
-/* Marca d'aigua de fons */
 #wm{position:fixed;inset:0;z-index:0;pointer-events:none;background:url('img/LOGO.png') center/42% no-repeat;filter:blur(0) brightness(1.05) contrast(1.15) saturate(1.05);opacity:var(--wm-op)}
 #wm::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(10,12,16,.10) 0%,rgba(10,12,16,.85) 78%)}
 
-/* ============================================================
-   2. CAPÇALERA
-   ============================================================ */
 header{position:relative;z-index:1;background:var(--bg);padding:13px 5vw;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:13px}
 .hbrand{display:flex;flex-direction:column;gap:6px;align-items:flex-start}
 .hbrand h1{font-size:var(--fs-h1);letter-spacing:1.2px;font-weight:800;background:linear-gradient(90deg,#f7dc9a 0%,var(--gold) 45%,#c98f3a 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent}
@@ -50,30 +43,24 @@ header{position:relative;z-index:1;background:var(--bg);padding:13px 5vw;border-
 .langbtn:hover{border-color:var(--gold);color:var(--ink)}
 .langbtn #langCur{color:var(--gold)}
 
-/* Botons flotants d'edició i guardat */
 #mEdit{position:fixed;right:18px;bottom:18px;z-index:70;width:46px;height:46px;border-radius:50%;background:var(--card);border:1.5px solid var(--line);color:var(--ink);cursor:pointer;font-size:18px;display:none;align-items:center;justify-content:center;transition:all .2s;box-shadow:0 6px 18px rgba(0,0,0,.45)}
 #mEdit:hover{border-color:var(--gold);transform:translateY(-2px)}
 #mEdit.on{border-color:var(--ok);color:var(--ok);background:rgba(57,217,138,0.1)}
 #mSave{position:fixed;right:18px;bottom:72px;z-index:9999;width:46px;height:46px;border-radius:50%;background:#39d98a;border:none;color:#0a0c10;cursor:pointer;font-size:18px;display:none;align-items:center;justify-content:center;box-shadow:0 6px 18px rgba(0,0,0,.5);transition:all .2s}
 #mSave:hover{transform:translateY(-2px);box-shadow:0 8px 22px rgba(57,217,138,.45)}
 
-/* ============================================================
-   3. LAYOUT PRINCIPAL I SELECTOR DE NIVELL
-   ============================================================ */
 main{position:relative;z-index:1;padding:20px 5vw;max-width:1100px;margin:auto}
 .lvls{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:18px}
 .lvls select{background:var(--card);border:1px solid var(--line);color:var(--ink);border-radius:999px;padding:9px 36px 9px 18px;cursor:pointer;font-weight:700;font-size:var(--fs-btn);min-width:195px;appearance:none;-webkit-appearance:none;-moz-appearance:none;background-image:url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23e8b04b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");background-repeat:no-repeat;background-position:right 12px center;background-size:14px;transition:all .2s;font-family:'Inter',system-ui,sans-serif}
 .lvls select:hover{border-color:var(--gold);color:var(--ink)}
 .lvls select:focus{border-color:var(--gold);outline:none;box-shadow:0 0 0 2px rgba(232,176,75,0.2)}
 .lvls select option{background:var(--card);color:var(--ink);padding:9px}
+.lvls select option:disabled{color:var(--mut);opacity:0.6}
 .wipbox{background:var(--card);border:2px dashed var(--gold);border-radius:var(--rad-lg);padding:30px 22px;text-align:center;color:var(--mut)}
 .wipbox h3{color:var(--gold);letter-spacing:2px;text-transform:uppercase;margin-bottom:8px;font-size:17px}
 .wipbox p{font-size:var(--fs);line-height:1.6}
 .wipbox .wipicon{font-size:44px;margin-bottom:10px}
 
-/* ============================================================
-   4. SEGUMENT CONTINUAT (targeta "ara et toca", donuts, repàs)
-   ============================================================ */
 .now{background:var(--card);border:1px solid var(--gold);border-radius:var(--rad-lg);padding:16px;margin-bottom:24px;box-shadow:0 6px 24px rgba(232,176,75,0.12)}
 .ctx{color:var(--gold);font-size:11px;letter-spacing:2px;text-transform:uppercase;margin-bottom:6px;font-weight:800}
 .nowlbl{font-size:var(--fs-btn);color:var(--mut);margin-bottom:12px}
@@ -94,9 +81,6 @@ main{position:relative;z-index:1;padding:20px 5vw;max-width:1100px;margin:auto}
 .ritem button{background:none;border:1px solid var(--line);color:var(--mut);border-radius:6px;padding:4px 8px;cursor:pointer;font-size:11px;transition:all .2s}
 .ritem button:hover{border-color:var(--gold);color:var(--ink)}
 
-/* ============================================================
-   5. NAVEGACIÓ LLIURE (bloc de botons, capçalera, graella)
-   ============================================================ */
 .blkcol{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin-bottom:16px}
 .blkcol button{background:var(--card);border:1px solid var(--line);color:var(--mut);border-radius:12px;padding:11px 12px;cursor:pointer;font-weight:700;font-size:var(--fs-btn);letter-spacing:1px;text-transform:uppercase;transition:all .2s;display:flex;align-items:center;justify-content:space-between;gap:10px;min-height:42px}
 .blkcol button .bname{flex:1;text-align:center}
@@ -114,9 +98,6 @@ main{position:relative;z-index:1;padding:20px 5vw;max-width:1100px;margin:auto}
 .adjb:hover{border-color:var(--gold);color:var(--ink)}
 .vgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(275px,1fr));gap:12px}
 
-/* ============================================================
-   6. TARGETA DE VÍDEO
-   ============================================================ */
 .vid{border:1px solid var(--line);border-radius:12px;padding:9px 11px;background:#151a23;transition:border-color .2s;position:relative}
 .vid:hover{border-color:var(--gold)}
 .stagetag{color:var(--mut);font-size:var(--fs-xs);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:6px;opacity:.8}
@@ -161,9 +142,6 @@ main{position:relative;z-index:1;padding:20px 5vw;max-width:1100px;margin:auto}
 .save-note-btn{margin-top:8px;padding:6px 12px;background:var(--gold);color:#141414;border:none;border-radius:6px;font-weight:700;cursor:pointer;font-size:12px}
 .save-note-btn:hover{background:#f0c060}
 
-/* ============================================================
-   7. BOTONS D'EDICIÓ SOBRE EL VÍDEU
-   ============================================================ */
 .vid-del-btn{background:var(--danger);color:#fff;border:none;border-radius:50%;width:28px;height:28px;font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;flex-shrink:0}
 .vid-del-btn:hover{transform:scale(1.1)}
 .vid-order-btn{background:var(--gold);border:none;border-radius:50%;width:28px;height:28px;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0;transition:all .2s;flex-shrink:0}
@@ -172,9 +150,6 @@ main{position:relative;z-index:1;padding:20px 5vw;max-width:1100px;margin:auto}
 .add-vid-btn{border:2px dashed var(--gold);background:rgba(232,176,75,0.05);border-radius:12px;padding:20px;color:var(--gold);cursor:pointer;font-weight:700;font-size:13px;transition:all .2s;display:flex;align-items:center;justify-content:center;min-height:100px}
 .add-vid-btn:hover{background:rgba(232,176,75,0.15)}
 
-/* ============================================================
-   8. APPS I FAQ
-   ============================================================ */
 .appgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px}
 .appcard{background:var(--card);border:1px solid var(--line);border-radius:var(--rad-lg);padding:18px;text-align:center;transition:border-color .2s}
 .appcard:hover{border-color:var(--gold)}
@@ -197,9 +172,6 @@ main{position:relative;z-index:1;padding:20px 5vw;max-width:1100px;margin:auto}
 .faq-item p{padding:0 13px 13px;margin:0;color:var(--mut);font-size:var(--fs);line-height:1.7;display:none;white-space:pre-wrap}
 .faq-item.open p{display:block}
 
-/* ============================================================
-   9. REPRODUCTOR A PANTALLA COMPLETA
-   ============================================================ */
 .modal{position:fixed;inset:0;background:#000;display:none;z-index:99999;padding:0;margin:0;overflow:hidden}
 .modal.on{display:block}
 .wrap{position:absolute;inset:0;background:#000;overflow:hidden}
@@ -215,9 +187,6 @@ main{position:relative;z-index:1;padding:20px 5vw;max-width:1100px;margin:auto}
 .video-overlay .text{color:#fff;font-size:16px;font-weight:700;text-align:center;max-width:80%;line-height:1.5;pointer-events:none}
 @keyframes pulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.1);opacity:.8}}
 
-/* ============================================================
-   10. MODALS (login, selector d'adjunts, celebració, ajuda)
-   ============================================================ */
 .lgin,.adjsel{position:fixed;inset:0;background:rgba(5,6,10,.98);z-index:60;display:none;align-items:center;justify-content:center;padding:5vw}
 .lgin.on,.adjsel.on{display:flex}
 .lbox{background:var(--card);border:1px solid var(--gold);border-radius:var(--rad-lg);padding:24px 27px;width:min(395px,92vw);text-align:center;box-shadow:0 10px 32px rgba(232,176,75,0.2)}
@@ -264,9 +233,8 @@ main{position:relative;z-index:1;padding:20px 5vw;max-width:1100px;margin:auto}
 .help-item h3{color:var(--gold);font-size:14px;margin-bottom:4px}
 .help-item p{color:var(--mut);font-size:var(--fs-sm);line-height:1.6}
 
-/* ============================================================
-   11. RESPONSIVE
-   ============================================================ */
+#toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%);background:var(--card);border:1px solid var(--gold);color:var(--ink);padding:12px 24px;border-radius:10px;font-size:14px;font-weight:600;z-index:999999;opacity:0;pointer-events:none;transition:opacity 0.3s;box-shadow:0 4px 12px rgba(0,0,0,0.5);text-align:center;max-width:90vw}
+
 @media(max-width:900px){
   .donuts{grid-template-columns:repeat(3,1fr)}
   .blkcol{grid-template-columns:repeat(3,1fr)}
@@ -290,33 +258,13 @@ main{position:relative;z-index:1;padding:20px 5vw;max-width:1100px;margin:auto}
   .faq-item h3{font-size:15px}
   .vidadjpills{flex-direction:column}
   .vidadjpills a{width:100%;justify-content:center}
-  
-  /* Forçar landscape en mòbils (gir automàtic del reproductor) */
+  .modal.on .close{opacity:1 !important;background:rgba(232,176,75,0.9) !important;color:#000 !important;border-color:#fff !important}
   @media (orientation: portrait) {
-    .modal.on .wrap {
-      width: 100vh !important;
-      height: 100vw !important;
-      transform: rotate(90deg);
-      transform-origin: top left;
-      position: fixed;
-      top: 0;
-      left: 100vw;
-      z-index: 99999;
-    }
-    /* Ajustar el botó de tancar perquè quedi ben posicionat en girar */
-    .modal.on .close {
-      top: 14px !important;
-      right: 14px !important;
-    }
+    .modal.on .wrap{width:100vh !important;height:100vw !important;transform:rotate(90deg);transform-origin:top left;position:fixed;top:0;left:100vw}
+    .modal.on .close{top:14px !important;right:14px !important}
   }
-  
-  /* Correcció per a Android en landscape */
   @media (orientation: landscape) {
-    .frame iframe {
-      width: 100dvw !important;
-      height: 100dvh !important;
-      object-fit: cover;
-    }
+    .frame iframe{width:100dvw !important;height:100dvh !important;object-fit:cover}
   }
 }
 @media(max-width:480px){
@@ -330,6 +278,7 @@ main{position:relative;z-index:1;padding:20px 5vw;max-width:1100px;margin:auto}
 <body>
 <div id="wm"></div>
 <div id="fatal" style="display:none;position:fixed;top:0;left:0;right:0;z-index:999;background:#7a0029;color:#fff;padding:10px 16px;font-family:Consolas,monospace;font-size:13px;white-space:pre-wrap;"></div>
+<div id="toast"></div>
 
 <header>
   <div class="hbrand">
@@ -341,13 +290,13 @@ main{position:relative;z-index:1;padding:20px 5vw;max-width:1100px;margin:auto}
   </div>
   <div class="hdr">
     <span class="modes">
-      <button id="mTrack">🎯 Seguiment Continuat</button>
+      <button id="mTrack"> Seguiment Continuat</button>
       <button id="mFree">📁 Navegació Lliure</button>
       <button id="mApps"></button>
       <button id="mInfo">FAQ</button>
     </span>
     <button id="mHelp" class="langbtn" title="Com funciona / Cómo funciona">❓</button>
-<button id="langToggle" class="langbtn" title="Canvia d'idioma / Cambiar de idioma"> <span id="langCur">CAT</span></button>
+    <button id="langToggle" class="langbtn" title="Canvia d'idioma / Cambiar de idioma">🌐 <span id="langCur">CAT</span></button>
     <button id="mEdit" title="Mode edició">⚙️</button>
     <button id="mSave" title="Guardar">💾</button>
   </div>
@@ -362,7 +311,7 @@ main{position:relative;z-index:1;padding:20px 5vw;max-width:1100px;margin:auto}
 
 <div class="modal" id="modal">
   <div class="wrap">
-    <button class="close" id="xPlayer" title="Tancar">✕</button>
+    <button class="close" id="xPlayer" title="Tancar"></button>
     <div class="frame">
       <iframe id="player" allow="autoplay; fullscreen; encrypted-media; picture-in-picture" src="" scrolling="no"></iframe>
       <div class="video-overlay" id="videoOverlay">
@@ -397,9 +346,6 @@ main{position:relative;z-index:1;padding:20px 5vw;max-width:1100px;margin:auto}
 </div>
 
 <script>
-/* ================================================================
-   1. UTILITATS I ESTAT GLOBAL
-   ================================================================ */
 window.onerror = function (m, s, l) {
   var f = document.getElementById('fatal');
   f.style.display = 'block';
@@ -412,22 +358,15 @@ function lsGet(k) { try { return window.localStorage.getItem(k); } catch (e) { r
 function lsSet(k, v) { try { window.localStorage.setItem(k, v); } catch (e) { mem[k] = v; } }
 function lsJSON(k, def) { var r = lsGet(k); if (!r) return def; try { return JSON.parse(r); } catch (e) { return def; } }
 
-var LS = {
-  lang: lsGet('gjps_lang') || 'ca',
-  mode: lsGet('gjps_mode') || 'track',
-  user: lsGet('gjps_session') || '',
-  done: {}
-};
-
-var freeBlock = 'w';
-var freeLevel = 0;
-var autoLevelPending = true;
-var editModeOn = false;
-var faqOpen = {};
-var reviewCollapsed = true;
+var LS = { lang: lsGet('gjps_lang') || 'ca', mode: lsGet('gjps_mode') || 'track', user: lsGet('gjps_session') || '', done: {} };
+var freeBlock = 'w', freeLevel = 0, autoLevelPending = true, editModeOn = false, faqOpen = {}, reviewCollapsed = true;
 
 function isMobileDevice() {
   return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || 
+         (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+}
+function isIOS() {
+  return /iPad|iPhone|iPod/.test(navigator.userAgent) || 
          (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
 }
 
@@ -440,9 +379,15 @@ function t() { return UI[LS.lang]; }
 function li() { return LS.lang === 'ca' ? 0 : 1; }
 function esc(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
 
-/* ================================================================
-   2. USUARIS I SESSIÓ
-   ================================================================ */
+function showToast(msg, duration) {
+  duration = duration || 2500;
+  var toast = $('toast');
+  if (!toast) return;
+  toast.textContent = msg;
+  toast.style.opacity = '1';
+  setTimeout(function() { toast.style.opacity = '0'; }, duration);
+}
+
 function getDailyPassword() {
   var avui = new Date();
   return String(avui.getDate() + (avui.getMonth() + 1) + 42);
@@ -485,15 +430,10 @@ var USERS_DB = [
 
 function findUser(name) {
   var low = String(name).toLowerCase();
-  for (var i = 0; i < USERS_DB.length; i++) {
-    if (USERS_DB[i].n.toLowerCase() === low) return USERS_DB[i];
-  }
+  for (var i = 0; i < USERS_DB.length; i++) { if (USERS_DB[i].n.toLowerCase() === low) return USERS_DB[i]; }
   return null;
 }
-function currentUserRole() {
-  var u = findUser(LS.user);
-  return u ? u.role : 'guest';
-}
+function currentUserRole() { var u = findUser(LS.user); return u ? u.role : 'guest'; }
 function loadDone() { LS.done = LS.user ? lsJSON('gjps_done_' + LS.user, {}) : {}; }
 function saveDone() { if (LS.user) lsSet('gjps_done_' + LS.user, JSON.stringify(LS.done)); }
 function getBookmarks() { return lsJSON('gjps_bookmarks_' + LS.user, []); }
@@ -506,9 +446,6 @@ function toggleBookmark(id) {
   setBookmarks(b);
 }
 
-/* ================================================================
-   3. DADES DEL CURS
-   ================================================================ */
 var LEVELS = [
   { id: 0, n: { ca: 'Vídeos de benvinguda', es: 'Vídeos de bienvenida' }, active: true },
   { id: 1, n: { ca: 'Nivell Fonamental', es: 'Nivel Fundamental' }, active: true },
@@ -524,22 +461,10 @@ var APPS = [
 ];
 
 var LINKS = {
-  r: {
-    cat: ['1B0keL0UC2u8HQJ9ZsidlYRgAHU67QDse','1KbtqX7jMbyanCzpD0aVXEInudOop4Uie','1I_hoZCdMvIHplsa5n8kxKvAoioH9vy2B','1G8ql4nEzH6I-I0mYX7w1a3qwsZ8Q9FDu','1ZI7Xw2zcbmdXp8gQgr-ixdaCGHY0xyaA','1XeX2j2RrdZFEc7Al1UJrFJIMu1_xL1zf','1nU-ixKtfFOXOHh058DVoWAB6ioJpymCH','1UVYULkrIppofoV5-RZ4nGRwrZOR7mfuT','1h0o_6CcV4F3e0Sdo1ZQKIsE1Kl4mwX9Z','1N32IzKMse_hXrRRUYiDgVXtRUJJ_YV0h','1diOC2djV_xxfV6hn7r55KFJVZlTcfVst'],
-    sp:  ['1JFnVd-R442wbUI-zHGgHpylVk2Ua2tmZ','1vvYih6EhhGHbJaqYVWNqfODJDz9bNtlX','1DEF_WLBTIQcRb78qNhRYo-wRJGkBn7xj','1cJGljT6Qlbc9NCOUUzjJqxkbbj3Lwr7i','1d7e0ffPQ8laYqqnahr1OQ8biRzKYUg5S','1jzF-6Io1CHt6DQGdvzJzqlQ5T0bTnLkv','1iIG9rTGmxO7Q0Fyw6tX4DlLmeMavihwf','1zpFwJ0PrWq13c4LKJLCBJXULzxMYv2XV','1Ub0aiaQXFDtJYZ2LwUf5ebvTvYHmz_sl','1tgU-sT_AbAWT7QvJp3nkFueDE2nT45Lj','10EQuIBUZTMaalzK9Uc3Noi_zSgArh04G']
-  },
-  a: {
-    cat: ['1Jk1odT5P1JEeX_UZBFjmX1YfFgYMuYPT','1rUZZckM1muEFKNPP6GQdOh7BGnjW6qoY','1OQMVd-DMxvH-Y9TRv4I8GZH-z_cv1APq','1mE1mD-mPJeiVVBD-aStek6u7MFLLc832','1MQHBogWbvjm9y9vKnEHISdaN--yZMJbU','1GTK-UaZ__wx5Msg1qp9-hedBZdDl4q-D','1BXkDyB59_uFPQjkHM1dxDbT2D1Lxd2tE','14uPrMyyKLlOQIzbHWlMbq6rPGIOlLoPx','12hgmR9rtRNGqML6AEdKXm7YMl2vSZP43','1JZNTwfzkNfbzodfNWTLK4ETNME5HkT_N','1uaIbVGqpQpgRoG7N3HiFtHQTFWxcYgZe'],
-    sp:  ['1q1uGcQnCcJs05AiaZCoFATTXwazP1H1O','1e5K8CNKCpbyxwzHewyK0FmJbHDtHFetM','1AAtCHcDOk3dRH2fIPDYGmhxeSH8vBtvf','1xAcozy8FLHhVL2FHXqgbrItbj4EAlMP9','15LvqjTo6zQUGpDW52_LPAcCJ_7FnztML','1noTW5PdsWPp0M-plkaNVmJVy-7QeBDlW','1PHOJiHVaTaEQivhZY4rYIcDf_AXg0s9h','1bR1QqucC6eOATqWNYEP_yvs6HAsPjL42','1re1JZXvw-bnPEn4beaIrS_prrigbpjBF','1U1DnI2DLtB0WUmyln9AkRzv0wCMU7kE-','19Tcxnhl9cAX1Mj3G7PvjXTtQIFDe0Wl2']
-  },
-  t: {
-    cat: ['1VeU8NSwOsN_eubIbfoQsKo4YFDnlqM5F','1GAbFwRM9HEhGVTkQ4LxveFnbK6hj_gww','1VAjy_fhDiHK7QacaqRAggjCkJNlTq5r6','1rC-hzFKjkNSlBhfzbNKuXr-zuSxikuW1','1zN7p0do8nezfm1zClu1IggfoPEPA9O1H','1x7I-fDE0SSsv-8SnyraMCtjFJ5zwgFV5'],
-    sp:  ['1pfzM2lUFMe0p1D90i_m79SXHgtKOhAUK','1mZw0Qkhl2H_YkQuw8i2g_ia_PvkDU0D_','19bXw4EyI_u2eD6o8xMQxcZx3yM47_zqH','16t3LcAE3E6EWCSmY2Z2_WtTWe1y3TRih','1RlHXbwc2_A6cA-JSmljCJUyFsWhDp9rl','1z4osLC6yqSQgTRafjv_ocq4rSgHZJED_']
-  },
-  gift: {
-    classic: { cat: '16VAaCCvSqD1I-QuGXq6CBU8YhLV26vDA', sp: '1qyi41EYduAG3aeSs40VB3JT8L2Ni1H2Y' },
-    jazz:    { cat: '1OFThJqwDq46Fa_qeBf-FroHmiCXwHgLl', sp: '19ZY_CzFGSKnMfNgRFarYokOiZRwBVbX9' }
-  }
+  r: { cat: ['1B0keL0UC2u8HQJ9ZsidlYRgAHU67QDse','1KbtqX7jMbyanCzpD0aVXEInudOop4Uie','1I_hoZCdMvIHplsa5n8kxKvAoioH9vy2B','1G8ql4nEzH6I-I0mYX7w1a3qwsZ8Q9FDu','1ZI7Xw2zcbmdXp8gQgr-ixdaCGHY0xyaA','1XeX2j2RrdZFEc7Al1UJrFJIMu1_xL1zf','1nU-ixKtfFOXOHh058DVoWAB6ioJpymCH','1UVYULkrIppofoV5-RZ4nGRwrZOR7mfuT','1h0o_6CcV4F3e0Sdo1ZQKIsE1Kl4mwX9Z','1N32IzKMse_hXrRRUYiDgVXtRUJJ_YV0h','1diOC2djV_xxfV6hn7r55KFJVZlTcfVst'], sp: ['1JFnVd-R442wbUI-zHGgHpylVk2Ua2tmZ','1vvYih6EhhGHbJaqYVWNqfODJDz9bNtlX','1DEF_WLBTIQcRb78qNhRYo-wRJGkBn7xj','1cJGljT6Qlbc9NCOUUzjJqxkbbj3Lwr7i','1d7e0ffPQ8laYqqnahr1OQ8biRzKYUg5S','1jzF-6Io1CHt6DQGdvzJzqlQ5T0bTnLkv','1iIG9rTGmxO7Q0Fyw6tX4DlLmeMavihwf','1zpFwJ0PrWq13c4LKJLCBJXULzxMYv2XV','1Ub0aiaQXFDtJYZ2LwUf5ebvTvYHmz_sl','1tgU-sT_AbAWT7QvJp3nkFueDE2nT45Lj','10EQuIBUZTMaalzK9Uc3Noi_zSgArh04G'] },
+  a: { cat: ['1Jk1odT5P1JEeX_UZBFjmX1YfFgYMuYPT','1rUZZckM1muEFKNPP6GQdOh7BGnjW6qoY','1OQMVd-DMxvH-Y9TRv4I8GZH-z_cv1APq','1mE1mD-mPJeiVVBD-aStek6u7MFLLc832','1MQHBogWbvjm9y9vKnEHISdaN--yZMJbU','1GTK-UaZ__wx5Msg1qp9-hedBZdDl4q-D','1BXkDyB59_uFPQjkHM1dxDbT2D1Lxd2tE','14uPrMyyKLlOQIzbHWlMbq6rPGIOlLoPx','12hgmR9rtRNGqML6AEdKXm7YMl2vSZP43','1JZNTwfzkNfbzodfNWTLK4ETNME5HkT_N','1uaIbVGqpQpgRoG7N3HiFtHQTFWxcYgZe'], sp: ['1q1uGcQnCcJs05AiaZCoFATTXwazP1H1O','1e5K8CNKCpbyxwzHewyK0FmJbHDtHFetM','1AAtCHcDOk3dRH2fIPDYGmhxeSH8vBtvf','1xAcozy8FLHhVL2FHXqgbrItbj4EAlMP9','15LvqjTo6zQUGpDW52_LPAcCJ_7FnztML','1noTW5PdsWPp0M-plkaNVmJVy-7QeBDlW','1PHOJiHVaTaEQivhZY4rYIcDf_AXg0s9h','1bR1QqucC6eOATqWNYEP_yvs6HAsPjL42','1re1JZXvw-bnPEn4beaIrS_prrigbpjBF','1U1DnI2DLtB0WUmyln9AkRzv0wCMU7kE-','19Tcxnhl9cAX1Mj3G7PvjXTtQIFDe0Wl2'] },
+  t: { cat: ['1VeU8NSwOsN_eubIbfoQsKo4YFDnlqM5F','1GAbFwRM9HEhGVTkQ4LxveFnbK6hj_gww','1VAjy_fhDiHK7QacaqRAggjCkJNlTq5r6','1rC-hzFKjkNSlBhfzbNKuXr-zuSxikuW1','1zN7p0do8nezfm1zClu1IggfoPEPA9O1H','1x7I-fDE0SSsv-8SnyraMCtjFJ5zwgFV5'], sp: ['1pfzM2lUFMe0p1D90i_m79SXHgtKOhAUK','1mZw0Qkhl2H_YkQuw8i2g_ia_PvkDU0D_','19bXw4EyI_u2eD6o8xMQxcZx3yM47_zqH','16t3LcAE3E6EWCSmY2Z2_WtTWe1y3TRih','1RlHXbwc2_A6cA-JSmljCJUyFsWhDp9rl','1z4osLC6yqSQgTRafjv_ocq4rSgHZJED_'] },
+  gift: { classic: { cat: '16VAaCCvSqD1I-QuGXq6CBU8YhLV26vDA', sp: '1qyi41EYduAG3aeSs40VB3JT8L2Ni1H2Y' }, jazz: { cat: '1OFThJqwDq46Fa_qeBf-FroHmiCXwHgLl', sp: '19ZY_CzFGSKnMfNgRFarYokOiZRwBVbX9' } }
 };
 
 function getLink(type, idx) {
@@ -555,13 +480,7 @@ function getLink(type, idx) {
 }
 
 var D = [
-  { n: { ca: 'Benvinguda', es: 'Bienvenida' }, u: [
-    { w: { v: [
-      ['Presentació de l\'Escola', 'Presentación de la Escuela', ''],
-      ['Com funciona aquesta web', 'Cómo funciona esta web', ''],
-      ['Quin teclat comprar?', '¿Qué teclado comprar?', '']
-    ] } }
-  ] },
+  { n: { ca: 'Benvinguda', es: 'Bienvenida' }, u: [{ w: { v: [['Presentació de l\'Escola', 'Presentación de la Escuela', ''], ['Com funciona aquesta web', 'Cómo funciona esta web', ''], ['Quin teclat comprar?', '¿Qué teclado comprar?', '']] } } ] },
   { n: { ca: 'Fonaments', es: 'Fundamentos' }, u: [
     { g: { v: [['Notes al piano: Introducció Essencial','Notas en el piano: Introducción Esencial',getLink('t',0)],['Claus musicals: Com Llegir i Col·locar Mans','Claves musicales: Cómo Leer y Colocar las Manos',getLink('t',1)]] }, r: { v: [['Pols i Tempo: Figures bàsiques','Pulso y Tempo: Figuras básicas',getLink('r',0)]] } },
     { t: { v: [['Funcionament de les Rutines','Funcionamiento de las Rutinas']] }, g: { d: [['Notació Anglosaxona','Notación Anglosajona','d']] }, r: { d: [['Entrenament Rítmic 1-12','Entrenamiento Rítmico 1-12','a']] }, a: { v: [['Fonaments de l\'Oïda Musical','Fundamentos del Oído Musical',getLink('a',0)]] }, p: { v: [['La Xocolatera (tema)','La Chocolatera (tema)']], d: [['La Xocolatera (partitura)','La Chocolatera (partitura)','s']] } },
@@ -605,9 +524,6 @@ var GIFT = [
   ['Masterclass 2: Història del Jazz', 'Masterclass 2: Historia del Jazz', getLink('gift_jazz')]
 ];
 
-/* ================================================================
-   4. TEXTOS D'INTERFÍCIE (CA/ES) I FAQ
-   ================================================================ */
 var UI = {
   ca: {
     overlayText: 'Fes clic per reproduir',
@@ -618,7 +534,7 @@ var UI = {
     mFree: '📁 Navegació Lliure', mTrack: '🎯 Seguiment Continuat', mApps: ' Apps', total: 'TOTAL NIVELL',
     now: 'Ara et toca:', allDone: '🎉 Ho tens tot fet! Enhorabona!',
     giftTxt: 'Gaudeix del teu regal de graduació mentre prepares el Nivell 2:', giftTag: 'Regal de graduació',
-    reviewTitle: '🔖 La teva llista de repàs', soon: 'Aquest vídeo encara no està disponible. Sentim les molèsties.', adj: '📎 Adjunts', vidAdjBtn: '📎',
+    reviewTitle: '🔖 La teva llista de repàs', soon: 'Vídeo no disponible. Disculpa les molèsties.', adj: '📎 Adjunts', vidAdjBtn: '📎',
     vidAdjSelTitle: 'Selecciona quins adjunts del bloc han d\'aparèixer en aquest vídeo:',
     vidAdjCancel: 'Cancel·lar', vidAdjOk: 'Aplicar', appsOpen: 'OBRE',
     appsSoon: 'Enllaç properament: configura\'l a l\'array APPS del codi.',
@@ -630,13 +546,7 @@ var UI = {
     linkPrompt: 'Enganxa l\'enllaç de Google Drive del vídeo (o deixa-ho buit per treure\'l):',
     adjLinkPrompt: 'Enganxa l\'enllaç de Google Drive del PDF (o deixa-ho buit per treure\'l):',
     pendingIcon: '⏳', pendingMsg: 'Aquest nivell encara no està disponible. Es desenvoluparà properament.',
-    desc: {
-      t: 'Segueix la rutina amb metrònom i respecta la postura.',
-      g: 'Pots dedicar-li una sessió sencera o només un tros: cadascú avança al seu ritme.',
-      r: 'Practica primer sense piano i després amb metrònom.',
-      a: 'Fes-ho amb calma i, quan toca, amb TONAL EMOTIONS oberta.',
-      p: 'Amb el backing track i les tríades en posició fonamental.'
-    }
+    desc: { t: 'Segueix la rutina amb metrònom i respecta la postura.', g: 'Pots dedicar-li una sessió sencera o només un tros: cadascú avança al seu ritme.', r: 'Practica primer sense piano i després amb metrònom.', a: 'Fes-ho amb calma i, quan toca, amb TONAL EMOTIONS oberta.', p: 'Amb el backing track i les tríades en posició fonamental.' }
   },
   es: {
     overlayText: 'Haz clic para reproducir',
@@ -647,7 +557,7 @@ var UI = {
     mFree: '📁 Navegación Libre', mTrack: '🎯 Seguimiento Continuo', mApps: ' Apps', total: 'TOTAL NIVEL',
     now: 'Ahora te toca:', allDone: '🎉 ¡Lo tienes todo hecho! ¡Enhorabuena!',
     giftTxt: 'Disfruta de tu regalo de graduación mientras preparas el Nivel 2:', giftTag: 'Regalo de graduación',
-    reviewTitle: '🔖 Tu lista de repaso', soon: 'Este vídeo aún no está disponible. Disculpa las molestias.', adj: '📎 Adjuntos', vidAdjBtn: '📎',
+    reviewTitle: '🔖 Tu lista de repaso', soon: 'Vídeo no disponible. Disculpa las molestias.', adj: ' Adjuntos', vidAdjBtn: '',
     vidAdjSelTitle: 'Selecciona qué adjuntos del bloque deben aparecer en este vídeo:',
     vidAdjCancel: 'Cancelar', vidAdjOk: 'Aplicar', appsOpen: 'ABRE',
     appsSoon: 'Enlace próximamente: configúralo en el array APPS del código.',
@@ -659,13 +569,7 @@ var UI = {
     linkPrompt: 'Pega el enlace de Google Drive del vídeo (o déjalo vacío para quitarlo):',
     adjLinkPrompt: 'Pega el enlace de Google Drive del PDF (o déjalo vacío para quitarlo):',
     pendingIcon: '⏳', pendingMsg: 'Este nivel aún no está disponible. Se desarrollará próximamente.',
-    desc: {
-      t: 'Sigue la rutina con metrónomo y respeta la postura.',
-      g: 'Puedes dedicarle una sesión entera o solo un trozo: cada uno avanza a su ritmo.',
-      r: 'Practica primero sin piano y después con metrónomo.',
-      a: 'Hazlo con calma y, cuando toque, con TONAL EMOTIONS abierta.',
-      p: 'Con el backing track y las tríadas en posición fundamental.'
-    }
+    desc: { t: 'Sigue la rutina con metrónomo y respeta la postura.', g: 'Puedes dedicarle una sesión entera o solo un trozo: cada uno avanza a su ritmo.', r: 'Practica primero sin piano y después con metrónomo.', a: 'Hazlo con calma y, cuando toque, con TONAL EMOTIONS abierta.', p: 'Con el backing track y las tríadas en posición fundamental.' }
   }
 };
 
@@ -674,8 +578,8 @@ var FAQS = [
   { ico: '👤', q: { ca: 'Qui hi ha darrere de GJPS?', es: '¿Quién hay detrás de GJPS?' }, a: { ca: 'Girona Jazz Piano School és un projecte personal creat per un pianista i professor apassionat per la didàctica del piano modern i el jazz. Amb anys d\'experiència formant músics, he desenvolupat aquest mètode progressiu pensat per a adults que volen aprendre a tocar de veritat, entenent la música des de dins i adquirint autonomia al teclat pas a pas.', es: 'Girona Jazz Piano School es un proyecto personal creado por un pianista y profesor apasionado por la didáctica del piano moderno y el jazz. Con años de experiencia formando músicos, he desarrollado este método progresivo pensado para adultos que quieren aprender a tocar de verdad, entendiendo la música desde dentro y adquiriendo autonomía en el teclado paso a paso.' } },
   { ico: '🎻', q: { ca: 'Vinc del conservatori, em servirà aquest mètode?', es: 'Vengo del conservatorio, ¿me servirá este método?' }, a: { ca: 'I tant! El mètode està pensat per a qualsevol perfil, tant si comences de zero com si ja tens una base. Si véns del conservatori (de piano o de qualsevol altre instrument), trobaràs que aquí s\'aprèn a entendre la música des de dins, adquirint habilitats tant per tocar repertori clàssic com modern (pop, rock, bandes sonores...). El mètode t\'ajudarà a guanyar autonomia al teclat, a improvisar, a acompanyar i a entendre l\'harmonia d\'una manera pràctica que sovint al conservatori tradicional queda en segon pla.', es: '¡Por supuesto! El método está pensado para cualquier perfil, tanto si empiezas de cero como si ya tienes una base. Si vienes del conservatorio (de piano o de cualquier otro instrumento), encontrarás que aquí se aprende a entender la música desde dentro, adquiriendo habilidades tanto para tocar repertorio clásico como moderno (pop, rock, bandas sonoras...). El método te ayudará a ganar autonomía en el teclado, a improvisar, a acompañar y a entender la armonía de una manera práctica que a menudo en el conservatorio tradicional queda en segundo plano.' } },
   { ico: '💻', q: { ca: 'És presencial o 100% online?', es: '¿Es presencial o 100% online?' }, a: { ca: 'És un curs 100% online amb un itinerari ordenat i de seguiment continuat. A través de vídeos didàctics, partitures i un sistema propi de rutines tècniques, està pensat per formar músics autònoms a llarg termini.', es: 'Es un curso 100% online con un itinerario ordenado y de seguimiento continuado que combina vídeos didácticos, partituras y un sistema propio de rutinas técnicas, está pensado para formar músicos autónomos a largo plazo.' } },
-  { ico: '📚', q: { ca: 'Com es desenvolupen els cursos?', es: '¿Cómo se desarrollan los cursos?' }, a: { ca: 'Cada nivell s\'estructura en blocs que es combinen dins del seguiment continuat per formar el músic des de zero. Al primer nivell, per exemple, trobaràs 5 blocs: Tècnica, Teoria, Ritme, Auditiu i Pràctica funcional.\nSeguint els vídeos en ordre, aniràs adquirint pas a pas tot el que necessites per posar-ho en pràctica al piano.', es: 'Cada nivel se estructura en bloques que se combinan dentro del seguimiento continuado para formar al músico desde cero. En el primer nivel, por ejemplo, encontrarás 5 bloques: Técnica, Teoría, Ritmo, Audición y Práctica funcional. Siguiendo los vídeos en orden, irás adquiriendo paso a paso todo lo que necesitas para ponerlo en práctica en el piano.' } },
-  { ico: '🎷', q: { ca: 'Quan començaré a tocar estàndards de jazz?', es: '¿Cuándo empezaré a tocar estándares de jazz?' }, a: { ca: 'Els estàndards de jazz arriben al Nivell 2, un cop hagis consolidat el Nivell Fonamental. Això és intencionat: abans de submergir-te en el blues i el jazz, necessites una base sòlida de tècnica, ritme, oïda i harmonia bàsica que et permeti afrontar aquests llenguatges amb garanties.\nAl Nivell 2 hi haurà dues línies de treball paral·leles que podràs anar completant al teu ritme: una línia de repertori clàssic i una altra de moderna/jazz, de manera que cada bloc tindrà contingut per a totes dues vessants. Així podràs especialitzar-te en el que més t\'interessi, o bé formar-te com a músic complet.', es: 'Los estándares de jazz llegan en el Nivel 2, una vez hayas consolidado el Nivel Fundamental. Esto es intencionado: antes de sumergirte en el blues y el jazz, necesitas una base sólida de técnica, ritmo, oído y armonía básica que te permita abordar estos lenguajes con garantías.\nEn el Nivel 2 habrá dos líneas de trabajo paralelas que podrás ir completando a tu ritmo: una línea de repertorio clásico y otra de moderna/jazz, de modo que cada bloque tendrá contenido para ambas vertientes. Así podrás especializarte en lo que más te interese, o bien formarte como músico completo.' } },
+  { ico: '', q: { ca: 'Com es desenvolupen els cursos?', es: '¿Cómo se desarrollan los cursos?' }, a: { ca: 'Cada nivell s\'estructura en blocs que es combinen dins del seguiment continuat per formar el músic des de zero. Al primer nivell, per exemple, trobaràs 5 blocs: Tècnica, Teoria, Ritme, Auditiu i Pràctica funcional.\nSeguint els vídeos en ordre, aniràs adquirint pas a pas tot el que necessites per posar-ho en pràctica al piano.', es: 'Cada nivel se estructura en bloques que se combinan dentro del seguimiento continuado para formar al músico desde cero. En el primer nivel, por ejemplo, encontrarás 5 bloques: Técnica, Teoría, Ritmo, Audición y Práctica funcional. Siguiendo los vídeos en orden, irás adquiriendo paso a paso todo lo que necesitas para ponerlo en práctica en el piano.' } },
+  { ico: '', q: { ca: 'Quan començaré a tocar estàndards de jazz?', es: '¿Cuándo empezaré a tocar estándares de jazz?' }, a: { ca: 'Els estàndards de jazz arriben al Nivell 2, un cop hagis consolidat el Nivell Fonamental. Això és intencionat: abans de submergir-te en el blues i el jazz, necessites una base sòlida de tècnica, ritme, oïda i harmonia bàsica que et permeti afrontar aquests llenguatges amb garanties.\nAl Nivell 2 hi haurà dues línies de treball paral·leles que podràs anar completant al teu ritme: una línia de repertori clàssic i una altra de moderna/jazz, de manera que cada bloc tindrà contingut per a totes dues vessants. Així podràs especialitzar-te en el que més t\'interessi, o bé formar-te com a músic complet.', es: 'Los estándares de jazz llegan en el Nivel 2, una vez hayas consolidado el Nivel Fundamental. Esto es intencionado: antes de sumergirte en el blues y el jazz, necesitas una base sólida de técnica, ritmo, oído y armonía básica que te permita abordar estos lenguajes con garantías.\nEn el Nivel 2 habrá dos líneas de trabajo paralelas que podrás ir completando a tu ritmo: una línea de repertorio clásico y otra de moderna/jazz, de modo que cada bloque tendrá contenido para ambas vertientes. Así podrás especializarte en lo que más te interese, o bien formarte como músico completo.' } },
   { ico: '📈', q: { ca: 'Com veig el meu progrés i com em corregiu?', es: '¿Cómo veo mi progreso y cómo me corregís?' }, a: { ca: 'El mode de Seguiment Continuat 🎯 t\'indica exactament quin és el següent pas i mesura el teu percentatge de progrés. A més, cada vídeo disposa d\'un espai de notes personals on pots apuntar dubtes o observacions, i el mètode es complementa amb aplicacions interactives d\'entrenament exclusives d\'aquesta escola.', es: 'El modo de Seguimiento Continuo te indica exactamente cuál es el siguiente paso y mide tu porcentaje de progreso. Además, cada vídeo dispone de un espacio de notas personales donde puedes apuntar dudas u observaciones, y el método se complementa con aplicaciones interactivas de entrenamiento exclusivas de esta escuela.' } },
   { ico: '🎸', q: { ca: '"Jo només vull tocar acords"', es: '"Yo solo quiero tocar acordes"' }, a: { ca: 'Perfecte! Aprendràs a acompanyar amb acords des del primer dia. No obstant això, compta que és només una petita part de l\'ensenyament: el mètode es construeix amb una combinació de disciplines per entendre la música de veritat.', es: '¡Perfecto! Aprenderás a acompañar con acordes desde el primer día. No obstante, ten en cuenta que es solo una pequeña parte de la enseñanza: el método se construye con una combinación de disciplinas para entender la música de verdad.' } },
   { ico: '🎼', q: { ca: 'Puc aprendre sense saber música?', es: '¿Puedo aprender sin saber música?' }, a: { ca: 'I tant! El mètode està dissenyat per començar des de zero. Aprendràs a tocar acords i melodies sense necessitat de saber solfeig inicialment, tot i que el mètode t\'ensenyarà gradualment els conceptes teòrics necessaris.', es: '¡Por supuesto! El método está diseñado para empezar desde cero. Aprenderás a tocar acordes y melodías sin necesidad de saber solfeo inicialmente, aunque el método te enseñará gradualmente los conceptos teóricos necesarios.' } },
@@ -685,28 +589,21 @@ var FAQS = [
 
 var HELP = [
   { ico: '🎯', t: { ca: 'Seguiment Continuat', es: 'Seguimiento Continuo' }, p: { ca: 'És el teu itinerari guiat. La targeta «Ara et toca» t\'indica el següent vídeo que has de mirar. Quan l\'hagis vist i practicat, prem «Marcar fet» i l\'aula et proposarà automàticament el següent pas.', es: 'Es tu itinerario guiado. La tarjeta «Ahora te toca» te indica el siguiente vídeo que debes ver. Cuando lo hayas visto y practicado, pulsa «Marcar hecho» y el aula te propondrá automáticamente el siguiente paso.' } },
-  { ico: '📁', t: { ca: 'Navegació Lliure', es: 'Navegación Libre' }, p: { ca: 'Per explorar al teu aire: tria el nivell al desplegable i el bloc (Tècnica, Teoria, Ritme, Auditiu o Pràctica) per veure\'n tots els vídeos i materials.', es: 'Para explorar a tu aire: elige el nivel en el desplegable y el bloque (Técnica, Teoría, Ritmo, Auditivo o Práctica) para ver todos sus vídeos y materiales.' } },
+  { ico: '', t: { ca: 'Navegació Lliure', es: 'Navegación Libre' }, p: { ca: 'Per explorar al teu aire: tria el nivell al desplegable i el bloc (Tècnica, Teoria, Ritme, Auditiu o Pràctica) per veure\'n tots els vídeos i materials.', es: 'Para explorar a tu aire: elige el nivel en el desplegable y el bloque (Técnica, Teoría, Ritmo, Auditivo o Práctica) para ver todos sus vídeos y materiales.' } },
   { ico: '⭐', t: { ca: 'Vídeos importants i opcionals', es: 'Vídeos importantes y opcionales' }, p: { ca: 'Cada vídeo porta una icona: ⭐ important (no te\'l saltis) o ⭕ opcional (pots deixar-lo per més endavant si tens pressa). Passa-hi el ratolí per sobre per veure\'n el significat.', es: 'Cada vídeo lleva un icono: ⭐ importante (no te lo saltes) o ⭕ opcional (puedes dejarlo para más adelante si tienes prisa). Pasa el ratón por encima para ver su significado.' } },
-  { ico: '🔖', t: { ca: 'La teva llista de repàs', es: 'Tu lista de repaso' }, p: { ca: 'Amb el botó «Repassar» marques un vídeo per tenir-lo sempre a mà. Els trobaràs tots reunits a la llista de repàs, a sota de cada vista.', es: 'Con el botón «Repasar» marcas un vídeo para tenerlo siempre a mano. Los encontrarás todos reunidos en la lista de repaso, debajo de cada vista.' } },
+  { ico: '', t: { ca: 'La teva llista de repàs', es: 'Tu lista de repaso' }, p: { ca: 'Amb el botó «Repassar» marques un vídeo per tenir-lo sempre a mà. Els trobaràs tots reunits a la llista de repàs, a sota de cada vista.', es: 'Con el botón «Repasar» marcas un vídeo para tenerlo siempre a mano. Los encontrarás todos reunidos en la lista de repaso, debajo de cada vista.' } },
   { ico: '📝', t: { ca: 'Notes personals', es: 'Notas personales' }, p: { ca: 'Cada vídeo té un espai de notes per apuntar dubtes o observacions. Podràs enviar-les al professor quan ho necessitis.', es: 'Cada vídeo tiene un espacio de notas para apuntar dudas u observaciones. Podrás enviárselas al profesor cuando lo necesites.' } },
   { ico: '📎', t: { ca: 'Adjunts i partitures', es: 'Adjuntos y partituras' }, p: { ca: 'Els documents de cada bloc (partitures, play-alongs, PDFs) s\'obren amb el botó «Adjunts». Alguns vídeos també tenen material propi just a sota.', es: 'Los documentos de cada bloque (partituras, play-alongs, PDFs) se abren con el botón «Adjuntos». Algunos vídeos también tienen material propio justo debajo.' } },
   { ico: '🎧', t: { ca: 'Aplicacions d\'entrenament', es: 'Aplicaciones de entrenamiento' }, p: { ca: 'A la pestanya Apps trobaràs laboratoris exclusius com TONAL EMOTIONS, per entrenar l\'oïda jugant.', es: 'En la pestaña Apps encontrarás laboratorios exclusivos como TONAL EMOTIONS, para entrenar el oído jugando.' } },
   { ico: '🎓', t: { ca: 'I en acabar el nivell…', es: 'Y al terminar el nivel…' }, p: { ca: 'Quan completis tots els vídeos del nivell rebràs un regal de graduació molt especial. Però això… millor descobreix-ho tu mateix! 😉', es: 'Cuando completes todos los vídeos del nivel recibirás un regalo de graduación muy especial. Pero eso… ¡mejor descúbrelo tú mismo! 😉' } }
 ];
 
-/* ================================================================
-   5. OV: DADES EDITABLES PERSISTIDES DINS DEL FITXER
-   ================================================================ */
 var OV = /*OV-START*/{"t":{},"d":{},"l":{},"f":{},"a":{},"adj":{},"va":{},"order":[],"imp":{},"h":{}};/*OV-END*/
 
 function faqGet(i, k) { var o = OV.f[i]; if (o && o[k] && o[k][LS.lang]) return esc(o[k][LS.lang]); return esc(FAQS[i][k][LS.lang]); }
 function appName(a, i) { var o = OV.a && OV.a[i]; return (o && o.n && o.n[LS.lang]) ? esc(o.n[LS.lang]) : a.n[LS.lang]; }
 function appDesc(a, i) { var o = OV.a && OV.a[i]; return (o && o.d && o.d[LS.lang]) ? esc(o.d[LS.lang]) : a.d[LS.lang]; }
-function helpText(i, k, fallback) {
-  var o = OV.h && OV.h[i];
-  if (o && o[k] && o[k][LS.lang]) return o[k][LS.lang];
-  return fallback;
-}
+function helpText(i, k, fallback) { var o = OV.h && OV.h[i]; if (o && o[k] && o[k][LS.lang]) return o[k][LS.lang]; return fallback; }
 function vidTitle(v, id) { var o = OV.t[id]; return (o && o[LS.lang]) ? esc(o[LS.lang]) : v[li()]; }
 function vidDesc(v, id, b) { var o = OV.d[id]; return (o && o[LS.lang]) ? esc(o[LS.lang]) : t().desc[b]; }
 
@@ -724,32 +621,22 @@ function driveSrc(v, id) {
   return v[2] ? 'https://drive.google.com/file/d/' + v[2] + '/preview' : null;
 }
 
-/* ================================================================
-   6. SISTEMA D'ORDRE GLOBAL DE REPRODUCCIÓ
-   ================================================================ */
 function isWelcomeId(id) { return parseInt(id.split('.')[0], 10) === 0; }
 function isGiftId(id) { return id.indexOf('gift.') === 0; }
 
 function initializeOrder() {
   if (!OV.order || !Array.isArray(OV.order)) OV.order = [];
   var all = allVids();
-  OV.order = OV.order.filter(function (id) {
-    for (var i = 0; i < all.length; i++) { if (all[i].id === id) return true; }
-    return false;
-  });
+  OV.order = OV.order.filter(function (id) { for (var i = 0; i < all.length; i++) { if (all[i].id === id) return true; } return false; });
   all.forEach(function (v) { if (OV.order.indexOf(v.id) === -1) OV.order.push(v.id); });
 }
-
 function swapOrder(idA, idB) {
   initializeOrder();
-  var ia = OV.order.indexOf(idA);
-  var ib = OV.order.indexOf(idB);
+  var ia = OV.order.indexOf(idA), ib = OV.order.indexOf(idB);
   if (ia === -1 || ib === -1) return;
-  OV.order[ia] = idB;
-  OV.order[ib] = idA;
+  OV.order[ia] = idB; OV.order[ib] = idA;
   render();
 }
-
 function getVideoOrder(videoId) {
   initializeOrder();
   if (isWelcomeId(videoId)) return 0;
@@ -763,7 +650,6 @@ function getVideoOrder(videoId) {
   }
   return 9999;
 }
-
 function reorderVideo(videoId, newOrder) {
   initializeOrder();
   var numbered = OV.order.filter(function (id) { return !isWelcomeId(id) && !isGiftId(id); });
@@ -773,7 +659,6 @@ function reorderVideo(videoId, newOrder) {
   if (target < 0 || target >= numbered.length || target === cur) return;
   swapOrder(videoId, numbered[target]);
 }
-
 function getVideoImportance(videoId) {
   if (!OV.imp || typeof OV.imp !== 'object') OV.imp = {};
   return OV.imp[videoId] === 'optional' ? 'optional' : 'important';
@@ -783,7 +668,6 @@ function toggleVideoImportance(videoId) {
   OV.imp[videoId] = (getVideoImportance(videoId) === 'important') ? 'optional' : 'important';
   render();
 }
-
 function allVids() {
   var o = [];
   D.forEach(function (s, si) {
@@ -791,91 +675,46 @@ function allVids() {
     s.u.forEach(function (u, ui) {
       BO.forEach(function (b) {
         var bl = u[b];
-        if (bl && bl.v) bl.v.forEach(function (v, vi) {
-          o.push({ id: si + '.' + ui + '.' + b + '.' + vi, v: v, si: si, ui: ui, b: b });
-        });
+        if (bl && bl.v) bl.v.forEach(function (v, vi) { o.push({ id: si + '.' + ui + '.' + b + '.' + vi, v: v, si: si, ui: ui, b: b }); });
       });
     });
   });
   return o;
 }
-
-function findVidById(id) {
-  var all = allVids();
-  for (var i = 0; i < all.length; i++) { if (all[i].id === id) return all[i]; }
-  return null;
-}
-
+function findVidById(id) { var all = allVids(); for (var i = 0; i < all.length; i++) { if (all[i].id === id) return all[i]; } return null; }
 function findNext() {
   initializeOrder();
   for (var i = 0; i < OV.order.length; i++) {
     var id = OV.order[i];
     if (isGiftId(id)) continue;
-    if (!LS.done[id]) {
-      var v = findVidById(id);
-      if (v) return v;
-    }
+    if (!LS.done[id]) { var v = findVidById(id); if (v) return v; }
   }
   return null;
 }
-
 function smartFreeLevel() {
   var all = allVids();
   var welcome = all.filter(function (x) { return x.si === 0; });
   var welcomeDone = welcome.length > 0 && welcome.every(function (x) { return LS.done[x.id]; });
-  if (!welcomeDone) {
-    freeLevel = 0;
-    freeBlock = 'w';
-    return;
-  }
+  if (!welcomeDone) { freeLevel = 0; freeBlock = 'w'; return; }
   initializeOrder();
   for (var i = 0; i < OV.order.length; i++) {
     var id = OV.order[i];
     if (isWelcomeId(id) || isGiftId(id)) continue;
-    if (!LS.done[id]) {
-      var v = findVidById(id);
-      if (v) { freeLevel = v.si; break; }
-    }
+    if (!LS.done[id]) { var v = findVidById(id); if (v) { freeLevel = v.si; break; } }
   }
   if (freeBlock === 'w') freeBlock = 't';
 }
+function prog(l) { var d = 0; l.forEach(function (x) { if (LS.done[x.id]) d++; }); return { d: d, n: l.length, p: l.length ? Math.round(d / l.length * 100) : 0 }; }
 
-function prog(l) {
-  var d = 0;
-  l.forEach(function (x) { if (LS.done[x.id]) d++; });
-  return { d: d, n: l.length, p: l.length ? Math.round(d / l.length * 100) : 0 };
-}
-
-/* ================================================================
-   7. ADJUNTS (DEL BLOC I PER VÍDEO)
-   ================================================================ */
-function docsOf(si, ui, b) {
-  if (!D[si] || !D[si].u || !D[si].u[ui]) return [];
-  var bl = D[si].u[ui][b];
-  return (bl && bl.d) ? bl.d : [];
-}
-
+function docsOf(si, ui, b) { if (!D[si] || !D[si].u || !D[si].u[ui]) return []; var bl = D[si].u[ui][b]; return (bl && bl.d) ? bl.d : []; }
 function getAdjLink(si, ui, b, docIdx) { var key = si + '.' + ui + '.' + b + '.' + docIdx; return OV.adj && OV.adj[key] ? OV.adj[key] : null; }
 function setAdjLink(si, ui, b, docIdx, val) { OV.adj = OV.adj || {}; var key = si + '.' + ui + '.' + b + '.' + docIdx; if (val === null || val === '') delete OV.adj[key]; else OV.adj[key] = val; }
-
-function getVidAdjKeys(id) {
-  var keys = (OV.va && OV.va[id]) || [];
-  if (keys.length > 0 && typeof keys[0] === 'number') return [];
-  return keys;
-}
-function setVidAdjKeys(id, keysArr) {
-  OV.va = OV.va || {};
-  if (!keysArr || !keysArr.length) delete OV.va[id]; else OV.va[id] = keysArr;
-}
-
+function getVidAdjKeys(id) { var keys = (OV.va && OV.va[id]) || []; if (keys.length > 0 && typeof keys[0] === 'number') return []; return keys; }
+function setVidAdjKeys(id, keysArr) { OV.va = OV.va || {}; if (!keysArr || !keysArr.length) delete OV.va[id]; else OV.va[id] = keysArr; }
 function parseDriveId(val) {
-  if (!val) return null;
-  val = val.trim();
-  if (!val) return null;
-  var m = val.match(/\/d\/([a-zA-Z0-9_-]+)/);
-  if (m) return m[1];
-  var m2 = val.match(/[?&]id=([a-zA-Z0-9_-]+)/);
-  if (m2) return m2[1];
+  if (!val) return null; val = val.trim(); if (!val) return null;
+  var m = val.match(/\/d\/([a-zA-Z0-9_-]+)/); if (m) return m[1];
+  var m2 = val.match(/[?&]id=([a-zA-Z0-9_-]+)/); if (m2) return m2[1];
   return val;
 }
 
@@ -885,8 +724,7 @@ function mkAdj(docs, si, ui, b) {
   btn.textContent = t().adj + ' (' + docs.length + ')';
   var box = document.createElement('div');
   box.className = 'docs';
-  var headerHTML = '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid var(--line)">';
-  headerHTML += '<span style="font-size:12px;color:var(--mut);font-weight:600">Documents d\'aquest bloc</span>';
+  var headerHTML = '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid var(--line)"><span style="font-size:12px;color:var(--mut);font-weight:600">Documents d\'aquest bloc</span>';
   if (editModeOn && si !== null && ui !== null) headerHTML += '<button class="add-doc-btn">+ Nou document</button>';
   headerHTML += '</div>';
   var rows = '';
@@ -902,11 +740,7 @@ function mkAdj(docs, si, ui, b) {
       editHtml += '<button class="del-doc-btn" data-si="' + si + '" data-ui="' + ui + '" data-b="' + b + '" data-idx="' + idx + '" style="background:var(--danger);color:#fff;border:none;border-radius:4px;padding:3px 6px;font-size:10px;cursor:pointer">🗑️</button>';
       editHtml += '</div>';
     }
-    rows += '<div class="doc" style="flex-direction:column;align-items:stretch;padding:8px 10px">' +
-      '<div style="display:flex;align-items:center;gap:8px">' +
-      '<span style="font-size:14px">' + (DI[dc[2]] || '📄') + '</span>' +
-      '<span style="flex:1;font-weight:600">' + dc[li()] + '</span>' + linkHtml +
-      '</div>' + editHtml + '</div>';
+    rows += '<div class="doc" style="flex-direction:column;align-items:stretch;padding:8px 10px"><div style="display:flex;align-items:center;gap:8px"><span style="font-size:14px">' + (DI[dc[2]] || '📄') + '</span><span style="flex:1;font-weight:600">' + dc[li()] + '</span>' + linkHtml + '</div>' + editHtml + '</div>';
   });
   box.innerHTML = headerHTML + rows;
   btn.onclick = function () { box.classList.toggle('on'); };
@@ -936,9 +770,7 @@ function mkAdj(docs, si, ui, b) {
         input.onblur = input.onchange;
       });
       box.querySelectorAll('.doc-link-edit').forEach(function (input) {
-        input.onchange = function () {
-          setAdjLink(+this.dataset.si, +this.dataset.ui, this.dataset.b, +this.dataset.idx, parseDriveId(this.value));
-        };
+        input.onchange = function () { setAdjLink(+this.dataset.si, +this.dataset.ui, this.dataset.b, +this.dataset.idx, parseDriveId(this.value)); };
         input.onblur = input.onchange;
       });
       box.querySelectorAll('.del-doc-btn').forEach(function (btnDel) {
@@ -956,25 +788,17 @@ function mkAdj(docs, si, ui, b) {
   return { btn: btn, box: box };
 }
 
-function adjParts(si, ui, b) {
-  var docs = docsOf(si, ui, b);
-  if (!docs.length) return null;
-  return mkAdj(docs, si, ui, b);
-}
+function adjParts(si, ui, b) { var docs = docsOf(si, ui, b); if (!docs.length) return null; return mkAdj(docs, si, ui, b); }
 
 var adjSelState = null;
 function openAdjSelector(id, si, ui, b) {
-  var allDocs = [];
-  var seen = {};
+  var allDocs = [], seen = {};
   D.forEach(function (s, sIdx) {
     if (!s.u) return;
     s.u.forEach(function (u, uIdx) {
       docsOf(sIdx, uIdx, b).forEach(function (dc, dIdx) {
         var keyName = dc[li()];
-        if (!seen[keyName]) {
-          seen[keyName] = true;
-          allDocs.push({ dc: dc, si: sIdx, ui: uIdx, idx: dIdx, uniqueKey: sIdx + '.' + uIdx + '.' + dIdx });
-        }
+        if (!seen[keyName]) { seen[keyName] = true; allDocs.push({ dc: dc, si: sIdx, ui: uIdx, idx: dIdx, uniqueKey: sIdx + '.' + uIdx + '.' + dIdx }); }
       });
     });
   });
@@ -995,24 +819,18 @@ function openAdjSelector(id, si, ui, b) {
     cb.type = 'checkbox';
     cb.checked = isSelected;
     cb.onchange = function () {
-      if (this.checked) {
-        if (adjSelState.currentSelection.indexOf(item.uniqueKey) < 0) adjSelState.currentSelection.push(item.uniqueKey);
-      } else {
-        var pos = adjSelState.currentSelection.indexOf(item.uniqueKey);
-        if (pos >= 0) adjSelState.currentSelection.splice(pos, 1);
-      }
+      if (this.checked) { if (adjSelState.currentSelection.indexOf(item.uniqueKey) < 0) adjSelState.currentSelection.push(item.uniqueKey); }
+      else { var pos = adjSelState.currentSelection.indexOf(item.uniqueKey); if (pos >= 0) adjSelState.currentSelection.splice(pos, 1); }
       div.classList.toggle('sel', this.checked);
     };
     var span = document.createElement('span');
     span.className = 'adi';
     span.textContent = (DI[item.dc[2]] || '📄') + ' ' + item.dc[li()] + (driveId ? ' (🔗)' : '');
-    div.appendChild(cb);
-    div.appendChild(span);
+    div.appendChild(cb); div.appendChild(span);
     list.appendChild(div);
   });
   $('adjSelModal').classList.add('on');
 }
-
 $('adjSelCancel').onclick = function () { $('adjSelModal').classList.remove('on'); adjSelState = null; };
 $('adjSelOk').onclick = function () {
   if (!adjSelState) return;
@@ -1028,9 +846,6 @@ document.addEventListener('keydown', function (e) {
   else if ($('faqModal').classList.contains('on')) $('faqModal').classList.remove('on');
 });
 
-/* ================================================================
-   8. MODE EDICIÓ I GUARDAT DEL FITXER
-   ================================================================ */
 function collectAll() {
   document.querySelectorAll('[data-ovid]').forEach(function (el) {
     var id = el.dataset.ovid, k = el.dataset.ovk, txt = el.innerText.trim();
@@ -1079,8 +894,7 @@ function applyEditState() {
     if (editModeOn) {
       if (!ex) {
         var b = document.createElement('button');
-        b.className = 'lkbtn';
-        b.type = 'button';
+        b.className = 'lkbtn'; b.type = 'button';
         b.onclick = function (e) {
           e.stopPropagation();
           var cur = (OV.l[id] && OV.l[id][LS.lang]) || OV.l[id] || '';
@@ -1108,8 +922,7 @@ function applyEditState() {
         if (parts.length >= 4) {
           var si = parseInt(parts[0], 10), ui = parseInt(parts[1], 10), blk = parts[2];
           var vb = document.createElement('button');
-          vb.className = 'vadbtn';
-          vb.type = 'button';
+          vb.className = 'vadbtn'; vb.type = 'button';
           vb.textContent = t().vidAdjBtn;
           vb.title = t().vidAdjSelTitle;
           vb.onclick = function (e) { e.stopPropagation(); openAdjSelector(id, si, ui, blk); };
@@ -1164,14 +977,9 @@ function saveAsFile() {
         if (e && (e.name === 'AbortError' || String(e).toLowerCase().includes('cancel'))) console.log('Guardat cancel·lat');
         else fallbackDownload(html);
       });
-  } else {
-    fallbackDownload(html);
-  }
+  } else { fallbackDownload(html); }
 }
 
-/* ================================================================
-   9. CONSTRUCCIÓ DE LA TARGETA DE VÍDEO
-   ================================================================ */
 function makeVid(v, id, track, tag) {
   var b = id.split('.')[2];
   var si = parseInt(id.split('.')[0], 10);
@@ -1179,16 +987,11 @@ function makeVid(v, id, track, tag) {
   var row = document.createElement('div');
   row.className = 'vid';
   row.id = 'v_' + id;
-
   var orderNum = getVideoOrder(id);
   var importance = getVideoImportance(id);
   var importanceIcon = importance === 'important' ? '⭐' : '⭕';
-  var importanceTitle = importance === 'important'
-    ? (LS.lang === 'ca' ? 'Vídeo important: no te\'l saltis' : 'Vídeo importante: no te lo saltes')
-    : (LS.lang === 'ca' ? 'Vídeo opcional: pots saltar-lo si tens pressa' : 'Vídeo opcional: puedes saltarlo si tienes prisa');
-  
-  var numberHtml = '';
-  var importanceHtml = '';
+  var importanceTitle = importance === 'important' ? (LS.lang === 'ca' ? 'Vídeo important: no te\'l saltis' : 'Vídeo importante: no te lo saltes') : (LS.lang === 'ca' ? 'Vídeo opcional: pots saltar-lo si tens pressa' : 'Vídeo opcional: puedes saltarlo si tienes prisa');
+  var numberHtml = '', importanceHtml = '';
   if (si !== 0 && !isGiftId(id)) {
     if (editModeOn) {
       numberHtml = '<div class="vid-number editable" title="' + (LS.lang === 'ca' ? 'Canviar ordre' : 'Cambiar orden') + '">' + orderNum + '</div>';
@@ -1197,43 +1000,22 @@ function makeVid(v, id, track, tag) {
       importanceHtml = '<div class="vid-importance" title="' + importanceTitle + '">' + importanceIcon + '</div>';
     }
   }
-
   var nkey = 'gjps_notes_' + LS.user + '_' + id;
   var hasNotes = false;
   try { hasNotes = lsJSON(nkey, []).length > 0; } catch (e) {}
   var ntClass = 'nt' + (hasNotes ? ' has-notes' : '');
-
-  row.innerHTML =
-    (tag ? '<div class="stagetag">' + tag + '</div>' : '') +
-    numberHtml + importanceHtml +
-    '<div style="position:relative" class="vr">' +
-      '<button class="play">▶</button>' +
-      '<div class="vt" data-ovid="' + id + '" data-ovk="t">' + vidTitle(v, id) + '</div>' +
-    '</div>' +
-    '<div class="acts">' +
-      '<button class="ck' + (LS.done[id] ? ' done' : '') + '">' + (LS.done[id] ? t().undo : (track ? t().doneCont : t().mark)) + '</button>' +
-      '<button class="bk' + (isBookmarked(id) ? ' bookmarked' : '') + '">' + (isBookmarked(id) ? t().bookmarked : t().bookmark) + '</button>' +
-      '<button class="' + ntClass + '">' + t().notes + '</button>' +
-    '</div>' +
+  row.innerHTML = (tag ? '<div class="stagetag">' + tag + '</div>' : '') + numberHtml + importanceHtml +
+    '<div style="position:relative" class="vr"><button class="play">▶</button><div class="vt" data-ovid="' + id + '" data-ovk="t">' + vidTitle(v, id) + '</div></div>' +
+    '<div class="acts"><button class="ck' + (LS.done[id] ? ' done' : '') + '">' + (LS.done[id] ? t().undo : (track ? t().doneCont : t().mark)) + '</button><button class="bk' + (isBookmarked(id) ? ' bookmarked' : '') + '">' + (isBookmarked(id) ? t().bookmarked : t().bookmark) + '</button><button class="' + ntClass + '">' + t().notes + '</button></div>' +
     '<div class="inl"><iframe allow="autoplay" src=""></iframe><div class="inlb"><button class="mx">⛶</button><button class="cl">✕</button></div></div>' +
     '<div class="vd" data-ovid="' + id + '" data-ovk="d">' + vidDesc(v, id, b) + '</div>' +
-    '<div class="notes"><div class="ntitle">' + t().notesTitle + '</div><div class="nlist"></div>' +
-      '<textarea placeholder="' + t().notesPh + '"></textarea>' +
-      '<button class="save-note-btn" style="display:none;">' + t().saveNote + '</button>' +
-    '</div>';
-
-  row.querySelector('.play').onclick = function () { var src = driveSrc(v, id); if (!src) { alert(t().soon); return; } openFullscreenVideo(src); };
-  row.querySelector('.mx').onclick = function () { var src = driveSrc(v, id); if (src) openFullscreenVideo(src); };
+    '<div class="notes"><div class="ntitle">' + t().notesTitle + '</div><div class="nlist"></div><textarea placeholder="' + t().notesPh + '"></textarea><button class="save-note-btn" style="display:none;">' + t().saveNote + '</button></div>';
+  row.querySelector('.play').onclick = function () { var src = driveSrc(v, id); if (!src) { showToast(t().soon); return; } openFullscreenVideo(src); };
+  row.querySelector('.mx').onclick = function () { var src = driveSrc(v, id); if (src) openFullscreenVideo(src); else showToast(t().soon); };
   row.querySelector('.cl').onclick = function () { row.querySelector('.inl').classList.remove('on'); row.querySelector('.inl iframe').src = ''; };
-  row.querySelector('.ck').onclick = function () {
-    if (editModeOn) return;
-    if (LS.done[id]) delete LS.done[id]; else LS.done[id] = 1;
-    saveDone();
-    render();
-  };
+  row.querySelector('.ck').onclick = function () { if (editModeOn) return; if (LS.done[id]) delete LS.done[id]; else LS.done[id] = 1; saveDone(); render(); };
   row.querySelector('.bk').onclick = function () { if (editModeOn) return; toggleBookmark(id); render(); };
   row.querySelector('.bk').title = isBookmarked(id) ? tt().bkOff : tt().bkOn;
-
   if (editModeOn && si !== 0 && !isGiftId(id)) {
     var numEl = row.querySelector('.vid-number.editable');
     if (numEl) {
@@ -1248,17 +1030,13 @@ function makeVid(v, id, track, tag) {
       };
     }
     var impEl = row.querySelector('.vid-importance.editable');
-    if (impEl) {
-      impEl.onclick = function (e) { e.stopPropagation(); toggleVideoImportance(id); };
-    }
+    if (impEl) { impEl.onclick = function (e) { e.stopPropagation(); toggleVideoImportance(id); }; }
   }
-
   var nbox = row.querySelector('.notes');
   var nta = nbox.querySelector('textarea');
   var nlist = nbox.querySelector('.nlist');
   var ntBtn = row.querySelector('.nt');
   var saveBtn = nbox.querySelector('.save-note-btn');
-
   function updateNoteButton() {
     var currentNotes = lsJSON(nkey, []);
     if (currentNotes.length > 0) {
@@ -1271,7 +1049,6 @@ function makeVid(v, id, track, tag) {
       ntBtn.title = (LS.lang === 'ca' ? 'Afegir notes personals sobre aquest vídeo' : 'Añadir notas personales sobre este vídeo');
     }
   }
-
   function paintN() {
     var currentNotes = lsJSON(nkey, []);
     var h = '';
@@ -1281,16 +1058,10 @@ function makeVid(v, id, track, tag) {
     });
     nlist.innerHTML = h;
     nlist.querySelectorAll('.ndel').forEach(function (d) {
-      d.onclick = function () {
-        var notes = lsJSON(nkey, []);
-        notes.splice(parseInt(this.dataset.idx, 10), 1);
-        lsSet(nkey, JSON.stringify(notes));
-        paintN();
-      };
+      d.onclick = function () { var notes = lsJSON(nkey, []); notes.splice(parseInt(this.dataset.idx, 10), 1); lsSet(nkey, JSON.stringify(notes)); paintN(); };
     });
     updateNoteButton();
   }
-
   function saveNote() {
     var txt = nta.value.trim();
     if (!txt) return;
@@ -1300,7 +1071,6 @@ function makeVid(v, id, track, tag) {
     nta.value = '';
     paintN();
   }
-
   ntBtn.onclick = function () {
     if (editModeOn) return;
     var isOpen = nbox.classList.contains('on');
@@ -1310,17 +1080,13 @@ function makeVid(v, id, track, tag) {
     saveBtn.style.display = !isOpen ? 'block' : 'none';
   };
   saveBtn.onclick = saveNote;
-  nta.addEventListener('keydown', function (e) {
-    if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) { e.preventDefault(); saveNote(); }
-  });
+  nta.addEventListener('keydown', function (e) { if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) { e.preventDefault(); saveNote(); } });
   updateNoteButton();
-
   var adjSection = document.createElement('div');
   adjSection.className = 'vid-specific-adj';
   adjSection.style.cssText = 'margin-top:12px; padding-top:12px; border-top:1px dashed var(--line); display:none;';
   adjSection.innerHTML = '<div style="font-size:11px; color:var(--mut); font-weight:700; margin-bottom:8px; text-transform:uppercase; letter-spacing:1px;">📎 Material d\'aquest vídeo</div><div class="vid-adj-links" style="display:flex; gap:8px; flex-wrap:wrap;"></div>';
   row.appendChild(adjSection);
-
   setTimeout(function () {
     var selectedKeys = getVidAdjKeys(id);
     if (!selectedKeys || !selectedKeys.length) return;
@@ -1343,20 +1109,14 @@ function makeVid(v, id, track, tag) {
       linksContainer.appendChild(a);
     });
   }, 0);
-
   return row;
 }
 
 function tt() {
-  return LS.lang === 'ca'
-    ? { open: 'Obrir aquest vídeo', remove: 'Treure de la llista de repàs', done: 'Marcar com a fet i treure de la llista', bkOn: 'Marcar per repassar més endavant', bkOff: 'Ja és a la llista de repàs. Clica per treure\'l.' }
-    : { open: 'Abrir este vídeo', remove: 'Quitar de la lista de repaso', done: 'Marcar como hecho y quitar de la lista', bkOn: 'Marcar para repasar más adelante', bkOff: 'Ya está en la lista de repaso. Clic para quitarlo.' };
+  return LS.lang === 'ca' ? { open: 'Obrir aquest vídeo', remove: 'Treure de la llista de repàs', done: 'Marcar com a fet i treure de la llista', bkOn: 'Marcar per repassar més endavant', bkOff: 'Ja és a la llista de repàs. Clica per treure\'l.' } : { open: 'Abrir este vídeo', remove: 'Quitar de la lista de repaso', done: 'Marcar como hecho y quitar de la lista', bkOn: 'Marcar para repasar más adelante', bkOff: 'Ya está en la lista de repaso. Clic para quitarlo.' };
 }
 function blockName(b) { return t().blocks[b] || b; }
 
-/* ================================================================
-   10. VISTES
-   ================================================================ */
 function renderReviewBox(container) {
   var bm = getBookmarks();
   if (!bm.length) return;
@@ -1378,7 +1138,7 @@ function renderReviewBox(container) {
     var bD = document.createElement('button'); bD.textContent = '✔'; bD.title = tt().done;
     bD.onclick = function () { LS.done[id] = 1; saveDone(); toggleBookmark(id); render(); };
     var bO = document.createElement('button'); bO.textContent = '▶'; bO.title = tt().open;
-    bO.onclick = function () { var src = driveSrc(v.v, id); if (src) openFullscreenVideo(src); };
+    bO.onclick = function () { var src = driveSrc(v.v, id); if (src) openFullscreenVideo(src); else showToast(t().soon); };
     var bX = document.createElement('button'); bX.textContent = '✕'; bX.title = tt().remove;
     bX.onclick = function () { toggleBookmark(id); render(); };
     item.appendChild(ti); item.appendChild(blk); item.appendChild(bD); item.appendChild(bO); item.appendChild(bX);
@@ -1388,9 +1148,7 @@ function renderReviewBox(container) {
   container.appendChild(box);
 }
 
-function donut(pct, color) {
-  return '<svg viewBox="0 0 42 42"><circle cx="21" cy="21" r="15.9155" fill="none" stroke="#242a35" stroke-width="4.5"></circle><circle cx="21" cy="21" r="15.9155" fill="none" stroke="' + color + '" stroke-width="4.5" stroke-linecap="round" stroke-dasharray="' + pct + ' ' + (100 - pct) + '" stroke-dashoffset="25"></circle><text x="21" y="23.8" text-anchor="middle" font-size="9" font-weight="700" fill="#f2f2f2">' + pct + '%</text></svg>';
-}
+function donut(pct, color) { return '<svg viewBox="0 0 42 42"><circle cx="21" cy="21" r="15.9155" fill="none" stroke="#242a35" stroke-width="4.5"></circle><circle cx="21" cy="21" r="15.9155" fill="none" stroke="' + color + '" stroke-width="4.5" stroke-linecap="round" stroke-dasharray="' + pct + ' ' + (100 - pct) + '" stroke-dashoffset="25"></circle><text x="21" y="23.8" text-anchor="middle" font-size="9" font-weight="700" fill="#f2f2f2">' + pct + '%</text></svg>'; }
 function pieSlice(cx, cy, r, pct, color) {
   if (pct <= 0) return '';
   if (pct >= 100) return '<circle cx="' + cx + '" cy="' + cy + '" r="' + r + '" fill="' + color + '"/>';
@@ -1401,11 +1159,7 @@ function pieSlice(cx, cy, r, pct, color) {
   var largeArc = pct > 50 ? 1 : 0;
   return '<path d="M ' + cx + ' ' + cy + ' L ' + x1 + ' ' + y1 + ' A ' + r + ' ' + r + ' 0 ' + largeArc + ' 1 ' + x2 + ' ' + y2 + ' Z" fill="' + color + '"/>';
 }
-function fmtDate(ts) {
-  var d = new Date(ts);
-  var pad = function (n) { return n < 10 ? '0' + n : n; };
-  return pad(d.getDate()) + '/' + pad(d.getMonth() + 1) + '/' + d.getFullYear() + ' ' + pad(d.getHours()) + ':' + pad(d.getMinutes());
-}
+function fmtDate(ts) { var d = new Date(ts); var pad = function (n) { return n < 10 ? '0' + n : n; }; return pad(d.getDate()) + '/' + pad(d.getMonth() + 1) + '/' + d.getFullYear() + ' ' + pad(d.getHours()) + ':' + pad(d.getMinutes()); }
 
 function renderTrack() {
   initializeOrder();
@@ -1424,7 +1178,7 @@ function renderTrack() {
       var card = document.createElement('div');
       card.className = 'gift-card';
       card.innerHTML = '<h3>' + vidTitle(g, 'gift.' + i) + '</h3><p>' + (LS.lang === 'ca' ? 'Masterclass exclusiva' : 'Masterclass exclusiva') + '</p>';
-      card.onclick = function () { var src = driveSrc(g, 'gift.' + i); if (src) openFullscreenVideo(src); };
+      card.onclick = function () { var src = driveSrc(g, 'gift.' + i); if (src) openFullscreenVideo(src); else showToast(t().soon); };
       giftGrid.appendChild(card);
     });
     celebration.appendChild(giftGrid);
@@ -1453,10 +1207,7 @@ function renderTrack() {
 }
 
 function renderFree() {
-  if (autoLevelPending) {
-    smartFreeLevel();
-    autoLevelPending = false;
-  }
+  if (autoLevelPending) { smartFreeLevel(); autoLevelPending = false; }
   var fv = $('freeView');
   fv.innerHTML = '';
   var lr = document.createElement('div');
@@ -1466,16 +1217,8 @@ function renderFree() {
     var opt = document.createElement('option');
     opt.value = L.id;
     var label = L.n[LS.lang];
-    
-    // Si està en construcció o pendent, el desactivem (es veurà en gris i no es podrà clicar)
-    if (L.wip) {
-      label = '🚧 ' + label;
-      opt.disabled = true;
-    } else if (L.pending) {
-      label = t().pendingIcon + ' ' + label;
-      opt.disabled = true;
-    }
-    
+    if (L.wip) { label = '🚧 ' + label; opt.disabled = true; }
+    else if (L.pending) { label = t().pendingIcon + ' ' + label; opt.disabled = true; }
     opt.textContent = label;
     if (L.id === freeLevel) opt.selected = true;
     sel.appendChild(opt);
@@ -1510,7 +1253,7 @@ function renderFree() {
       btn.onclick = function () { freeBlock = b; render(); };
       if (b === 'b') {
         var n = getBookmarks().length;
-        btn.innerHTML = '<span class="bname">' + t().blocks.b + '</span><span class="bmini"><span class="bico">🔖</span><span class="bcount">' + n + '</span></span>';
+        btn.innerHTML = '<span class="bname">' + t().blocks.b + '</span><span class="bmini"><span class="bico"></span><span class="bcount">' + n + '</span></span>';
       } else {
         var vidsInBlock = all.filter(function (x) { return x.b === b; });
         var p = vidsInBlock.length ? prog(vidsInBlock).p : 0;
@@ -1531,10 +1274,7 @@ function renderFree() {
       empty.innerHTML = '<div style="font-size:48px;margin-bottom:12px;opacity:.5">🔖</div><p>' + (LS.lang === 'ca' ? 'Encara no has marcat cap vídeo per repassar.' : 'Aún no has marcado ningún vídeo para repasar.') + '</p>';
       gridB.appendChild(empty);
     } else {
-      bm.forEach(function (id) {
-        var v = findVidById(id);
-        if (v) gridB.appendChild(makeVid(v.v, v.id, false, D[v.si].n[LS.lang]));
-      });
+      bm.forEach(function (id) { var v = findVidById(id); if (v) gridB.appendChild(makeVid(v.v, v.id, false, D[v.si].n[LS.lang])); });
     }
     fv.appendChild(gridB);
     return;
@@ -1560,12 +1300,7 @@ function renderFree() {
     if (freeLevel === 0 && si !== 0) return;
     s.u.forEach(function (u, ui) {
       var bl = u[freeBlock];
-      if (bl && bl.d) bl.d.forEach(function (dc) {
-        var key = dc[li()];
-        if (dseen[key]) return;
-        dseen[key] = 1;
-        docs.push(dc);
-      });
+      if (bl && bl.d) bl.d.forEach(function (dc) { var key = dc[li()]; if (dseen[key]) return; dseen[key] = 1; docs.push(dc); });
     });
   });
   var head = document.createElement('div');
@@ -1578,14 +1313,7 @@ function renderFree() {
       if (blk && blk.d && blk.d.length > 0) { targetUi = uIdx; break; }
     }
   }
-  if (docs.length) {
-    var ap2 = mkAdj(docs, freeLevel, targetUi, freeBlock);
-    head.appendChild(ap2.btn);
-    fv.appendChild(head);
-    fv.appendChild(ap2.box);
-  } else {
-    fv.appendChild(head);
-  }
+  if (docs.length) { var ap2 = mkAdj(docs, freeLevel, targetUi, freeBlock); head.appendChild(ap2.btn); fv.appendChild(head); fv.appendChild(ap2.box); } else { fv.appendChild(head); }
   var grid = document.createElement('div');
   grid.className = 'vgrid';
   vids.forEach(function (x) {
@@ -1622,10 +1350,7 @@ function renderFree() {
         if (bl3 && bl3.v) {
           var vIdx2 = -1;
           for (var j = 0; j < bl3.v.length; j++) { if (bl3.v[j][li()] === x.v[li()]) { vIdx2 = j; break; } }
-          if (vIdx2 >= 0) {
-            bl3.v.splice(vIdx2, 1);
-            if (bl3.v.length === 0 && !bl3.d) delete D[x.si].u[x.ui][x.id.split('.')[2]];
-          }
+          if (vIdx2 >= 0) { bl3.v.splice(vIdx2, 1); if (bl3.v.length === 0 && !bl3.d) delete D[x.si].u[x.ui][x.id.split('.')[2]]; }
         }
         render();
       };
@@ -1683,11 +1408,7 @@ function renderInfo() {
   iv.innerHTML = '<div class="info-container">' + h + '</div>';
   setTimeout(function () {
     iv.querySelectorAll('.faq-item').forEach(function (item, idx) {
-      item.querySelector('h3').onclick = function () {
-        if (editModeOn) return;
-        faqOpen[idx] = !faqOpen[idx];
-        item.classList.toggle('open');
-      };
+      item.querySelector('h3').onclick = function () { if (editModeOn) return; faqOpen[idx] = !faqOpen[idx]; item.classList.toggle('open'); };
     });
     applyEditState();
   }, 0);
@@ -1716,21 +1437,13 @@ function showHelp() {
     var title = helpText(i, 't', s.t[LS.lang]);
     var para = helpText(i, 'p', s.p[LS.lang]);
     var cls = editModeOn ? ' editing' : '';
-    h += '<div class="help-item"><span class="help-ico">' + s.ico + '</span><div>' +
-      '<h3 class="help-title' + cls + '" data-hi="' + i + '" data-hk="t">' + esc(title) + '</h3>' +
-      '<p class="help-para' + cls + '" data-hi="' + i + '" data-hk="p">' + esc(para) + '</p>' +
-      '</div></div>';
+    h += '<div class="help-item"><span class="help-ico">' + s.ico + '</span><div><h3 class="help-title' + cls + '" data-hi="' + i + '" data-hk="t">' + esc(title) + '</h3><p class="help-para' + cls + '" data-hi="' + i + '" data-hk="p">' + esc(para) + '</p></div></div>';
   });
   $('helpContent').innerHTML = h;
-  if (editModeOn) {
-    $('helpContent').querySelectorAll('[data-hi]').forEach(function (el) { el.contentEditable = 'true'; });
-  }
+  if (editModeOn) { $('helpContent').querySelectorAll('[data-hi]').forEach(function (el) { el.contentEditable = 'true'; }); }
   $('helpModal').classList.add('on');
 }
 
-/* ================================================================
-   11. LOGIN I CANVI D'IDIOMA
-   ================================================================ */
 function showLogin() {
   $('login').classList.add('on');
   $('lgTitle').innerHTML = '<div style="font-size:22px;font-weight:800;background:linear-gradient(90deg,#f7dc9a 0%,var(--gold) 45%,#c98f3a 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;margin-bottom:4px;">GIRONA JAZZ PIANO SCHOOL®</div><div style="font-size:14px;color:var(--mut);font-weight:400;">' + (LS.lang === 'ca' ? 'Inicia sessió a l\'aula virtual' : 'Inicia sesión en el aula virtual') + '</div>';
@@ -1767,6 +1480,10 @@ function showLogin() {
 function startSession(n) {
   LS.user = n;
   lsSet('gjps_session', n);
+  if (n === 'Invitat') {
+    var avui = new Date();
+    lsSet('gjps_guest_date', avui.getDate() + '-' + (avui.getMonth() + 1));
+  }
   LS.mode = 'track';
   lsSet('gjps_mode', 'track');
   loadDone();
@@ -1790,6 +1507,7 @@ $('lgPin').addEventListener('keydown', function (e) { if (e.key === 'Enter') $('
 $('lgName').addEventListener('keydown', function (e) { if (e.key === 'Enter') $('lgPin').focus(); });
 $('btnUser').onclick = function () {
   lsSet('gjps_session', '');
+  lsSet('gjps_guest_date', '');
   LS.user = '';
   LS.done = {};
   editModeOn = false;
@@ -1808,11 +1526,24 @@ function setLabels() {
   $('langCur').textContent = (LS.lang === 'ca') ? 'CAT' : 'ESP';
 }
 
-/* ================================================================
-   12. RENDER GENERAL I CANVI DE MODE
-   ================================================================ */
 function render() {
-  if (LS.user && !findUser(LS.user)) { lsSet('gjps_session', ''); LS.user = ''; LS.done = {}; }
+  $('modal').classList.remove('on');
+  $('player').src = '';
+  document.documentElement.style.zoom = '';
+  if (LS.user === 'Invitat') {
+    var avui = new Date();
+    var dataAvui = avui.getDate() + '-' + (avui.getMonth() + 1);
+    var dataLogin = lsGet('gjps_guest_date');
+    if (dataLogin !== dataAvui) {
+      lsSet('gjps_session', '');
+      lsSet('gjps_guest_date', '');
+      LS.user = '';
+      LS.done = {};
+      showLogin();
+      return;
+    }
+  }
+  if (LS.user && !findUser(LS.user)) { lsSet('gjps_session', ''); lsSet('gjps_guest_date', ''); LS.user = ''; LS.done = {}; }
   if (!LS.user) { showLogin(); return; }
   var isAdmin = currentUserRole() === 'admin';
   $('mEdit').style.display = isAdmin ? 'flex' : 'none';
@@ -1860,9 +1591,6 @@ $('langToggle').onclick = function () {
   render();
 };
 
-/* ================================================================
-   13. REPRODUCTOR A PANTALLA COMPLETA
-   ================================================================ */
 var currentVideoSrc = '';
 
 function openFullscreenVideo(src) {
@@ -1870,43 +1598,28 @@ function openFullscreenVideo(src) {
   var player = $('player');
   var overlay = $('videoOverlay');
 
+  if (isIOS()) {
+    var directUrl = src.replace('/preview', '/view');
+    window.open(directUrl, '_blank');
+    return;
+  }
+
   if (isMobileDevice()) {
     $('modal').classList.add('on');
-    var finalSrc = currentVideoSrc.includes('?') 
-      ? currentVideoSrc + '&autoplay=1&authuser=0' 
-      : currentVideoSrc + '?autoplay=1&authuser=0';
-    
+    var finalSrc = currentVideoSrc.includes('?') ? currentVideoSrc + '&autoplay=1&authuser=0' : currentVideoSrc + '?autoplay=1&authuser=0';
     player.src = finalSrc;
     player.classList.add('active');
-    
     if (overlay) {
       overlay.classList.remove('hidden');
-      // Detectar si és iOS per mostrar el missatge de doble toc
-      var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
-      
-      if (LS.lang === 'ca') {
-        $('overlayText').textContent = isIOS 
-          ? 'Toca dues vegades a la pantalla per iniciar' 
-          : 'Toca la pantalla per iniciar el vídeo';
-      } else {
-        $('overlayText').textContent = isIOS 
-          ? 'Toca dos veces la pantalla para iniciar' 
-          : 'Toca la pantalla para iniciar el vídeo';
-      }
-      
-      setTimeout(function() {
-        overlay.classList.add('hidden');
-      }, 4000);
+      $('overlayText').textContent = LS.lang === 'ca' ? 'Toca la pantalla per iniciar el vídeo' : 'Toca la pantalla para iniciar el vídeo';
+      setTimeout(function() { overlay.classList.add('hidden'); }, 3000);
     }
-    
     document.documentElement.style.zoom = '1';
   } else {
-    // Comportament per a PC (pantalla completa automàtica)
     player.src = '';
     player.classList.remove('active');
     $('modal').classList.add('on');
     if (overlay) overlay.classList.remove('hidden');
-    
     var wrap = document.querySelector('.wrap');
     if (wrap.requestFullscreen) wrap.requestFullscreen().catch(function () {});
     else if (wrap.webkitRequestFullscreen) wrap.webkitRequestFullscreen();
@@ -1924,9 +1637,7 @@ if (overlayEl) {
   overlayEl.addEventListener('click', function () {
     var player = $('player');
     if (currentVideoSrc) {
-      var finalSrc = currentVideoSrc.includes('?') 
-        ? currentVideoSrc + '&autoplay=1' 
-        : currentVideoSrc + '?autoplay=1';
+      var finalSrc = currentVideoSrc.includes('?') ? currentVideoSrc + '&autoplay=1' : currentVideoSrc + '?autoplay=1';
       player.src = finalSrc;
       player.classList.add('active');
     }
@@ -1963,9 +1674,6 @@ function showCloseBtn() {
 document.addEventListener('mousemove', showCloseBtn);
 document.addEventListener('mouseleave', function () { wrapEl.classList.remove('show-controls'); });
 
-/* ================================================================
-   14. ARRENCADA
-   ================================================================ */
 try {
   setLabels();
   loadDone();
@@ -1981,7 +1689,7 @@ try {
   <div class="lbox" style="width:min(800px,92vw);max-height:85vh;overflow-y:auto;text-align:left;padding:24px;">
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;border-bottom:1px solid var(--line);padding-bottom:12px;">
       <h2 style="margin:0;font-size:18px;color:var(--gold);">Preguntes Freqüents</h2>
-      <button onclick="$('faqModal').classList.remove('on')" style="background:none;border:none;color:var(--mut);font-size:22px;cursor:pointer;line-height:1;">✕</button>
+      <button onclick="$('faqModal').classList.remove('on')" style="background:none;border:none;color:var(--mut);font-size:22px;cursor:pointer;line-height:1;"></button>
     </div>
     <div id="faqGuestContent"></div>
   </div>
