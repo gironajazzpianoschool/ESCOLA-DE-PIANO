@@ -1,0 +1,101 @@
+========================================================================
+GUIA DE GESTIÓ D'USUARIS I ACCÉS – GIRONA JAZZ PIANO SCHOOL®
+========================================================================
+
+Aquest document explica el funcionament dels diferents tipus de comptes 
+d'usuari al web, com es generen les contrasenyes i el procediment per 
+donar de baixa un alumne de manera immediata i segura.
+
+------------------------------------------------------------------------
+1. EL COMPTE D'"INVITAT" (ACCÉS DIARI)
+------------------------------------------------------------------------
+Aquest compte està dissenyat per a persones que volen provar el web o 
+fer una visita puntual sense tenir un compte d'alumne assignat.
+
+• Nom d'usuari: Invitat
+• Contrasenya: Canvia automàticament cada dia.
+  La fórmula és: [Dia del mes] + [Mes de l'any] + 42
+  
+  Exemple: Si avui és dia 26 del mes 10 (octubre), la contrasenya serà:
+  26 + 10 + 42 = 78
+
+• Mecanisme de caducitat automàtica: 
+  Quan l'usuari "Invitat" inicia sessió, el web guarda la data d'avui 
+  a la memòria del navegador. Si l'endemà l'usuari intenta navegar o 
+  fer qualsevol acció, el sistema detecta que la data actual no coincideix 
+  amb la guardada. En aquell moment, el web tanca la sessió automàticament 
+  i el torna a la pantalla d'inici de sessió. Com que la contrasenya del 
+  dia ha canviat, ja no hi podrà accedir.
+
+------------------------------------------------------------------------
+2. COMPTES D'ESTUDIANTS (ACCÉS FIX)
+------------------------------------------------------------------------
+Hi ha 30 comptes predefinits per a alumnes reals. Aquests comptes mantenen 
+el seu progrés (vídeos vistos, notes personals i llista de repàs) guardat 
+de manera segura i independent al seu dispositiu.
+
+• Format del nom d'usuari: Student-01, Student-02, ..., fins a Student-30.
+• Contrasenya: És fixa i única per a cada estudiant. No canvia amb el temps.
+  (Exemple: Student-01 té la contrasenya "piano7aM").
+
+• Nota important: És recomanable que tinguis guardat en un lloc segur 
+  (com un Excel o un gestor de contrasenyes) el llistat complet dels 30 
+  usuaris i les seves contrasenyes per poder-les facilitar als alumnes 
+  quan s'inscriguin.
+
+------------------------------------------------------------------------
+3. COM DONAR DE BAIXA UN ESTUDIANT (PER IMPAGAMENT O BAIXA VOLUNTÀRIA)
+------------------------------------------------------------------------
+El sistema està dissenyat perquè no calgui cap base de dades complexa. 
+La manera més neta, ràpida i segura de revocar l'accés a un alumne és 
+eliminar-lo de la llista de codi. 
+
+Quan un usuari intenta entrar, el web comprova si el seu nom existeix a 
+la llista. Si no hi és, el sistema li esborra la sessió a l'instant i 
+l'expulsa cap al login.
+
+🛠️ Procediment pas a pas:
+1. Obre el fitxer "index.html" amb el teu editor de codi (per exemple, 
+   Visual Studio Code o el Bloc de notes).
+2. Busca la secció anomenada: var USERS_DB = [
+   (Està cap a la línia 330 aproximadament).
+3. Localitza la línia de l'estudiant que vols donar de baixa. Per exemple:
+   { n: 'Student-05', p: 'scale5vN', role: 'client' },
+4. NO esborris la línia completament (per evitar errors de comes o sintaxi). 
+   En lloc d'això, COMENTA-LA afegint dues barres inclinades "//" al principi. 
+   Quedarà així:
+   // { n: 'Student-05', p: 'scale5vN', role: 'client' },
+5. Guarda el fitxer "index.html" i puja'l a GitHub.
+
+✅ Què passa després?
+La propera vegada que aquest estudiant intenti obrir el web (o si ja el 
+tenia obert i refresca la pàgina), el sistema veurà que "Student-05" ja 
+no existeix a la base de dades. Automàticament, li esborrarà la sessió 
+guardada i el tornarà a la pantalla de login, on ja no podrà entrar perquè 
+el seu usuari ha estat invalidat. 
+
+(Si en el futur aquest alumne torna a pagar, només hauràs de tornar a 
+eliminar les dues barres "//" de la seva línia i tornarà a tenir accés 
+immediatament, recuperant a més tot el seu progrés anterior).
+
+------------------------------------------------------------------------
+4. CONSELLS DE MANTENIMENT
+------------------------------------------------------------------------
+• Còpies de seguretat: Abans de fer canvis grans al fitxer "index.html" 
+  (com afegir nous vídeos o modificar usuaris), fes una còpia del fitxer 
+  i guarda-la al teu ordinador amb la data (ex: index_backup_2023-10-26.html).
+  
+• Mode Edició: Recorda que pots afegir o modificar vídeos directament des 
+  del web iniciant sessió amb l'usuari "admin" (contrasenya: "quake") i 
+  fent servir el botó de l'engranatge (⚙️) i el de guardar (💾). Això et 
+  permetrà anar editant el contingut fàcilment sense haver de tocar el 
+  codi per a tasques rutinàries.
+
+------------------------------------------------------------------------
+NOTA FINAL
+------------------------------------------------------------------------
+Si necessites ajustar alguna contrasenya d'un estudiant en el futur, 
+només hauràs de canviar el text entre cometes de la "p" (password) a 
+la llista USERS_DB i pujar el canvi.
+
+========================================================================

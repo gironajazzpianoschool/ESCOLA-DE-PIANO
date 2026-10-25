@@ -1,0 +1,82 @@
+========================================================================
+GUIA D'INSTAL·LACIÓ I ACTUALITZACIÓ A GITHUB PAGES
+========================================================================
+
+Aquest document t'explica com pujar el teu web a internet de manera 
+gratuïta utilitzant GitHub Pages, i com actualitzar-lo fàcilment cada 
+cop que facis un canvi al fitxer index.html.
+
+------------------------------------------------------------------------
+1. CREAR EL REPOSITORI (Només cal fer-ho la primera vegada)
+------------------------------------------------------------------------
+1. Entra al teu compte de GitHub (https://github.com).
+2. A la cantonada superior dreta, fes clic al botó verd "New" (Nou).
+3. Posa un nom al repositori (per exemple: gironajazzpianoschool).
+4. Assegura't que estigui marcat com a "Public" (Públic).
+5. Fes clic a "Create repository" (Crear repositori).
+
+------------------------------------------------------------------------
+2. PUJAR ELS FITXERS DEL WEB
+------------------------------------------------------------------------
+GitHub necessita els fitxers per mostrar la web. Com que el teu codi 
+fa referència a una imatge i a una aplicació, has de pujar-ho tot:
+
+1. Dins del teu nou repositori, busca l'enllaç que diu 
+   "uploading an existing file" (pujar un fitxer existent).
+2. Arrossega des del teu ordinador a la finestra del navegador:
+   - El fitxer index.html
+   - La carpeta img (on tens el LOGO.png)
+   - La carpeta apps (on tens TONAL EMOTIONS.html)
+3. Baixa fins al final de la pàgina i fes clic al botó verd 
+   "Commit changes" (Desar els canvis).
+
+------------------------------------------------------------------------
+3. ACTIVAR LA PUBLICACIÓ (GITHUB PAGES)
+------------------------------------------------------------------------
+Ara li direm a GitHub que converteixi aquests fitxers en una web visible:
+
+1. Dins del teu repositori, fes clic a la pestanya "Settings" 
+   (Configuració) a la barra superior.
+2. A la columna esquerra, busca i fes clic a "Pages".
+3. A la secció "Build and deployment", sota "Source", tria 
+   "Deploy from a branch".
+4. Sota "Branch", selecciona "main" (o "master") i la carpeta "/ (root)".
+5. Fes clic a "Save" (Desar).
+
+⏳ Espera entre 1 i 3 minuts. Refresca la pàgina. A dalt et donarà 
+l'enllaç de la teva web, que tindrà aquest format:
+https://el-teu-usuario.github.io/gironajazzpianoschool/
+
+------------------------------------------------------------------------
+4. COM ACTUALITZAR EL WEB EN EL FUTUR (Molt important)
+------------------------------------------------------------------------
+Cada cop que editis el codi, afegeixis vídeos o canviïs contrasenyes 
+des del teu ordinador, hauràs de pujar el nou fitxer index.html a GitHub 
+perquè els alumnes vegin els canvis.
+
+1. Fes els canvis al teu index.html a l'ordinador i guarda'l.
+2. Entra al teu repositori de GitHub.
+3. Fes clic a "Add file" -> "Upload files".
+4. Arrossega NOMÉS el teu nou fitxer index.html (no cal que tornis a 
+   pujar les carpetes img i apps si no les has modificat).
+5. GitHub detectarà que el fitxer ja existeix i et preguntarà si vols 
+   reemplaçar-lo. Assegura't que estigui marcada l'opció 
+   "Replace this file" (Reemplaçar aquest fitxer).
+6. Fes clic a "Commit changes".
+
+⏳ En qüestió de segons (o pocs minuts), la teva web estarà actualitzada 
+a internet per a tots els alumnes.
+
+------------------------------------------------------------------------
+5. RECOMANACIÓ PRO: UTILITZAR "GITHUB DESKTOP"
+------------------------------------------------------------------------
+Si en el futur et canses de fer servir el navegador web per pujar els 
+fitxers, pots descarregar el programa gratuït "GitHub Desktop" 
+(https://desktop.github.com/). 
+
+Aquest programa et permet tenir una carpeta al teu ordinador sincronitzada 
+amb GitHub. Així, cada cop que guardis el index.html a la teva carpeta, 
+només hauràs de prémer un botó de "Commit" i "Push" al programa, i 
+s'actualitzarà sol a internet sense haver d'arrossegar fitxers al navegador.
+
+========================================================================
