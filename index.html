@@ -204,21 +204,20 @@ main{position:relative;z-index:1;padding:20px 5vw;max-width:1100px;margin:auto}
 /* ============================================================
    9. REPRODUCTOR A PANTALLA COMPLETA
    ============================================================ */
-.modal{position:fixed;inset:0;background:#000;display:none;z-index:99999;padding:0;margin:0}
+.modal{position:fixed;inset:0;background:#000;display:none;z-index:99999;padding:0;margin:0;overflow:hidden}
 .modal.on{display:block}
-.wrap{position:fixed;inset:0;width:100%;height:100%;background:#000}
-.frame{position:absolute;inset:0;width:100%;height:100%;background:#000}
-.frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0;background:#000}
+.wrap{position:fixed;inset:0;width:100dvw;height:100dvh;background:#000;overflow:hidden}
+.frame{position:absolute;inset:0;width:100%;height:100%;background:#000;overflow:hidden}
+.frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0;background:#000;overflow:hidden}
 .frame iframe.active{pointer-events:auto}
 .close{position:absolute;top:14px;right:14px;background:rgba(0,0,0,0.85);border:2px solid var(--gold);color:var(--gold);font-size:20px;font-weight:900;line-height:1;width:44px;height:44px;border-radius:50%;cursor:pointer;z-index:100000;display:flex;align-items:center;justify-content:center;transition:all .3s;opacity:0;pointer-events:auto;box-shadow:0 4px 12px rgba(0,0,0,0.5)}
 .wrap.show-controls .close{opacity:1}
 .close:hover{background:var(--gold);color:#000;transform:scale(1.1)}
-.video-overlay{position:absolute;inset:0;background:rgba(0,0,0,0.92);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:999999;cursor:pointer;transition:opacity .3s}
+.video-overlay{position:absolute;inset:0;background:rgba(0,0,0,0.92);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:999999;cursor:pointer;transition:opacity .3s;touch-action:manipulation}
 .video-overlay.hidden{opacity:0;pointer-events:none}
 .video-overlay .icon{font-size:58px;color:var(--gold);margin-bottom:16px;animation:pulse 1.5s infinite;pointer-events:none}
 .video-overlay .text{color:#fff;font-size:16px;font-weight:700;text-align:center;max-width:80%;line-height:1.5;pointer-events:none}
-@keyframes pulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.1);opacity:.8}}
-/* ============================================================
+@keyframes pulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.1);opacity:.8}}/* ============================================================
    10. MODALS (login, selector d'adjunts, celebració)
    ============================================================ */
 .lgin,.adjsel{position:fixed;inset:0;background:rgba(5,6,10,.98);z-index:60;display:none;align-items:center;justify-content:center;padding:5vw}
@@ -275,11 +274,40 @@ main{position:relative;z-index:1;padding:20px 5vw;max-width:1100px;margin:auto}
 @media(max-width:900px){.donuts{grid-template-columns:repeat(3,1fr)}.blkcol{grid-template-columns:repeat(3,1fr)}}
 @media(max-width:768px){
   html{zoom:1}
-  .wrap{width:100vw;height:100vh}
-  .modes{flex-direction:column;width:100%;align-items:stretch}
-  .modes button{width:100%;height:46px;font-size:14px}
-  .hdr{flex-direction:column;align-items:stretch;gap:12px}
-  .langbtn{align-self:center;width:100%;justify-content:center}
+  .wrap{width:100dvw;height:100dvh}
+  
+  /* BOTONS EN FILA HORITZONTAL PER ESTALVIAR ESPAI VERTICAL */
+  .modes{
+    flex-direction:row;
+    flex-wrap:wrap;
+    width:100%;
+    justify-content:center;
+    gap:6px;
+  }
+  .modes button{
+    width:auto;
+    min-width:70px;
+    height:36px;
+    font-size:11px;
+    padding:0 8px;
+  }
+  #mTrack{min-width:130px}
+  #mFree{min-width:120px}
+  #mApps{min-width:70px}
+  #mInfo{min-width:60px}
+  
+  .hdr{
+    flex-direction:column;
+    align-items:stretch;
+    gap:10px;
+  }
+  .langbtn{
+    align-self:center;
+    width:auto;
+    justify-content:center;
+    padding:8px 16px;
+  }
+  
   .blkcol{grid-template-columns:repeat(2,1fr)}
   .vgrid{grid-template-columns:1fr}
   .ritem{flex-direction:column;align-items:flex-start;gap:8px}
@@ -342,7 +370,7 @@ main{position:relative;z-index:1;padding:20px 5vw;max-width:1100px;margin:auto}
   <div class="wrap">
     <button class="close" id="xPlayer" title="Tancar">✕</button>
     <div class="frame">
-      <iframe id="player" allow="autoplay; fullscreen" src=""></iframe>
+      <iframe id="player" allow="autoplay; fullscreen" src="" scrolling="no"></iframe>
       <div class="video-overlay" id="videoOverlay">
         <div class="icon">▶</div>
         <div class="text" id="overlayText">Fes clic per reproduir</div>
@@ -2036,22 +2064,28 @@ function closeVideoPlayer() {
 
 var overlayEl = $('videoOverlay');
 if (overlayEl) {
-  overlayEl.addEventListener('click', function () {
+  overlayEl.addEventListener('click', function (e) {
+    e.stopPropagation(); // Assegura que el clic es registri al contenidor principal
     var player = $('player');
     if (currentVideoSrc) {
-      // Afegim autoplay=1 i mute=1 (iOS requereix mute per a autoplay fiable, tot i que Drive ho gestiona)
       var finalSrc = currentVideoSrc.includes('?') ? currentVideoSrc + '&autoplay=1' : currentVideoSrc + '?autoplay=1';
       player.src = finalSrc;
       player.classList.add('active');
       
-      // TRUC PER A iOS: Donar el focus a l'iframe immediatament després de carregar-lo
-      // Això ajuda que Safari reconegui la interacció de l'usuari amb el vídeo.
+      // Truc per a iOS/Android: forçar el focus i intentar activar el play
       setTimeout(function() {
         player.focus();
+        try { player.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*'); } catch(err) {}
       }, 100);
     }
     this.classList.add('hidden');
   });
+  
+  // Assegurem que els elements fills no bloquegin el clic tàctil
+  var icon = overlayEl.querySelector('.icon');
+  var text = overlayEl.querySelector('.text');
+  if(icon) icon.style.pointerEvents = 'none';
+  if(text) text.style.pointerEvents = 'none';
 }
 var frameEl = document.querySelector('.frame');
 if (frameEl) {
