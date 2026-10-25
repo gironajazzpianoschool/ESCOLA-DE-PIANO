@@ -1900,6 +1900,9 @@ function showLogin() {
 function startSession(n) {
   LS.user = n;
   lsSet('gjps_session', n);
+  // Sempre començar a Seguiment Continuat en cada login
+  LS.mode = 'track';
+  lsSet('gjps_mode', 'track');
   loadDone();
   $('login').classList.remove('on');
   render();
