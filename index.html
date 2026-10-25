@@ -178,7 +178,8 @@ main{position:relative;z-index:1;padding:20px 5vw;max-width:1100px;margin:auto}
 .frame{position:absolute;inset:0;background:#000;overflow:hidden}
 .frame iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:0;background:#000}
 .frame iframe.active{pointer-events:auto}
-.close{position:absolute;top:14px;right:14px;background:rgba(0,0,0,0.85);border:2px solid var(--gold);color:var(--gold);font-size:20px;font-weight:900;line-height:1;width:44px;height:44px;border-radius:50%;cursor:pointer;z-index:100000;display:flex;align-items:center;justify-content:center;transition:all .3s;opacity:1;pointer-events:auto;box-shadow:0 4px 12px rgba(0,0,0,0.5)}
+.close{position:absolute;top:14px;right:14px;background:rgba(0,0,0,0.85);border:2px solid var(--gold);color:var(--gold);font-size:20px;font-weight:900;line-height:1;width:44px;height:44px;border-radius:50%;cursor:pointer;z-index:100000;display:flex;align-items:center;justify-content:center;transition:all .3s;opacity:0;pointer-events:auto;box-shadow:0 4px 12px rgba(0,0,0,0.5)}
+.wrap.show-controls .close{opacity:1}
 .close:hover{background:var(--gold);color:#000;transform:scale(1.1)}
 .video-overlay{position:absolute;inset:0;background:rgba(0,0,0,0.92);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:999999;cursor:pointer;transition:opacity .3s;touch-action:manipulation}
 .video-overlay.hidden{opacity:0;pointer-events:none}
@@ -268,17 +269,14 @@ main{position:relative;z-index:1;padding:20px 5vw;max-width:1100px;margin:auto}
   .modal.on .close {
     display: none !important;
   }
-  /* Només en iOS mostrem la creu per poder tancar fàcilment */
+  /* A iOS la creu és invisible (l'usuari fa servir la icona nativa de Google) */
   .modal.on.ios-device .close {
     display: flex !important;
-    opacity: 1 !important;
-    background: rgba(232,176,75,0.95) !important;
-    color: #000 !important;
-    border-color: #fff !important;
-    z-index: 9999999 !important;
+    opacity: 0 !important;
     pointer-events: auto !important;
-    top: 14px !important;
-    right: 14px !important;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
   }
     @media (orientation: portrait) {
     .modal.on .wrap{width:100vh !important;height:100vw !important;transform:rotate(90deg);transform-origin:top left;position:fixed;top:0;left:100vw}
