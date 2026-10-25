@@ -178,13 +178,20 @@ main{position:relative;z-index:1;padding:20px 5vw;max-width:1100px;margin:auto}
 .frame{position:absolute;inset:0;background:#000;overflow:hidden}
 .frame iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:0;background:#000}
 .frame iframe.active{pointer-events:auto}
-.close{position:absolute;top:14px;right:14px;background:rgba(0,0,0,0.85);border:2px solid var(--gold);color:var(--gold);font-size:20px;font-weight:900;line-height:1;width:44px;height:44px;border-radius:50%;cursor:pointer;z-index:100000;display:flex;align-items:center;justify-content:center;transition:all .3s;opacity:0;pointer-events:auto;box-shadow:0 4px 12px rgba(0,0,0,0.5)}
-.wrap.show-controls .close{opacity:1}
+.close{position:absolute;top:14px;right:14px;background:rgba(0,0,0,0.85);border:2px solid var(--gold);color:var(--gold);font-size:20px;font-weight:900;line-height:1;width:44px;height:44px;border-radius:50%;cursor:pointer;z-index:100000;display:flex;align-items:center;justify-content:center;transition:all .3s;opacity:1;pointer-events:auto;box-shadow:0 4px 12px rgba(0,0,0,0.5)}
 .close:hover{background:var(--gold);color:#000;transform:scale(1.1)}
 .video-overlay{position:absolute;inset:0;background:rgba(0,0,0,0.92);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:999999;cursor:pointer;transition:opacity .3s;touch-action:manipulation}
 .video-overlay.hidden{opacity:0;pointer-events:none}
 .video-overlay .icon{font-size:58px;color:var(--gold);margin-bottom:16px;animation:pulse 1.5s infinite;pointer-events:none}
-.video-overlay .text{color:#fff;font-size:16px;font-weight:700;text-align:center;max-width:80%;line-height:1.5;pointer-events:none;white-space:pre-wrap}@keyframes pulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.1);opacity:.8}}
+.video-overlay .text {
+  color: #fff;
+  text-align: center;
+  max-width: 85%;
+  pointer-events: none;
+  line-height: 1.6;
+  font-family: 'Inter', system-ui, sans-serif;
+}
+@keyframes pulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.1);opacity:.8}}
 
 .lgin,.adjsel{position:fixed;inset:0;background:rgba(5,6,10,.98);z-index:60;display:none;align-items:center;justify-content:center;padding:5vw}
 .lgin.on,.adjsel.on{display:flex}
@@ -1633,9 +1640,9 @@ function openFullscreenVideo(src) {
       if (overlay) {
         overlay.classList.remove('hidden');
         if (LS.lang === 'ca') {
-          $('overlayText').textContent = 'QUAN DESAPAREGUI AQUEST MISSATGE, CLICA SOBRE LA PANTALLA PER REPRODUIR EL VÍDEO.\n\nPER SORTIR, CLICA LA ICONA DE SORTIDA (↗) A LA CANTONADA SUPERIOR DRETA.';
+          $('overlayText').innerHTML = '<div style="font-size:18px;font-weight:700;letter-spacing:0.3px;margin-bottom:14px;">Quan desaparegui aquest missatge, clica sobre la pantalla per reproduir el vídeo.</div><div style="font-size:14px;font-weight:500;color:var(--mut);letter-spacing:0.2px;">Per sortir, clica la icona de sortida <span style="color:var(--gold);font-weight:700;font-size:16px;">↗</span> a la cantonada superior dreta.</div>';
         } else {
-          $('overlayText').textContent = 'CUANDO DESAPAREZCA ESTE MENSAJE, TOCA LA PANTALLA PARA REPRODUCIR EL VÍDEO.\n\nPARA SALIR, TOCA EL ICONO DE SALIDA (↗) EN LA ESQUINA SUPERIOR DERECHA.';
+          $('overlayText').innerHTML = '<div style="font-size:18px;font-weight:700;letter-spacing:0.3px;margin-bottom:14px;">Cuando desaparezca este mensaje, toca la pantalla para reproducir el vídeo.</div><div style="font-size:14px;font-weight:500;color:var(--mut);letter-spacing:0.2px;">Para salir, toca el icono de salida <span style="color:var(--gold);font-weight:700;font-size:16px;">↗</span> en la esquina superior derecha.</div>';
         }
         setTimeout(function() {
           overlay.classList.add('hidden');
