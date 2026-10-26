@@ -1936,5 +1936,26 @@ try {
     navigator.serviceWorker.register('./sw.js').catch(err => console.log('SW error:', err));
   }
 </script>
+<script>
+  // 1. Detectar si ÉS un PC d'escriptori (NO mòbil ni tablet)
+  var isDesktop = !(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || 
+                    (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1));
+
+  if (isDesktop) {
+    // Si és PC, eliminem el manifest per evitar que surti l'opció d'instal·lar
+    var manifestLink = document.querySelector('link[rel="manifest"]');
+    if (manifestLink) {
+      manifestLink.remove();
+    }
+    console.log('Mode escriptori: funció d\'instal·lació desactivada.');
+  } else {
+    // Si és mòbil o tablet, activem el Service Worker per a la PWA
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('./sw.js').catch(function(err) {
+        console.log('SW error:', err);
+      });
+    }
+  }
+</script>
 </body>
 </html>
