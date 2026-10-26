@@ -1528,6 +1528,29 @@ function renderFree() {
   fv.appendChild(grid);
 }
 
+function tonalStatsHtml() {
+  if (!LS.user || LS.user === 'Invitat') return '';
+  var KEYS = ['C','Db','D','Eb','E','F','F# / Gb','G','Ab','A','Bb','B'];
+  var ca = LS.lang === 'ca';
+  var s = lsJSON('gjps_tonal_stats_' + LS.user, null);
+  if (!s || !s.best) {
+    return '<div style="margin:0 0 12px;padding:10px 12px;border:1px dashed var(--line);border-radius:10px;color:var(--mut);font-size:var(--fs-sm);line-height:1.5;">' + (ca ? '🏆 Encara no tens cap rècord a TONAL EMOTIONS: completa un TEST per estrenar el teu marcador!' : '🏆 Aún no tienes ningún récord en TONAL EMOTIONS: ¡completa un TEST para estrenar tu marcador!') + '</div>';
+  }
+  var b = s.best;
+  var d = new Date(b.date);
+  var pad = function (n) { return n < 10 ? '0' + n : n; };
+  var dateStr = pad(d.getDate()) + '/' + pad(d.getMonth() + 1) + '/' + d.getFullYear();
+  var notesLbl = b.notes === 'diatonic' ? (ca ? 'Diatòniques' : 'Diatónicas') : b.notes === 'non-diatonic' ? (ca ? 'No-Diatòniques' : 'No-Diatónicas') : (ca ? 'Totes' : 'Todas');
+  var diffLbl = b.diff === 'hard' ? 'Difícil' : (ca ? 'Fàcil' : 'Fácil');
+  var keyLbl = (KEYS[b.key] || 'C') + ' ' + (ca ? 'Major' : 'Mayor');
+  var h = '<div style="margin:0 0 12px;padding:10px 12px;border:1px solid var(--gold);border-radius:10px;background:rgba(232,176,75,0.06);text-align:center;">';
+  h += '<div style="color:var(--gold);font-size:var(--fs-xs);letter-spacing:2px;font-weight:800;text-transform:uppercase;">' + (ca ? '🏆 Rècord personal' : '🏆 Récord personal') + '</div>';
+  h += '<div style="color:var(--ink);font-size:26px;font-weight:800;margin:4px 0 2px;">' + b.p + '%</div>';
+  h += '<div style="color:var(--mut);font-size:var(--fs-xs);line-height:1.5;">TEST · ' + notesLbl + ' · ' + diffLbl + ' · ' + keyLbl + ' · ' + dateStr + '</div>';
+  h += '<div style="color:var(--mut);font-size:var(--fs-xs);margin-top:4px;">' + (ca ? '🎯 ' + s.sessions + ' sessions · Últim: ' : '🎯 ' + s.sessions + ' sesiones · Último: ') + (s.last ? s.last.p + '%' : '—') + '</div>';
+  h += '</div>';
+  return h;
+}
 function renderApps() {
   var av = $('appsView');
   av.innerHTML = '';
@@ -1545,8 +1568,8 @@ function renderApps() {
     var c = document.createElement('div');
     c.className = 'appcard';
     var iconHtml = (a.e === 'logo') ? '<img src="img/LOGO.png" alt="">' : esc(a.e);
-    c.innerHTML = '<div class="ae">' + iconHtml + '</div><h3 data-ovaid="' + i + '" data-ovak="n">' + appName(a, i) + '</h3><p data-ovaid="' + i + '" data-ovak="d">' + appDesc(a, i) + '</p><button>' + t().appsOpen + '</button>';
-    c.querySelector('button').onclick = function () { if (a.url) window.open(a.url, '_blank'); else alert(t().appsSoon); };
+    var statsHtml = (a.url && a.url.indexOf('TONAL') >= 0) ? tonalStatsHtml() : '';
+    c.innerHTML = '<div class="ae">' + iconHtml + '</div><h3 data-ovaid="' + i + '" data-ovak="n">' + appName(a, i) + '</h3><p data-ovaid="' + i + '" data-ovak="d">' + appDesc(a, i) + '</p>' + statsHtml + '<button>' + t().appsOpen + '</button>';    c.querySelector('button').onclick = function () { if (a.url) window.open(a.url, '_blank'); else alert(t().appsSoon); };
     g.appendChild(c);
   });
   av.appendChild(g);
