@@ -18,11 +18,16 @@
   --fs-h1: clamp(19px, 2.3vw, 26px); --fs-h2: 24px;
   --hbtn: 42px; --rad: 10px; --rad-lg: 14px; --wm-op: .4;
 }
+@media (min-width: 1600px) {
+  :root { --fs: 16px; --fs-sm: 14px; --fs-btn: 15px; }
+}
+@media (min-width: 2200px) {
+  :root { --fs: 18px; --fs-sm: 15px; --fs-btn: 16px; }
+}
 * { box-sizing: border-box; margin: 0; padding: 0; }
 html { overflow-y: scroll; }
-@media (min-width: 769px) and (max-width: 1920px) { html { zoom: 1; } }
-@media (min-width: 1921px) { html { zoom: 1.15; } }
-@media (min-width: 2201px) { html { zoom: 1.25; } }
+@media (min-width: 769px) and (max-width: 1600px) { html { zoom: .95; } }
+@media (min-width: 1601px) { html { zoom: 1.35; } }
 body { font-family: 'Inter', system-ui, sans-serif; background: var(--bg); color: var(--ink); line-height: 1.55; font-size: var(--fs); }
 
 /* ============================================================
@@ -47,10 +52,10 @@ header { position: relative; z-index: 1; background: var(--bg); padding: 13px 5v
 .modes button { height: var(--hbtn); line-height: 1; padding: 0 9px; background: linear-gradient(135deg, rgba(232,176,75,0.08), rgba(232,176,75,0.02)); border: 1.5px solid var(--line); color: var(--ink); border-radius: var(--rad); cursor: pointer; font-weight: 700; font-size: var(--fs-btn); display: inline-flex; align-items: center; justify-content: center; gap: 7px; transition: all .2s; text-shadow: 0 1px 2px rgba(0,0,0,0.3); white-space: nowrap; overflow: hidden; }
 .modes button:hover { border-color: var(--gold); background: linear-gradient(135deg, rgba(232,176,75,0.18), rgba(232,176,75,0.06)); }
 .modes button.on { border-color: var(--gold); color: var(--gold); background: linear-gradient(135deg, rgba(232,176,75,0.28), rgba(232,176,75,0.1)); box-shadow: 0 0 14px rgba(232,176,75,0.22), inset 0 1px 0 rgba(255,255,255,0.05); }
-#mTrack { width: 205px; font-weight: 800; letter-spacing: .3px; }
-#mFree { width: 165px; }
-#mApps { width: 82px; }
-#mInfo { width: 52px; }
+#mTrack { min-width: 205px; font-weight: 800; letter-spacing: .3px; }
+#mFree { min-width: 165px; }
+#mApps { min-width: 82px; }
+#mInfo { min-width: 52px; }
 
 .langbtn { height: 34px; padding: 0 14px; background: var(--card); border: 1px solid var(--line); border-radius: 999px; color: var(--mut); cursor: pointer; font-weight: 800; font-size: var(--fs-sm); letter-spacing: 1px; display: inline-flex; align-items: center; gap: 7px; transition: all .2s; }
 .langbtn:hover { border-color: var(--gold); color: var(--ink); }
@@ -65,7 +70,8 @@ header { position: relative; z-index: 1; background: var(--bg); padding: 13px 5v
 /* ============================================================
    3. LAYOUT PRINCIPAL I SELECTOR DE NIVELL
    ============================================================ */
-main { position: relative; z-index: 1; padding: 20px 5vw; max-width: 1600px; margin: auto; }.lvls { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 18px; }
+main { position: relative; z-index: 1; padding: 20px 5vw; max-width: 1300px; margin: auto; }
+.lvls { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 18px; }
 .lvls select { background: var(--card); border: 1px solid var(--line); color: var(--ink); border-radius: 999px; padding: 9px 36px 9px 18px; cursor: pointer; font-weight: 700; font-size: var(--fs-btn); min-width: 195px; appearance: none; -webkit-appearance: none; -moz-appearance: none; background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23e8b04b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e"); background-repeat: no-repeat; background-position: right 12px center; background-size: 14px; transition: all .2s; font-family: 'Inter', system-ui, sans-serif; }
 .lvls select:hover { border-color: var(--gold); color: var(--ink); }
 .lvls select:focus { border-color: var(--gold); outline: none; box-shadow: 0 0 0 2px rgba(232,176,75,0.2); }
