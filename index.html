@@ -949,7 +949,6 @@ $('adjSelOk').onclick = function () {
 document.addEventListener('keydown', function (e) {
   if (e.key !== 'Escape') return;
   if ($('adjSelModal').classList.contains('on')) $('adjSelCancel').onclick();
-  else if ($('helpModal').classList.contains('on')) $('helpModal').classList.remove('on');
   else if ($('faqModal').classList.contains('on')) $('faqModal').classList.remove('on');
 });
 
