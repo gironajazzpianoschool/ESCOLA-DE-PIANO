@@ -378,9 +378,10 @@ main { position: relative; z-index: 1; padding: 20px 5vw; max-width: 1300px; mar
 
 <main>
   <div id="trackView" style="display:none"></div>
-  <div id="freeView" style="display:none"></div>
-  <div id="appsView" style="display:none"></div>
-  <div id="infoView" style="display:none"></div>
+<div id="freeView" style="display:none"></div>
+<div id="appsView" style="display:none"></div>
+<div id="infoView" style="display:none"></div>
+<div id="helpView" style="display:none"></div>
 </main>
 
 <div class="modal" id="modal">
@@ -436,7 +437,7 @@ function lsSet(k, v) { try { window.localStorage.setItem(k, v); } catch (e) { me
 function lsJSON(k, def) { var r = lsGet(k); if (!r) return def; try { return JSON.parse(r); } catch (e) { return def; } }
 
 var LS = { lang: lsGet('gjps_lang') || 'ca', mode: lsGet('gjps_mode') || 'track', user: lsGet('gjps_session') || '', done: {} };
-var freeBlock = 'w', freeLevel = 0, autoLevelPending = true, editModeOn = false, faqOpen = {}, reviewCollapsed = true;
+var freeBlock = 'w', freeLevel = 0, autoLevelPending = true, editModeOn = false, faqOpen = {}, helpOpen = {}, reviewCollapsed = true;
 
 function isMobileDevice() {
   return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || 
@@ -1520,6 +1521,31 @@ function renderApps() {
   applyEditState();
 }
 
+function renderHelp() {
+  var hv = $('helpView');
+  var h = '<div class="info-container"><h2>' + (LS.lang === 'ca' ? 'Com funciona aquest web' : 'Cómo funciona esta web') + '</h2>';
+  var intro = LS.lang === 'ca' 
+    ? 'Benvingut/da a l\'aula virtual! Aquesta guia ràpida t\'explica com treure-li tot el partit en 2 minuts.' 
+    : '¡Bienvenido/a al aula virtual! Esta guía rápida te explica cómo sacarle todo el partido en 2 minutos.';
+  h += '<p style="color:var(--mut);font-size:var(--fs);line-height:1.6;margin-bottom:16px;">' + intro + '</p>';
+  HELP.forEach(function (s, i) {
+    var open = editModeOn ? true : !!helpOpen[i];
+    var icoHtml = s.ico ? '<span class="faqico">' + s.ico + '</span>' : '';
+    h += '<div class="faq-item' + (open ? ' open' : '') + '"><h3>' + icoHtml + '<span class="faqtxt">' + esc(s.t[LS.lang]) + '</span></h3><p>' + esc(s.p[LS.lang]) + '</p></div>';
+  });
+  h += '</div>';
+  hv.innerHTML = h;
+  setTimeout(function () {
+    hv.querySelectorAll('.faq-item').forEach(function (item, idx) {
+      item.querySelector('h3').onclick = function () {
+        if (editModeOn) return;
+        helpOpen[idx] = !helpOpen[idx];
+        item.classList.toggle('open');
+      };
+    });
+    applyEditState();
+  }, 0);
+}
 function renderInfo() {
   var iv = $('infoView');
   var h = '<h2>' + (LS.lang === 'ca' ? 'Preguntes Freqüents' : 'Preguntas Frecuentes') + '</h2>';
@@ -1679,16 +1705,18 @@ function render() {
   $('mTrack').classList.toggle('on', LS.mode === 'track');
   $('mApps').classList.toggle('on', LS.mode === 'apps');
   $('mInfo').classList.toggle('on', LS.mode === 'info');
+  $('mHelp').classList.toggle('on', LS.mode === 'help');
   $('who').innerHTML = t().hello + ', <b>' + LS.user + '</b>';
   $('trackView').style.display = LS.mode === 'track' ? 'block' : 'none';
   $('freeView').style.display = LS.mode === 'free' ? 'block' : 'none';
   $('appsView').style.display = LS.mode === 'apps' ? 'block' : 'none';
   $('infoView').style.display = LS.mode === 'info' ? 'block' : 'none';
+  $('helpView').style.display = LS.mode === 'help' ? 'block' : 'none';
   if (LS.mode === 'track') renderTrack();
   else if (LS.mode === 'free') renderFree();
   else if (LS.mode === 'apps') renderApps();
   else if (LS.mode === 'info') renderInfo();
-  applyEditState();
+  else if (LS.mode === 'help') renderHelp();  applyEditState();
 }
 
 function setMode(m) {
@@ -1697,6 +1725,7 @@ function setMode(m) {
   if (m === 'free') autoLevelPending = true;
   if (m === 'track') reviewCollapsed = true;
   if (m === 'info') faqOpen = {};
+  if (m === 'help') helpOpen = {};
   render();
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
@@ -1705,7 +1734,7 @@ $('mTrack').onclick = function () { setMode('track'); };
 $('mFree').onclick = function () { setMode('free'); };
 $('mApps').onclick = function () { setMode('apps'); };
 $('mInfo').onclick = function () { setMode('info'); };
-$('mHelp').onclick = function () { showHelp(); };
+$('mHelp').onclick = function () { setMode('help'); };
 $('mEdit').onclick = function () { toggleEditMode(); };
 $('mSave').onclick = function () { saveAsFile(); };
 $('langToggle').onclick = function () {
@@ -1836,23 +1865,12 @@ try {
 
 <!-- Modal de FAQ per a visitants (sense login) -->
 <div class="lgin" id="faqModal">
-  <div class="lbox" style="width:min(800px,92vw);max-height:85vh;overflow-y:auto;text-align:left;padding:24px;">
+  <div class="lbox" style="width:min(600px,90vw);max-height:85vh;overflow-y:auto;text-align:left;padding:24px;">
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;border-bottom:1px solid var(--line);padding-bottom:12px;">
       <h2 style="margin:0;font-size:18px;color:var(--gold);">Preguntes Freqüents</h2>
       <button onclick="$('faqModal').classList.remove('on')" style="background:none;border:none;color:var(--mut);font-size:22px;cursor:pointer;line-height:1;">✕</button>
     </div>
     <div id="faqGuestContent"></div>
-  </div>
-</div>
-
-<!-- Modal d'ajuda per a alumnes -->
-<div class="lgin" id="helpModal">
-  <div class="lbox" style="width:min(700px,92vw);max-height:85vh;overflow-y:auto;text-align:left;padding:24px;">
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;border-bottom:1px solid var(--line);padding-bottom:12px;">
-      <h2 style="margin:0;font-size:18px;color:var(--gold);" id="helpTitle"></h2>
-      <button onclick="$('helpModal').classList.remove('on')" style="background:none;border:none;color:var(--mut);font-size:22px;cursor:pointer;line-height:1;">✕</button>
-    </div>
-    <div id="helpContent"></div>
   </div>
 </div>
 </body>
