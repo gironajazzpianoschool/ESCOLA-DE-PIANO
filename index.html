@@ -20,7 +20,8 @@
 }
 * { box-sizing: border-box; margin: 0; padding: 0; }
 html { overflow-y: scroll; }
-@media (min-width: 769px) { html { zoom: .95; } }
+@media (min-width: 769px) and (max-width: 1600px) { html { zoom: .95; } }
+@media (min-width: 1601px) { html { zoom: 1.05; } }
 body { font-family: 'Inter', system-ui, sans-serif; background: var(--bg); color: var(--ink); line-height: 1.55; font-size: var(--fs); }
 
 /* ============================================================
