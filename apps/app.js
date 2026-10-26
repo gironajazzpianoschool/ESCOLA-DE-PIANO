@@ -884,6 +884,43 @@ updateLanguageUI=function(){_origUpdateLang();const ea=$('btn-exit-app'),ep=$('b
   
   var warn = document.createElement('div');
   warn.id = 'midi-warning';
+  warn.style.cssText = 'display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);z-index:30001;background:rgba(255,170,0,0.97);color:#000;border:2px solid #ffaa00;border-radius:16px;padding:20px 28px;font-size:15px;font-weight:700;max-width:min(560px,92vw);text-align:center;box-shadow:0 0 30px rgba(255,170,0,0.55);cursor:pointer;line-height:1.5;';
+  warn.title = 'Clic per tancar';
+  var warnTO = null;
+  function hideWarn(){ if (warnTO) { clearTimeout(warnTO); warnTO = null; } warn.style.display = 'none'; }
+  warn.addEventListener('click', hideWarn);
+  document.body.appendChild(warn);
+  
+  function warnText(){
+    if (currentLang === 'es') return '⚠️ iOS/macOS (Safari) NO permite MIDI en el navegador. Usa el CONTROL MANUAL 🎛️ dins d\'aquesta app, o entra des d\'Android o PC per fer servir MIDI.';
+    if (currentLang === 'en') return '⚠️ iOS/macOS (Safari) does NOT support MIDI in the browser. Use the MANUAL CONTROL 🎛️ inside this app, or open it from Android or PC to use MIDI.';
+    return '⚠️ iOS/macOS (Safari) NO permet MIDI al navegador. Fes servir el CONTROL MANUAL 🎛️ dins d\'aquesta app, o entra des d\'Android o PC per fer servir MIDI.';
+  }
+  function syncWarn(){
+    var active = midiMode.classList.contains('active') || earMode.classList.contains('active');
+    if (active) {
+      if (warn.style.display !== 'block') {
+        warn.textContent = warnText();
+        warn.style.display = 'block';
+        if (warnTO) clearTimeout(warnTO);
+        warnTO = setTimeout(hideWarn, 9000);
+      }
+    } else hideWarn();
+  }
+  new MutationObserver(syncWarn).observe(midiMode, {attributes:true, attributeFilter:['class']});
+  new MutationObserver(syncWarn).observe(earMode, {attributes:true, attributeFilter:['class']});
+  syncWarn();
+})();
+  var ua = navigator.userAgent;
+  var isIPad = /iPad/.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  var isMac = /Macintosh/.test(ua) && navigator.maxTouchPoints === 0;
+  var isSafari = /Safari/.test(ua) && !/Chrome/.test(ua);
+  var noMidi = !navigator.requestMIDIAccess;
+  var appleNoMidi = (isIPad || isMac) && (noMidi || isSafari);
+  if (!appleNoMidi) return;
+  
+  var warn = document.createElement('div');
+  warn.id = 'midi-warning';
   warn.style.cssText = 'display:none;position:fixed;top:64px;left:50%;transform:translateX(-50%);z-index:30001;background:rgba(255,170,0,0.96);color:#000;border:2px solid #ffaa00;border-radius:14px;padding:12px 20px;font-size:13px;font-weight:700;max-width:92vw;text-align:center;box-shadow:0 0 24px rgba(255,170,0,0.5);cursor:pointer;line-height:1.4;';
   warn.title = 'Clic per tancar';
   warn.addEventListener('click', function(){ warn.style.display = 'none'; });
