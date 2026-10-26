@@ -1258,11 +1258,15 @@ function renderReviewBox(container) {
     item.className = 'ritem';
     var ti = document.createElement('span'); ti.className = 'rtitle'; ti.textContent = vidTitle(v.v, v.id);
     var blk = document.createElement('span'); blk.className = 'rblk'; blk.textContent = blockName(v.b);
-    var bD = document.createElement('button'); bD.textContent = '✔'; bD.title = tt().done;
+    var lbl = LS.lang === 'ca' ? { d: 'Fet', o: 'Obrir', r: 'Treure' } : { d: 'Hecho', o: 'Abrir', r: 'Quitar' };
+
+    var bD = document.createElement('button'); bD.innerHTML = '✔ ' + lbl.d; bD.title = tt().done;
     bD.onclick = function () { LS.done[id] = 1; saveDone(); toggleBookmark(id); render(); };
-    var bO = document.createElement('button'); bO.textContent = '▶'; bO.title = tt().open;
+    
+    var bO = document.createElement('button'); bO.innerHTML = '▶ ' + lbl.o; bO.title = tt().open;
     bO.onclick = function () { var src = driveSrc(v.v, id); if (src) openFullscreenVideo(src); else showToast(t().soon); };
-    var bX = document.createElement('button'); bX.textContent = '✕'; bX.title = tt().remove;
+    
+    var bX = document.createElement('button'); bX.innerHTML = '✕ ' + lbl.r; bX.title = tt().remove;
     bX.onclick = function () { toggleBookmark(id); render(); };
     item.appendChild(ti); item.appendChild(blk); item.appendChild(bD); item.appendChild(bO); item.appendChild(bX);
     list.appendChild(item);
@@ -1530,7 +1534,7 @@ function renderHelp() {
   HELP.forEach(function (s, i) {
     var open = editModeOn ? true : !!helpOpen[i];
     var icoHtml = s.ico ? '<span class="faqico">' + s.ico + '</span>' : '';
-    h += '<div class="faq-item' + (open ? ' open' : '') + '"><h3>' + icoHtml + '<span class="faqtxt">' + esc(s.t[LS.lang]) + '</span></h3><p>' + esc(s.p[LS.lang]) + '</p></div>';
+    h += '<div class="faq-item' + (open ? ' open' : '') + '"><h3>' + icoHtml + '<span class="faqtxt help-title" data-hi="' + i + '" data-hk="t">' + esc(s.t[LS.lang]) + '</span></h3><p class="help-para" data-hi="' + i + '" data-hk="p">' + esc(s.p[LS.lang]) + '</p></div>';
   });
   h += '</div>';
   hv.innerHTML = h;
