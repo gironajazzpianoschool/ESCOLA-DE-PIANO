@@ -664,10 +664,14 @@ var HELP = [
    ================================================================ */
 var OV = /*OV-START*/{"t":{},"d":{},"l":{},"f":{},"a":{},"adj":{},"va":{},"order":[],"imp":{},"h":{},"c":{}};/*OV-END*/
 
+function faqGet(i, k) { var o = OV.f[i]; if (o && o[k] && o[k][LS.lang]) return esc(o[k][LS.lang]); return esc(FAQS[i][k][LS.lang]); }
+function appName(a, i) { var o = OV.a && OV.a[i]; return (o && o.n && o.n[LS.lang]) ? esc(o.n[LS.lang]) : a.n[LS.lang]; }
+function appDesc(a, i) { var o = OV.a && OV.a[i]; return (o && o.d && o.d[LS.lang]) ? esc(o.d[LS.lang]) : a.d[LS.lang]; }
+
 function celTitle() {
   var o = OV.c && OV.c.title;
   if (o && o[LS.lang]) return o[LS.lang];
-  return LS.lang === 'ca' ? ' FELICITATS! 🎓' : '🎓 ¡FELICIDADES! ';
+  return LS.lang === 'ca' ? '🎓 FELICITATS! 🎓' : '🎓 ¡FELICIDADES! 🎓';
 }
 function celGiftTxt() {
   var o = OV.c && OV.c.giftTxt;
@@ -677,7 +681,6 @@ function celGiftTxt() {
 function helpText(i, k, fallback) { var o = OV.h && OV.h[i]; if (o && o[k] && o[k][LS.lang]) return o[k][LS.lang]; return fallback; }
 function vidTitle(v, id) { var o = OV.t[id]; return (o && o[LS.lang]) ? esc(o[LS.lang]) : v[li()]; }
 function vidDesc(v, id, b) { var o = OV.d[id]; return (o && o[LS.lang]) ? esc(o[LS.lang]) : t().desc[b]; }
-
 function driveSrc(v, id) {
   var L = (OV.l[id] && OV.l[id][LS.lang]) || OV.l[id];
   if (L !== undefined && L !== '') {
