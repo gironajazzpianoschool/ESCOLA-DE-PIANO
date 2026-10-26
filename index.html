@@ -61,7 +61,7 @@ header { position: relative; z-index: 1; background: var(--bg); padding: 13px 5v
 .langbtn:hover { border-color: var(--gold); color: var(--ink); }
 .langbtn #langCur { color: var(--gold); }
 
-#mEdit { position: fixed; right: 18px; bottom: 18px; z-index: 70; width: 46px; height: 46px; border-radius: 50%; background: var(--card); border: 1.5px solid var(--line); color: var(--ink); cursor: pointer; font-size: 18px; display: none; align-items: center; justify-content: center; transition: all .2s; box-shadow: 0 6px 18px rgba(0,0,0,.45); }
+#mEdit { position: fixed; right: 18px; bottom: 18px; z-index: 999999; width: 46px; height: 46px; border-radius: 50%; background: var(--card); border: 1.5px solid var(--line); color: var(--ink); cursor: pointer; font-size: 18px; display: none; align-items: center; justify-content: center; transition: all .2s; box-shadow: 0 6px 18px rgba(0,0,0,.45); pointer-events: auto; isolation: isolate; }
 #mEdit:hover { border-color: var(--gold); transform: translateY(-2px); }
 #mEdit.on { border-color: var(--ok); color: var(--ok); background: rgba(57,217,138,0.1); }
 #mSave { position: fixed; right: 18px; bottom: 72px; z-index: 9999; width: 46px; height: 46px; border-radius: 50%; background: #39d98a; border: none; color: #0a0c10; cursor: pointer; font-size: 18px; display: none; align-items: center; justify-content: center; box-shadow: 0 6px 18px rgba(0,0,0,.5); transition: all .2s; }
@@ -70,7 +70,7 @@ header { position: relative; z-index: 1; background: var(--bg); padding: 13px 5v
 /* ============================================================
    3. LAYOUT PRINCIPAL I SELECTOR DE NIVELL
    ============================================================ */
-main { position: relative; z-index: 1; padding: 20px 5vw; max-width: 1300px; margin: auto; }
+main { position: relative; padding: 20px 5vw; max-width: 1300px; margin: auto; }
 .lvls { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 18px; }
 .lvls select { background: var(--card); border: 1px solid var(--line); color: var(--ink); border-radius: 999px; padding: 9px 36px 9px 18px; cursor: pointer; font-weight: 700; font-size: var(--fs-btn); min-width: 195px; appearance: none; -webkit-appearance: none; -moz-appearance: none; background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23e8b04b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e"); background-repeat: no-repeat; background-position: right 12px center; background-size: 14px; transition: all .2s; font-family: 'Inter', system-ui, sans-serif; }
 .lvls select:hover { border-color: var(--gold); color: var(--ink); }
@@ -448,6 +448,13 @@ function isIOS() {
          (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
 }
 
+function isSmartphone() {
+  var ua = navigator.userAgent;
+  if (/iPhone|iPod/.test(ua)) return true;
+  if (/Android/.test(ua) && /Mobile/.test(ua)) return true;
+  return false;
+}
+
 var BO = ['w', 't', 'g', 'r', 'a', 'p'];
 var BC = { t: '#e8b04b', g: '#39d98a', r: '#4cc9f0', a: '#8c52ff', p: '#ff2bd6' };
 var DI = { d: '📄', s: '🎼', a: '🎧' };
@@ -664,12 +671,13 @@ var HELP = [
   { ico: '📝', t: { ca: 'Notes personals', es: 'Notas personales' }, p: { ca: 'Cada vídeo té un espai de notes per apuntar dubtes o observacions. Podràs enviar-les al professor quan ho necessitis.', es: 'Cada vídeo tiene un espacio de notas para apuntar dudas u observaciones. Podrás enviárselas al profesor cuando lo necesites.' } },
   { ico: '📎', t: { ca: 'Adjunts i partitures', es: 'Adjuntos y partituras' }, p: { ca: 'Els documents de cada bloc (partitures, play-alongs, PDFs) s\'obren amb el botó «Adjunts». Alguns vídeos també tenen material propi just a sota.', es: 'Los documentos de cada bloque (partituras, play-alongs, PDFs) se abren con el botón «Adjuntos». Algunos vídeos también tienen material propio justo debajo.' } },
   { ico: '🎧', t: { ca: 'Aplicacions d\'entrenament', es: 'Aplicaciones de entrenamiento' }, p: { ca: 'A la pestanya Apps trobaràs laboratoris exclusius com TONAL EMOTIONS, per entrenar l\'oïda jugant.', es: 'En la pestaña Apps encontrarás laboratorios exclusivos como TONAL EMOTIONS, para entrenar el oído jugando.' } },
-  { ico: '🎓', t: { ca: 'I en acabar el nivell…', es: 'Y al terminar el nivel…' }, p: { ca: 'Quan completis tots els vídeos del nivell rebràs un regal de graduació molt especial. Però això… millor descobreix-ho tu mateix! 😉', es: 'Cuando completes todos los vídeos del nivel recibirás un regalo de graduación muy especial. Pero eso… ¡mejor descúbrelo tú mismo! 😉' } }
+  { ico: '🎓', t: { ca: 'I en acabar el nivell…', es: 'Y al terminar el nivel…' }, p: { ca: 'Quan completis tots els vídeos del nivell rebràs un regal de graduació molt especial. Però això… millor descobreix-ho tu mateix! 😉', es: 'Cuando completes todos los vídeos del nivel recibirás un regalo de graduación muy especial. Pero eso… ¡mejor descúbrelo tú mismo! 😉' } },
+  { ico: '📊', t: { ca: 'Els percentatges de progrés', es: 'Los porcentajes de progreso' }, p: { ca: 'Al Seguiment Continuat, els donuts de progrés només tenen en compte els vídeos importants (⭐): quan els completis tots, veuràs el 100% i rebràs el regal de graduació, encara que quedin vídeos opcionals (⭕) pendents. A la Navegació Lliure, en canvi, el percentatge de cada bloc reflecteix tot el material del bloc (importants i opcionals). I si passes el ratolí per sobre de qualsevol donut o botó de bloc, t\'explicarà exactament què està mesurant.', es: 'En el Seguimiento Continuo, los donuts de progreso solo tienen en cuenta los vídeos importantes (⭐): cuando los completes todos, verás el 100% y recibirás el regalo de graduación, aunque queden vídeos opcionales (⭕) pendientes. En la Navegación Libre, en cambio, el porcentaje de cada bloque refleja todo el material del bloque (importantes y opcionales). Y si pasas el ratón por encima de cualquier donut o botón de bloque, te explicará exactamente qué está midiendo.' } },
+  { ico: '🧪', t: { ca: 'Prova pilot: on es guarda el teu progrés?', es: 'Prueba piloto: ¿dónde se guarda tu progreso?' }, p: { ca: 'Aquest web és encara una prova pilot amb un màxim de 30 usuaris. Per això, el teu progrés (vídeos completats, notes personals i llista de repàs) queda guardat únicament al navegador del dispositiu que estiguis utilitzant. Si entres amb el teu usuari des d\'un altre dispositiu, no hi veuràs el progrés actualitzat: no s\'ha perdut, simplement viu a l\'altre navegador. Aquesta limitació desapareixerà d\'aquí a uns mesos, quan el web es publiqui oficialment i el progrés es guardi al núvol.', es: 'Esta web es todavía una prueba piloto con un máximo de 30 usuarios. Por eso, tu progreso (vídeos completados, notas personales y lista de repaso) queda guardado únicamente en el navegador del dispositivo que estés utilizando. Si entras con tu usuario desde otro dispositivo, no verás el progreso actualizado: no se ha perdido, simplemente vive en el otro navegador. Esta limitación desaparecerá en unos meses, cuando la web se publique oficialmente y el progreso se guarde en la nube.' } }
 ];
 
 /* ================================================================
-   4. DADES EDITABLES PERSISTIDES (OV)
-   ================================================================ */
+   4. DADES EDITABLES PERSISTIDES (OV)   ================================================================ */
 var OV = /*OV-START*/{"t":{},"d":{},"l":{},"f":{},"a":{},"adj":{},"va":{},"order":[],"imp":{},"h":{},"c":{}};/*OV-END*/
 
 function faqGet(i, k) { var o = OV.f[i]; if (o && o[k] && o[k][LS.lang]) return esc(o[k][LS.lang]); return esc(FAQS[i][k][LS.lang]); }
@@ -685,6 +693,11 @@ function celGiftTxt() {
   var o = OV.c && OV.c.giftTxt;
   if (o && o[LS.lang]) return o[LS.lang];
   return t().giftTxt;
+}
+function celGiftTxtImp() {
+  var o = OV.c && OV.c.giftTxtImp;
+  if (o && o[LS.lang]) return o[LS.lang];
+  return LS.lang === 'ca' ? 'Has completat totes les lliçons importants del nivell! Gaudeix del teu regal de graduació:' : '¡Has completado todas las lecciones importantes del nivel! Disfruta de tu regalo de graduación:';
 }
 function helpText(i, k, fallback) { var o = OV.h && OV.h[i]; if (o && o[k] && o[k][LS.lang]) return o[k][LS.lang]; return fallback; }
 function vidTitle(v, id) { var o = OV.t[id]; return (o && o[LS.lang]) ? esc(o[LS.lang]) : v[li()]; }
@@ -1291,14 +1304,18 @@ function fmtDate(ts) { var d = new Date(ts); var pad = function (n) { return n <
 function renderTrack() {
   initializeOrder();
   var all = allVids();
+  var imp = all.filter(function (x) { return getVideoImportance(x.id) === 'important'; });
   var next = findNext();
   var tv = $('trackView');
   tv.innerHTML = '';
   var allDone = all.length > 0 && all.every(function (vid) { return LS.done[vid.id]; });
-  if (allDone) {
+  var impDone = imp.length > 0 && imp.every(function (vid) { return LS.done[vid.id]; });
+  if (impDone) {
     var celebration = document.createElement('div');
     celebration.className = 'celebration';
-    celebration.innerHTML = '<h2 class="cel-title" data-ovaid="cel" data-ovak="title">' + celTitle() + '</h2><div class="trophy-container"><div class="trophy-glow"></div><div class="trophy">🏆</div></div><div class="subtitle cel-gift" data-ovaid="cel" data-ovak="giftTxt">' + celGiftTxt() + '</div>';
+    var giftKey = allDone ? 'giftTxt' : 'giftTxtImp';
+    var giftMsg = allDone ? celGiftTxt() : celGiftTxtImp();
+    celebration.innerHTML = '<h2 class="cel-title" data-ovaid="cel" data-ovak="title">' + celTitle() + '</h2><div class="trophy-container"><div class="trophy-glow"></div><div class="trophy">🏆</div></div><div class="subtitle cel-gift" data-ovaid="cel" data-ovak="' + giftKey + '">' + giftMsg + '</div>';
     var giftGrid = document.createElement('div');
     giftGrid.className = 'gift-grid';
     GIFT.forEach(function (g, i) {
@@ -1322,12 +1339,15 @@ function renderTrack() {
   var dw = document.createElement('div');
   dw.className = 'donuts';
   var h = '';
+  var tipB = LS.lang === 'ca' ? 'Percentatge de vídeos importants (⭐) completats d\'aquest bloc' : 'Porcentaje de vídeos importantes (⭐) completados de este bloque';
+  var tipT = LS.lang === 'ca' ? 'Percentatge de vídeos importants (⭐) completats del nivell' : 'Porcentaje de vídeos importantes (⭐) completados del nivel';
   BO.filter(function (b) { return b !== 'w'; }).forEach(function (b) {
-    var p = prog(all.filter(function (x) { return x.b === b; }));
-    h += '<div class="donut">' + donut(p.p, BC[b]) + '<div class="lbl">' + t().blocks[b] + '</div></div>';
+    var list = imp.filter(function (x) { return x.b === b; });
+    var p = list.length ? prog(list).p : 100;
+    h += '<div class="donut" title="' + tipB + '">' + donut(p, BC[b]) + '<div class="lbl">' + t().blocks[b] + '</div></div>';
   });
-  var pt = prog(all);
-  h += '<div class="donut tot">' + donut(pt.p, '#e8b04b') + '<div class="lbl">' + t().total + '</div></div>';
+  var pt = imp.length ? prog(imp).p : 0;
+  h += '<div class="donut tot" title="' + tipT + '">' + donut(pt, '#e8b04b') + '<div class="lbl">' + t().total + '</div></div>';
   dw.innerHTML = h;
   tv.appendChild(dw);
   renderReviewBox(tv);
@@ -1380,11 +1400,12 @@ function renderFree() {
       btn.onclick = function () { freeBlock = b; render(); };
       if (b === 'b') {
         var n = getBookmarks().length;
+        btn.title = LS.lang === 'ca' ? 'Vídeos que has marcat per repassar' : 'Vídeos que has marcado para repasar';
         btn.innerHTML = '<span class="bname">' + t().blocks.b + '</span><span class="bmini"><span class="bico">🔖</span><span class="bcount">' + n + '</span></span>';
       } else {
         var vidsInBlock = all.filter(function (x) { return x.b === b; });
         var p = vidsInBlock.length ? prog(vidsInBlock).p : 0;
-        var miniChart = '<svg width="22" height="22" viewBox="0 0 24 24" style="flex:none"><circle cx="12" cy="12" r="11" fill="#242a35"/>' + pieSlice(12, 12, 11, p, (p === 100 ? '#39d98a' : BC[b])) + '</svg>';
+        btn.title = LS.lang === 'ca' ? 'Percentatge de tot el material d\'aquest bloc completat (importants i opcionals)' : 'Porcentaje de todo el material de este bloque completado (importantes y opcionales)';        var miniChart = '<svg width="22" height="22" viewBox="0 0 24 24" style="flex:none"><circle cx="12" cy="12" r="11" fill="#242a35"/>' + pieSlice(12, 12, 11, p, (p === 100 ? '#39d98a' : BC[b])) + '</svg>';
         btn.innerHTML = '<span class="bname">' + t().blocks[b] + '</span><span class="bmini">' + (p < 100 ? miniChart + '<span class="bpct">' + p + '%</span>' : '<span class="bpct" style="color:#39d98a">✔ Fet</span>') + '</span>';
       }
       col.appendChild(btn);
@@ -1510,6 +1531,14 @@ function renderFree() {
 function renderApps() {
   var av = $('appsView');
   av.innerHTML = '';
+  if (isSmartphone()) {
+    var warn = document.createElement('div');
+    warn.className = 'wipbox';
+    warn.innerHTML = '<div class="wipicon">📱</div><h3>' + (LS.lang === 'ca' ? 'Apps no disponibles al smartphone' : 'Apps no disponibles en el smartphone') + '</h3><p>' + (LS.lang === 'ca' ? 'Les aplicacions d\'entrenament (com TONAL EMOTIONS) necessiten una pantalla gran per funcionar correctament. Per utilitzar-les, entra des d\'un ordinador (PC o Mac) o des d\'una tablet: des d\'un smartphone les dimensions no ho permeten.' : 'Las aplicaciones de entrenamiento (como TONAL EMOTIONS) necesitan una pantalla grande para funcionar correctamente. Para utilizarlas, entra desde un ordenador (PC o Mac) o desde una tablet: desde un smartphone las dimensiones no lo permiten.') + '</p>';
+    av.appendChild(warn);
+    applyEditState();
+    return;
+  }
   var g = document.createElement('div');
   g.className = 'appgrid';
   APPS.forEach(function (a, i) {
