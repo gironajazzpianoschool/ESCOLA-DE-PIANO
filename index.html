@@ -1934,22 +1934,31 @@ try {
   }
 </script>
 <script>
-  // Detectar si ÉS mòbil o tablet (incloent iPad modern)
-  var isMobileOrTablet = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || 
-                         (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  // 1. Detecció ROBUSTA d'escriptori (PC sense pantalla tàctil)
+  const hasTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+  const isMobileUA = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+  const isDesktop = !isMobileUA && !hasTouch;
 
-  if (isMobileOrTablet) {
+  if (isDesktop) {
+    console.log('🖥️ Mode ESCRIPTORI detectat: Bloquejant instal·lació PWA.');
+    
+    // BLOQUEIG ACTIU: Si el navegador intenta mostrar el missatge, l'aturen a la força
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault(); // Això mata el missatge d'instal·lar
+      return false;
+    });
+  } else {
+    console.log('📱 Mode MÒBIL/TABLET detectat: Activant PWA.');
+    
     // 1. Afegir el manifest DINÀMICAMENT (el PC mai el veurà)
-    var link = document.createElement('link');
+    const link = document.createElement('link');
     link.rel = 'manifest';
     link.href = './manifest.json';
     document.head.appendChild(link);
 
     // 2. Registrar el Service Worker
     if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('./sw.js').catch(function(err) {
-        console.log('SW error:', err);
-      });
+      navigator.serviceWorker.register('./sw.js').catch(err => console.log('SW error:', err));
     }
   }
 </script>
