@@ -830,4 +830,44 @@ document.querySelector('.password-box').appendChild(mkExit('btn-exit-pw','margin
 const _origUpdateLang=updateLanguageUI;
 updateLanguageUI=function(){_origUpdateLang();const ea=$('btn-exit-app'),ep=$('btn-exit-pw');if(ea)ea.textContent=t('exit_app');if(ep)ep.textContent=t('exit_app');};
 }
+/* ═══════════════════════════════════════════════ */
+/* TABLET SUPPORT - Pseudo-fullscreen per iPad     */
+/* ═══════════════════════════════════════════════ */
+(function tabletSupport(){
+  var ua = navigator.userAgent;
+  var isIOS = /iPad/.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  var isAndroidTablet = /Android/.test(ua) && !/Mobile/.test(ua);
+  var w = window.innerWidth;
+  var isTablet = (isIOS || isAndroidTablet) && w >= 768 && w <= 1366;
+  if (!isTablet) return;
+  
+  // Fix per al famós problema del 100vh a iOS
+  function setVh(){
+    var vh = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty('--vh', vh + 'px');
+  }
+  setVh();
+  window.addEventListener('resize', setVh);
+  window.addEventListener('orientationchange', function(){ setTimeout(setVh, 100); });
+  
+  // Pseudo-fullscreen per iOS (que no suporta Fullscreen API)
+  function pseudoFullscreen(){
+    window.scrollTo(0, 1);
+    try {
+      if (document.documentElement.webkitRequestFullscreen) {
+        document.documentElement.webkitRequestFullscreen();
+      } else if (document.documentElement.requestFullscreen) {
+        document.documentElement.requestFullscreen().catch(function(){});
+      }
+    } catch(e){}
+  }
+  
+  // Assignar pseudo-fullscreen als botons
+  var btnMidi = document.getElementById('btn-fullscreen-midi');
+  var btnEar = document.getElementById('btn-fullscreen-ear');
+  if (btnMidi) btnMidi.addEventListener('click', pseudoFullscreen);
+  if (btnEar) btnEar.addEventListener('click', pseudoFullscreen);
+  
+  console.log('📱 Tablet mode activated');
+})();
 console.log('🎹 TONAL EMOTIONS: v13 net carregat (amb tots els pegats del registre).');

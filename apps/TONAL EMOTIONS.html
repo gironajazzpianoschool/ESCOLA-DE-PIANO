@@ -262,6 +262,65 @@ body.battle-on #delay-countdown { top:68%; }
 #battle-result-modal .battle-stat-value{
   font-size:26px !important;
 }
+/* ═══════════════════════════════════════════════ */
+/* TABLET MODE - iPad / Android Tablet (no PC)     */
+/* ═══════════════════════════════════════════════ */
+@media (min-width: 768px) and (max-width: 1366px) and (pointer: coarse) {
+  body {
+    height: 100dvh !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    padding-bottom: env(safe-area-inset-bottom, 0);
+  }
+  
+  /* Botons fullscreen sempre visibles */
+  #btn-fullscreen-midi, #btn-fullscreen-ear {
+    display: block !important;
+    background: rgba(140,82,255,0.9) !important;
+    color: #fff !important;
+    border-color: #8c52ff !important;
+    bottom: 20px !important;
+    z-index: 10000 !important;
+  }
+  
+  /* Reposicionar botons inferiors (tallats a la tablet) */
+  #btn-back-midi, #btn-back-ear { bottom: 80px !important; }
+  #btn-ear-piano { bottom: 80px !important; left: 160px !important; }
+  #btn-toggle-manual { bottom: 80px !important; left: 360px !important; }
+  #btn-toggle-manual-ear { bottom: 80px !important; left: 530px !important; }
+  
+  /* Panell manual més amunt perquè càpiga */
+  #manual-panel { bottom: 140px !important; max-width: 95vw !important; }
+  #manual-panel.ear-position { left: calc(50% + 150px) !important; }
+  
+  /* Panell EAR: més compacte */
+  #ear-panel-full {
+    max-height: 70vh !important;
+    overflow-y: auto !important;
+    padding: 14px !important;
+    width: 260px !important;
+  }
+  
+  /* Botons de modes: posicionar-los en línia */
+  .mode-btn { top: 60px !important; right: auto !important; }
+  #btn-delay { left: 20px !important; }
+  #btn-normal { left: 100px !important; }
+  #btn-lead { left: 180px !important; }
+  #btn-bass { left: 250px !important; }
+  #btn-multi { left: 320px !important; }
+  #btn-complete { left: 410px !important; }
+  #btn-edit { left: 520px !important; }
+  
+  /* Zoom i Sound controls */
+  #zoom-controls { top: 110px !important; right: 10px !important; }
+  #sound-controls { top: 200px !important; right: 10px !important; width: 260px !important; }
+  
+  /* Scoreboard de batalla més compacte */
+  #battle-scoreboard { width: min(480px, 92vw) !important; }
+  
+  /* Caixes de P1 i P2 */
+  #p1-box, #p2-box { width: 220px !important; }
+}
 </style>
 </head>
 <body>
