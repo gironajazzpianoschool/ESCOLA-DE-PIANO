@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html lang="ca"><head>
+<html lang="ca">
+<head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Girona Jazz Piano School®</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&amp;display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
 /* ============================================================
    1. VARIABLES I RESET
@@ -204,6 +205,7 @@ main { position: relative; padding: 20px 5vw; max-width: 1300px; margin: auto; }
 .faq-item h3 { padding: 13px; margin: 0; font-size: 14px; color: var(--ink); cursor: pointer; display: flex; align-items: center; font-weight: 600; gap: 12px; }
 .faq-item h3 .faqico { flex: none; display: inline-flex; align-items: center; justify-content: center; font-size: 18px; }
 .faq-item h3 .faqico img { width: 26px; height: 26px; object-fit: contain; }
+.faq-item h3 .faqico svg { width: 22px; height: 22px; }
 .faq-item h3 .faqtxt { flex: 1; }
 .faq-item h3::after { content: '+'; font-size: 18px; color: var(--gold); font-weight: 300; flex: none; }
 .faq-item.open h3::after { content: '−'; }
@@ -357,38 +359,38 @@ main { position: relative; padding: 20px 5vw; max-width: 1300px; margin: auto; }
   <div class="hbrand">
     <h1>GIRONA JAZZ PIANO SCHOOL®</h1>
     <div class="userblock">
-      <span id="who">Hola, <b>admin</b></span>
+      <span id="who"></span>
       <button id="btnUser" class="ubtn logoutbtn" title="Tanca sessió / Cerrar sesión">Logout</button>
     </div>
   </div>
   <div class="hdr">
     <span class="modes">
-      <button id="mTrack" class="">🎯 Seguiment Continuat</button>
-      <button id="mFree" class="on">📁 Navegació Lliure</button>
-      <button id="mApps" class=""><svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor" style="vertical-align:middle"><rect x="3" y="3" width="7" height="7" rx="1.5"></rect><rect x="14" y="3" width="7" height="7" rx="1.5"></rect><rect x="3" y="14" width="7" height="7" rx="1.5"></rect><rect x="14" y="14" width="7" height="7" rx="1.5"></rect></svg> Apps</button>
-      <button id="mInfo" class="">FAQ</button>
+      <button id="mTrack">🎯 Seguiment Continuat</button>
+      <button id="mFree">📁 Navegació Lliure</button>
+      <button id="mApps"></button>
+      <button id="mInfo">FAQ</button>
     </span>
-    <button id="mHelp" class="langbtn" title="Com funciona">❓</button>
+    <button id="mHelp" class="langbtn" title="Com funciona / Cómo funciona">❓</button>
     <button id="langToggle" class="langbtn" title="Canvia d'idioma / Cambiar de idioma">🌐 <span id="langCur">CAT</span></button>
-    <button id="mEdit" title="Mode edició" class="" style="display: flex;">⚙️</button>
-    <button id="mSave" title="Guardar" style="display: none;">💾</button>
+    <button id="mEdit" title="Mode edició">⚙️</button>
+    <button id="mSave" title="Guardar">💾</button>
   </div>
 </header>
 
 <main>
-  <div id="trackView" style="display: none;"></div>
-<div id="freeView" style="display: block;"></div>
-<div id="appsView" style="display: none;"></div>
-<div id="infoView" style="display: none;"></div>
-<div id="helpView" style="display: none;"><div class="info-container"><h2>Com funciona aquest web</h2><p style="color:var(--mut);font-size:var(--fs);line-height:1.6;margin-bottom:16px;">Benvingut/da a l'aula virtual! Aquesta guia ràpida t'explica com treure-li tot el partit en 2 minuts.</p><div class="faq-item"><h3><span class="faqico">🎯</span><span class="faqtxt help-title" data-hi="0" data-hk="t">Seguiment Continuat</span></h3><p class="help-para" data-hi="0" data-hk="p">És el teu itinerari guiat. La targeta «Ara et toca» t'indica el següent vídeo que has de mirar. Quan l'hagis vist i practicat, prem «Marcar fet» i l'aula et proposarà automàticament el següent pas.</p></div><div class="faq-item"><h3><span class="faqico">📁</span><span class="faqtxt help-title" data-hi="1" data-hk="t">Navegació Lliure</span></h3><p class="help-para" data-hi="1" data-hk="p">Per explorar al teu aire: tria el nivell al desplegable i el bloc (Tècnica, Teoria, Ritme, Auditiu o Pràctica) per veure'n tots els vídeos i materials.</p></div><div class="faq-item"><h3><span class="faqico">⭐</span><span class="faqtxt help-title" data-hi="2" data-hk="t">Vídeos importants i opcionals</span></h3><p class="help-para" data-hi="2" data-hk="p">Cada vídeo porta una icona: ⭐ important (no te'l saltis) o ⭕ opcional (pots deixar-lo per més endavant si tens pressa). Passa-hi el ratolí per sobre per veure'n el significat.</p></div><div class="faq-item"><h3><span class="faqico">🔖</span><span class="faqtxt help-title" data-hi="3" data-hk="t">La teva llista de repàs</span></h3><p class="help-para" data-hi="3" data-hk="p">Amb el botó «Repassar» marques un vídeo per tenir-lo sempre a mà. Els trobaràs tots reunits a la llista de repàs, a sota de cada vista.</p></div><div class="faq-item"><h3><span class="faqico">📝</span><span class="faqtxt help-title" data-hi="4" data-hk="t">Notes personals</span></h3><p class="help-para" data-hi="4" data-hk="p">Cada vídeo té un espai de notes per apuntar dubtes o observacions. Podràs enviar-les al professor quan ho necessitis.</p></div><div class="faq-item"><h3><span class="faqico">📎</span><span class="faqtxt help-title" data-hi="5" data-hk="t">Adjunts i partitures</span></h3><p class="help-para" data-hi="5" data-hk="p">Els documents de cada bloc (partitures, play-alongs, PDFs) s'obren amb el botó «Adjunts». Alguns vídeos també tenen material propi just a sota.</p></div><div class="faq-item"><h3><span class="faqico">🎧</span><span class="faqtxt help-title" data-hi="6" data-hk="t">Aplicacions d'entrenament</span></h3><p class="help-para" data-hi="6" data-hk="p">A la pestanya Apps trobaràs laboratoris exclusius com TONAL EMOTIONS, per entrenar l'oïda jugant.</p></div><div class="faq-item"><h3><span class="faqico">🎓</span><span class="faqtxt help-title" data-hi="7" data-hk="t">I en acabar el nivell…</span></h3><p class="help-para" data-hi="7" data-hk="p">Quan completis tots els vídeos del nivell rebràs un regal de graduació molt especial. Però això… millor descobreix-ho tu mateix! 😉</p></div><div class="faq-item open"><h3><span class="faqico">📊</span><span class="faqtxt help-title" data-hi="8" data-hk="t">Els percentatges de progrés</span></h3><p class="help-para" data-hi="8" data-hk="p">Al Seguiment Continuat, els donuts de progrés només tenen en compte els vídeos importants (⭐): quan els completis tots, veuràs el 100% i rebràs el regal de graduació, encara que quedin vídeos opcionals (⭕) pendents. A la Navegació Lliure, en canvi, el percentatge de cada bloc reflecteix tot el material del bloc (importants i opcionals). I si passes el ratolí per sobre de qualsevol donut o botó de bloc, t'explicarà exactament què està mesurant.</p></div><div class="faq-item"><h3><span class="faqico">🧪</span><span class="faqtxt help-title" data-hi="9" data-hk="t">Prova pilot: on es guarda el teu progrés?</span></h3><p class="help-para" data-hi="9" data-hk="p">Aquest web és encara una prova pilot amb un màxim de 30 usuaris. Per això, el teu progrés (vídeos completats, notes personals i llista de repàs) queda guardat únicament al navegador del dispositiu que estiguis utilitzant. Si entres amb el teu usuari des d'un altre dispositiu, no hi veuràs el progrés actualitzat: no s'ha perdut, simplement viu a l'altre navegador. Aquesta limitació desapareixerà d'aquí a uns mesos, quan el web es publiqui oficialment i el progrés es guardi al núvol.</p></div></div></div>
+  <div id="trackView" style="display:none"></div>
+<div id="freeView" style="display:none"></div>
+<div id="appsView" style="display:none"></div>
+<div id="infoView" style="display:none"></div>
+<div id="helpView" style="display:none"></div>
 </main>
 
 <div class="modal" id="modal">
   <div class="wrap">
     <button class="close" id="xPlayer" title="Tancar">✕</button>
     <div class="frame">
-      <iframe id="player" allow="autoplay; fullscreen; encrypted-media; picture-in-picture" src="" scrolling="no" class="active"></iframe>
-      <div class="video-overlay hidden" id="videoOverlay">
+      <iframe id="player" allow="autoplay; fullscreen; encrypted-media; picture-in-picture" src="" scrolling="no"></iframe>
+      <div class="video-overlay" id="videoOverlay">
         <div class="icon">▶</div>
         <div class="text" id="overlayText">Fes clic per reproduir</div>
       </div>
@@ -457,6 +459,12 @@ function isSmartphone() {
 var BO = ['w', 't', 'g', 'r', 'a', 'p'];
 var BC = { t: '#e8b04b', g: '#39d98a', r: '#4cc9f0', a: '#8c52ff', p: '#ff2bd6' };
 var DI = { d: '📄', s: '🎼', a: '🎧' };
+
+/* ══════════ ICONES PERSONALITZADES GJPS ══════════ */
+const ICON_NOTE = '<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path><line x1="8" y1="7" x2="15" y2="7"></line><line x1="8" y1="11" x2="15" y2="11"></line></svg>';
+const ICON_PENCIL = '<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path></svg>';
+const ICON_TARGET = '<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2" fill="currentColor"></circle></svg>';
+const ICON_MAIL = '<svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-1px;margin-right:6px;"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>';
 
 function $(id) { return document.getElementById(id); }
 function t() { return UI[LS.lang]; }
@@ -663,12 +671,11 @@ var FAQS = [
 ];
 
 var HELP = [
-  { ico: '🎯', t: { ca: 'Seguiment Continuat', es: 'Seguimiento Continuo' }, p: { ca: 'És el teu itinerari guiat. La targeta «Ara et toca» t\'indica el següent vídeo que has de mirar. Quan l\'hagis vist i practicat, prem «Marcar fet» i l\'aula et proposarà automàticament el següent pas.', es: 'Es tu itinerario guiado. La tarjeta «Ahora te toca» te indica el siguiente vídeo que debes ver. Cuando lo hayas visto y practicado, pulsa «Marcar hecho» y el aula te propondrá automáticamente el siguiente paso.' } },
+  { ico: ICON_TARGET, t: { ca: 'Seguiment Continuat', es: 'Seguimiento Continuo' }, p: { ca: 'És el teu itinerari guiat. La targeta «Ara et toca» t\'indica el següent vídeo que has de mirar. Quan l\'hagis vist i practicat, prem «Marcar fet» i l\'aula et proposarà automàticament el següent pas.', es: 'Es tu itinerario guiado. La tarjeta «Ahora te toca» te indica el siguiente vídeo que debes ver. Cuando lo hayas visto y practicado, pulsa «Marcar hecho» y el aula te propondrá automáticamente el siguiente paso.' } },
   { ico: '📁', t: { ca: 'Navegació Lliure', es: 'Navegación Libre' }, p: { ca: 'Per explorar al teu aire: tria el nivell al desplegable i el bloc (Tècnica, Teoria, Ritme, Auditiu o Pràctica) per veure\'n tots els vídeos i materials.', es: 'Para explorar a tu aire: elige el nivel en el desplegable y el bloque (Técnica, Teoría, Ritmo, Auditivo o Práctica) para ver todos sus vídeos y materiales.' } },
   { ico: '⭐', t: { ca: 'Vídeos importants i opcionals', es: 'Vídeos importantes y opcionales' }, p: { ca: 'Cada vídeo porta una icona: ⭐ important (no te\'l saltis) o ⭕ opcional (pots deixar-lo per més endavant si tens pressa). Passa-hi el ratolí per sobre per veure\'n el significat.', es: 'Cada vídeo lleva un icono: ⭐ importante (no te lo saltes) o ⭕ opcional (puedes dejarlo para más adelante si tienes prisa). Pasa el ratón por encima para ver su significado.' } },
   { ico: '🔖', t: { ca: 'La teva llista de repàs', es: 'Tu lista de repaso' }, p: { ca: 'Amb el botó «Repassar» marques un vídeo per tenir-lo sempre a mà. Els trobaràs tots reunits a la llista de repàs, a sota de cada vista.', es: 'Con el botón «Repasar» marcas un vídeo para tenerlo siempre a mano. Los encontrarás todos reunidos en la lista de repaso, debajo de cada vista.' } },
-  { ico: '📝', t: { ca: 'Notes personals', es: 'Notas personales' }, p: { ca: 'Cada vídeo té un espai de notes per apuntar dubtes o observacions. Podràs enviar-les al professor quan ho necessitis.', es: 'Cada vídeo tiene un espacio de notas para apuntar dudas u observaciones. Podrás enviárselas al profesor cuando lo necesites.' } },
-  { ico: '📎', t: { ca: 'Adjunts i partitures', es: 'Adjuntos y partituras' }, p: { ca: 'Els documents de cada bloc (partitures, play-alongs, PDFs) s\'obren amb el botó «Adjunts». Alguns vídeos també tenen material propi just a sota.', es: 'Los documentos de cada bloque (partituras, play-alongs, PDFs) se abren con el botón «Adjuntos». Algunos vídeos también tienen material propio justo debajo.' } },
+    { ico: ICON_NOTE, t: { ca: 'Notes personals i enviar-les al professor', es: 'Notas personales y enviarlas al profesor' }, p: { ca: 'Cada vídeo té un espai de notes personals per apuntar dubtes o observacions mentre estudies. Quan tinguis notes acumulades, apareixerà el botó «Enviar al professor» dins del panell: en clicar-lo, s\'obrirà automàticament el teu correu amb totes les notes pre-emplenades, llestes per enviar a gironajazz@gmail.com.', es: 'Cada vídeo tiene un espacio de notas personales para apuntar dudas u observaciones mientras estudias. Cuando tengas notas acumuladas, aparecerá el botón «Enviar al profesor» dentro del panel: al hacer clic, se abrirá automáticamente tu correo con todas las notas pre-rellenadas, listas para enviar a gironajazz@gmail.com.' } },
   { ico: '🎧', t: { ca: 'Aplicacions d\'entrenament', es: 'Aplicaciones de entrenamiento' }, p: { ca: 'A la pestanya Apps trobaràs laboratoris exclusius com TONAL EMOTIONS, per entrenar l\'oïda jugant.', es: 'En la pestaña Apps encontrarás laboratorios exclusivos como TONAL EMOTIONS, para entrenar el oído jugando.' } },
   { ico: '🎓', t: { ca: 'I en acabar el nivell…', es: 'Y al terminar el nivel…' }, p: { ca: 'Quan completis tots els vídeos del nivell rebràs un regal de graduació molt especial. Però això… millor descobreix-ho tu mateix! 😉', es: 'Cuando completes todos los vídeos del nivel recibirás un regalo de graduación muy especial. Pero eso… ¡mejor descúbrelo tú mismo! 😉' } },
   { ico: '📊', t: { ca: 'Els percentatges de progrés', es: 'Los porcentajes de progreso' }, p: { ca: 'Al Seguiment Continuat, els donuts de progrés només tenen en compte els vídeos importants (⭐): quan els completis tots, veuràs el 100% i rebràs el regal de graduació, encara que quedin vídeos opcionals (⭕) pendents. A la Navegació Lliure, en canvi, el percentatge de cada bloc reflecteix tot el material del bloc (importants i opcionals). I si passes el ratolí per sobre de qualsevol donut o botó de bloc, t\'explicarà exactament què està mesurant.', es: 'En el Seguimiento Continuo, los donuts de progreso solo tienen en cuenta los vídeos importantes (⭐): cuando los completes todos, verás el 100% y recibirás el regalo de graduación, aunque queden vídeos opcionales (⭕) pendientes. En la Navegación Libre, en cambio, el porcentaje de cada bloque refleja todo el material del bloque (importantes y opcionales). Y si pasas el ratón por encima de cualquier donut o botón de bloque, te explicará exactamente qué está midiendo.' } },
@@ -677,7 +684,7 @@ var HELP = [
 
 /* ================================================================
    4. DADES EDITABLES PERSISTIDES (OV)   ================================================================ */
-var OV = /*OV-START*/{"t":{"1.0.g.0":{"ca":"Notes al piano: Introducció Essencial"},"1.1.t.0":{"ca":"Funcionament de les Rutines"},"1.2.t.0":{"ca":"Postura al Piano: Posició Corporal Correcta"},"1.2.t.1":{"ca":"Rutines 01-10"},"1.3.t.0":{"ca":"Rutines 11-20"},"2.0.t.0":{"ca":"Rutines 21-30"},"2.1.t.0":{"ca":"Rutines 31-40"},"2.2.t.0":{"ca":"Rutines 41-50"},"2.3.t.0":{"ca":"Rutines 51-60"},"3.0.t.0":{"ca":"Rutines 61-70"},"3.1.t.0":{"ca":"Rutines 71-80"},"3.2.t.0":{"ca":"Rutines 81-90"},"3.3.t.0":{"ca":"Rutines 91-100"},"4.0.t.0":{"ca":"Rutines 101-110"},"4.1.t.0":{"ca":"Rutines 111-120"},"4.2.t.0":{"ca":"Rutines 121-130"},"4.3.t.0":{"ca":"Rutines 131-140"},"5.0.t.0":{"ca":"Rutines 141-150"},"5.1.t.0":{"ca":"Rutines 151-160"},"5.2.t.0":{"ca":"Rutines 161-170"},"5.3.t.0":{"ca":"Rutines 171-180"},"1.1.p.0":{"ca":"La Xocolatera (tema)"},"1.2.p.0":{"ca":"Himne Alegria (I)"},"1.3.p.0":{"ca":"Perestroika (SAU)"},"2.0.p.0":{"ca":"Aunque Tú No Lo Sepas"},"2.1.p.0":{"ca":"Tríades Majors: CT1"},"3.0.p.0":{"ca":"Let it Be"},"3.0.p.1":{"ca":"Tríades Majors: CT2"},"3.2.p.0":{"ca":"Himne Alegria (II)"},"3.3.p.0":{"ca":"Tríades Majors: CC"},"4.1.p.0":{"ca":"Tríades Menors: CT1"},"5.0.p.0":{"ca":"Tríades Menors: CT2"},"5.2.p.0":{"ca":"Tríades Menors: CC"},"5.3.p.0":{"ca":"Interstellar"},"6.0.p.0":{"ca":"Heaven (Bryan Adams)"},"6.1.p.0":{"ca":"Time"},"6.3.p.0":{"ca":"Someone Like You"},"6.3.p.1":{"ca":"Introducció als FNG"},"1.1.a.0":{"es":"Fundamentos del Oído Musical"},"1.3.a.0":{"es":"Evita Memorizar Intervalos"},"2.0.a.0":{"es":"Emociones: Notas Diatónicas"},"2.3.a.0":{"es":"Instrucciones y Corrección del Test"},"3.0.a.0":{"es":"Test de Notas Diatónicas"},"3.1.a.0":{"es":"Emociones: Notas No Diatónicas"},"4.2.a.0":{"es":"Test de Notas No Diatónicas"},"4.3.a.0":{"es":"Emociones: Notas Diatónicas + No Diatónicas"},"6.1.a.0":{"es":"Test de Notas Diatónicas + No Diatónicas"},"6.2.a.0":{"es":"La Tónica como Única Referencia"},"6.3.a.0":{"es":"TONAL EMOTIONS: Tu Laboratorio Auditivo"}},"d":{"1.0.g.0":{"ca":"Pots dedicar-li una sessió sencera o només un tros: cadascú avança al seu ritme."},"1.1.t.0":{"ca":"Segueix la rutina amb metrònom i respecta la postura."},"1.2.t.0":{"ca":"Segueix la rutina amb metrònom i respecta la postura."},"1.2.t.1":{"ca":"Segueix la rutina amb metrònom i respecta la postura."},"1.3.t.0":{"ca":"Segueix la rutina amb metrònom i respecta la postura."},"2.0.t.0":{"ca":"Segueix la rutina amb metrònom i respecta la postura."},"2.1.t.0":{"ca":"Segueix la rutina amb metrònom i respecta la postura."},"2.2.t.0":{"ca":"Segueix la rutina amb metrònom i respecta la postura."},"2.3.t.0":{"ca":"Segueix la rutina amb metrònom i respecta la postura."},"3.0.t.0":{"ca":"Segueix la rutina amb metrònom i respecta la postura."},"3.1.t.0":{"ca":"Segueix la rutina amb metrònom i respecta la postura."},"3.2.t.0":{"ca":"Segueix la rutina amb metrònom i respecta la postura."},"3.3.t.0":{"ca":"Segueix la rutina amb metrònom i respecta la postura."},"4.0.t.0":{"ca":"Segueix la rutina amb metrònom i respecta la postura."},"4.1.t.0":{"ca":"Segueix la rutina amb metrònom i respecta la postura."},"4.2.t.0":{"ca":"Segueix la rutina amb metrònom i respecta la postura."},"4.3.t.0":{"ca":"Segueix la rutina amb metrònom i respecta la postura."},"5.0.t.0":{"ca":"Segueix la rutina amb metrònom i respecta la postura."},"5.1.t.0":{"ca":"Segueix la rutina amb metrònom i respecta la postura."},"5.2.t.0":{"ca":"Segueix la rutina amb metrònom i respecta la postura."},"5.3.t.0":{"ca":"Segueix la rutina amb metrònom i respecta la postura."},"1.1.p.0":{"ca":"Amb el backing track i les tríades en posició fonamental."},"1.2.p.0":{"ca":"Amb el backing track i les tríades en posició fonamental."},"1.3.p.0":{"ca":"Amb el backing track i les tríades en posició fonamental."},"2.0.p.0":{"ca":"Amb el backing track i les tríades en posició fonamental."},"2.1.p.0":{"ca":"Amb el backing track i les tríades en posició fonamental."},"3.0.p.0":{"ca":"Amb el backing track i les tríades en posició fonamental."},"3.0.p.1":{"ca":"Amb el backing track i les tríades en posició fonamental."},"3.2.p.0":{"ca":"Amb el backing track i les tríades en posició fonamental."},"3.3.p.0":{"ca":"Amb el backing track i les tríades en posició fonamental."},"4.1.p.0":{"ca":"Amb el backing track i les tríades en posició fonamental."},"5.0.p.0":{"ca":"Amb el backing track i les tríades en posició fonamental."},"5.2.p.0":{"ca":"Amb el backing track i les tríades en posició fonamental."},"5.3.p.0":{"ca":"Amb el backing track i les tríades en posició fonamental."},"6.0.p.0":{"ca":"Amb el backing track i les tríades en posició fonamental."},"6.1.p.0":{"ca":"Amb el backing track i les tríades en posició fonamental."},"6.3.p.0":{"ca":"Amb el backing track i les tríades en posició fonamental."},"6.3.p.1":{"ca":"Amb el backing track i les tríades en posició fonamental."},"1.1.a.0":{"es":"Hazlo con calma y, cuando toque, con TONAL EMOTIONS abierta."},"1.3.a.0":{"es":"Hazlo con calma y, cuando toque, con TONAL EMOTIONS abierta."},"2.0.a.0":{"es":"Hazlo con calma y, cuando toque, con TONAL EMOTIONS abierta."},"2.3.a.0":{"es":"Hazlo con calma y, cuando toque, con TONAL EMOTIONS abierta."},"3.0.a.0":{"es":"Hazlo con calma y, cuando toque, con TONAL EMOTIONS abierta."},"3.1.a.0":{"es":"Hazlo con calma y, cuando toque, con TONAL EMOTIONS abierta."},"4.2.a.0":{"es":"Hazlo con calma y, cuando toque, con TONAL EMOTIONS abierta."},"4.3.a.0":{"es":"Hazlo con calma y, cuando toque, con TONAL EMOTIONS abierta."},"6.1.a.0":{"es":"Hazlo con calma y, cuando toque, con TONAL EMOTIONS abierta."},"6.2.a.0":{"es":"Hazlo con calma y, cuando toque, con TONAL EMOTIONS abierta."},"6.3.a.0":{"es":"Hazlo con calma y, cuando toque, con TONAL EMOTIONS abierta."}},"l":{},"f":{"0":{"q":{"ca":"Què és Girona Jazz Piano School?","es":"Què és Girona Jazz Piano School?"},"a":{"ca":"És una escola de piano online amb un mètode propi que combina tècniques d'aprenentatge de la música moderna i de la clàssica. L'alumnat gaudeix d'un seguiment continuat i d'accés 24/7 a tot el contingut.","es":"És una escola de piano online amb un mètode propi que combina tècniques d'aprenentatge de la música moderna i de la clàssica. L'alumnat gaudeix d'un seguiment continuat i d'accés 24/7 a tot el contingut."}},"1":{"q":{"ca":"Qui hi ha darrere de GJPS?","es":"Qui hi ha darrere de GJPS?"},"a":{"ca":"Girona Jazz Piano School és un projecte personal creat per un pianista i professor apassionat per la didàctica del piano modern i el jazz. Amb anys d'experiència formant músics, he desenvolupat aquest mètode progressiu pensat per a adults que volen aprendre a tocar de veritat, entenent la música des de dins i adquirint autonomia al teclat pas a pas.","es":"Girona Jazz Piano School és un projecte personal creat per un pianista i professor apassionat per la didàctica del piano modern i el jazz. Amb anys d'experiència formant músics, he desenvolupat aquest mètode progressiu pensat per a adults que volen aprendre a tocar de veritat, entenent la música des de dins i adquirint autonomia al teclat pas a pas."}},"2":{"q":{"ca":"Vinc del conservatori, em servirà aquest mètode?","es":"Vinc del conservatori, em servirà aquest mètode?"},"a":{"ca":"I tant! El mètode està pensat per a qualsevol perfil, tant si comences de zero com si ja tens una base. Si véns del conservatori (de piano o de qualsevol altre instrument), trobaràs que aquí s'aprèn a entendre la música des de dins, adquirint habilitats tant per tocar repertori clàssic com modern (pop, rock, bandes sonores...). El mètode t'ajudarà a guanyar autonomia al teclat, a improvisar, a acompanyar i a entendre l'harmonia d'una manera pràctica que sovint al conservatori tradicional queda en segon pla.","es":"I tant! El mètode està pensat per a qualsevol perfil, tant si comences de zero com si ja tens una base. Si véns del conservatori (de piano o de qualsevol altre instrument), trobaràs que aquí s'aprèn a entendre la música des de dins, adquirint habilitats tant per tocar repertori clàssic com modern (pop, rock, bandes sonores...). El mètode t'ajudarà a guanyar autonomia al teclat, a improvisar, a acompanyar i a entendre l'harmonia d'una manera pràctica que sovint al conservatori tradicional queda en segon pla."}},"3":{"q":{"ca":"És presencial o 100% online?","es":"És presencial o 100% online?"},"a":{"ca":"És un curs 100% online amb un itinerari ordenat i de seguiment continuat. A través de vídeos didàctics, partitures i un sistema propi de rutines tècniques, està pensat per formar músics autònoms a llarg termini.","es":"És un curs 100% online amb un itinerari ordenat i de seguiment continuat. A través de vídeos didàctics, partitures i un sistema propi de rutines tècniques, està pensat per formar músics autònoms a llarg termini."}},"4":{"q":{"ca":"Com es desenvolupen els cursos?","es":"Com es desenvolupen els cursos?"},"a":{"ca":"Cada nivell s'estructura en blocs que es combinen dins del seguiment continuat per formar el músic des de zero. Al primer nivell, per exemple, trobaràs 5 blocs: Tècnica, Teoria, Ritme, Auditiu i Pràctica funcional.\nSeguint els vídeos en ordre, aniràs adquirint pas a pas tot el que necessites per posar-ho en pràctica al piano.","es":"Cada nivell s'estructura en blocs que es combinen dins del seguiment continuat per formar el músic des de zero. Al primer nivell, per exemple, trobaràs 5 blocs: Tècnica, Teoria, Ritme, Auditiu i Pràctica funcional.\nSeguint els vídeos en ordre, aniràs adquirint pas a pas tot el que necessites per posar-ho en pràctica al piano."}},"5":{"q":{"ca":"Quan començaré a tocar estàndards de jazz?","es":"Quan començaré a tocar estàndards de jazz?"},"a":{"ca":"Els estàndards de jazz arriben al Nivell 2, un cop hagis consolidat el Nivell Fonamental. Això és intencionat: abans de submergir-te en el blues i el jazz, necessites una base sòlida de tècnica, ritme, oïda i harmonia bàsica que et permeti afrontar aquests llenguatges amb garanties.\nAl Nivell 2 hi haurà dues línies de treball paral·leles que podràs anar completant al teu ritme: una línia de repertori clàssic i una altra de moderna/jazz, de manera que cada bloc tindrà contingut per a totes dues vessants. Així podràs especialitzar-te en el que més t'interessi, o bé formar-te com a músic complet.","es":"Els estàndards de jazz arriben al Nivell 2, un cop hagis consolidat el Nivell Fonamental. Això és intencionat: abans de submergir-te en el blues i el jazz, necessites una base sòlida de tècnica, ritme, oïda i harmonia bàsica que et permeti afrontar aquests llenguatges amb garanties.\nAl Nivell 2 hi haurà dues línies de treball paral·leles que podràs anar completant al teu ritme: una línia de repertori clàssic i una altra de moderna/jazz, de manera que cada bloc tindrà contingut per a totes dues vessants. Així podràs especialitzar-te en el que més t'interessi, o bé formar-te com a músic complet."}},"6":{"q":{"ca":"Com veig el meu progrés i com em corregiu?","es":"Com veig el meu progrés i com em corregiu?"},"a":{"ca":"El mode de Seguiment Continuat 🎯 t'indica exactament quin és el següent pas i mesura el teu percentatge de progrés. A més, cada vídeo disposa d'un espai de notes personals on pots apuntar dubtes o observacions, i el mètode es complementa amb aplicacions interactives d'entrenament exclusives d'aquesta escola.","es":"El mode de Seguiment Continuat 🎯 t'indica exactament quin és el següent pas i mesura el teu percentatge de progrés. A més, cada vídeo disposa d'un espai de notes personals on pots apuntar dubtes o observacions, i el mètode es complementa amb aplicacions interactives d'entrenament exclusives d'aquesta escola."}},"7":{"q":{"ca":"\"Jo només vull tocar acords\"","es":"\"Jo només vull tocar acords\""},"a":{"ca":"Perfecte! Aprendràs a acompanyar amb acords des del primer dia. No obstant això, compta que és només una petita part de l'ensenyament: el mètode es construeix amb una combinació de disciplines per entendre la música de veritat.","es":"Perfecte! Aprendràs a acompanyar amb acords des del primer dia. No obstant això, compta que és només una petita part de l'ensenyament: el mètode es construeix amb una combinació de disciplines per entendre la música de veritat."}},"8":{"q":{"ca":"Puc aprendre sense saber música?","es":"Puc aprendre sense saber música?"},"a":{"ca":"I tant! El mètode està dissenyat per començar des de zero. Aprendràs a tocar acords i melodies sense necessitat de saber solfeig inicialment, tot i que el mètode t'ensenyarà gradualment els conceptes teòrics necessaris.","es":"I tant! El mètode està dissenyat per començar des de zero. Aprendràs a tocar acords i melodies sense necessitat de saber solfeig inicialment, tot i que el mètode t'ensenyarà gradualment els conceptes teòrics necessaris."}},"9":{"q":{"ca":"Et puc trucar per dubtes?","es":"Et puc trucar per dubtes?"},"a":{"ca":"No, no em pots trucar. Quan tinguis dubtes, pots utilitzar l'espai de notes personals de cada vídeo i enviar-les per em@il al professor si ho necessites.","es":"No, no em pots trucar. Quan tinguis dubtes, pots utilitzar l'espai de notes personals de cada vídeo i enviar-les per em@il al professor si ho necessites."}},"10":{"q":{"ca":"Me'n puc donar de baixa quan vulgui?","es":"Me'n puc donar de baixa quan vulgui?"},"a":{"ca":"I tant. No hi ha permanència. Pots cancel·lar la teva subscripció en qualsevol moment amb un parell de clics.\nA més, si en inscriure't no estàs content amb el contingut, t'oferim una garantia de devolució de 7 dies.","es":"I tant. No hi ha permanència. Pots cancel·lar la teva subscripció en qualsevol moment amb un parell de clics.\nA més, si en inscriure't no estàs content amb el contingut, t'oferim una garantia de devolució de 7 dies."}}},"a":{"0":{"n":{"ca":"TONAL EMOTIONS","es":"TONAL EMOTIONS"},"d":{"ca":"Laboratori auditiu i ear training: reconeixement emocional de notes en context tonal. Modes Escolta, Pràctica, Test i Batalla.","es":"Laboratori auditiu i ear training: reconeixement emocional de notes en context tonal. Modes Escolta, Pràctica, Test i Batalla."}}},"adj":{},"va":{},"order":["0.0.w.0","0.0.w.1","0.0.w.2","1.0.g.0","1.0.g.1","1.0.r.0","1.1.t.0","1.1.a.0","1.1.p.0","1.2.t.0","1.2.t.1","1.2.r.0","1.2.p.0","1.3.t.0","1.3.a.0","1.3.p.0","2.0.t.0","2.0.g.0","2.0.r.0","2.0.a.0","2.0.p.0","2.1.t.0","2.1.p.0","2.2.t.0","2.2.r.0","2.3.t.0","2.3.a.0","3.0.t.0","3.0.g.0","3.0.r.0","3.0.a.0","3.0.p.0","3.0.p.1","3.1.t.0","3.1.a.0","3.2.t.0","3.2.g.0","3.2.r.0","3.2.p.0","3.3.t.0","3.3.p.0","4.0.t.0","4.0.g.0","4.0.r.0","4.1.t.0","4.1.p.0","4.2.t.0","4.2.g.0","4.2.r.0","4.2.a.0","4.3.t.0","4.3.a.0","5.0.t.0","5.0.g.0","5.0.r.0","5.0.p.0","5.1.t.0","5.2.t.0","5.2.g.0","5.2.r.0","5.2.p.0","5.3.t.0","5.3.p.0","6.0.g.0","6.0.p.0","6.1.a.0","6.1.p.0","6.2.g.0","6.2.r.0","6.2.a.0","6.3.a.0","6.3.p.0","6.3.p.1"],"imp":{"1.1.p.0":"optional"},"h":{"0":{"t":{"ca":"Seguiment Continuat","es":"Seguiment Continuat"},"p":{"ca":"És el teu itinerari guiat. La targeta «Ara et toca» t'indica el següent vídeo que has de mirar. Quan l'hagis vist i practicat, prem «Marcar fet» i l'aula et proposarà automàticament el següent pas.","es":"És el teu itinerari guiat. La targeta «Ara et toca» t'indica el següent vídeo que has de mirar. Quan l'hagis vist i practicat, prem «Marcar fet» i l'aula et proposarà automàticament el següent pas."}},"1":{"t":{"ca":"Navegació Lliure","es":"Navegació Lliure"},"p":{"ca":"Per explorar al teu aire: tria el nivell al desplegable i el bloc (Tècnica, Teoria, Ritme, Auditiu o Pràctica) per veure'n tots els vídeos i materials.","es":"Per explorar al teu aire: tria el nivell al desplegable i el bloc (Tècnica, Teoria, Ritme, Auditiu o Pràctica) per veure'n tots els vídeos i materials."}},"2":{"t":{"ca":"Vídeos importants i opcionals","es":"Vídeos importants i opcionals"},"p":{"ca":"Cada vídeo porta una icona: ⭐ important (no te'l saltis) o ⭕ opcional (pots deixar-lo per més endavant si tens pressa). Passa-hi el ratolí per sobre per veure'n el significat.","es":"Cada vídeo porta una icona: ⭐ important (no te'l saltis) o ⭕ opcional (pots deixar-lo per més endavant si tens pressa). Passa-hi el ratolí per sobre per veure'n el significat."}},"3":{"t":{"ca":"La teva llista de repàs","es":"La teva llista de repàs"},"p":{"ca":"Amb el botó «Repassar» marques un vídeo per tenir-lo sempre a mà. Els trobaràs tots reunits a la llista de repàs, a sota de cada vista.","es":"Amb el botó «Repassar» marques un vídeo per tenir-lo sempre a mà. Els trobaràs tots reunits a la llista de repàs, a sota de cada vista."}},"4":{"t":{"ca":"Notes personals","es":"Notes personals"},"p":{"ca":"Cada vídeo té un espai de notes per apuntar dubtes o observacions. Podràs enviar-les al professor quan ho necessitis.","es":"Cada vídeo té un espai de notes per apuntar dubtes o observacions. Podràs enviar-les al professor quan ho necessitis."}},"5":{"t":{"ca":"Adjunts i partitures","es":"Adjunts i partitures"},"p":{"ca":"Els documents de cada bloc (partitures, play-alongs, PDFs) s'obren amb el botó «Adjunts». Alguns vídeos també tenen material propi just a sota.","es":"Els documents de cada bloc (partitures, play-alongs, PDFs) s'obren amb el botó «Adjunts». Alguns vídeos també tenen material propi just a sota."}},"6":{"t":{"ca":"Aplicacions d'entrenament","es":"Aplicacions d'entrenament"},"p":{"ca":"A la pestanya Apps trobaràs laboratoris exclusius com TONAL EMOTIONS, per entrenar l'oïda jugant.","es":"A la pestanya Apps trobaràs laboratoris exclusius com TONAL EMOTIONS, per entrenar l'oïda jugant."}},"7":{"t":{"ca":"I en acabar el nivell…","es":"I en acabar el nivell…"},"p":{"ca":"Quan completis tots els vídeos del nivell rebràs un regal de graduació molt especial. Però això… millor descobreix-ho tu mateix! 😉","es":"Quan completis tots els vídeos del nivell rebràs un regal de graduació molt especial. Però això… millor descobreix-ho tu mateix! 😉"}},"8":{"t":{"ca":"Els percentatges de progrés","es":"Els percentatges de progrés"},"p":{"ca":"Al Seguiment Continuat, els donuts de progrés només tenen en compte els vídeos importants (⭐): quan els completis tots, veuràs el 100% i rebràs el regal de graduació, encara que quedin vídeos opcionals (⭕) pendents. A la Navegació Lliure, en canvi, el percentatge de cada bloc reflecteix tot el material del bloc (importants i opcionals). I si passes el ratolí per sobre de qualsevol donut o botó de bloc, t'explicarà exactament què està mesurant.","es":"Al Seguiment Continuat, els donuts de progrés només tenen en compte els vídeos importants (⭐): quan els completis tots, veuràs el 100% i rebràs el regal de graduació, encara que quedin vídeos opcionals (⭕) pendents. A la Navegació Lliure, en canvi, el percentatge de cada bloc reflecteix tot el material del bloc (importants i opcionals). I si passes el ratolí per sobre de qualsevol donut o botó de bloc, t'explicarà exactament què està mesurant."}},"9":{"t":{"ca":"Prova pilot: on es guarda el teu progrés?","es":"Prova pilot: on es guarda el teu progrés?"},"p":{"ca":"Aquest web és encara una prova pilot amb un màxim de 30 usuaris. Per això, el teu progrés (vídeos completats, notes personals i llista de repàs) queda guardat únicament al navegador del dispositiu que estiguis utilitzant. Si entres amb el teu usuari des d'un altre dispositiu, no hi veuràs el progrés actualitzat: no s'ha perdut, simplement viu a l'altre navegador. Aquesta limitació desapareixerà d'aquí a uns mesos, quan el web es publiqui oficialment i el progrés es guardi al núvol.","es":"Aquest web és encara una prova pilot amb un màxim de 30 usuaris. Per això, el teu progrés (vídeos completats, notes personals i llista de repàs) queda guardat únicament al navegador del dispositiu que estiguis utilitzant. Si entres amb el teu usuari des d'un altre dispositiu, no hi veuràs el progrés actualitzat: no s'ha perdut, simplement viu a l'altre navegador. Aquesta limitació desapareixerà d'aquí a uns mesos, quan el web es publiqui oficialment i el progrés es guardi al núvol."}}},"c":{"title":{"es":"🎓 ¡FELICIDADES! 🎓","ca":"🎓 ¡FELICIDADES! 🎓"},"giftTxt":{"es":"Disfruta de tu regalo de graduación mientras preparas el Nivel 2:","ca":"Disfruta de tu regalo de graduación mientras preparas el Nivel 2:"}}};/*OV-END*/
+var OV = /*OV-START*/{"t":{},"d":{},"l":{},"f":{},"a":{},"adj":{},"va":{},"order":[],"imp":{},"h":{},"c":{}};/*OV-END*/
 
 function faqGet(i, k) { var o = OV.f[i]; if (o && o[k] && o[k][LS.lang]) return esc(o[k][LS.lang]); return esc(FAQS[i][k][LS.lang]); }
 function appName(a, i) { var o = OV.a && OV.a[i]; return (o && o.n && o.n[LS.lang]) ? esc(o.n[LS.lang]) : a.n[LS.lang]; }
@@ -1124,10 +1131,12 @@ function makeVid(v, id, track, tag) {
   var importanceIcon = importance === 'important' ? '⭐' : '⭕';
   var importanceTitle = importance === 'important' ? (LS.lang === 'ca' ? 'Vídeo important: no te\'l saltis' : 'Vídeo importante: no te lo saltes') : (LS.lang === 'ca' ? 'Vídeo opcional: pots saltar-lo si tens pressa' : 'Vídeo opcional: puedes saltarlo si tienes prisa');
   var numberHtml = '', importanceHtml = '';
-  if (si !== 0 && !isGiftId(id)) {
+  if (!isGiftId(id)) {
     if (editModeOn) {
-      numberHtml = '<div class="vid-number editable" title="' + (LS.lang === 'ca' ? 'Canviar ordre' : 'Cambiar orden') + '">' + orderNum + '</div>';
       importanceHtml = '<div class="vid-importance editable" title="' + importanceTitle + '">' + importanceIcon + '</div>';
+      if (si !== 0) {
+        numberHtml = '<div class="vid-number editable" title="' + (LS.lang === 'ca' ? 'Canviar ordre' : 'Cambiar orden') + '">' + orderNum + '</div>';
+      }
     } else {
       importanceHtml = '<div class="vid-importance" title="' + importanceTitle + '">' + importanceIcon + '</div>';
     }
@@ -1138,17 +1147,17 @@ function makeVid(v, id, track, tag) {
   var ntClass = 'nt' + (hasNotes ? ' has-notes' : '');
   row.innerHTML = (tag ? '<div class="stagetag">' + tag + '</div>' : '') + numberHtml + importanceHtml +
     '<div style="position:relative" class="vr"><button class="play">▶</button><div class="vt" data-ovid="' + id + '" data-ovk="t">' + vidTitle(v, id) + '</div></div>' +
-    '<div class="acts"><button class="ck' + (LS.done[id] ? ' done' : '') + '">' + (LS.done[id] ? t().undo : (track ? t().doneCont : t().mark)) + '</button><button class="bk' + (isBookmarked(id) ? ' bookmarked' : '') + '">' + (isBookmarked(id) ? t().bookmarked : t().bookmark) + '</button><button class="' + ntClass + '">' + t().notes + '</button></div>' +
+    '<div class="acts"><button class="ck' + (LS.done[id] ? ' done' : '') + '">' + (LS.done[id] ? t().undo : (track ? t().doneCont : t().mark)) + '</button><button class="bk' + (isBookmarked(id) ? ' bookmarked' : '') + '">' + (isBookmarked(id) ? t().bookmarked : t().bookmark) + '</button><button class="' + ntClass + '">' + ICON_NOTE + ' ' + t().notes.replace(/^\s*📝\s*/, '') + '</button></div>' +
     '<div class="inl"><iframe allow="autoplay" src=""></iframe><div class="inlb"><button class="mx">⛶</button><button class="cl">✕</button></div></div>' +
     '<div class="vd" data-ovid="' + id + '" data-ovk="d">' + vidDesc(v, id, b) + '</div>' +
-    '<div class="notes"><div class="ntitle">' + t().notesTitle + '</div><div class="nlist"></div><textarea placeholder="' + t().notesPh + '"></textarea><button class="save-note-btn" style="display:none;">' + t().saveNote + '</button></div>';
+    '<div class="notes"><div class="ntitle">' + t().notesTitle + '</div><div class="nlist"></div><textarea placeholder="' + t().notesPh + '"></textarea><div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:8px;"><button class="save-note-btn" style="display:none;margin-top:0;">' + t().saveNote + '</button><button class="send-notes-btn" style="display:none;margin-top:0;padding:6px 12px;background:transparent;border:1px solid var(--gold);color:var(--gold);border-radius:6px;font-weight:700;cursor:pointer;font-size:12px;">' + ICON_MAIL + ' ' + (LS.lang === 'ca' ? 'Enviar al professor' : 'Enviar al profesor') + '</button></div></div>';
   row.querySelector('.play').onclick = function () { var src = driveSrc(v, id); if (!src) { showToast(t().soon); return; } openFullscreenVideo(src); };
   row.querySelector('.mx').onclick = function () { var src = driveSrc(v, id); if (src) openFullscreenVideo(src); else showToast(t().soon); };
   row.querySelector('.cl').onclick = function () { row.querySelector('.inl').classList.remove('on'); row.querySelector('.inl iframe').src = ''; };
   row.querySelector('.ck').onclick = function () { if (editModeOn) return; if (LS.done[id]) delete LS.done[id]; else LS.done[id] = 1; saveDone(); render(); };
   row.querySelector('.bk').onclick = function () { if (editModeOn) return; toggleBookmark(id); render(); };
   row.querySelector('.bk').title = isBookmarked(id) ? tt().bkOff : tt().bkOn;
-  if (editModeOn && si !== 0 && !isGiftId(id)) {
+  if (editModeOn && !isGiftId(id)) {
     var numEl = row.querySelector('.vid-number.editable');
     if (numEl) {
       numEl.onclick = function (e) {
@@ -1169,16 +1178,18 @@ function makeVid(v, id, track, tag) {
   var nlist = nbox.querySelector('.nlist');
   var ntBtn = row.querySelector('.nt');
   var saveBtn = nbox.querySelector('.save-note-btn');
-  function updateNoteButton() {
+    function updateNoteButton() {
     var currentNotes = lsJSON(nkey, []);
     if (currentNotes.length > 0) {
       ntBtn.classList.add('has-notes');
-      ntBtn.innerHTML = '✏️';
+      ntBtn.innerHTML = ICON_PENCIL;
       ntBtn.title = (LS.lang === 'ca' ? 'Tens ' + currentNotes.length + ' nota' + (currentNotes.length > 1 ? 's' : '') + ' en aquest vídeo' : 'Tienes ' + currentNotes.length + ' nota' + (currentNotes.length > 1 ? 's' : '') + ' en este vídeo');
+      if (sendBtn) sendBtn.style.display = 'inline-flex';
     } else {
       ntBtn.classList.remove('has-notes');
-      ntBtn.innerHTML = t().notes;
+      ntBtn.innerHTML = ICON_NOTE + ' ' + t().notes.replace(/^\s*📝\s*/, '');
       ntBtn.title = (LS.lang === 'ca' ? 'Afegir notes personals sobre aquest vídeo' : 'Añadir notas personales sobre este vídeo');
+      if (sendBtn) sendBtn.style.display = 'none';
     }
   }
   function paintN() {
@@ -1211,6 +1222,8 @@ function makeVid(v, id, track, tag) {
     paintN();
     saveBtn.style.display = !isOpen ? 'block' : 'none';
   };
+  var sendBtn = nbox.querySelector('.send-notes-btn');
+   sendBtn.onclick = function() { sendNotesByEmail(id); };
   saveBtn.onclick = saveNote;
   nta.addEventListener('keydown', function (e) { if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) { e.preventDefault(); saveNote(); } });
   updateNoteButton();
@@ -1297,6 +1310,29 @@ function pieSlice(cx, cy, r, pct, color) {
   var y2 = cy - r * Math.cos(angle);
   var largeArc = pct > 50 ? 1 : 0;
   return '<path d="M ' + cx + ' ' + cy + ' L ' + x1 + ' ' + y1 + ' A ' + r + ' ' + r + ' 0 ' + largeArc + ' 1 ' + x2 + ' ' + y2 + ' Z" fill="' + color + '"/>';
+}
+function sendNotesByEmail(videoId) {
+  var nkey = 'gjps_notes_' + LS.user + '_' + videoId;
+  var notes = lsJSON(nkey, []);
+  if (!notes.length) {
+    showToast(LS.lang === 'ca' ? 'No hi ha notes per enviar.' : 'No hay notas para enviar.');
+    return;
+  }
+  var v = findVidById(videoId);
+  var title = v ? vidTitle(v.v, v.id) : videoId;
+  var subject = (LS.lang === 'ca' ? 'Notes del vídeo: ' : 'Notas del vídeo: ') + title + ' — ' + LS.user;
+  var body = (LS.lang === 'ca' 
+    ? 'Hola,\n\nEt faig arribar les notes personals que he anat apuntant al vídeo:\n\n' 
+    : 'Hola,\n\nTe hago llegar las notas personales que he ido apuntando en el vídeo:\n\n');
+  body += '📺 ' + title + '\n';
+  body += '👤 ' + LS.user + '\n';
+  body += '─────────────────────\n\n';
+  notes.slice().reverse().forEach(function(n) {
+    body += '📅 ' + fmtDate(n.t) + '\n';
+    body += n.n + '\n\n';
+  });
+  body += (LS.lang === 'ca' ? '─────────────────────\n\nGràcies!' : '─────────────────────\n\n¡Gracias!');
+  window.location.href = 'mailto:gironajazz@gmail.com?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
 }
 function fmtDate(ts) { var d = new Date(ts); var pad = function (n) { return n < 10 ? '0' + n : n; }; return pad(d.getDate()) + '/' + pad(d.getMonth() + 1) + '/' + d.getFullYear() + ' ' + pad(d.getHours()) + ':' + pad(d.getMinutes()); }
 
@@ -1555,11 +1591,16 @@ function renderApps() {
   av.innerHTML = '';
   if (isSmartphone()) {
     var warn = document.createElement('div');
-    warn.className = 'wipbox';
-    warn.innerHTML = '<div class="wipicon">📱</div><h3>' + (LS.lang === 'ca' ? 'Apps no disponibles al smartphone' : 'Apps no disponibles en el smartphone') + '</h3><p>' + (LS.lang === 'ca' ? 'Les aplicacions d\'entrenament (com TONAL EMOTIONS) necessiten una pantalla gran per funcionar correctament. Per utilitzar-les, entra des d\'un ordinador (PC o Mac) o des d\'una tablet: des d\'un smartphone les dimensions no ho permeten.' : 'Las aplicaciones de entrenamiento (como TONAL EMOTIONS) necesitan una pantalla grande para funcionar correctamente. Para utilizarlas, entra desde un ordenador (PC o Mac) o desde una tablet: desde un smartphone las dimensiones no lo permiten.') + '</p>';
-    av.appendChild(warn);
-    applyEditState();
-    return;
+    warn.className = 'celebration';
+    warn.style.cssText = 'margin-bottom:16px;text-align:left;';
+    warn.innerHTML = '<h2 style="font-size:16px;">📱 ' + (LS.lang === 'ca' ? 'Mode Smartphone' : 'Modo Smartphone') + '</h2>' +
+      '<p style="font-size:13px;color:var(--mut);margin-top:6px;line-height:1.5;">' + 
+      (LS.lang === 'ca' 
+        ? 'Al mòbil, <b>TONAL EMOTIONS</b> funciona amb <b>funcionalitats limitades</b>: només el mode <b>🎧 EAR TRAINING</b> està disponible (el LABORATORI requereix pantalla gran). Gaudeix de l\'entrenament auditiu des de qualsevol lloc!' 
+        : 'En el móvil, <b>TONAL EMOTIONS</b> funciona con <b>funcionalidades limitadas</b>: solo el modo <b>🎧 EAR TRAINING</b> está disponible (el LABORATORIO requiere pantalla grande). ¡Disfruta del entrenamiento auditivo desde cualquier lugar!') +
+      '</p>';
+    av.insertBefore(warn, av.firstChild);
+    // NO fem return: deixem que es renderitzi la targeta normalment
   }
   var g = document.createElement('div');
   g.className = 'appgrid';
@@ -1722,7 +1763,7 @@ $('btnUser').onclick = function () {
 };
 
 function setLabels() {
-  $('mTrack').textContent = t().mTrack;
+  $('mTrack').innerHTML = ICON_TARGET + ' ' + t().mTrack.replace(/^\s*🎯\s*/, '');
   $('mFree').textContent = t().mFree;
   $('mApps').innerHTML = '<svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor" style="vertical-align:middle"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg> Apps';
   $('mInfo').textContent = 'FAQ';
@@ -1956,7 +1997,7 @@ try {
     }
   }
 </script>
-
-
-
-</body></html>
+</body>
+</html>
+</body>
+</html>
