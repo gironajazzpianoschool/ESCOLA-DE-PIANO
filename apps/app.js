@@ -88,6 +88,17 @@ const STORAGE_KEY='sensacions_notes_layout_v5';
 const MIDI_TAB_KEY='midi_active_tab';
 const TAB_ID=Date.now().toString();
 const ZOOM_STORAGE_KEY='tonal_emotions_zoom';
+/* [PEGAT 7] Detecció de dispositiu mòbil */
+const IS_SMARTPHONE = /iPhone|iPod/.test(navigator.userAgent) || 
+                      (/Android/.test(navigator.userAgent) && /Mobile/.test(navigator.userAgent));
+const IS_TABLET = !IS_SMARTPHONE && (
+  /iPad/.test(navigator.userAgent) || 
+  (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1) ||
+  (/Android/.test(navigator.userAgent) && !/Mobile/.test(navigator.userAgent))
+);
+
+if (IS_SMARTPHONE) document.documentElement.classList.add('smartphone-mode');
+if (IS_TABLET) document.documentElement.classList.add('tablet-mode');
 const noteImages={0:'1_casa.png',1:'b2_bestia.png',2:'2_encongir.png',3:'b3_tristesa.png',4:'3_alegria.png',5:'4_amen.png',6:'s4_alerta.png',7:'5_musculs.png',8:'b6_aliens.png',9:'6_canttenor.png',10:'b7_ferida.png',11:'7_imant.png'};
 const defaultNoteData={0:{name:'1_casa.png',x:51.1,y:54,size:260,z:106},1:{name:'b2_bestia.png',x:40.1,y:60.8,size:170,z:107},2:{name:'2_encongir.png',x:37.7,y:45.4,size:150,z:10},3:{name:'b3_tristesa.png',x:53.9,y:36.8,size:140,z:10},4:{name:'3_alegria.png',x:46.9,y:36,size:140,z:105},5:{name:'4_amen.png',x:39.9,y:28.1,size:160,z:10},6:{name:'s4_alerta.png',x:67.5,y:56.9,size:130,z:115},7:{name:'5_musculs.png',x:61.3,y:52.4,size:280,z:114},8:{name:'b6_aliens.png',x:66.6,y:40.2,size:120,z:113},9:{name:'6_canttenor.png',x:47.9,y:71,size:160,z:108},10:{name:'b7_ferida.png',x:62.5,y:30.8,size:130,z:10},11:{name:'7_imant.png',x:57.8,y:69.1,size:100,z:116}};
 let noteData={};
@@ -494,7 +505,12 @@ sdActive=false;sdPairAns=0;sdPairMiss=[false,false];sdTotalPairs=0;
 return _cleanupBattleOrig();};
 setInterval(()=>{const chip=document.getElementById('v10-sd-chip');if(chip)chip.classList.toggle('visible',!!(sdActive&&battleMode));},400);
 /* ══════════ ENTRADA ALS MODES ══════════ */
-$('btn-start-midi').addEventListener('click',()=>{if(checkOtherTabs())return;autoFullscreen();cleanupEarAudio();getSharedCtx();setMidiActive();startScreen.classList.add('hidden');midiMode.classList.add('active');earMode.classList.remove('active');accuracyPanel.classList.remove('visible');proposedAnswerBox.classList.remove('visible');resultModal.classList.remove('visible');hideAllFeedback();initMIDI();setExclusiveMode('normal');updateManualButtonsVisibility();updatePianoButtons();if(internalPianoEnabled)$('btn-piano').classList.add('active');});
+$('btn-start-midi').addEventListener('click',()=>{
+  if(IS_SMARTPHONE){
+    alert(currentLang==='ca' ? '⚠️ Al mòbil només està disponible el mode EAR TRAINING. El LABORATORI AUDITIU requereix una pantalla més gran.' : '⚠️ En el móvil solo está disponible el modo EAR TRAINING. El LABORATORIO AUDITIVO requiere una pantalla más grande.');
+    return;
+  }
+  if(checkOtherTabs())return;autoFullscreen();cleanupEarAudio();getSharedCtx();setMidiActive();startScreen.classList.add('hidden');midiMode.classList.add('active');earMode.classList.remove('active');accuracyPanel.classList.remove('visible');proposedAnswerBox.classList.remove('visible');resultModal.classList.remove('visible');hideAllFeedback();initMIDI();setExclusiveMode('normal');updateManualButtonsVisibility();updatePianoButtons();if(internalPianoEnabled)$('btn-piano').classList.add('active');});
 $('btn-start-ear').addEventListener('click',()=>{autoFullscreen();startScreen.classList.add('hidden');earMode.classList.add('active');midiMode.classList.remove('active');updateModeButtons();renderFilterPanel();accuracyPanel.classList.remove('visible');proposedAnswerBox.classList.remove('visible');resultModal.classList.remove('visible');hideAllFeedback();imgElement.style.display='';imgElement.classList.remove('visible');if(manualPanelVisible){manualPanelVisible=false;manualPanel.classList.remove('visible');manualPanel.classList.remove('ear-position');$('btn-toggle-manual').classList.remove('active');$('btn-toggle-manual-ear').classList.remove('active');}Object.values(wrappers).forEach(w=>{w.style.display='none';w.style.opacity='0';w.classList.remove('visible','draggable','active-note');if(w.noteNumber)w.noteNumber.classList.remove('visible','active-note');});$('ear-key-select').value=currentKeyRoot;$('btn-ear-piano').classList.add('visible');$('btn-toggle-manual-ear').classList.add('visible');$('ear-sustain-led').classList.add('visible');$('ear-sustain-label').classList.add('visible');updatePianoButtons();if(internalPianoEnabled)$('btn-ear-piano').classList.add('active');initMIDI();});
 function stopAllPianoNotes(){Object.keys(activeOscillators).forEach(n=>stopPianoNote(parseInt(n)));activeOscillators={};}
 function stopAllEarPianoNotes(){stopAllPianoNotes();}
@@ -793,7 +809,10 @@ updatePedalVolumeDirect(Math.min(100,Math.max(0,cur+((e.key==='ArrowUp')?5:-5)))
 ['battle-player1-name','battle-player2-name'].forEach(id=>{const el=document.getElementById(id);if(el)el.setAttribute('maxlength','12');});
 /* ══════════ INIT ══════════ */
 updateLanguageUI();updateModeButtons();updateDifficultyButtons();updateManualButtonsVisibility();loadZoom();updatePedalVolumeDirect(50);initPasswordModal();
-/* ═══ TREURE FADE-IN DE LA FRASE ═══ */
+/* [PEGAT 7] Amagar LABORATORI en smartphone */
+if(IS_SMARTPHONE){
+  var bm=$('btn-start-midi'); if(bm) bm.style.display='none';
+}/* ═══ TREURE FADE-IN DE LA FRASE ═══ */
 (function(){
 const st=document.createElement('style');
 st.textContent='#v10-quote{transition:none !important;}';
@@ -915,4 +934,55 @@ updateLanguageUI=function(){_origUpdateLang();const ea=$('btn-exit-app'),ep=$('b
   syncWarn();
 })();
 
+/* ═══════════════════════════════════════════════ */
+/* [PEGAT 8] iOS/iPadOS: custom selects per no trencar fullscreen */
+/* ═══════════════════════════════════════════════ */
+(function iosCustomSelects(){
+  var ua = navigator.userAgent;
+  var isIOS = /iPad|iPhone|iPod/.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  if (!isIOS) return;
+  
+  var targets = ['key-select', 'ear-key-select', 'ear-duration-full', 'ear-delay-input-full'];
+  
+  targets.forEach(function(id){
+    var sel = document.getElementById(id);
+    if (!sel || sel.dataset.iosReplaced) return;
+    sel.dataset.iosReplaced = '1';
+    
+    var wrap = document.createElement('div');
+    wrap.className = 'ios-select-wrap';
+    wrap.innerHTML = '<button class="ios-sel-btn ios-sel-minus" type="button">−</button>' +
+                     '<span class="ios-sel-value"></span>' +
+                     '<button class="ios-sel-btn ios-sel-plus" type="button">+</button>';
+    
+    var valueSpan = wrap.querySelector('.ios-sel-value');
+    var minusBtn = wrap.querySelector('.ios-sel-minus');
+    var plusBtn = wrap.querySelector('.ios-sel-plus');
+    
+    function updateDisplay(){
+      var opt = sel.options[sel.selectedIndex];
+      valueSpan.textContent = opt ? opt.text : sel.value;
+    }
+    
+    function changeValue(delta){
+      var idx = sel.selectedIndex + delta;
+      if (idx < 0 || idx >= sel.options.length) return;
+      sel.selectedIndex = idx;
+      updateDisplay();
+      sel.dispatchEvent(new Event('change', {bubbles: true}));
+    }
+    
+    minusBtn.addEventListener('click', function(e){ e.preventDefault(); e.stopPropagation(); changeValue(-1); });
+    plusBtn.addEventListener('click', function(e){ e.preventDefault(); e.stopPropagation(); changeValue(1); });
+    sel.addEventListener('change', updateDisplay);
+    
+    sel.parentNode.insertBefore(wrap, sel);
+    sel.style.display = 'none';
+    updateDisplay();
+  });
+  
+  console.log('📱 iOS custom selects activats');
+})();
+
+console.log('🎹 TONAL EMOTIONS: v13 net carregat (amb tots els pegats del registre).');
 console.log('🎹 TONAL EMOTIONS: v13 net carregat (amb tots els pegats del registre).');
