@@ -511,13 +511,50 @@ $('btn-start-midi').addEventListener('click',()=>{
     return;
   }
   if(checkOtherTabs())return;autoFullscreen();cleanupEarAudio();getSharedCtx();setMidiActive();startScreen.classList.add('hidden');midiMode.classList.add('active');earMode.classList.remove('active');accuracyPanel.classList.remove('visible');proposedAnswerBox.classList.remove('visible');resultModal.classList.remove('visible');hideAllFeedback();initMIDI();setExclusiveMode('normal');updateManualButtonsVisibility();updatePianoButtons();if(internalPianoEnabled)$('btn-piano').classList.add('active');});
-$('btn-start-ear').addEventListener('click',()=>{autoFullscreen();startScreen.classList.add('hidden');earMode.classList.add('active');midiMode.classList.remove('active');updateModeButtons();renderFilterPanel();accuracyPanel.classList.remove('visible');proposedAnswerBox.classList.remove('visible');resultModal.classList.remove('visible');hideAllFeedback();imgElement.style.display='';imgElement.classList.remove('visible');if(manualPanelVisible){manualPanelVisible=false;manualPanel.classList.remove('visible');manualPanel.classList.remove('ear-position');$('btn-toggle-manual').classList.remove('active');$('btn-toggle-manual-ear').classList.remove('active');}Object.values(wrappers).forEach(w=>{w.style.display='none';w.style.opacity='0';w.classList.remove('visible','draggable','active-note');if(w.noteNumber)w.noteNumber.classList.remove('visible','active-note');});$('ear-key-select').value=currentKeyRoot;$('btn-ear-piano').classList.add('visible');$('btn-toggle-manual-ear').classList.add('visible');$('ear-sustain-led').classList.add('visible');$('ear-sustain-label').classList.add('visible');updatePianoButtons();if(internalPianoEnabled)$('btn-ear-piano').classList.add('active');initMIDI();});
+$('btn-start-ear').addEventListener('click',()=>{autoFullscreen();startScreen.classList.add('hidden');earMode.classList.add('active');
+  if (IS_SMARTPHONE || IS_TABLET) {
+    document.body.classList.add('ear-landscape-warning');
+  }midiMode.classList.remove('active');updateModeButtons();renderFilterPanel();accuracyPanel.classList.remove('visible');proposedAnswerBox.classList.remove('visible');resultModal.classList.remove('visible');hideAllFeedback();imgElement.style.display='';imgElement.classList.remove('visible');if(manualPanelVisible){manualPanelVisible=false;manualPanel.classList.remove('visible');manualPanel.classList.remove('ear-position');$('btn-toggle-manual').classList.remove('active');$('btn-toggle-manual-ear').classList.remove('active');}Object.values(wrappers).forEach(w=>{w.style.display='none';w.style.opacity='0';w.classList.remove('visible','draggable','active-note');if(w.noteNumber)w.noteNumber.classList.remove('visible','active-note');});$('ear-key-select').value=currentKeyRoot;$('btn-ear-piano').classList.add('visible');$('btn-toggle-manual-ear').classList.add('visible');$('ear-sustain-led').classList.add('visible');$('ear-sustain-label').classList.add('visible');updatePianoButtons();if(internalPianoEnabled)$('btn-ear-piano').classList.add('active');initMIDI();});
 function stopAllPianoNotes(){Object.keys(activeOscillators).forEach(n=>stopPianoNote(parseInt(n)));activeOscillators={};}
 function stopAllEarPianoNotes(){stopAllPianoNotes();}
 function exitFullscreenAndStopNotes(){if(document.fullscreenElement)document.exitFullscreen();stopAllPianoNotes();}
 $('btn-back-midi').addEventListener('click',()=>{exitFullscreenAndStopNotes();stopProva();cleanupMidiAudio();setExclusiveMode('multi');if(manualPanelVisible){manualPanelVisible=false;manualPanel.classList.remove('visible');manualPanel.classList.remove('ear-position');$('btn-toggle-manual').classList.remove('active');$('btn-toggle-manual-ear').classList.remove('active');}$('zoom-controls').style.display='none';$('sound-controls').style.display='none';midiMode.classList.remove('active');accuracyPanel.classList.remove('visible');proposedAnswerBox.classList.remove('visible');resultModal.classList.remove('visible');hideAllFeedback();if(isMidiActive){localStorage.removeItem(MIDI_TAB_KEY);isMidiActive=false;}startScreen.classList.remove('hidden');});
-$('btn-back-ear').addEventListener('click',()=>{exitFullscreenAndStopNotes();earUserHasPlayed=false;stopEarTraining();cleanupEarAudio();earMode.classList.remove('active');updateTonicBtn();$('btn-ear-piano').classList.remove('visible');$('btn-toggle-manual-ear').classList.remove('visible');$('ear-sustain-led').classList.remove('visible');$('ear-sustain-label').classList.remove('visible');accuracyPanel.classList.remove('visible');proposedAnswerBox.classList.remove('visible');resultModal.classList.remove('visible');hideAllFeedback();Object.values(wrappers).forEach(w=>{w.style.display='none';w.style.opacity='0';w.classList.remove('visible','active-note');if(w.noteNumber)w.noteNumber.classList.remove('visible','active-note');});if(manualPanelVisible){manualPanelVisible=false;manualPanel.classList.remove('visible');manualPanel.classList.remove('ear-position');$('btn-toggle-manual').classList.remove('active');$('btn-toggle-manual-ear').classList.remove('active');}cleanupBattleUI();startScreen.classList.remove('hidden');earFilterPanelVisible=false;renderFilterPanel();});
-/* ══════════ PIANO INTERN ══════════ */
+$('btn-back-ear').addEventListener('click',()=>{
+  document.body.classList.remove('ear-landscape-warning');
+  exitFullscreenAndStopNotes();
+  earUserHasPlayed=false;
+  stopEarTraining();
+  cleanupEarAudio();
+  earMode.classList.remove('active');
+  updateTonicBtn();
+  $('btn-ear-piano').classList.remove('visible');
+  $('btn-toggle-manual-ear').classList.remove('visible');
+  $('ear-sustain-led').classList.remove('visible');
+  $('ear-sustain-label').classList.remove('visible');
+  accuracyPanel.classList.remove('visible');
+  proposedAnswerBox.classList.remove('visible');
+  resultModal.classList.remove('visible');
+  hideAllFeedback();
+  Object.values(wrappers).forEach(w=>{
+    w.style.display='none';
+    w.style.opacity='0';
+    w.classList.remove('visible','active-note');
+    if(w.noteNumber)w.noteNumber.classList.remove('visible','active-note');
+  });
+  if(manualPanelVisible){
+    manualPanelVisible=false;
+    manualPanel.classList.remove('visible');
+    manualPanel.classList.remove('ear-position');
+    $('btn-toggle-manual').classList.remove('active');
+    $('btn-toggle-manual-ear').classList.remove('active');
+  }
+  cleanupBattleUI();
+  startScreen.classList.remove('hidden');
+  earFilterPanelVisible=false;
+  renderFilterPanel();
+});
+
+/* ══════════ PIANO INTERN ══════════ *//* ══════════ PIANO INTERN ══════════ */
 const pianoTuning={volume:1.0,fadeIn:0,attack:80,decay:1.73,sustain:0.9,duration:4.0,brightness:1.1,instrument:'piano'};
 const PIANO_DEFAULTS={volume:1.0,fadeIn:0,attack:80,decay:1.73,sustain:0.9,duration:4.0,brightness:1.1,instrument:'piano'};
 const PIANO_VOL_MIN=0.25;
@@ -983,6 +1020,4 @@ updateLanguageUI=function(){_origUpdateLang();const ea=$('btn-exit-app'),ep=$('b
   
   console.log('📱 iOS custom selects activats');
 })();
-
-console.log('🎹 TONAL EMOTIONS: v13 net carregat (amb tots els pegats del registre).');
 console.log('🎹 TONAL EMOTIONS: v13 net carregat (amb tots els pegats del registre).');

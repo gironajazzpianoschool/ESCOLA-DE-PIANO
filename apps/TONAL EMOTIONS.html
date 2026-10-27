@@ -452,6 +452,103 @@ html.tablet-mode #ear-delay-input-full {
   font-size: 15px !important;
   padding: 8px 12px !important;
 }
+/* ══════════ OPTIMITZACIÓ EAR TRAINING PER A MÒBIL/TABLET ══════════ */
+
+/* 1. BLOQUEIG ORIENTACIÓ HORITZONTAL (avís elegant si giren el mòbil) */
+@media screen and (max-width: 768px) and (orientation: landscape) {
+  body.ear-landscape-warning::before {
+    content: "📱 Si us plau, gira el dispositiu en vertical per a una millor experiència.";
+    position: fixed; inset: 0; background: rgba(10,12,16,0.98); z-index: 999999;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--gold); font-size: 18px; font-weight: 700; text-align: center; padding: 20px;
+  }
+}
+
+/* 2. REDISSENY DEL REQUADRE: Graella horitzontal, sense scroll intern */
+html.smartphone-mode #ear-panel-full,
+html.tablet-mode #ear-panel-full {
+  width: 95vw !important;
+  max-width: 500px !important; /* Més ample per encabir-ho tot */
+  padding: 16px !important;
+  display: grid !important;
+  grid-template-columns: 1fr 1fr !important; /* Dues columnes compactes */
+  gap: 10px 16px !important;
+  align-items: center !important;
+  overflow: visible !important; /* ELIMINA el scroll intern */
+  position: relative !important; /* Per poder posar el botó configurar a sobre */
+}
+
+/* El títol ocupa tota l'amplada a dalt */
+html.smartphone-mode #ear-panel-full h2,
+html.tablet-mode #ear-panel-full h2 {
+  grid-column: 1 / -1 !important;
+  text-align: center !important;
+  margin: 0 0 8px 0 !important;
+  font-size: 18px !important;
+}
+
+/* Files de configuració: compactes i alineades */
+html.smartphone-mode .ear-row,
+html.tablet-mode .ear-row {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 8px !important;
+  margin: 0 !important;
+  font-size: 13px !important;
+  white-space: nowrap !important;
+}
+
+/* Inputs i selects més amples dins de la seva cel·la */
+html.smartphone-mode #ear-key-select,
+html.tablet-mode #ear-key-select,
+html.smartphone-mode #ear-duration-full,
+html.tablet-mode #ear-duration-full,
+html.smartphone-mode #ear-delay-input-full,
+html.tablet-mode #ear-delay-input-full {
+  width: 100% !important;
+  max-width: 90px !important;
+  padding: 6px !important;
+  font-size: 14px !important;
+  text-align: center !important;
+}
+
+/* Fila "Notes" i botons de mode: ocupen tota l'amplada a sota */
+html.smartphone-mode #ear-panel-full .ear-row:nth-child(5),
+html.tablet-mode #ear-panel-full .ear-row:nth-child(5),
+html.smartphone-mode .ear-mode-buttons,
+html.tablet-mode .ear-mode-buttons {
+  grid-column: 1 / -1 !important;
+  display: flex !important;
+  justify-content: center !important;
+  gap: 8px !important;
+  margin-top: 8px !important;
+}
+
+html.smartphone-mode .ear-mode-btn,
+html.tablet-mode .ear-mode-btn {
+  flex: 1 !important;
+  padding: 8px 4px !important;
+  font-size: 12px !important;
+  min-height: 36px !important;
+}
+
+/* 3. BOTÓ CONFIGURAR TEST FORA DEL REQUADRE */
+/* El posicionem a la cantonada superior dreta, fora del flux de la graella */
+html.smartphone-mode #btn-ear-filter,
+html.tablet-mode #btn-ear-filter {
+  position: absolute !important;
+  top: -45px !important; /* A dalt del requadre */
+  right: 0 !important;
+  z-index: 10 !important;
+  margin: 0 !important;
+}
+
+/* 4. ACTIVAR L'AVÍS D'ORIENTACIÓ NOMÉS QUAN ESTÀ ACTIU L'EAR TRAINING */
+html.smartphone-mode.ear-active,
+html.tablet-mode.ear-active {
+  /* Aquesta classe l'afegirem amb JS quan s'activi l'ear training */
+}
 </style>
 </head>
 <body>
