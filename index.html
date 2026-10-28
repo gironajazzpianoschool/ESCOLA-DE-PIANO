@@ -301,7 +301,8 @@ main { position: relative; padding: 20px 5vw; max-width: 1300px; margin: auto; }
 /* ============================================================
    11. RESPONSIVE
    ============================================================ */
-@media (max-width: 900px) {
+/* SMARTPHONE (< 768px): Files separades */
+@media (max-width: 767px) {
   .donuts { grid-template-columns: repeat(3, 1fr); }
   .blkcol { grid-template-columns: repeat(3, 1fr); }
   .hdr { display: flex; flex-wrap: wrap; gap: 8px; width: 100%; align-items: stretch; }
@@ -313,7 +314,22 @@ main { position: relative; padding: 20px 5vw; max-width: 1300px; margin: auto; }
   #mHelp { order: 5; flex: 1 1 50%; width: auto; height: 38px; font-size: 12px; padding: 0 8px; justify-content: center; }
   #langToggle { order: 6; flex: 1 1 50%; width: auto; height: 38px; font-size: 12px; padding: 0 8px; justify-content: center; }
 }
-@media (max-width: 768px) {
+
+/* IPAD (768px - 900px): Tots en una fila, "i" petita */
+@media (min-width: 768px) and (max-width: 900px) {
+  .donuts { grid-template-columns: repeat(3, 1fr); }
+  .blkcol { grid-template-columns: repeat(3, 1fr); }
+  .hdr { display: flex; flex-wrap: nowrap; gap: 8px; width: 100%; align-items: center; }
+  .modes { display: contents; }
+  #mTrack { order: 1; flex: 1 1 auto; width: auto; height: 38px; font-size: 12px; font-weight: 800; white-space: nowrap; }
+  #mFree { order: 2; flex: 1 1 auto; width: auto; height: 38px; font-size: 12px; white-space: nowrap; }
+  #mApps { order: 3; flex: 1 1 auto; width: auto; height: 38px; font-size: 12px; white-space: nowrap; }
+  #mInfo { order: 4; flex: 1 1 auto; width: auto; height: 38px; font-size: 12px; padding: 0 8px; white-space: nowrap; }
+  #mHelp { order: 5; flex: 1 1 auto; width: auto; height: 38px; padding: 0 8px; justify-content: center; background: transparent !important; border: none !important; box-shadow: none !important; cursor: pointer; display: flex; align-items: center; }
+  #langToggle { order: 6; flex: 1 1 auto; width: auto; height: 38px; font-size: 12px; padding: 0 8px; justify-content: center; white-space: nowrap; }
+  .bk { color: #ff2bd6 !important; }
+  .bk.bookmarked { color: #ff2bd6 !important; }
+}@media (max-width: 768px) {
   html { zoom: 1; }
   .wrap { width: 100dvw; height: 100dvh; }
   .blkcol { grid-template-columns: repeat(2, 1fr); }
@@ -349,6 +365,7 @@ main { position: relative; padding: 20px 5vw; max-width: 1300px; margin: auto; }
   #who { max-width: 65%; }
 }
 /* Estils de la "i" neon: NOMÉS per a PC (pantalles > 900px) */
+/* PC (> 900px): Tots en una fila, "i" gran */
 @media (min-width: 901px) {
   #mHelp {
     background: transparent !important;
@@ -1807,6 +1824,9 @@ $('btnUser').onclick = function () {
 };
 
 function setLabels() {
+  // Guardar l'estat del botó d'ajuda abans de reescriure'l
+  var helpWasActive = $('mHelp').classList.contains('on');
+  
   $('mTrack').innerHTML = ICON_TARGET + ' ' + t().mTrack.replace(/^\s*🎯\s*/, '');
   $('mFree').innerHTML = ICON_FOLDER + ' ' + t().mFree.replace(/^\s*📁\s*/, '');
   $('mApps').innerHTML = '<svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor" style="vertical-align:middle"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg> Apps';
@@ -1817,6 +1837,9 @@ function setLabels() {
   $('mEdit').textContent = t().edit;
   $('overlayText').textContent = t().overlayText;
   $('langCur').textContent = (LS.lang === 'ca') ? 'CAT' : 'ESP';
+  
+  // Restaurar l'estat il·luminat del botó d'ajuda
+  if (helpWasActive) $('mHelp').classList.add('on');
 }
 
 function render() {
