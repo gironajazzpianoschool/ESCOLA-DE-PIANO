@@ -1888,16 +1888,46 @@ function deactivateManualNote(d) {
 /* ══════════════════════════════════════════════════════════ */
 
 // Password Modal Logic
+/* ══════════════════════════════════════════════════════════ */
+/* FUNCIONS DE CONTRASENYA (AMB DEBUG I SUPORT LOCAL)         */
+/* ══════════════════════════════════════════════════════════ */
+
 async function verifyPassword(pass) {
+  console.log("🔐 Verificant contrasenya:", pass);
+  
+  // 1. Comprovar contrasenya dinàmica (musica + minut)
   const m = /^musica(\d{1,2})$/.exec((pass || '').toLowerCase());
   if (m) {
     const v = parseInt(m[1], 10);
     const now = new Date().getMinutes();
-    if (v === now || v === (now + 59) % 60) return true;
+    console.log(`⏱️ Minut actual: ${now}, Minut introduït: ${v}`);
+    if (v === now || v === (now + 59) % 60) {
+      console.log("✅ Contrasenya dinàmica correcta!");
+      return true;
+    }
   }
-  const enc = new TextEncoder();
-  const buf = await crypto.subtle.digest('SHA-256', enc.encode(pass));
-  return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('') === CONFIG.PASS_HASH;
+
+  // 2. Comprovar contrasenya estàtica ("quake")
+  try {
+    const enc = new TextEncoder();
+    const buf = await crypto.subtle.digest('SHA-256', enc.encode(pass));
+    const hash = Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
+    
+    if (hash === CONFIG.PASS_HASH) {
+      console.log("✅ Contrasenya estàtica correcta!");
+      return true;
+    }
+  } catch (error) {
+    console.warn("⚠️ crypto.subtle bloquejat (probablement estàs en mode local file://).", error);
+    // Fallback de seguretat: si escriuen "quake" en mode local, els deixem passar
+    if (pass.toLowerCase() === 'quake') {
+       console.log("⚠️ Fallback activat: s'accepta 'quake' per mode local.");
+       return true;
+    }
+  }
+  
+  console.log("❌ Contrasenya incorrecta.");
+  return false;
 }
 
 function checkPasswordAndSubmit() {
@@ -1905,14 +1935,22 @@ function checkPasswordAndSubmit() {
   const input = document.getElementById('password-input');
   const err = document.getElementById('password-error');
   const pass = input.value.trim();
-  if (!pass) return;
   
+  if (!pass) {
+    err.textContent = "Escriu una contrasenya.";
+    return;
+  }
+
   verifyPassword(pass).then(ok => {
     if (ok) {
-      getSharedCtx(); getPianoBus(); initMIDI();
+      console.log("🚀 Accés concedit! Iniciant app...");
+      getSharedCtx(); 
+      getPianoBus(); 
+      initMIDI();
       modal.classList.add('hidden');
     } else {
       passwordAttempts++;
+      console.warn(`⚠️ Intent fallit ${passwordAttempts}/${CONFIG.MAX_ATTEMPTS}`);
       if (passwordAttempts >= CONFIG.MAX_ATTEMPTS) {
         document.body.innerHTML = "<h1 style='color:red;text-align:center;margin-top:20%;font-family:sans-serif'>" + t('pw_denied') + "</h1>";
       } else {
@@ -1921,6 +1959,9 @@ function checkPasswordAndSubmit() {
         input.focus();
       }
     }
+  }).catch(e => {
+    console.error("💥 Error inesperat en verificar:", e);
+    err.textContent = "Error del sistema. Prem F12 per veure la consola.";
   });
 }
 
