@@ -136,9 +136,10 @@ main { position: relative; padding: 20px 5vw; max-width: 1300px; margin: auto; }
 .vr .play { width: 32px; height: 32px; flex: none; border-radius: 50%; border: 1px solid var(--gold); color: var(--gold); background: none; cursor: pointer; font-size: 12px; transition: all .2s; }
 .vr .play:hover { background: rgba(232,176,75,0.1); }
 .vt { flex: 1; font-size: var(--fs); font-weight: 600; }
-.vid-importance { position: absolute; top: 8px; right: 8px; font-size: 20px; cursor: help; transition: transform .2s; }
+.vid-importance { position: absolute; top: 8px; right: 8px; font-size: 20px; cursor: help; transition: transform .2s; min-width: 26px; min-height: 26px; display: flex; align-items: center; justify-content: center; z-index: 6; }
 .vid-importance:hover { transform: scale(1.2); }
-.vid-importance.editable { cursor: pointer; }
+.vid-importance.editable { cursor: pointer; border-radius: 6px; }
+.vid-importance.editable:hover { outline: 1px dashed var(--gold); background: rgba(232,176,75,.08); }
 .vid-number { position: absolute; top: 8px; right: 36px; background: var(--gold); color: #141414; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 13px; z-index: 5; box-shadow: 0 2px 8px rgba(232,176,75,0.3); }
 .vid-number.editable { cursor: pointer; transition: all .2s; }
 .vid-number.editable:hover { transform: scale(1.1); box-shadow: 0 4px 12px rgba(232,176,75,0.5); }
@@ -820,6 +821,7 @@ function initializeOrder() {
   all.forEach(function (v) { if (OV.order.indexOf(v.id) === -1) OV.order.push(v.id); });
 }
 function swapOrder(idA, idB) {
+  if (editModeOn) collectAll();
   initializeOrder();
   var ia = OV.order.indexOf(idA), ib = OV.order.indexOf(idB);
   if (ia === -1 || ib === -1) return;
@@ -840,6 +842,7 @@ function getVideoOrder(videoId) {
   return 9999;
 }
 function reorderVideo(videoId, newOrder) {
+  if (editModeOn) collectAll();
   initializeOrder();
   var numbered = OV.order.filter(function (id) { return !isWelcomeId(id) && !isGiftId(id); });
   var cur = numbered.indexOf(videoId);
@@ -854,7 +857,11 @@ function getVideoImportance(videoId) {
 }
 function toggleVideoImportance(videoId) {
   if (!OV.imp || typeof OV.imp !== 'object') OV.imp = {};
+  if (editModeOn) collectAll();
   OV.imp[videoId] = (getVideoImportance(videoId) === 'important') ? 'optional' : 'important';
+  showToast(OV.imp[videoId] === 'important'
+    ? (LS.lang === 'ca' ? '⭐ Vídeo marcat com a IMPORTANT' : '⭐ Vídeo marcado como IMPORTANTE')
+    : (LS.lang === 'ca' ? '⭕ Vídeo marcat com a OPCIONAL' : '⭕ Vídeo marcado como OPCIONAL'));
   render();
 }
 function allVids() {
@@ -1209,8 +1216,13 @@ function makeVid(v, id, track, tag) {
   row.id = 'v_' + id;
   var orderNum = getVideoOrder(id);
   var importance = getVideoImportance(id);
-  var importanceIcon = importance === 'important' ? '⭐' : '';
-  var importanceTitle = importance === 'important' ? (LS.lang === 'ca' ? 'Vídeo important: no te\'l saltis' : 'Vídeo importante: no te lo saltes') : (LS.lang === 'ca' ? 'Vídeo opcional: pots saltar-lo si tens pressa' : 'Vídeo opcional: puedes saltarlo si tienes prisa');
+  var importanceIcon = importance === 'important' ? '⭐' : '⭕';
+  var importanceTitle = importance === 'important'
+    ? (LS.lang === 'ca' ? 'Vídeo important: no te\'l saltis' : 'Vídeo importante: no te lo saltes')
+    : (LS.lang === 'ca' ? 'Vídeo opcional: pots saltar-lo si tens pressa' : 'Vídeo opcional: puedes saltarlo si tienes prisa');
+  if (editModeOn) {
+    importanceTitle += ' · ' + (LS.lang === 'ca' ? 'Clica per alternar ⭐/⭕' : 'Clic para alternar ⭐/⭕');
+  }
   var numberHtml = '', importanceHtml = '';
   if (!isGiftId(id)) {
     if (editModeOn) {
