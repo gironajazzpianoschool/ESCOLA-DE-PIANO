@@ -308,10 +308,10 @@ main { position: relative; padding: 20px 5vw; max-width: 1300px; margin: auto; }
   .modes { display: contents; }
   #mTrack { order: 1; flex: 1 1 45%; width: auto; height: 46px; font-size: 13px; font-weight: 800; }
   #mFree { order: 2; flex: 1 1 45%; width: auto; height: 46px; font-size: 13px; font-weight: 800; }
-  #mApps { order: 3; flex: 1 1 20%; width: auto; height: 38px; font-size: 12px; }
-  #mInfo { order: 4; flex: 1 1 20%; width: auto; height: 38px; font-size: 12px; }
-  #mHelp { order: 5; flex: 0 0 auto; width: auto; height: 38px; padding: 0 8px; justify-content: center; background: transparent !important; border: none !important; box-shadow: none !important; cursor: pointer; display: flex; align-items: center; }2:11 28/10/2026
-  #langToggle { order: 6; flex: 1 1 20%; width: auto; height: 38px; font-size: 12px; padding: 0 8px; justify-content: center; }
+  #mApps { order: 3; flex: 0 0 auto; width: auto; height: 38px; font-size: 12px; margin-left: auto; padding: 0 8px; }
+  #mInfo { order: 4; flex: 0 0 auto; width: auto; height: 38px; font-size: 12px; padding: 0 8px; }
+  #mHelp { order: 5; flex: 0 0 auto; width: auto; height: 38px; padding: 0 8px; justify-content: center; background: transparent !important; border: none !important; box-shadow: none !important; cursor: pointer; display: flex; align-items: center; }
+  #langToggle { order: 6; flex: 0 0 auto; width: auto; height: 38px; font-size: 12px; padding: 0 8px; justify-content: center; }
 }
 @media (max-width: 768px) {
   html { zoom: 1; }
@@ -378,12 +378,10 @@ main { position: relative; padding: 20px 5vw; max-width: 1300px; margin: auto; }
     display: block;
     border-radius: 50% !important;
   }
-  /* FAQ sempre per sobre de la "i" */
   #mInfo {
     position: relative !important;
     z-index: 3 !important;
   }
-  /* CAT també per sobre per si de cas */
   #langToggle {
     position: relative !important;
     z-index: 3 !important;
