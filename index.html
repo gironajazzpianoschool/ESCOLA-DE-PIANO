@@ -306,12 +306,12 @@ main { position: relative; padding: 20px 5vw; max-width: 1300px; margin: auto; }
   .blkcol { grid-template-columns: repeat(3, 1fr); }
   .hdr { display: flex; flex-wrap: wrap; gap: 8px; width: 100%; align-items: stretch; }
   .modes { display: contents; }
-  #mTrack { order: 1; flex: 1 1 45%; width: auto; height: 46px; font-size: 13px; font-weight: 800; }
-  #mFree { order: 2; flex: 1 1 45%; width: auto; height: 46px; font-size: 13px; font-weight: 800; }
-  #mApps { order: 3; flex: 0 0 auto; width: auto; height: 38px; font-size: 12px; margin-left: auto; padding: 0 8px; }
-  #mInfo { order: 4; flex: 0 0 auto; width: auto; height: 38px; font-size: 12px; padding: 0 8px; }
-  #mHelp { order: 5; flex: 0 0 auto; width: auto; height: 38px; padding: 0 8px; justify-content: center; background: transparent !important; border: none !important; box-shadow: none !important; cursor: pointer; display: flex; align-items: center; }
-  #langToggle { order: 6; flex: 0 0 auto; width: auto; height: 38px; font-size: 12px; padding: 0 8px; justify-content: center; }
+  #mTrack { order: 1; flex: 1 1 100%; width: auto; height: 46px; font-size: 13px; font-weight: 800; }
+  #mFree { order: 2; flex: 1 1 33%; width: auto; height: 38px; font-size: 12px; }
+  #mApps { order: 3; flex: 1 1 33%; width: auto; height: 38px; font-size: 12px; }
+  #mInfo { order: 4; flex: 1 1 33%; width: auto; height: 38px; font-size: 12px; }
+  #mHelp { order: 5; flex: 1 1 50%; width: auto; height: 38px; font-size: 12px; padding: 0 8px; justify-content: center; }
+  #langToggle { order: 6; flex: 1 1 50%; width: auto; height: 38px; font-size: 12px; padding: 0 8px; justify-content: center; }
 }
 @media (max-width: 768px) {
   html { zoom: 1; }
