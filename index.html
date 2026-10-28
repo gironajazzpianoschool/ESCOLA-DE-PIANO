@@ -83,7 +83,7 @@ main { position: relative; padding: 20px 5vw; max-width: 1300px; margin: auto; }
 .wipbox .wipicon { font-size: 44px; margin-bottom: 10px; }
 
 /* ============================================================
-   4. SEGMENT CONTINUAT (targeta "ara et toca", donuts, repàs)
+   4. SEGMENT CONTINUAT
    ============================================================ */
 .now { background: var(--card); border: 1px solid var(--gold); border-radius: var(--rad-lg); padding: 16px; margin-bottom: 24px; box-shadow: 0 6px 24px rgba(232,176,75,0.12); }
 .ctx { color: var(--gold); font-size: 11px; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 6px; font-weight: 800; }
@@ -107,7 +107,7 @@ main { position: relative; padding: 20px 5vw; max-width: 1300px; margin: auto; }
 .ritem button:hover { border-color: var(--gold); color: var(--ink); }
 
 /* ============================================================
-   5. NAVEGACIÓ LLIURE (bloc de botons, capçalera, graella)
+   5. NAVEGACIÓ LLIURE
    ============================================================ */
 .blkcol { display: grid; grid-template-columns: repeat(6, 1fr); gap: 10px; margin-bottom: 16px; }
 .blkcol button { background: var(--card); border: 1px solid var(--line); color: var(--mut); border-radius: 12px; padding: 11px 12px; cursor: pointer; font-weight: 700; font-size: var(--fs-btn); letter-spacing: 1px; text-transform: uppercase; transition: all .2s; display: flex; align-items: center; justify-content: space-between; gap: 10px; min-height: 42px; }
@@ -176,7 +176,7 @@ main { position: relative; padding: 20px 5vw; max-width: 1300px; margin: auto; }
 .save-note-btn:hover { background: #f0c060; }
 
 /* ============================================================
-   7. BOTONS D'EDICIÓ SOBRE EL VÍDEU
+   7. BOTONS D'EDICIÓ
    ============================================================ */
 .vid-del-btn { background: var(--danger); color: #fff; border: none; border-radius: 50%; width: 28px; height: 28px; font-size: 14px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all .2s; flex-shrink: 0; }
 .vid-del-btn:hover { transform: scale(1.1); }
@@ -247,7 +247,7 @@ main { position: relative; padding: 20px 5vw; max-width: 1300px; margin: auto; }
 @keyframes pulse { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.1); opacity: .8; } }
 
 /* ============================================================
-   10. MODALS (login, selector d'adjunts, celebració, ajuda)
+   10. MODALS
    ============================================================ */
 .lgin, .adjsel { position: fixed; inset: 0; background: rgba(5,6,10,.98); z-index: 60; display: none; align-items: center; justify-content: center; padding: 5vw; }
 .lgin.on, .adjsel.on { display: flex; }
@@ -299,7 +299,7 @@ main { position: relative; padding: 20px 5vw; max-width: 1300px; margin: auto; }
 #toast { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); background: var(--card); border: 1px solid var(--gold); color: var(--ink); padding: 12px 24px; border-radius: 10px; font-size: 14px; font-weight: 600; z-index: 999999; opacity: 0; pointer-events: none; transition: opacity 0.3s; box-shadow: 0 4px 12px rgba(0,0,0,0.5); text-align: center; max-width: 90vw; }
 
 /* ============================================================
-   11. RESPONSIVE
+   11. RESPONSIVE - NET I ENDRERÇAT
    ============================================================ */
 
 /* SMARTPHONE (< 768px): Files separades */
@@ -307,38 +307,16 @@ main { position: relative; padding: 20px 5vw; max-width: 1300px; margin: auto; }
   .donuts { grid-template-columns: repeat(3, 1fr); }
   .blkcol { grid-template-columns: repeat(3, 1fr); }
   .hdr { display: flex; flex-wrap: wrap; gap: 8px; width: 100%; align-items: stretch; }
+  .modes { display: contents; }
   #mTrack { order: 1; flex: 1 1 100%; width: auto; height: 46px; font-size: 13px; font-weight: 800; }
   #mFree { order: 2; flex: 1 1 33%; width: auto; height: 38px; font-size: 12px; }
   #mApps { order: 3; flex: 1 1 33%; width: auto; height: 38px; font-size: 12px; }
   #mInfo { order: 4; flex: 1 1 33%; width: auto; height: 38px; font-size: 12px; }
-  
-  #mHelp { 
-    order: 5; 
-    flex: 1 1 50%; 
-    width: auto; 
-    height: 38px; 
-    font-size: 12px; 
-    padding: 0 8px; 
-    justify-content: center;
-    background: linear-gradient(135deg, rgba(232,176,75,0.08), rgba(232,176,75,0.02));
-    border: 1.5px solid var(--line);
-    color: var(--ink);
-    border-radius: var(--rad);
-    cursor: pointer;
-    font-weight: 700;
-    transition: all .2s;
-  }
-  #mHelp.on {
-    border-color: var(--gold);
-    color: var(--gold);
-    background: linear-gradient(135deg, rgba(232,176,75,0.28), rgba(232,176,75,0.1));
-    box-shadow: 0 0 14px rgba(232,176,75,0.22), inset 0 1px 0 rgba(255,255,255,0.05);
-  }
-  
+  #mHelp { order: 5; flex: 1 1 50%; width: auto; height: 38px; font-size: 12px; padding: 0 8px; justify-content: center; }
   #langToggle { order: 6; flex: 1 1 50%; width: auto; height: 38px; font-size: 12px; padding: 0 8px; justify-content: center; }
 }
 
-/* IPAD / TABLET (768px - 1100px): TOTS en una sola línia */
+/* IPAD / TABLET (768px - 1100px): Header compacte en una línia */
 @media (min-width: 768px) and (max-width: 1100px) {
   header { flex-wrap: nowrap !important; gap: 8px !important; padding: 8px 2vw !important; }
   .hbrand { flex: 0 1 auto !important; min-width: 0 !important; }
@@ -348,76 +326,32 @@ main { position: relative; padding: 20px 5vw; max-width: 1300px; margin: auto; }
   .logoutbtn { height: 26px !important; font-size: 10px !important; padding: 0 8px !important; }
 
   .hdr { display: flex !important; flex-wrap: nowrap !important; gap: 4px !important; align-items: center !important; flex: 1 !important; }
+  .modes { display: contents !important; }
   
-  /* Estils base per a tots els botons del header a l'iPad */
+  /* Botons més petits a l'iPad */
   #mTrack, #mFree, #mApps, #mInfo {
     height: 32px !important;
-    padding: 0 8px !important;
-    background: linear-gradient(135deg, rgba(232,176,75,0.08), rgba(232,176,75,0.02)) !important;
-    border: 1.5px solid var(--line) !important;
-    color: var(--ink) !important;
-    border-radius: var(--rad) !important;
-    cursor: pointer !important;
-    font-weight: 700 !important;
     font-size: 11px !important;
-    display: inline-flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    gap: 7px !important;
-    transition: all .2s !important;
-    white-space: nowrap !important;
-    flex: 0 0 auto !important;
-    width: auto !important;
+    padding: 0 6px !important;
     min-width: auto !important;
   }
   
-  #mTrack:hover, #mFree:hover, #mApps:hover, #mInfo:hover {
-    border-color: var(--gold) !important;
-    background: linear-gradient(135deg, rgba(232,176,75,0.18), rgba(232,176,75,0.06)) !important;
-  }
-  
-  #mTrack.on, #mFree.on, #mApps.on, #mInfo.on {
-    border-color: var(--gold) !important;
-    color: var(--gold) !important;
-    background: linear-gradient(135deg, rgba(232,176,75,0.28), rgba(232,176,75,0.1)) !important;
-    box-shadow: 0 0 14px rgba(232,176,75,0.22), inset 0 1px 0 rgba(255,255,255,0.05) !important;
-  }
-  
-  /* EL TRUC: margin-left: auto empeny #mInfo i tot el que ve després a la dreta */
-  #mInfo { margin-left: auto !important; }
-  
-  #mHelp { 
-    flex: 0 0 auto !important; 
-    width: 32px !important; 
-    height: 32px !important; 
-    padding: 0 !important; 
-    justify-content: center !important;
-    background: linear-gradient(135deg, rgba(232,176,75,0.08), rgba(232,176,75,0.02)) !important;
-    border: 1.5px solid var(--line) !important;
-    border-radius: var(--rad) !important;
-    cursor: pointer !important;
-    display: flex !important;
-    align-items: center !important;
+  #mHelp {
+    height: 32px !important;
+    width: 32px !important;
+    padding: 0 !important;
   }
   #mHelp img { width: 22px !important; height: 22px !important; }
-  #mHelp.on {
-    border-color: var(--gold) !important;
-    background: linear-gradient(135deg, rgba(232,176,75,0.28), rgba(232,176,75,0.1)) !important;
-  }
   #mHelp.on img { width: 28px !important; height: 28px !important; }
   
-  #langToggle { 
-    flex: 0 0 auto !important; 
-    width: auto !important; 
-    height: 32px !important; 
-    font-size: 11px !important; 
-    padding: 0 8px !important; 
-    justify-content: center !important; 
-    white-space: nowrap !important; 
+  #langToggle {
+    height: 32px !important;
+    font-size: 11px !important;
+    padding: 0 6px !important;
   }
 }
 
-/* Altres ajustos de mòbil (zoom, modal, etc.) */
+/* Altres ajustos de mòbil */
 @media (max-width: 768px) {
   html { zoom: 1; }
   .wrap { width: 100dvw; height: 100dvh; }
@@ -450,47 +384,8 @@ main { position: relative; padding: 20px 5vw; max-width: 1300px; margin: auto; }
   #who { max-width: 65%; }
 }
 
-/* PC (> 1100px): Tots en una fila, "i" gran i neon */
+/* PC (> 1100px): "i" gran i neon */
 @media (min-width: 1101px) {
-  /* Estils base per a tots els botons del header al PC */
-  #mTrack, #mFree, #mApps, #mInfo {
-    height: var(--hbtn);
-    line-height: 1;
-    padding: 0 9px;
-    background: linear-gradient(135deg, rgba(232,176,75,0.08), rgba(232,176,75,0.02));
-    border: 1.5px solid var(--line);
-    color: var(--ink);
-    border-radius: var(--rad);
-    cursor: pointer;
-    font-weight: 700;
-    font-size: var(--fs-btn);
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 7px;
-    transition: all .2s;
-    text-shadow: 0 1px 2px rgba(0,0,0,0.3);
-    white-space: nowrap;
-    overflow: hidden;
-  }
-  
-  #mTrack:hover, #mFree:hover, #mApps:hover, #mInfo:hover {
-    border-color: var(--gold);
-    background: linear-gradient(135deg, rgba(232,176,75,0.18), rgba(232,176,75,0.06));
-  }
-  
-  #mTrack.on, #mFree.on, #mApps.on, #mInfo.on {
-    border-color: var(--gold);
-    color: var(--gold);
-    background: linear-gradient(135deg, rgba(232,176,75,0.28), rgba(232,176,75,0.1));
-    box-shadow: 0 0 14px rgba(232,176,75,0.22), inset 0 1px 0 rgba(255,255,255,0.05);
-  }
-  
-  #mTrack { min-width: 205px; font-weight: 800; letter-spacing: .3px; }
-  #mFree { min-width: 165px; }
-  #mApps { min-width: 82px; }
-  #mInfo { min-width: 52px; }
-  
   #mHelp {
     background: transparent !important;
     border: none !important;
@@ -540,15 +435,17 @@ main { position: relative; padding: 20px 5vw; max-width: 1300px; margin: auto; }
     </div>
   </div>
   <div class="hdr">
-  <button id="mTrack"> Seguiment Continuat</button>
-  <button id="mFree">📁 Navegació Lliure</button>
-  <button id="mApps"></button>
-  <button id="mInfo" title="Preguntes freqüents">FAQ</button>
-  <button id="mHelp" title="Com funciona / Cómo funciona"></button>
-  <button id="langToggle" class="langbtn" title="Canvia d'idioma / Cambiar de idioma">🌐 <span id="langCur">CAT</span></button>
-  <button id="mEdit" title="Mode edició">️</button>
-  <button id="mSave" title="Guardar">💾</button>
-</div>
+    <span class="modes">
+      <button id="mTrack">🎯 Seguiment Continuat</button>
+      <button id="mFree"> Navegació Lliure</button>
+      <button id="mApps"></button>
+      <button id="mInfo" title="Preguntes freqüents">FAQ</button>
+    </span>
+    <button id="mHelp" title="Com funciona / Cómo funciona"></button>
+    <button id="langToggle" class="langbtn" title="Canvia d'idioma / Cambiar de idioma">🌐 <span id="langCur">CAT</span></button>
+    <button id="mEdit" title="Mode edició">⚙️</button>
+    <button id="mSave" title="Guardar">💾</button>
+  </div>
 </header>
 
 <main>
@@ -632,11 +529,11 @@ function isSmartphone() {
 
 var BO = ['w', 't', 'g', 'r', 'a', 'p'];
 var BC = { t: '#e8b04b', g: '#39d98a', r: '#4cc9f0', a: '#8c52ff', p: '#ff2bd6' };
-var DI = { d: '📄', s: '🎼', a: '🎧' };
+var DI = { d: '📄', s: '🎼', a: '' };
 
 function $(id) { return document.getElementById(id); }
 
-/* ══════════ ICONES PERSONALITZADES GJPS ══════════ */
+/* ══════════ ICONES PERSONALITZADES GJPS ═════════ */
 const ICON_NOTE = '<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:5px;"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path><line x1="8" y1="7" x2="15" y2="7"></line><line x1="8" y1="11" x2="15" y2="11"></line></svg>';
 const ICON_PENCIL = '<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:5px;"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path></svg>';
 const ICON_TARGET = '<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:5px;"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2" fill="currentColor"></circle></svg>';
@@ -650,7 +547,8 @@ const ICON_QUESTION = '<svg viewBox="0 0 24 24" width="24" height="24" fill="non
 
 function t() { return UI[LS.lang]; }
 function li() { return LS.lang === 'ca' ? 0 : 1; }
-function esc(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }function showToast(msg, duration) {
+function esc(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
+function showToast(msg, duration) {
   duration = duration || 2500;
   var toast = $('toast');
   if (!toast) return;
@@ -791,9 +689,9 @@ var UI = {
     overlayText: 'Fes clic per reproduir',
     blocks: { w: 'Benvinguda', t: 'Tècnica', g: 'Teoria', r: 'Ritme', a: 'Auditiu', p: 'Pràctica', b: 'Repàs' },
     unit: 'Unitat', done: 'Fet ✔', mark: 'Marcar fet', doneCont: 'Fet ✔ i continuar', undo: '↺ Desfer',
-    bookmark: '🔖 Repassar', bookmarked: '🔖 Marcat', notes: '📝 Notes', notesTitle: 'Notes personals',
+    bookmark: '🔖 Repassar', bookmarked: '🔖 Marcat', notes: ' Notes', notesTitle: 'Notes personals',
     notesPh: 'Escriu una nota sobre aquest vídeo...', saveNote: 'Guardar nota', hello: 'Hola',
-    mFree: '📁 Navegació Lliure', mTrack: '🎯 Seguiment Continuat', mApps: ' Apps', total: 'TOTAL NIVELL',
+    mFree: '📁 Navegació Lliure', mTrack: ' Seguiment Continuat', mApps: ' Apps', total: 'TOTAL NIVELL',
     now: 'Ara et toca:', allDone: '🎉 Ho tens tot fet! Enhorabona!',
     giftTxt: 'Gaudeix del teu regal de graduació mentre prepares el Nivell 2:', giftTag: 'Regal de graduació',
     reviewTitle: '🔖 La teva llista de repàs', soon: 'Vídeo no disponible. Disculpa les molèsties.', adj: '📎 Adjunts', vidAdjBtn: '📎',
@@ -814,7 +712,7 @@ var UI = {
     overlayText: 'Haz clic para reproducir',
     blocks: { w: 'Bienvenida', t: 'Técnica', g: 'Teoría', r: 'Ritmo', a: 'Auditivo', p: 'Práctica', b: 'Repaso' },
     unit: 'Unidad', done: 'Hecho ✔', mark: 'Marcar hecho', doneCont: 'Hecho ✔ y continuar', undo: '↺ Deshacer',
-    bookmark: '🔖 Repasar', bookmarked: '🔖 Marcado', notes: '📝 Notas', notesTitle: 'Notas personales',
+    bookmark: '🔖 Repasar', bookmarked: ' Marcado', notes: '📝 Notas', notesTitle: 'Notas personales',
     notesPh: 'Escribe una nota sobre este vídeo...', saveNote: 'Guardar nota', hello: 'Hola',
     mFree: '📁 Navegación Libre', mTrack: '🎯 Seguimiento Continuo', mApps: ' Apps', total: 'TOTAL NIVEL',
     now: 'Ahora te toca:', allDone: '🎉 ¡Lo tienes todo hecho! ¡Enhorabuena!',
@@ -854,7 +752,7 @@ var HELP = [
   { ico: ICON_FOLDER, t: { ca: 'Navegació Lliure', es: 'Navegación Libre' }, p: { ca: 'Per explorar al teu aire: tria el nivell al desplegable i el bloc (Tècnica, Teoria, Ritme, Auditiu o Pràctica) per veure\'n tots els vídeos i materials.', es: 'Para explorar a tu aire: elige el nivel en el desplegable y el bloque (Técnica, Teoría, Ritmo, Auditivo o Práctica) para ver todos sus vídeos y materiales.' } },
   { ico: '⭐', t: { ca: 'Vídeos importants i opcionals', es: 'Vídeos importantes y opcionales' }, p: { ca: 'Cada vídeo porta una icona: ⭐ important (no te\'l saltis) o ⭕ opcional (pots deixar-lo per més endavant si tens pressa). Passa-hi el ratolí per sobre per veure\'n el significat.', es: 'Cada vídeo lleva un icono: ⭐ importante (no te lo saltes) o ⭕ opcional (puedes dejarlo para más adelante si tienes prisa). Pasa el ratón por encima para ver su significado.' } },
   { ico: '🔖', t: { ca: 'La teva llista de repàs', es: 'Tu lista de repaso' }, p: { ca: 'Amb el botó «Repassar» marques un vídeo per tenir-lo sempre a mà. Els trobaràs tots reunits a la llista de repàs, a sota de cada vista.', es: 'Con el botón «Repasar» marcas un vídeo para tenerlo siempre a mano. Los encontrarás todos reunidos en la lista de repaso, debajo de cada vista.' } },
-    { ico: ICON_NOTE, t: { ca: 'Notes personals i enviar-les al professor', es: 'Notas personales y enviarlas al profesor' }, p: { ca: 'Cada vídeo té un espai de notes personals per apuntar dubtes o observacions mentre estudies. Quan tinguis notes acumulades, apareixerà el botó «Enviar al professor» dins del panell: en clicar-lo, s\'obrirà automàticament el teu correu amb totes les notes pre-emplenades, llestes per enviar a gironajazz@gmail.com.', es: 'Cada vídeo tiene un espacio de notas personales para apuntar dudas u observaciones mientras estudias. Cuando tengas notas acumuladas, aparecerá el botón «Enviar al profesor» dentro del panel: al hacer clic, se abrirá automáticamente tu correo con todas las notas pre-rellenadas, listas para enviar a gironajazz@gmail.com.' } },
+  { ico: ICON_NOTE, t: { ca: 'Notes personals i enviar-les al professor', es: 'Notas personales y enviarlas al profesor' }, p: { ca: 'Cada vídeo té un espai de notes personals per apuntar dubtes o observacions mentre estudies. Quan tinguis notes acumulades, apareixerà el botó «Enviar al professor» dins del panell: en clicar-lo, s\'obrirà automàticament el teu correu amb totes les notes pre-emplenades, llestes per enviar a gironajazz@gmail.com.', es: 'Cada vídeo tiene un espacio de notas personales para apuntar dudas u observaciones mientras estudias. Cuando tengas notas acumuladas, aparecerá el botón «Enviar al profesor» dentro del panel: al hacer clic, se abrirá automáticamente tu correo con todas las notas pre-rellenadas, listas para enviar a gironajazz@gmail.com.' } },
   { ico: ICON_HEADPHONES, t: { ca: 'Aplicacions d\'entrenament', es: 'Aplicaciones de entrenamiento' }, p: { ca: 'A la pestanya Apps trobaràs laboratoris exclusius com TONAL EMOTIONS, per entrenar l\'oïda jugant.', es: 'En la pestaña Apps encontrarás laboratorios exclusivos como TONAL EMOTIONS, para entrenar el oído jugando.' } },
   { ico: ICON_GRADUATION, t: { ca: 'I en acabar el nivell…', es: 'Y al terminar el nivel…' }, p: { ca: 'Quan completis tots els vídeos del nivell rebràs un regal de graduació molt especial. Però això… millor descobreix-ho tu mateix! 😉', es: 'Cuando completes todos los vídeos del nivel recibirás un regalo de graduación muy especial. Pero eso… ¡mejor descúbrelo tú mismo! 😉' } },
   { ico: ICON_CHART, t: { ca: 'Els percentatges de progrés', es: 'Los porcentajes de progreso' }, p: { ca: 'Al Seguiment Continuat, els donuts de progrés només tenen en compte els vídeos importants (⭐): quan els completis tots, veuràs el 100% i rebràs el regal de graduació, encara que quedin vídeos opcionals (⭕) pendents. A la Navegació Lliure, en canvi, el percentatge de cada bloc reflecteix tot el material del bloc (importants i opcionals). I si passes el ratolí per sobre de qualsevol donut o botó de bloc, t\'explicarà exactament què està mesurant.', es: 'En el Seguimiento Continuo, los donuts de progreso solo tienen en cuenta los vídeos importantes (⭐): cuando los completes todos, verás el 100% y recibirás el regalo de graduación, aunque queden vídeos opcionales (⭕) pendientes. En la Navegación Libre, en cambio, el porcentaje de cada bloque refleja todo el material del bloque (importantes y opcionales). Y si pasas el ratón por encima de cualquier donut o botón de bloque, te explicará exactamente qué está midiendo.' } },
@@ -862,7 +760,8 @@ var HELP = [
 ];
 
 /* ================================================================
-   4. DADES EDITABLES PERSISTIDES (OV)   ================================================================ */
+   4. DADES EDITABLES PERSISTIDES (OV)
+   ================================================================ */
 var OV = /*OV-START*/{"t":{},"d":{},"l":{},"f":{},"a":{},"adj":{},"va":{},"order":[],"imp":{},"h":{},"c":{}};/*OV-END*/
 
 function faqGet(i, k) { var o = OV.f[i]; if (o && o[k] && o[k][LS.lang]) return esc(o[k][LS.lang]); return esc(FAQS[i][k][LS.lang]); }
@@ -872,7 +771,7 @@ function appDesc(a, i) { var o = OV.a && OV.a[i]; return (o && o.d && o.d[LS.lan
 function celTitle() {
   var o = OV.c && OV.c.title;
   if (o && o[LS.lang]) return o[LS.lang];
-  return LS.lang === 'ca' ? '🎓 FELICITATS! 🎓' : '🎓 ¡FELICIDADES! 🎓';
+  return LS.lang === 'ca' ? '🎓 FELICITATS! ' : '🎓 ¡FELICIDADES! 🎓';
 }
 function celGiftTxt() {
   var o = OV.c && OV.c.giftTxt;
@@ -988,7 +887,6 @@ function smartFreeLevel() {
     if (!LS.done[id]) {
       var v = findVidById(id);
       if (v) {
-        // Comprovar que el nivell estigui actiu (no en construcció ni pendent)
         var level = LEVELS[v.si];
         if (level && level.active) {
           freeLevel = v.si;
@@ -999,7 +897,6 @@ function smartFreeLevel() {
     }
   }
   
-  // Si no s'ha trobat cap nivell actiu amb vídeos pendents, anar al Nivell 1
   if (!found) {
     freeLevel = 1;
   }
@@ -1009,7 +906,7 @@ function smartFreeLevel() {
 function prog(l) { var d = 0; l.forEach(function (x) { if (LS.done[x.id]) d++; }); return { d: d, n: l.length, p: l.length ? Math.round(d / l.length * 100) : 0 }; }
 
 /* ================================================================
-   6. ADJUNTS (DEL BLOC I PER VÍDEO)
+   6. ADJUNTS
    ================================================================ */
 function docsOf(si, ui, b) { if (!D[si] || !D[si].u || !D[si].u[ui]) return []; var bl = D[si].u[ui][b]; return (bl && bl.d) ? bl.d : []; }
 function getAdjLink(si, ui, b, docIdx) { var key = si + '.' + ui + '.' + b + '.' + docIdx; return OV.adj && OV.adj[key] ? OV.adj[key] : null; }
@@ -1168,12 +1065,10 @@ function collectAll() {
   document.querySelectorAll('[data-ovaid]').forEach(function (el) {
     var i = el.dataset.ovaid, k = el.dataset.ovak, txt = el.innerText.trim();
     if (i === 'cel') {
-      // Textos de la celebració
       OV.c = OV.c || {};
       OV.c[k] = OV.c[k] || {};
       OV.c[k][LS.lang] = txt;
     } else {
-      // Textos de les apps (índex numèric)
       OV.a = OV.a || {};
       OV.a[i] = OV.a[i] || { n: {}, d: {} };
       OV.a[i][k] = OV.a[i][k] || {};
@@ -1307,7 +1202,7 @@ function makeVid(v, id, track, tag) {
   row.id = 'v_' + id;
   var orderNum = getVideoOrder(id);
   var importance = getVideoImportance(id);
-  var importanceIcon = importance === 'important' ? '⭐' : '⭕';
+  var importanceIcon = importance === 'important' ? '⭐' : '';
   var importanceTitle = importance === 'important' ? (LS.lang === 'ca' ? 'Vídeo important: no te\'l saltis' : 'Vídeo importante: no te lo saltes') : (LS.lang === 'ca' ? 'Vídeo opcional: pots saltar-lo si tens pressa' : 'Vídeo opcional: puedes saltarlo si tienes prisa');
   var numberHtml = '', importanceHtml = '';
   if (!isGiftId(id)) {
@@ -1327,7 +1222,7 @@ function makeVid(v, id, track, tag) {
   row.innerHTML = (tag ? '<div class="stagetag">' + tag + '</div>' : '') + numberHtml + importanceHtml +
     '<div style="position:relative" class="vr"><button class="play">▶</button><div class="vt" data-ovid="' + id + '" data-ovk="t">' + vidTitle(v, id) + '</div></div>' +
     '<div class="acts"><button class="ck' + (LS.done[id] ? ' done' : '') + '">' + (LS.done[id] ? t().undo : (track ? t().doneCont : t().mark)) + '</button><button class="bk' + (isBookmarked(id) ? ' bookmarked' : '') + '">' + (isBookmarked(id) ? t().bookmarked : t().bookmark) + '</button><button class="' + ntClass + '">' + ICON_NOTE + ' ' + t().notes.replace(/^\s*📝\s*/, '') + '</button></div>' +
-    '<div class="inl"><iframe allow="autoplay" src=""></iframe><div class="inlb"><button class="mx">⛶</button><button class="cl">✕</button></div></div>' +
+    '<div class="inl"><iframe allow="autoplay" src=""></iframe><div class="inlb"><button class="mx">⛶</button><button class="cl"></button></div></div>' +
     '<div class="vd" data-ovid="' + id + '" data-ovk="d">' + vidDesc(v, id, b) + '</div>' +
     '<div class="notes"><div class="ntitle">' + t().notesTitle + '</div><div class="nlist"></div><textarea placeholder="' + t().notesPh + '"></textarea><div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:8px;"><button class="save-note-btn" style="display:none;margin-top:0;">' + t().saveNote + '</button><button class="send-notes-btn" style="display:none;margin-top:0;padding:6px 12px;background:transparent;border:1px solid var(--gold);color:var(--gold);border-radius:6px;font-weight:700;cursor:pointer;font-size:12px;">' + ICON_MAIL + ' ' + (LS.lang === 'ca' ? 'Enviar al professor' : 'Enviar al profesor') + '</button></div></div>';
   row.querySelector('.play').onclick = function () { var src = driveSrc(v, id); if (!src) { showToast(t().soon); return; } openFullscreenVideo(src); };
@@ -1504,7 +1399,7 @@ function sendNotesByEmail(videoId) {
     ? 'Hola,\n\nEt faig arribar les notes personals que he anat apuntant al vídeo:\n\n' 
     : 'Hola,\n\nTe hago llegar las notas personales que he ido apuntando en el vídeo:\n\n');
   body += '📺 ' + title + '\n';
-  body += '👤 ' + LS.user + '\n';
+  body += ' ' + LS.user + '\n';
   body += '─────────────────────\n\n';
   notes.slice().reverse().forEach(function(n) {
     body += '📅 ' + fmtDate(n.t) + '\n';
@@ -1619,7 +1514,8 @@ function renderFree() {
       } else {
         var vidsInBlock = all.filter(function (x) { return x.b === b; });
         var p = vidsInBlock.length ? prog(vidsInBlock).p : 0;
-        btn.title = LS.lang === 'ca' ? 'Percentatge de tot el material d\'aquest bloc completat (importants i opcionals)' : 'Porcentaje de todo el material de este bloque completado (importantes y opcionales)';        var miniChart = '<svg width="22" height="22" viewBox="0 0 24 24" style="flex:none"><circle cx="12" cy="12" r="11" fill="#242a35"/>' + pieSlice(12, 12, 11, p, (p === 100 ? '#39d98a' : BC[b])) + '</svg>';
+        btn.title = LS.lang === 'ca' ? 'Percentatge de tot el material d\'aquest bloc completat (importants i opcionals)' : 'Porcentaje de todo el material de este bloque completado (importantes y opcionales)';
+        var miniChart = '<svg width="22" height="22" viewBox="0 0 24 24" style="flex:none"><circle cx="12" cy="12" r="11" fill="#242a35"/>' + pieSlice(12, 12, 11, p, (p === 100 ? '#39d98a' : BC[b])) + '</svg>';
         btn.innerHTML = '<span class="bname">' + t().blocks[b] + '</span><span class="bmini">' + (p < 100 ? miniChart + '<span class="bpct">' + p + '%</span>' : '<span class="bpct" style="color:#39d98a">✔ Fet</span>') + '</span>';
       }
       col.appendChild(btn);
@@ -1758,7 +1654,7 @@ function tonalStatsHtml() {
   var diffLbl = b.diff === 'hard' ? 'Difícil' : (ca ? 'Fàcil' : 'Fácil');
   var keyLbl = (KEYS[b.key] || 'C') + ' ' + (ca ? 'Major' : 'Mayor');
   var h = '<div style="margin:0 0 12px;padding:10px 12px;border:1px solid var(--gold);border-radius:10px;background:rgba(232,176,75,0.06);text-align:center;">';
-  h += '<div style="color:var(--gold);font-size:var(--fs-xs);letter-spacing:2px;font-weight:800;text-transform:uppercase;">' + (ca ? '🏆 Rècord personal' : '🏆 Récord personal') + '</div>';
+  h += '<div style="color:var(--gold);font-size:var(--fs-xs);letter-spacing:2px;font-weight:800;text-transform:uppercase;">' + (ca ? '🏆 Rècord personal' : ' Récord personal') + '</div>';
   h += '<div style="color:var(--ink);font-size:26px;font-weight:800;margin:4px 0 2px;">' + b.p + '%</div>';
   h += '<div style="color:var(--mut);font-size:var(--fs-xs);line-height:1.5;">TEST · ' + notesLbl + ' · ' + diffLbl + ' · ' + keyLbl + ' · ' + dateStr + '</div>';
   h += '<div style="color:var(--mut);font-size:var(--fs-xs);margin-top:4px;">' + (ca ? '🎯 ' + s.sessions + ' sessions · Últim: ' : '🎯 ' + s.sessions + ' sesiones · Último: ') + (s.last ? s.last.p + '%' : '—') + '</div>';
@@ -1779,7 +1675,6 @@ function renderApps() {
         : 'En el móvil, <b>TONAL EMOTIONS</b> funciona con <b>funcionalidades limitadas</b>: solo el modo <b>🎧 EAR TRAINING</b> está disponible (el LABORATORIO requiere pantalla grande). ¡Disfruta del entrenamiento auditivo desde cualquier lugar!') +
       '</p>';
     av.insertBefore(warn, av.firstChild);
-    // NO fem return: deixem que es renderitzi la targeta normalment
   }
   var g = document.createElement('div');
   g.className = 'appgrid';
@@ -1788,7 +1683,8 @@ function renderApps() {
     c.className = 'appcard';
     var iconHtml = (a.e === 'logo') ? '<img src="img/LOGO.png" alt="">' : esc(a.e);
     var statsHtml = (a.url && a.url.indexOf('TONAL') >= 0) ? tonalStatsHtml() : '';
-    c.innerHTML = '<div class="ae">' + iconHtml + '</div><h3 data-ovaid="' + i + '" data-ovak="n">' + appName(a, i) + '</h3><p data-ovaid="' + i + '" data-ovak="d">' + appDesc(a, i) + '</p>' + statsHtml + '<button>' + t().appsOpen + '</button>';    c.querySelector('button').onclick = function () { if (a.url) window.open(a.url, '_blank'); else alert(t().appsSoon); };
+    c.innerHTML = '<div class="ae">' + iconHtml + '</div><h3 data-ovaid="' + i + '" data-ovak="n">' + appName(a, i) + '</h3><p data-ovaid="' + i + '" data-ovak="d">' + appDesc(a, i) + '</p>' + statsHtml + '<button>' + t().appsOpen + '</button>';
+    c.querySelector('button').onclick = function () { if (a.url) window.open(a.url, '_blank'); else alert(t().appsSoon); };
     g.appendChild(c);
   });
   av.appendChild(g);
@@ -1888,7 +1784,7 @@ function showLogin() {
   faqBtn.id = 'lgFaqBtn';
   faqBtn.className = 'go secondary';
   faqBtn.style.cssText = 'margin-top:22px;position:relative;top:20px;background:transparent;border:1px solid var(--line);color:var(--mut);font-size:var(--fs-btn);width:100%;';
-  faqBtn.textContent = (LS.lang === 'ca' ? '📖 Preguntes Freqüents (FAQ)' : '📖 Preguntas Frecuentes (FAQ)');
+  faqBtn.textContent = (LS.lang === 'ca' ? ' Preguntes Freqüents (FAQ)' : '📖 Preguntas Frecuentes (FAQ)');
   faqBtn.onclick = function () { showGuestFAQ(); };
   $('loginLangSwitcher').parentNode.insertBefore(faqBtn, $('loginLangSwitcher'));
   $('lgName').placeholder = t().lgName;
@@ -1942,7 +1838,6 @@ $('btnUser').onclick = function () {
 };
 
 function setLabels() {
-  // 1. Guardem l'estat ANTES de reescriure el contingut
   var helpWasActive = $('mHelp').classList.contains('on');
   var infoWasActive = $('mInfo').classList.contains('on');
   
@@ -1957,7 +1852,6 @@ function setLabels() {
   $('overlayText').textContent = t().overlayText;
   $('langCur').textContent = (LS.lang === 'ca') ? 'CAT' : 'ESP';
   
-  // 2. Restaurar l'estat il·luminat DESPRÉS de reescriure
   if (helpWasActive) $('mHelp').classList.add('on');
   if (infoWasActive) $('mInfo').classList.add('on');
 }
@@ -2000,7 +1894,8 @@ function render() {
   else if (LS.mode === 'free') renderFree();
   else if (LS.mode === 'apps') renderApps();
   else if (LS.mode === 'info') renderInfo();
-  else if (LS.mode === 'help') renderHelp();  applyEditState();
+  else if (LS.mode === 'help') renderHelp();
+  applyEditState();
 }
 
 function setMode(m) {
@@ -2143,7 +2038,7 @@ try {
 } catch (e) {
   var f = document.getElementById('fatal');
   f.style.display = 'block';
-  f.textContent = '⚠️ Error init: ' + e.message;
+  f.textContent = '️ Error init: ' + e.message;
 }
 </script>
 
@@ -2158,60 +2053,27 @@ try {
   </div>
 </div>
 <script>
-  // 1. Detecció ROBUSTA d'escriptori (PC sense pantalla tàctil)
   const hasTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
   const isMobileUA = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
   const isDesktop = !isMobileUA && !hasTouch;
 
   if (isDesktop) {
     console.log('🖥️ Mode ESCRIPTORI detectat: Bloquejant instal·lació PWA.');
-    
-    // BLOQUEIG ACTIU: Si el navegador intenta mostrar el missatge, l'aturen a la força
     window.addEventListener('beforeinstallprompt', (e) => {
       e.preventDefault(); 
       return false;
     });
   } else {
     console.log('📱 Mode MÒBIL/TABLET detectat: Activant PWA.');
-    
-    // Afegir el manifest DINÀMICAMENT (el PC mai el veurà)
     const link = document.createElement('link');
     link.rel = 'manifest';
     link.href = './manifest.json';
     document.head.appendChild(link);
 
-    // Registrar el Service Worker només en mòbil/tablet
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('./sw.js').catch(err => console.log('SW error:', err));
     }
   }
 </script>
-// Solució per moure FAQ, "i" i Idioma a la dreta a l'iPad
-(function() {
-  function fixIpadNav() {
-    var mInfo = document.getElementById('mInfo');
-    var hdr = document.querySelector('.hdr');
-    
-    if (mInfo && hdr && window.innerWidth >= 768 && window.innerWidth <= 1100) {
-      // Si l'espaiador no existeix, el creem
-      if (!document.getElementById('ipad-spacer')) {
-        var spacer = document.createElement('div');
-        spacer.id = 'ipad-spacer';
-        spacer.style.cssText = 'flex: 1 1 auto; min-width: 20px;';
-        mInfo.parentNode.insertBefore(spacer, mInfo);
-      }
-    } else {
-      // Si no estem a l'iPad, eliminem l'espaiador
-      var spacer = document.getElementById('ipad-spacer');
-      if (spacer) spacer.remove();
-    }
-  }
-  
-  // Executar quan la pàgina carrega i quan es redimensiona
-  window.addEventListener('resize', fixIpadNav);
-  window.addEventListener('load', fixIpadNav);
-  setTimeout(fixIpadNav, 100);
-  setTimeout(fixIpadNav, 500); // Segona execució per assegurar
-})();
 </body>
 </html>
