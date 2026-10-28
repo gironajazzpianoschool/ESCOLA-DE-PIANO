@@ -2186,5 +2186,32 @@ try {
     }
   }
 </script>
+// Solució per moure FAQ, "i" i Idioma a la dreta a l'iPad
+(function() {
+  function fixIpadNav() {
+    var mInfo = document.getElementById('mInfo');
+    var hdr = document.querySelector('.hdr');
+    
+    if (mInfo && hdr && window.innerWidth >= 768 && window.innerWidth <= 1100) {
+      // Si l'espaiador no existeix, el creem
+      if (!document.getElementById('ipad-spacer')) {
+        var spacer = document.createElement('div');
+        spacer.id = 'ipad-spacer';
+        spacer.style.cssText = 'flex: 1 1 auto; min-width: 20px;';
+        mInfo.parentNode.insertBefore(spacer, mInfo);
+      }
+    } else {
+      // Si no estem a l'iPad, eliminem l'espaiador
+      var spacer = document.getElementById('ipad-spacer');
+      if (spacer) spacer.remove();
+    }
+  }
+  
+  // Executar quan la pàgina carrega i quan es redimensiona
+  window.addEventListener('resize', fixIpadNav);
+  window.addEventListener('load', fixIpadNav);
+  setTimeout(fixIpadNav, 100);
+  setTimeout(fixIpadNav, 500); // Segona execució per assegurar
+})();
 </body>
 </html>
