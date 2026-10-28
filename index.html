@@ -321,15 +321,22 @@ main { position: relative; padding: 20px 5vw; max-width: 1300px; margin: auto; }
   .blkcol { grid-template-columns: repeat(3, 1fr); }
   .hdr { display: flex; flex-wrap: nowrap; gap: 8px; width: 100%; align-items: center; }
   .modes { display: contents; }
+  
+  /* Esquerra: ocupen l'espai que necessiten */
   #mTrack { order: 1; flex: 1 1 auto; width: auto; height: 38px; font-size: 12px; font-weight: 800; white-space: nowrap; }
   #mFree { order: 2; flex: 1 1 auto; width: auto; height: 38px; font-size: 12px; white-space: nowrap; }
-  #mApps { order: 3; flex: 1 1 auto; width: auto; height: 38px; font-size: 12px; white-space: nowrap; }
-  #mInfo { order: 4; flex: 1 1 auto; width: auto; height: 38px; font-size: 12px; padding: 0 8px; white-space: nowrap; }
-  #mHelp { order: 5; flex: 1 1 auto; width: auto; height: 38px; padding: 0 8px; justify-content: center; background: transparent !important; border: none !important; box-shadow: none !important; cursor: pointer; display: flex; align-items: center; }
-  #langToggle { order: 6; flex: 1 1 auto; width: auto; height: 38px; font-size: 12px; padding: 0 8px; justify-content: center; white-space: nowrap; }
-  .bk { color: #ff2bd6 !important; }
-  .bk.bookmarked { color: #ff2bd6 !important; }
-}@media (max-width: 768px) {
+  
+  /* Dreta: margin-left: auto empeny tot aquest grup a la dreta */
+  #mApps { order: 3; flex: 0 0 auto; width: auto; height: 38px; font-size: 12px; white-space: nowrap; margin-left: auto; }
+  #mInfo { order: 4; flex: 0 0 auto; width: auto; height: 38px; font-size: 12px; padding: 0 8px; white-space: nowrap; }
+  #mHelp { order: 5; flex: 0 0 auto; width: auto; height: 38px; padding: 0 8px; justify-content: center; background: transparent !important; border: none !important; box-shadow: none !important; cursor: pointer; display: flex; align-items: center; }
+  #langToggle { order: 6; flex: 0 0 auto; width: auto; height: 38px; font-size: 12px; padding: 0 8px; justify-content: center; white-space: nowrap; }
+  
+  /* Forçar color de la icona de repàs (taronja/rosa) */
+  .bk { color: #ff2bd6 !important; fill: #ff2bd6 !important; }
+  .bk.bookmarked { color: #ff2bd6 !important; fill: #ff2bd6 !important; }
+}
+@media (max-width: 768px) {
   html { zoom: 1; }
   .wrap { width: 100dvw; height: 100dvh; }
   .blkcol { grid-template-columns: repeat(2, 1fr); }
