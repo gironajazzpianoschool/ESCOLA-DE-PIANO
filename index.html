@@ -348,68 +348,46 @@ main { position: relative; padding: 20px 5vw; max-width: 1300px; margin: auto; }
   .userblock { width: 100%; justify-content: space-between; }
   #who { max-width: 65%; }
 }
-/* Botó d'ajuda: icona neon circular, sense fons rectangular */
-#mHelp {
-  background: transparent !important;
-  border: none !important;
-  box-shadow: none !important;
-  outline: none !important;
-  padding: 0 !important;
-  margin: 0 2px !important;
-  min-width: auto !important;
-  min-height: auto !important;
-  width: auto !important;
-  height: auto !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  cursor: pointer;
-  transition: transform 0.2s;
-  flex-shrink: 0;
-  position: relative;
-  z-index: 2;
-}
-#mHelp:hover {
-  transform: scale(1.1);
-}
-#mHelp img {
-  width: 64px !important;
-  height: 64px !important;
-  object-fit: contain;
-  display: block;
-  border-radius: 50% !important; /* Retalla el fons negre rectangular → només es veu el cercle */
-}
-
-/* Botó d'ajuda: icona neon circular, sense fons rectangular */
-#mHelp {
-  background: transparent !important;
-  border: none !important;
-  box-shadow: none !important;
-  outline: none !important;
-  padding: 0 !important;
-  margin: 0 2px !important;
-  min-width: auto !important;
-  min-height: auto !important;
-  width: auto !important;
-  height: auto !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  cursor: pointer;
-  transition: transform 0.2s;
-  flex-shrink: 0;
-  position: relative;
-  z-index: 2;
-}
-#mHelp:hover {
-  transform: scale(1.1);
-}
-#mHelp img {
-  width: 72px !important;
-  height: 72px !important;
-  object-fit: contain;
-  display: block;
-  border-radius: 50% !important;
+/* Estils de la "i" neon: NOMÉS per a PC (pantalles > 900px) */
+@media (min-width: 901px) {
+  #mHelp {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    outline: none !important;
+    padding: 0 !important;
+    margin: 0 -16px !important;
+    width: 72px !important;
+    height: 72px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    cursor: pointer;
+    position: relative;
+    z-index: 1;
+    border-radius: 50% !important;
+    overflow: hidden !important;
+  }
+  #mHelp:hover {
+    transform: scale(1.1);
+  }
+  #mHelp img {
+    width: 72px !important;
+    height: 72px !important;
+    object-fit: cover;
+    display: block;
+    border-radius: 50% !important;
+  }
+  /* FAQ sempre per sobre de la "i" */
+  #mInfo {
+    position: relative !important;
+    z-index: 3 !important;
+  }
+  /* CAT també per sobre per si de cas */
+  #langToggle {
+    position: relative !important;
+    z-index: 3 !important;
+  }
 }
 </style>
 </head>
