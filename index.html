@@ -419,6 +419,29 @@ main { position: relative; padding: 20px 5vw; max-width: 1300px; margin: auto; }
   #mInfo { position: relative !important; z-index: 3 !important; }
   #langToggle { position: relative !important; z-index: 3 !important; }
 }
+/* FIX PC: Assegurar que els botons es vegin bé */
+.modes button {
+  height: 42px; line-height: 1; padding: 0 9px; 
+  background: linear-gradient(135deg, rgba(232,176,75,0.08), rgba(232,176,75,0.02)); 
+  border: 1.5px solid #2a2f3a; color: #f2f2f2; border-radius: 10px; 
+  cursor: pointer; font-weight: 700; font-size: 13px; 
+  display: inline-flex; align-items: center; justify-content: center; gap: 7px; 
+  transition: all .2s; white-space: nowrap;
+}
+.modes button.on, .modes button:hover { 
+  border-color: #e8b04b; color: #e8b04b; 
+  background: linear-gradient(135deg, rgba(232,176,75,0.28), rgba(232,176,75,0.1)); 
+}
+
+/* FIX MÒBIL: Botó "i" il·luminat */
+@media (max-width: 767px) {
+  #mHelp.on {
+    background: linear-gradient(135deg, rgba(232,176,75,0.28), rgba(232,176,75,0.1)) !important;
+    border: 1.5px solid #e8b04b !important;
+    color: #e8b04b !important;
+    box-shadow: 0 0 14px rgba(232,176,75,0.22) !important;
+  }
+}
 </style>
 </head>
 <body>
@@ -2074,6 +2097,38 @@ try {
       navigator.serviceWorker.register('./sw.js').catch(err => console.log('SW error:', err));
     }
   }
+</script>
+<script>
+function forcarLayoutIpad() {
+  // Només executar si estem a mida iPad
+  if (window.innerWidth >= 768 && window.innerWidth <= 1100) {
+    var mInfo = document.getElementById('mInfo');
+    var mHelp = document.getElementById('mHelp');
+    var lang = document.getElementById('langToggle');
+    var hdr = document.querySelector('.hdr');
+    
+    if (mInfo && mHelp && lang && hdr) {
+      // 1. Moure els elements al final del contenidor .hdr
+      hdr.appendChild(mInfo);
+      hdr.appendChild(mHelp);
+      hdr.appendChild(lang);
+      
+      // 2. Forçar estils en línia (prioritat màxima)
+      mInfo.style.marginLeft = 'auto';
+      mInfo.style.order = '10';
+      mHelp.style.order = '11';
+      lang.style.order = '12';
+      
+      // 3. Assegurar que el contenidor no trenqui línia
+      hdr.style.flexWrap = 'nowrap';
+      hdr.style.display = 'flex';
+    }
+  }
+}
+// Executar en carregar i en redimensionar
+window.addEventListener('load', forcarLayoutIpad);
+window.addEventListener('resize', forcarLayoutIpad);
+setTimeout(forcarLayoutIpad, 500);
 </script>
 </body>
 </html>
