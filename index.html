@@ -314,6 +314,13 @@ main { position: relative; padding: 20px 5vw; max-width: 1300px; margin: auto; }
   #mInfo { order: 4; flex: 1 1 33%; width: auto; height: 38px; font-size: 12px; }
   #mHelp { order: 5; flex: 1 1 50%; width: auto; height: 38px; font-size: 12px; padding: 0 8px; justify-content: center; }
   #langToggle { order: 6; flex: 1 1 50%; width: auto; height: 38px; font-size: 12px; padding: 0 8px; justify-content: center; }
+  #mHelp.on {
+  background: rgba(232,176,75,0.15) !important;
+  border: 1.5px solid var(--gold) !important;
+}
+#mHelp.on img {
+  filter: drop-shadow(0 0 4px rgba(232,176,75,0.6));
+}
   
   /* SOLUCIÓ BUG MÒBIL: Forçar l'estil daurat quan està actiu, guanyant al 'transparent' */
   #mHelp.on, #mInfo.on {
@@ -324,74 +331,33 @@ main { position: relative; padding: 20px 5vw; max-width: 1300px; margin: auto; }
   }
 }
 
-/* IPAD / TABLET (768px - 1100px): TOTS en una sola línia, amb separació */
+/* IPAD / TABLET (768px - 1100px) */
 @media (min-width: 768px) and (max-width: 1100px) {
-  /* 1. Obligar el header a no saltar de línia */
-  header { 
-    flex-wrap: nowrap !important; 
-    gap: 8px !important; 
-    padding: 8px 2vw !important; 
-  }
-  
-  /* 2. Encongir el títol per fer espai */
+  header { flex-wrap: nowrap !important; gap: 8px !important; padding: 8px 2vw !important; }
   .hbrand { flex: 0 1 auto !important; min-width: 0 !important; }
   .hbrand h1 { font-size: 14px !important; letter-spacing: 0.5px !important; line-height: 1.1 !important; white-space: nowrap !important; }
   .userblock { gap: 4px !important; }
   #who { display: none !important; }
   .logoutbtn { height: 26px !important; font-size: 10px !important; padding: 0 8px !important; }
 
-  /* 3. La barra de botons: ocupa TOT l'ample disponible */
-  .hdr { 
-    display: flex !important; 
-    flex-wrap: nowrap !important; 
-    gap: 4px !important; 
-    align-items: center !important; 
-    flex: 1 1 auto !important;
-    width: 100% !important; /* CLAU: ocupa tot l'ample */
-  }
-  .modes { display: flex !important; gap: 4px !important; flex: 0 0 auto !important; }
+  .hdr { display: flex !important; flex-wrap: nowrap !important; gap: 4px !important; align-items: center !important; flex: 1 !important; }
   
-  /* Botons d'esquerra (compactes) */
-  #mTrack, #mFree, #mApps { 
-    flex: 0 0 auto !important; width: auto !important; height: 32px !important; font-size: 11px !important; 
-    white-space: nowrap !important; padding: 0 6px !important; min-width: 0 !important; 
-  }
+  /* EL TRUC CLAU: Eliminem l'embolcall del span perquè els botons siguin fills directes de .hdr */
+  .modes { display: contents !important; }
   
-  /* CLAU: Un espaiador invisible que empeny FAQ, "i" i Idioma a la dreta */
-  .hdr::after {
-    content: '' !important;
-    flex: 1 1 auto !important;
-    min-width: 20px !important;
-  }
+  /* Botons d'esquerra */
+  #mTrack, #mFree, #mApps { flex: 0 0 auto !important; width: auto !important; height: 32px !important; font-size: 11px !important; white-space: nowrap !important; padding: 0 6px !important; }
   
-  /* Botons de dreta */
-  #mInfo { 
-    flex: 0 0 auto !important; width: auto !important; height: 32px !important; font-size: 11px !important; 
-    padding: 0 8px !important; white-space: nowrap !important; min-width: 0 !important; 
-  }
-  #mHelp { 
-    flex: 0 0 auto !important; width: 32px !important; height: 32px !important; padding: 0 !important; 
-    justify-content: center !important; background: transparent !important; border: 1px solid var(--line) !important; 
-    border-radius: 8px !important; cursor: pointer !important; display: flex !important; align-items: center !important; 
-  }
-  #mHelp img { width: 22px !important; height: 22px !important; transition: all 0.2s ease; }
+  /* AIXÒ empeny #mInfo, #mHelp i #langToggle a la dreta del tot */
+  #mInfo { margin-left: auto !important; flex: 0 0 auto !important; width: auto !important; height: 32px !important; font-size: 11px !important; padding: 0 8px !important; white-space: nowrap !important; }
   
-  #mHelp.on { 
-    background: rgba(232,176,75,0.15) !important; 
-    border-color: var(--gold) !important; 
-  }
+  #mHelp { flex: 0 0 auto !important; width: 32px !important; height: 32px !important; padding: 0 !important; justify-content: center !important; background: transparent !important; border: 1px solid var(--line) !important; border-radius: 8px !important; cursor: pointer !important; display: flex !important; align-items: center !important; }
+  #mHelp img { width: 22px !important; height: 22px !important; }
+  #mHelp.on { background: rgba(232,176,75,0.15) !important; border-color: var(--gold) !important; }
   #mHelp.on img { width: 28px !important; height: 28px !important; }
   
-  #langToggle { 
-    flex: 0 0 auto !important; width: auto !important; height: 32px !important; font-size: 11px !important; 
-    padding: 0 8px !important; justify-content: center !important; white-space: nowrap !important; 
-  }
-  
-  #mInfo.on {
-    border-color: var(--gold) !important;
-    color: var(--gold) !important;
-    background: linear-gradient(135deg, rgba(232,176,75,0.28), rgba(232,176,75,0.1)) !important;
-  }
+  #langToggle { flex: 0 0 auto !important; width: auto !important; height: 32px !important; font-size: 11px !important; padding: 0 8px !important; justify-content: center !important; white-space: nowrap !important; }
+  #mInfo.on { border-color: var(--gold) !important; color: var(--gold) !important; background: linear-gradient(135deg, rgba(232,176,75,0.28), rgba(232,176,75,0.1)) !important; }
 }
 
 /* Altres ajustos de mòbil (zoom, modal, etc.) */
