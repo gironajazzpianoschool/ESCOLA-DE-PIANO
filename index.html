@@ -301,7 +301,8 @@ main { position: relative; padding: 20px 5vw; max-width: 1300px; margin: auto; }
 /* ============================================================
    11. RESPONSIVE
    ============================================================ */
-/* SMARTPHONE (< 768px): Files separades */
+
+/* SMARTPHONE (< 768px): Files separades (exactament com ho tenies abans) */
 @media (max-width: 767px) {
   .donuts { grid-template-columns: repeat(3, 1fr); }
   .blkcol { grid-template-columns: repeat(3, 1fr); }
@@ -315,30 +316,46 @@ main { position: relative; padding: 20px 5vw; max-width: 1300px; margin: auto; }
   #langToggle { order: 6; flex: 1 1 50%; width: auto; height: 38px; font-size: 12px; padding: 0 8px; justify-content: center; }
 }
 
-/* IPAD (768px - 900px): Tots en una fila, "i" petita */
+/* IPAD (768px - 900px): TOTS els botons a la mateixa fila que el Logout, compactes */
 @media (min-width: 768px) and (max-width: 900px) {
-  .donuts { grid-template-columns: repeat(3, 1fr); }
-  .blkcol { grid-template-columns: repeat(3, 1fr); }
-  
+  /* Forçar que la capçalera no es trenqui en dues línies */
+  header { flex-wrap: nowrap !important; gap: 8px !important; padding: 10px 4vw !important; }
+  .hbrand { flex: 0 0 auto !important; }
+  .hbrand h1 { font-size: 15px !important; letter-spacing: 0.5px !important; }
+  .userblock { gap: 6px !important; }
+  #who { max-width: 100px !important; font-size: 11px !important; }
+  .logoutbtn { height: 24px !important; font-size: 10px !important; padding: 0 8px !important; }
+
   .hdr { 
-    display: flex; 
-    flex-wrap: nowrap; 
-    gap: 8px; 
-    width: 100%; 
-    align-items: center; 
+    display: flex !important; 
+    flex-wrap: nowrap !important; 
+    gap: 4px !important; 
+    width: auto !important; 
+    align-items: center !important; 
+    flex: 1 1 auto !important;
+    justify-content: flex-end !important; /* Alinea tot a la dreta */
   }
-  .modes { display: contents; }
+  .modes { display: contents !important; }
   
-  /* ESQUERRA: No s'estiren, ocupen el seu espai natural */
-  #mTrack { order: 1; flex: 0 0 auto; width: auto; height: 38px; font-size: 12px; font-weight: 800; white-space: nowrap; }
-  #mFree { order: 2; flex: 0 0 auto; width: auto; height: 38px; font-size: 12px; white-space: nowrap; }
+  /* Botons compactes perquè càpiguen a la mateixa fila */
+  #mTrack { order: 1; flex: 0 0 auto !important; width: auto !important; height: 32px !important; font-size: 11px !important; font-weight: 800 !important; white-space: nowrap !important; padding: 0 6px !important; min-width: auto !important; }
+  #mFree { order: 2; flex: 0 0 auto !important; width: auto !important; height: 32px !important; font-size: 11px !important; white-space: nowrap !important; padding: 0 6px !important; min-width: auto !important; }
+  #mApps { order: 3; flex: 0 0 auto !important; width: auto !important; height: 32px !important; font-size: 11px !important; white-space: nowrap !important; padding: 0 6px !important; min-width: auto !important; }
   
-  /* DRETA: margin-left: auto empeny tot aquest grup a la dreta */
-  #mApps { order: 3; flex: 0 0 auto; width: auto; height: 38px; font-size: 12px; white-space: nowrap; margin-left: auto; }
-  #mInfo { order: 4; flex: 0 0 auto; width: auto; height: 38px; font-size: 12px; padding: 0 8px; white-space: nowrap; }
-  #mHelp { order: 5; flex: 0 0 auto; width: auto; height: 38px; padding: 0 8px; justify-content: center; background: transparent !important; border: none !important; box-shadow: none !important; cursor: pointer; display: flex; align-items: center; }
-  #langToggle { order: 6; flex: 0 0 auto; width: auto; height: 38px; font-size: 12px; padding: 0 8px; justify-content: center; white-space: nowrap; }
+  /* DRETA: margin-left: auto empeny FAQ, "i" i Idioma cap a la dreta del tot */
+  #mInfo { order: 4; flex: 0 0 auto !important; width: auto !important; height: 32px !important; font-size: 11px !important; padding: 0 6px !important; white-space: nowrap !important; margin-left: auto !important; min-width: auto !important; }
+  #mHelp { order: 5; flex: 0 0 auto !important; width: auto !important; height: 32px !important; padding: 0 4px !important; justify-content: center !important; background: transparent !important; border: none !important; box-shadow: none !important; cursor: pointer !important; display: flex !important; align-items: center !important; }
+  #langToggle { order: 6; flex: 0 0 auto !important; width: auto !important; height: 32px !important; font-size: 11px !important; padding: 0 6px !important; justify-content: center !important; white-space: nowrap !important; }
+  
+  /* "i" una mica més gran quan està activa (il·luminada) a l'iPad */
+  #mHelp.on img {
+    width: 40px !important;
+    height: 40px !important;
+    transition: width 0.2s, height 0.2s;
+  }
 }
+
+/* Altres ajustos de mòbil (zoom, modal, etc.) */
 @media (max-width: 768px) {
   html { zoom: 1; }
   .wrap { width: 100dvw; height: 100dvh; }
@@ -350,16 +367,11 @@ main { position: relative; padding: 20px 5vw; max-width: 1300px; margin: auto; }
   .faq-item h3 { font-size: 15px; }
   .vidadjpills { flex-direction: column; }
   .vidadjpills a { width: 100%; justify-content: center; }
-  
-  /* En mòbil, la creu està amagada per defecte (Android tanca amb el botó enrere) */
   .modal.on .close { display: none !important; }
-  
-  /* A iOS la creu és invisible (l'usuari fa servir la icona nativa de Google, però això tapa l'enllaç extern) */
   .modal.on.ios-device .close {
     display: flex !important; opacity: 0 !important; pointer-events: auto !important;
     background: transparent !important; border: none !important; box-shadow: none !important;
   }
-  
   @media (orientation: portrait) {
     .modal.on .wrap { width: 100vh !important; height: 100vw !important; transform: rotate(90deg); transform-origin: top left; position: fixed; top: 0; left: 100vw; }
     .modal.on .close { top: 14px !important; right: 14px !important; }
@@ -368,13 +380,14 @@ main { position: relative; padding: 20px 5vw; max-width: 1300px; margin: auto; }
     .frame iframe { width: 100dvw !important; height: 100dvh !important; object-fit: cover; }
   }
 }
+
 @media (max-width: 480px) {
   .blkcol { grid-template-columns: 1fr; }
   .donuts { grid-template-columns: repeat(2, 1fr); }
   .userblock { width: 100%; justify-content: space-between; }
   #who { max-width: 65%; }
 }
-/* Estils de la "i" neon: NOMÉS per a PC (pantalles > 900px) */
+
 /* PC (> 900px): Tots en una fila, "i" gran */
 @media (min-width: 901px) {
   #mHelp {
@@ -395,9 +408,7 @@ main { position: relative; padding: 20px 5vw; max-width: 1300px; margin: auto; }
     border-radius: 50% !important;
     overflow: hidden !important;
   }
-  #mHelp:hover {
-    transform: scale(1.1);
-  }
+  #mHelp:hover { transform: scale(1.1); }
   #mHelp img {
     width: 72px !important;
     height: 72px !important;
@@ -405,14 +416,8 @@ main { position: relative; padding: 20px 5vw; max-width: 1300px; margin: auto; }
     display: block;
     border-radius: 50% !important;
   }
-  #mInfo {
-    position: relative !important;
-    z-index: 3 !important;
-  }
-  #langToggle {
-    position: relative !important;
-    z-index: 3 !important;
-  }
+  #mInfo { position: relative !important; z-index: 3 !important; }
+  #langToggle { position: relative !important; z-index: 3 !important; }
 }
 </style>
 </head>
@@ -1834,7 +1839,7 @@ $('btnUser').onclick = function () {
 };
 
 function setLabels() {
-  // Guardar l'estat del botó d'ajuda abans de reescriure'l
+  // 1. Guardem si el botó d'ajuda estava actiu abans de reescriure'l
   var helpWasActive = $('mHelp').classList.contains('on');
   
   $('mTrack').innerHTML = ICON_TARGET + ' ' + t().mTrack.replace(/^\s*🎯\s*/, '');
@@ -1848,7 +1853,7 @@ function setLabels() {
   $('overlayText').textContent = t().overlayText;
   $('langCur').textContent = (LS.lang === 'ca') ? 'CAT' : 'ESP';
   
-  // Restaurar l'estat il·luminat del botó d'ajuda
+  // 2. Restaurar l'estat il·luminat del botó d'ajuda
   if (helpWasActive) $('mHelp').classList.add('on');
 }
 
