@@ -302,7 +302,7 @@ main { position: relative; padding: 20px 5vw; max-width: 1300px; margin: auto; }
    11. RESPONSIVE
    ============================================================ */
 
-/* SMARTPHONE (< 768px): Files separades (exactament com ho tenies abans) */
+/* SMARTPHONE (< 768px): Files separades */
 @media (max-width: 767px) {
   .donuts { grid-template-columns: repeat(3, 1fr); }
   .blkcol { grid-template-columns: repeat(3, 1fr); }
@@ -315,60 +315,71 @@ main { position: relative; padding: 20px 5vw; max-width: 1300px; margin: auto; }
   #mHelp { order: 5; flex: 1 1 50%; width: auto; height: 38px; font-size: 12px; padding: 0 8px; justify-content: center; }
   #langToggle { order: 6; flex: 1 1 50%; width: auto; height: 38px; font-size: 12px; padding: 0 8px; justify-content: center; }
   
-  /* Estil actiu per a Mòbil: que es vegi clarament seleccionat */
-  #mInfo.on, #mHelp.on {
-    border-color: var(--gold) !important;
-    color: var(--gold) !important;
+  /* SOLUCIÓ BUG MÒBIL: Forçar l'estil daurat quan està actiu, guanyant al 'transparent' */
+  #mHelp.on, #mInfo.on {
     background: linear-gradient(135deg, rgba(232,176,75,0.28), rgba(232,176,75,0.1)) !important;
+    border: 1.5px solid var(--gold) !important;
+    color: var(--gold) !important;
     box-shadow: 0 0 14px rgba(232,176,75,0.22), inset 0 1px 0 rgba(255,255,255,0.05) !important;
   }
 }
 
-/* IPAD / TABLET (768px - 1024px): TOTS en una sola fila, sense trencar */
-@media (min-width: 768px) and (max-width: 1024px) {
-  /* Forçar una sola línia a la capçalera */
-  header { flex-wrap: nowrap !important; gap: 8px !important; padding: 10px 3vw !important; }
-  .hbrand { flex: 0 0 auto !important; }
-  .hbrand h1 { font-size: 15px !important; letter-spacing: 0.5px !important; line-height: 1.2 !important; }
-  .userblock { gap: 6px !important; }
-  #who { max-width: 90px !important; font-size: 11px !important; }
+/* IPAD / TABLET (768px - 1100px): TOTS en una sola línia, sense trencar */
+@media (min-width: 768px) and (max-width: 1100px) {
+  /* 1. Obligar el header a no saltar de línia MAI */
+  header { 
+    flex-wrap: nowrap !important; 
+    gap: 8px !important; 
+    padding: 8px 2vw !important; 
+    justify-content: space-between !important;
+  }
+  
+  /* 2. Encongir el títol i el bloc d'usuari per fer espai */
+  .hbrand { flex: 0 1 auto !important; min-width: 0 !important; }
+  .hbrand h1 { font-size: 13px !important; letter-spacing: 0.5px !important; line-height: 1.1 !important; white-space: nowrap !important; }
+  .userblock { gap: 4px !important; }
+  #who { display: none !important; } /* Amaguem el nom a l'iPad per guanyar espai, el Logout es queda */
   .logoutbtn { height: 26px !important; font-size: 10px !important; padding: 0 8px !important; }
 
+  /* 3. La barra de botons: no es trenca i empeny tot a la dreta */
   .hdr { 
     display: flex !important; 
     flex-wrap: nowrap !important; 
     gap: 4px !important; 
     align-items: center !important; 
     flex: 1 1 auto !important;
-    justify-content: flex-end !important; /* Alinea tot a la dreta */
+    justify-content: flex-end !important; 
   }
   .modes { display: flex !important; gap: 4px !important; }
   
-  /* Botons d'esquerra (compactes) */
+  /* Botons d'esquerra (molt compactes) */
   #mTrack, #mFree, #mApps { 
-    flex: 0 0 auto !important; width: auto !important; height: 34px !important; font-size: 11px !important; 
-    white-space: nowrap !important; padding: 0 8px !important; min-width: auto !important; 
+    flex: 0 0 auto !important; width: auto !important; height: 32px !important; font-size: 10px !important; 
+    white-space: nowrap !important; padding: 0 5px !important; min-width: 0 !important; 
   }
   
-  /* Botons de dreta (margin-left: auto els empeny a la dreta del tot) */
+  /* Botons de dreta: margin-left: auto els separa dels de l'esquerra i els pega a la dreta */
   #mInfo { 
-    flex: 0 0 auto !important; width: auto !important; height: 34px !important; font-size: 11px !important; 
-    padding: 0 8px !important; white-space: nowrap !important; margin-left: 12px !important; min-width: auto !important; 
+    flex: 0 0 auto !important; width: auto !important; height: 32px !important; font-size: 10px !important; 
+    padding: 0 6px !important; white-space: nowrap !important; margin-left: 12px !important; min-width: 0 !important; 
   }
   #mHelp { 
-    flex: 0 0 auto !important; width: 34px !important; height: 34px !important; padding: 0 !important; 
-    justify-content: center !important; background: transparent !important; border: none !important; 
-    box-shadow: none !important; cursor: pointer !important; display: flex !important; align-items: center !important; 
+    flex: 0 0 auto !important; width: 32px !important; height: 32px !important; padding: 0 !important; 
+    justify-content: center !important; background: transparent !important; border: 1px solid var(--line) !important; 
+    border-radius: 8px !important; cursor: pointer !important; display: flex !important; align-items: center !important; 
   }
-  #mHelp img { width: 28px !important; height: 28px !important; transition: all 0.2s ease; }
+  #mHelp img { width: 22px !important; height: 22px !important; transition: all 0.2s ease; }
   
-  /* Quan està actiu a l'iPad, la "i" es fa més gran i agafa un fons subtil daurat */
-  #mHelp.on { background: rgba(232,176,75,0.15) !important; border-radius: 50% !important; }
-  #mHelp.on img { width: 38px !important; height: 38px !important; }
+  /* Quan està actiu a l'iPad, la "i" agafa un fons daurat i la icona creix una mica */
+  #mHelp.on { 
+    background: rgba(232,176,75,0.15) !important; 
+    border-color: var(--gold) !important; 
+  }
+  #mHelp.on img { width: 28px !important; height: 28px !important; }
   
   #langToggle { 
-    flex: 0 0 auto !important; width: auto !important; height: 34px !important; font-size: 11px !important; 
-    padding: 0 8px !important; justify-content: center !important; white-space: nowrap !important; 
+    flex: 0 0 auto !important; width: auto !important; height: 32px !important; font-size: 10px !important; 
+    padding: 0 6px !important; justify-content: center !important; white-space: nowrap !important; 
   }
   
   /* Estil actiu per a FAQ a Tablet */
@@ -412,8 +423,8 @@ main { position: relative; padding: 20px 5vw; max-width: 1300px; margin: auto; }
   #who { max-width: 65%; }
 }
 
-/* PC (> 1024px): Tots en una fila, "i" gran i neon */
-@media (min-width: 1025px) {
+/* PC (> 1100px): Tots en una fila, "i" gran i neon */
+@media (min-width: 1101px) {
   #mHelp {
     background: transparent !important;
     border: none !important;
@@ -1863,7 +1874,7 @@ $('btnUser').onclick = function () {
 };
 
 function setLabels() {
-  // 1. Guardem si el botó d'ajuda estava actiu abans de reescriure'l
+  // 1. Guardem l'estat ANTES de reescriure el contingut
   var helpWasActive = $('mHelp').classList.contains('on');
   var infoWasActive = $('mInfo').classList.contains('on');
   
@@ -1878,10 +1889,11 @@ function setLabels() {
   $('overlayText').textContent = t().overlayText;
   $('langCur').textContent = (LS.lang === 'ca') ? 'CAT' : 'ESP';
   
-  // 2. Restaurar l'estat il·luminat dels botons
+  // 2. Restaurar l'estat il·luminat DESPRÉS de reescriure
   if (helpWasActive) $('mHelp').classList.add('on');
   if (infoWasActive) $('mInfo').classList.add('on');
 }
+
 function render() {
   $('modal').classList.remove('on');
   $('player').src = '';
