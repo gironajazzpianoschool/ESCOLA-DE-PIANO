@@ -314,44 +314,68 @@ main { position: relative; padding: 20px 5vw; max-width: 1300px; margin: auto; }
   #mInfo { order: 4; flex: 1 1 33%; width: auto; height: 38px; font-size: 12px; }
   #mHelp { order: 5; flex: 1 1 50%; width: auto; height: 38px; font-size: 12px; padding: 0 8px; justify-content: center; }
   #langToggle { order: 6; flex: 1 1 50%; width: auto; height: 38px; font-size: 12px; padding: 0 8px; justify-content: center; }
+  
+  /* Estil actiu per a Mòbil: que es vegi clarament seleccionat */
+  #mInfo.on, #mHelp.on {
+    border-color: var(--gold) !important;
+    color: var(--gold) !important;
+    background: linear-gradient(135deg, rgba(232,176,75,0.28), rgba(232,176,75,0.1)) !important;
+    box-shadow: 0 0 14px rgba(232,176,75,0.22), inset 0 1px 0 rgba(255,255,255,0.05) !important;
+  }
 }
 
-/* IPAD (768px - 900px): TOTS els botons a la mateixa fila que el Logout, compactes */
-@media (min-width: 768px) and (max-width: 900px) {
-  /* Forçar que la capçalera no es trenqui en dues línies */
-  header { flex-wrap: nowrap !important; gap: 8px !important; padding: 10px 4vw !important; }
+/* IPAD / TABLET (768px - 1024px): TOTS en una sola fila, sense trencar */
+@media (min-width: 768px) and (max-width: 1024px) {
+  /* Forçar una sola línia a la capçalera */
+  header { flex-wrap: nowrap !important; gap: 8px !important; padding: 10px 3vw !important; }
   .hbrand { flex: 0 0 auto !important; }
-  .hbrand h1 { font-size: 15px !important; letter-spacing: 0.5px !important; }
+  .hbrand h1 { font-size: 15px !important; letter-spacing: 0.5px !important; line-height: 1.2 !important; }
   .userblock { gap: 6px !important; }
-  #who { max-width: 100px !important; font-size: 11px !important; }
-  .logoutbtn { height: 24px !important; font-size: 10px !important; padding: 0 8px !important; }
+  #who { max-width: 90px !important; font-size: 11px !important; }
+  .logoutbtn { height: 26px !important; font-size: 10px !important; padding: 0 8px !important; }
 
   .hdr { 
     display: flex !important; 
     flex-wrap: nowrap !important; 
     gap: 4px !important; 
-    width: auto !important; 
     align-items: center !important; 
     flex: 1 1 auto !important;
     justify-content: flex-end !important; /* Alinea tot a la dreta */
   }
-  .modes { display: contents !important; }
+  .modes { display: flex !important; gap: 4px !important; }
   
-  /* Botons compactes perquè càpiguen a la mateixa fila */
-  #mTrack { order: 1; flex: 0 0 auto !important; width: auto !important; height: 32px !important; font-size: 11px !important; font-weight: 800 !important; white-space: nowrap !important; padding: 0 6px !important; min-width: auto !important; }
-  #mFree { order: 2; flex: 0 0 auto !important; width: auto !important; height: 32px !important; font-size: 11px !important; white-space: nowrap !important; padding: 0 6px !important; min-width: auto !important; }
-  #mApps { order: 3; flex: 0 0 auto !important; width: auto !important; height: 32px !important; font-size: 11px !important; white-space: nowrap !important; padding: 0 6px !important; min-width: auto !important; }
+  /* Botons d'esquerra (compactes) */
+  #mTrack, #mFree, #mApps { 
+    flex: 0 0 auto !important; width: auto !important; height: 34px !important; font-size: 11px !important; 
+    white-space: nowrap !important; padding: 0 8px !important; min-width: auto !important; 
+  }
   
-  /* DRETA: margin-left: auto empeny FAQ, "i" i Idioma cap a la dreta del tot */
-  #mInfo { order: 4; flex: 0 0 auto !important; width: auto !important; height: 32px !important; font-size: 11px !important; padding: 0 6px !important; white-space: nowrap !important; margin-left: auto !important; min-width: auto !important; }
-  #mHelp { order: 5; flex: 0 0 auto !important; width: auto !important; height: 32px !important; padding: 0 4px !important; justify-content: center !important; background: transparent !important; border: none !important; box-shadow: none !important; cursor: pointer !important; display: flex !important; align-items: center !important; }
-  #langToggle { order: 6; flex: 0 0 auto !important; width: auto !important; height: 32px !important; font-size: 11px !important; padding: 0 6px !important; justify-content: center !important; white-space: nowrap !important; }
+  /* Botons de dreta (margin-left: auto els empeny a la dreta del tot) */
+  #mInfo { 
+    flex: 0 0 auto !important; width: auto !important; height: 34px !important; font-size: 11px !important; 
+    padding: 0 8px !important; white-space: nowrap !important; margin-left: 12px !important; min-width: auto !important; 
+  }
+  #mHelp { 
+    flex: 0 0 auto !important; width: 34px !important; height: 34px !important; padding: 0 !important; 
+    justify-content: center !important; background: transparent !important; border: none !important; 
+    box-shadow: none !important; cursor: pointer !important; display: flex !important; align-items: center !important; 
+  }
+  #mHelp img { width: 28px !important; height: 28px !important; transition: all 0.2s ease; }
   
-  /* "i" una mica més gran quan està activa (il·luminada) a l'iPad */
-  #mHelp.on img {
-    width: 40px !important;
-    height: 40px !important;
-    transition: width 0.2s, height 0.2s;
+  /* Quan està actiu a l'iPad, la "i" es fa més gran i agafa un fons subtil daurat */
+  #mHelp.on { background: rgba(232,176,75,0.15) !important; border-radius: 50% !important; }
+  #mHelp.on img { width: 38px !important; height: 38px !important; }
+  
+  #langToggle { 
+    flex: 0 0 auto !important; width: auto !important; height: 34px !important; font-size: 11px !important; 
+    padding: 0 8px !important; justify-content: center !important; white-space: nowrap !important; 
+  }
+  
+  /* Estil actiu per a FAQ a Tablet */
+  #mInfo.on {
+    border-color: var(--gold) !important;
+    color: var(--gold) !important;
+    background: linear-gradient(135deg, rgba(232,176,75,0.28), rgba(232,176,75,0.1)) !important;
   }
 }
 
@@ -388,8 +412,8 @@ main { position: relative; padding: 20px 5vw; max-width: 1300px; margin: auto; }
   #who { max-width: 65%; }
 }
 
-/* PC (> 900px): Tots en una fila, "i" gran */
-@media (min-width: 901px) {
+/* PC (> 1024px): Tots en una fila, "i" gran i neon */
+@media (min-width: 1025px) {
   #mHelp {
     background: transparent !important;
     border: none !important;
@@ -1841,6 +1865,7 @@ $('btnUser').onclick = function () {
 function setLabels() {
   // 1. Guardem si el botó d'ajuda estava actiu abans de reescriure'l
   var helpWasActive = $('mHelp').classList.contains('on');
+  var infoWasActive = $('mInfo').classList.contains('on');
   
   $('mTrack').innerHTML = ICON_TARGET + ' ' + t().mTrack.replace(/^\s*🎯\s*/, '');
   $('mFree').innerHTML = ICON_FOLDER + ' ' + t().mFree.replace(/^\s*📁\s*/, '');
@@ -1853,10 +1878,10 @@ function setLabels() {
   $('overlayText').textContent = t().overlayText;
   $('langCur').textContent = (LS.lang === 'ca') ? 'CAT' : 'ESP';
   
-  // 2. Restaurar l'estat il·luminat del botó d'ajuda
+  // 2. Restaurar l'estat il·luminat dels botons
   if (helpWasActive) $('mHelp').classList.add('on');
+  if (infoWasActive) $('mInfo').classList.add('on');
 }
-
 function render() {
   $('modal').classList.remove('on');
   $('player').src = '';
