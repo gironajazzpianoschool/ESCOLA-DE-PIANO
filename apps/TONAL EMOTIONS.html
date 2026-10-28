@@ -320,6 +320,20 @@ body.battle-on #delay-countdown { top:68%; }
   
   /* Caixes de P1 i P2 */
   #p1-box, #p2-box { width: 220px !important; }
+  
+  /* Botons de mode com a icones a l'iPad */
+  #btn-listen-mode,
+  #btn-practice-mode,
+  #btn-test-mode,
+  #btn-battle-mode {
+    font-size: 0 !important;
+    padding: 8px 12px !important;
+    min-width: 44px !important;
+  }
+  #btn-listen-mode::after { content: '🎧'; font-size: 18px !important; }
+  #btn-practice-mode::after { content: ''; font-size: 18px !important; }
+  #btn-test-mode::after { content: '📝'; font-size: 18px !important; }
+  #btn-battle-mode::after { content: '⚔️'; font-size: 18px !important; }
 }
 /* ══════════ MODE SMARTPHONE (Fase 1: base) ══════════ */
 html.smartphone-mode body {
@@ -437,12 +451,18 @@ html.tablet-mode .mode-toggle-btn {
   padding: 8px 14px !important;
 }
 html.tablet-mode #key-select,
-html.tablet-mode #ear-key-select,
-html.tablet-mode #ear-duration-full,
-html.tablet-mode #ear-delay-input-full {
+html.tablet-mode #ear-key-select {
   min-height: 40px !important;
   font-size: 15px !important;
   padding: 8px 12px !important;
+}
+html.tablet-mode #ear-duration-full,
+html.tablet-mode #ear-delay-input-full {
+  width: 70px !important;
+  min-height: 36px !important;
+  font-size: 15px !important;
+  padding: 6px 8px !important;
+  font-weight: 700 !important;
 }
 /* ══════════ OPTIMITZACIÓ EAR TRAINING PER A SMARTPHONE ══════════ */
 
