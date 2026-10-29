@@ -149,7 +149,7 @@ const translations = {
     inst_strings:"Cuerda", inst_flute:"Flauta", test_sound:"▶ Prueba", sc_title:"🎹 CONTROLES",
     sc_volume:"Volumen", sc_fadein:"Fade In", sc_attack:"Ataque", sc_decay:"Decadencia",
     sc_sustain:"Cuerpo", sc_duration:"Duración", sc_bright:"Brillo",
-    info_title:"ℹ️ ¿Qué es?", info_text:"Herramienta del bloque auditivo del nivel fundamental de Girona Jazz Piano School®.",
+    info_title:"ℹ️ ¿Qué es?",     info_text:"Herramienta del bloque auditivo del nivel fundamental de Girona Jazz Piano School®. Su objetivo es entrenar el oído asociando cada grado de la escala a una emoción o sensación.<br><br>🎹 LABORATORIO AUDITIVO: visualiza las imágenes de las notas que tocas (modos Normal, Principal, Bajo, Combinado, Retardo, Ajustar y Editar).<br> ENTRENAMIENTO AUDITIVO: cuatro modos: ESCUCHAR (escuchas y ves la respuesta), PRÁCTICA (prueba con feedback), TEST (evaluación con porcentaje) y BATALLA (2 jugadores por turnos).<br><br>Elige tonalidad, tipo de notas y dificultad: FÁCIL (con cadencia I-IV-V-I de referencia) o DIFÍCIL (solo con la tónica de fondo).<br><br>🤖 Esta aplicación la ha desarrollado el propio profesor con la ayuda de Qwen3.7-Plus y Qwen3.8-MAX, tras más de 100 horas de dedicación entre diseño, programación y pruebas con alumnos reales.",
     hardcore_title:"MODO HARDCORE", hardcore_text:"Sin referencia de cadencia, reconocer notas es exigente.",
     result_excel:"🎉 ¡Felicidades!", result_diat:"Has acertado el {X}%.", result_non_diat:"Has acertado el {X}%.",
     result_good:"Has acertado el {X}%. ¡Buen trabajo!", result_keep:"Has acertado el {X}%. Sigue practicando.",
@@ -199,7 +199,7 @@ const translations = {
     inst_strings:"Strings", inst_flute:"Flute", test_sound:"▶ Test", sc_title:"🎹 SOUND",
     sc_volume:"Volume", sc_fadein:"Fade In", sc_attack:"Attack", sc_decay:"Decay",
     sc_sustain:"Body", sc_duration:"Duration", sc_bright:"Brightness",
-    info_title:"ℹ️ What is it?", info_text:"Ear-training tool of the fundamental level of Girona Jazz Piano School®.",
+    info_title:"ℹ️ What is it?",     info_text:"TONAL EMOTIONS is the ear-training tool for the fundamental level of the online school Girona Jazz Piano School®. Its goal is to train the ear by associating each scale degree with an emotion or sensation.<br><br>🎹 AUDITORY LAB: visualizes the images of the notes you play (Normal, Lead, Bass, Multi, Delay, Adjust and Edit modes).<br>🎧 EAR TRAINING: four modes: LISTEN (hear and see the answer), PRACTICE (try with feedback), TEST (graded with percentage) and BATTLE (2 players in turns).<br><br>Choose key, note type and difficulty: EASY (with the reference I-IV-V-I cadence) or HARD (only with the tonic pedal).<br><br>🤖 This application was developed by the teacher himself with the help of Qwen3.7-Plus and Qwen3.8-MAX, after more than 100 hours of dedication between design, programming and testing with real students.",
     hardcore_title:"HARDCORE MODE", hardcore_text:"Without cadence reference, recognizing notes is demanding.",
     result_excel:"🎉 Congratulations!", result_diat:"You answered {X}% correctly.", result_non_diat:"You answered {X}% correctly.",
     result_good:"You answered {X}% correctly. Great job!", result_keep:"You answered {X}% correctly. Keep practicing.",
@@ -511,14 +511,26 @@ function startTonicPedal() {
 
 function stopTonicPedal(fadeOut = false) {
   if (tonicPedalOscs.length) {
-    const ctx = getSharedCtx(), now = ctx.currentTime, tt = fadeOut ? 3 : 1.5;
+    const ctx = getSharedCtx(), now = ctx.currentTime;
+    
     if (tonicPedalMasterGain) {
       tonicPedalMasterGain.gain.cancelScheduledValues(now);
-      tonicPedalMasterGain.gain.setValueAtTime(tonicPedalMasterGain.gain.value, now);
-      tonicPedalMasterGain.gain.linearRampToValueAtTime(0.001, now + tt);
+      if (fadeOut) {
+        tonicPedalMasterGain.gain.setValueAtTime(tonicPedalMasterGain.gain.value, now);
+        tonicPedalMasterGain.gain.linearRampToValueAtTime(0.001, now + 3);
+      } else {
+        tonicPedalMasterGain.gain.setValueAtTime(0.001, now);
+      }
     }
-    tonicPedalOscs.forEach(o => { try { o.stop(now + tt); } catch(e) {} });
-    tonicPedalOscs = []; tonicPedalGains = []; tonicPedalMasterGain = null; tonicPedalFilter = null;
+    
+    tonicPedalOscs.forEach(o => {
+      try { o.stop(now); } catch(e) {}
+    });
+    
+    tonicPedalOscs = [];
+    tonicPedalGains = [];
+    tonicPedalMasterGain = null;
+    tonicPedalFilter = null;
   }
 }
 
@@ -1319,7 +1331,7 @@ function ensureFilterInfo() {
   
   filterInfoEl.style.cssText = `
     position: fixed; 
-    top: 80px; 
+    top: 130px; 
     left: 50%; 
     transform: translateX(-50%); 
     z-index: 400; 
