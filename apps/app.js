@@ -3427,21 +3427,41 @@ function initPasswordModal() {
 }
 
 /* ══ MISSATGE DE REQUISIT D'ACCÉS (només si venen de l'escola) ══ */
+function normalizeLang(v) {
+  if (!v) return null;
+  v = v.toLowerCase().slice(0, 2);
+  return ['ca', 'es', 'en'].includes(v) ? v : null;
+}
+
+function getCookieLang() {
+  const names = ['gjps_lang', 'pll_language', 'wp-wpml_current_language', 'lang', 'idioma'];
+  for (const n of names) {
+    const m = document.cookie.match(new RegExp('(?:^|;\\s*)' + n + '=([^;]*)'));
+    if (m) {
+      const v = normalizeLang(decodeURIComponent(m[1]));
+      if (v) return v;
+    }
+  }
+  return null;
+}
+
 function detectReferrerLanguage() {
   const ref = document.referrer.toLowerCase();
   const isFromSchool = ref.includes('gironajazz') ||
-                       ref.includes('gironajazzpianoschool') ||
                        ref.includes('localhost') ||
                        ref.includes('127.0.0.1');
   
   if (!isFromSchool) return null;
   
-  const urlParams = new URLSearchParams(window.location.search);
-  const langParam = urlParams.get('lang');
-  const storedLang = localStorage.getItem('gjps_lang');
+  /* Prioritat: paràmetre URL > localStorage > cookie > ruta del referrer */
+  const urlLang = normalizeLang(new URLSearchParams(window.location.search).get('lang'));
+  if (urlLang) return urlLang;
   
-  if (langParam) return langParam;
+  const storedLang = normalizeLang(localStorage.getItem('gjps_lang'));
   if (storedLang) return storedLang;
+  
+  const cookieLang = getCookieLang();
+  if (cookieLang) return cookieLang;
   
   if (ref.includes('/ca/') || ref.includes('?lang=ca')) return 'ca';
   if (ref.includes('/es/') || ref.includes('?lang=es')) return 'es';
@@ -4078,6 +4098,10 @@ if (IS_SMARTPHONE) {
   if (bm) bm.style.display = 'none';
 }
 if (IS_TABLET) document.documentElement.classList.add('tablet-mode');
+
+/* Idioma seleccionat al web de l'escola (afecta la contrasenya; després es pot canviar) */
+const initialLang = detectReferrerLanguage();
+if (initialLang && translations[initialLang]) currentLang = initialLang;
 
 updateLanguageUI();
 updateModeButtons();
