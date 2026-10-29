@@ -343,12 +343,29 @@ function startDelayProcess(note){
 /* ══ 7. MIDI ══ */
 function getMIDIAccess(){ if(!midiAccessPromise){ midiAccessPromise=navigator.requestMIDIAccess().catch(err=>{midiAccessPromise=null;throw err;}); } return midiAccessPromise; }
 async function initMIDI(){
+  if(IS_TABLET){
+    // En tablets, no intentem connectar MIDI
+    statusElement.textContent='🎹 Mode Tablet (MIDI no disponible)';
+    statusElement.style.color='#ffaa00';
+    return;
+  }
   try{
     const ma=await getMIDIAccess();
     statusElement.textContent=t('midi_connected');
-    for(let input of ma.inputs.values()){ input.onmidimessage=handleMIDIMessage; statusElement.textContent=`${t('midi_port')} ${input.name}`; }
-    ma.onstatechange=e=>{ if(e.port.type==='input'&&e.port.state==='connected'){ e.port.onmidimessage=handleMIDIMessage; statusElement.textContent=`${t('midi_port')} ${e.port.name}`; } };
-  }catch(err){ statusElement.textContent='Error: '+err.message; }
+    for(let input of ma.inputs.values()){ 
+      input.onmidimessage=handleMIDIMessage; 
+      statusElement.textContent=`${t('midi_port')} ${input.name}`; 
+    }
+    ma.onstatechange=e=>{ 
+      if(e.port.type==='input'&&e.port.state==='connected'){ 
+        e.port.onmidimessage=handleMIDIMessage; 
+        statusElement.textContent=`${t('midi_port')} ${e.port.name}`; 
+      } 
+    };
+  }catch(err){ 
+    statusElement.textContent='🎹 Piano intern activat';
+    statusElement.style.color='#00ff66';
+  }
 }
 function getNoteToShow(){
   if(exclusiveMode==='normal'){ if(pressedStack.length) return pressedStack[pressedStack.length-1]; if(sustainPedalActive&&normalSustainHold!==null) return normalSustainHold; return null; }
@@ -1078,19 +1095,48 @@ function initPasswordModal(){
 /* ══ 12b. LAYOUT PER TABLET ══ */
 function applyTabletLayout(mode){
   if(!IS_TABLET) return;
+  
+  // Forçar que el control manual estigui visible
   if(manualPanel){
     manualPanel.style.display='block';
     manualPanel.classList.add('visible');
     manualPanelVisible=true;
+    // Assegurar que el panell estigui a la posició correcta
+    manualPanel.classList.remove('ear-position');
   }
+  
+  // Ajustar grid del control manual per tablet
   const cont=document.querySelector('.manual-buttons');
   if(cont) cont.style.gridTemplateColumns='repeat(6,1fr)';
-  if(mode==='midi') showMidiUnavailableWarning();
+  
+  // Mostrar avís MIDI només com a info (no error)
+  if(mode==='midi'){
+    const w=document.createElement('div');
+    w.style.cssText='position:fixed;top:80px;left:50%;transform:translateX(-50%);background:rgba(255,170,0,0.9);color:#000;padding:10px 20px;border-radius:10px;font-weight:700;font-size:13px;z-index:99999;box-shadow:0 4px 12px rgba(0,0,0,0.5);';
+    w.innerHTML='⚠️ MIDI no disponible en iPad. Utilitza el teclat manual de sota.';
+    document.body.appendChild(w);
+    setTimeout(()=>w.remove(),5000);
+  }
 }
+
 function removeTabletLayout(){
   if(IS_PC && manualPanel){
     manualPanel.classList.remove('visible');
     manualPanelVisible=false;
+  }
+}
+function requestFullscreen(){
+  if(!document.fullscreenElement){
+    const elem=document.documentElement;
+    if(elem.requestFullscreen){
+      elem.requestFullscreen().catch(err=>{
+        console.log('Fullscreen no disponible:',err);
+      });
+    }else if(elem.webkitRequestFullscreen){
+      elem.webkitRequestFullscreen().catch(err=>{
+        console.log('Fullscreen no disponible:',err);
+      });
+    }
   }
 }
 
@@ -1108,10 +1154,11 @@ $('btn-start-midi').addEventListener('click',()=>{
   if(!checkDeviceAndProceed('midi')) return;
   getSharedCtx(); startScreen.classList.add('hidden');
   midiMode.classList.add('active'); earMode.classList.remove('active');
-  if(IS_PC) initMIDI(); else showMidiUnavailableWarning();
+  if(IS_PC) initMIDI();
   setExclusiveMode('normal'); updatePianoButtons();
   if(IS_PC){ $('sustain-hint').classList.add('visible'); positionSustainHint(); setTimeout(()=>{ $('sustain-hint').classList.remove('visible'); },8000); }
   if(IS_TABLET) applyTabletLayout('midi');
+  setTimeout(()=>requestFullscreen(),300);
 });
 
 $('btn-start-ear').addEventListener('click',()=>{
@@ -1122,6 +1169,7 @@ $('btn-start-ear').addEventListener('click',()=>{
   if(IS_PC){ $('btn-ear-piano').classList.add('visible'); $('btn-toggle-manual-ear').classList.add('visible'); $('ear-sustain-led').classList.add('visible'); $('ear-sustain-label').classList.add('visible'); }
   if(IS_PC) initMIDI();
   if(IS_TABLET) applyTabletLayout('ear');
+  setTimeout(()=>requestFullscreen(),300);
 });
 
 function showMidiUnavailableWarning(){
@@ -1133,6 +1181,7 @@ function showMidiUnavailableWarning(){
 }
 
 function cleanupOnExit(){
+  // Tanca tots els modals
   if(resultModal) resultModal.classList.remove('visible');
   if(pauseModal) pauseModal.classList.remove('visible');
   if(infoModal) infoModal.classList.remove('visible');
@@ -1140,9 +1189,20 @@ function cleanupOnExit(){
   if(battleModal) battleModal.classList.remove('visible');
   if(battleResultModal) battleResultModal.classList.remove('visible');
   if(hardcoreWarning) hardcoreWarning.classList.remove('visible');
-  if(manualPanel) manualPanel.classList.remove('visible');
+  
+  // Amaga el control manual i reseteja l'estat
+  if(manualPanel){
+    manualPanel.classList.remove('visible');
+    if(IS_TABLET) manualPanel.style.display='none';
+  }
   manualPanelVisible=false;
+  activeManualNotes.clear();
+  numHeld={};
+  
+  // Atura qualsevol melodia
   stopProva();
+  
+  // Neteja estats de tablet
   if(IS_TABLET) removeTabletLayout();
 }
 
@@ -1374,6 +1434,22 @@ window.addEventListener('resize',()=>{
 });
 
 /* ══ 15. ARRENCADA ══ */
+// Gestionar navegació entre pestanyes
+window.addEventListener('beforeunload',()=>{
+  // Aturar tot el so abans de tancar/canviar
+  stopAllPianoNotes();
+  stopAllEarPianoNotes();
+  stopAllPedalSounds();
+  if(earTrainingActive) stopEarTraining(true);
+});
+
+// Assegurar que només hi hagi una instància activa
+if(!window.isTonalEmotionsActive){
+  window.isTonalEmotionsActive=true;
+  window.addEventListener('pagehide',()=>{
+    window.isTonalEmotionsActive=false;
+  });
+}
 if(IS_SMARTPHONE){ document.documentElement.classList.add('smartphone-mode'); const bm=$('btn-start-midi'); if(bm) bm.style.display='none'; }
 if(IS_TABLET) document.documentElement.classList.add('tablet-mode');
 updateLanguageUI(); updateModeButtons(); updateDifficultyButtons(); updateManualButtonsVisibility();
