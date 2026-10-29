@@ -2419,15 +2419,10 @@ function updateBattleAccuracy() {
 function battlePlayerAnswered(ok) {
   if (!battleMode) return;
   
-  if (v10PendingFlash) {
-    clearTimeout(v10PendingFlash);
-    v10PendingFlash = null;
-  }
-  
-  if (v10PendingTurn) {
-    clearTimeout(v10PendingTurn);
-    v10PendingTurn = null;
-  }
+  // Netejar timeouts pendents per evitar conflictes visuals
+  if (v10PendingFlash) clearTimeout(v10PendingFlash);
+  if (v10PendingTurn) clearTimeout(v10PendingTurn);
+  if (advanceTimeout) clearTimeout(advanceTimeout);
   
   setFlashVisible(false);
   battleTurnIndicator.classList.remove('visible');
@@ -2437,11 +2432,12 @@ function battlePlayerAnswered(ok) {
   
   if (!cur.times) cur.times = [];
   
-  const isTimeout = !sdActive && !ok && (performance.now() - v10LastHumanNote) > 2000;
+  // Detectar timeout real (més de 2 segons sense acció humana des de l'inici de la nota)
+  const isTimeout = !sdActive && !ok && (performance.now() - v10LastHumanNote > 2500);
+  
   cur.total++;
   
   let fmsg, fcol;
-  
   if (ok) {
     cur.correct++;
     fmsg = '✔ ' + t('v10_flash_nice');
@@ -2458,21 +2454,25 @@ function battlePlayerAnswered(ok) {
     if (!ok) sdPairMiss[answerer - 1] = true;
   }
   
+  // CANVIAR TORN IMMEDIATAMENT
   battleCurrentPlayer = answerer === 1 ? 2 : 1;
   
   updateBattleAccuracy();
   updateBattleScoreboard();
   
+  // Mostrar feedback visual amb retard curt
   v10PendingFlash = setTimeout(() => {
     v10PendingFlash = null;
     if (battleMode) v10Flash(fmsg, fcol);
-  }, 800);
+  }, 400); // Reduït de 800ms a 400ms per agilitat
   
+  // Mostrar indicador de nou torn
   v10PendingTurn = setTimeout(() => {
     v10PendingTurn = null;
     if (battleMode) showBattleTurn();
-  }, 1600);
+  }, 900); // Reduït de 1600ms a 900ms
   
+  // LÒGICA SUDDEN DEATH
   if (sdActive && sdPairAns >= 2) {
     const m1 = sdPairMiss[0];
     const m2 = sdPairMiss[1];
@@ -2823,9 +2823,27 @@ function ensureFilterInfo() {
   
   filterInfoEl = document.createElement('div');
   filterInfoEl.id = 'ear-filter-info';
-  filterInfoEl.style.cssText = 'position:absolute;top:6px;left:calc(100% + 8px);z-index:400;background:#12161cee;border:1px solid #39d98a;color:#7ff0b4;border-radius:8px;padding:4px 10px;font-size:12px;font-weight:bold;display:none;white-space:nowrap;';
   
-  (filterBtn ? filterBtn.parentElement : document.body).appendChild(filterInfoEl);
+  // Estil corregit per iPad: Posició fixa centrada a dalt, evitant solapaments
+  filterInfoEl.style.cssText = `
+    position: fixed; 
+    top: 10px; 
+    left: 50%; 
+    transform: translateX(-50%); 
+    z-index: 400; 
+    background: #12161cee; 
+    border: 1px solid #39d98a; 
+    color: #7ff0b4; 
+    border-radius: 8px; 
+    padding: 4px 12px; 
+    font-size: 12px; 
+    font-weight: bold; 
+    display: none; 
+    white-space: nowrap;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+  `;
+  
+  document.body.appendChild(filterInfoEl); // Afegir directament al body per evitar problemes de continguts relatives
   
   return filterInfoEl;
 }
