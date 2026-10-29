@@ -690,7 +690,7 @@ function handleMIDIMessage(event) {
     if (earDifficulty === 'easy') {
       if (command === 0x90 && velocity > 0) {
         if (!testExploringNoImage && !testSustainTimeout) showProposedAnswer(pc);
-        if (isTestLike && inAnswerPhase && !earUserAlreadyAnswered) {
+        if (isTestLike && !earUserAlreadyAnswered) {
           earUserAlreadyAnswered = true; earUserHasPlayed = true; logSoloTime();
           const ok = pc === earCurrentTargetPitchClass;
           if (ok) { earCorrectNotes++; showFeedbackCorrect(); } else showFeedbackWrong();
@@ -1104,34 +1104,79 @@ function updateBattleAccuracy() {
 
 // ⚠️ VERSIÓ CORREGIDA PER AL CANVI DE TORN RÀPID
 function battlePlayerAnswered(ok) {
-  if (!battleMode) return;
+  console.log('[TONAL BATTLE] battlePlayerAnswered cridada!', {
+    battleMode: battleMode,
+    ok: ok,
+    currentPlayer: battleCurrentPlayer,
+    timestamp: performance.now()
+  });
+  
+  if (!battleMode) {
+    console.log('[TONAL BATTLE] ERROR: battleMode és false, sortint!');
+    return;
+  }
+  
   if (v10PendingFlash) clearTimeout(v10PendingFlash);
   if (v10PendingTurn) clearTimeout(v10PendingTurn);
   if (advanceTimeout) clearTimeout(advanceTimeout);
-  setFlashVisible(false); battleTurnIndicator.classList.remove('visible');
-  const answerer = battleCurrentPlayer, cur = answerer === 1 ? bp1 : bp2;
+  
+  setFlashVisible(false); 
+  battleTurnIndicator.classList.remove('visible');
+  
+  const answerer = battleCurrentPlayer;
+  const cur = answerer === 1 ? bp1 : bp2;
   if (!cur.times) cur.times = [];
+  
   const isTimeout = !sdActive && !ok && (performance.now() - v10LastHumanNote > 2500);
   cur.total++;
+  
   let fmsg, fcol;
-  if (ok) { cur.correct++; fmsg = '✔ ' + t('v10_flash_nice'); fcol = '#00ff66'; }
-  else { fmsg = isTimeout ? ('⏱ ' + t('v10_timeout')) : ('✖ ' + t('v10_flash_miss')); fcol = isTimeout ? '#ffaa00' : '#ff0055'; }
+  if (ok) { 
+    cur.correct++; 
+    fmsg = '✔ ' + t('v10_flash_nice'); 
+    fcol = '#00ff66'; 
+  } else { 
+    fmsg = isTimeout ? ('⏱ ' + t('v10_timeout')) : ('✖ ' + t('v10_flash_miss')); 
+    fcol = isTimeout ? '#ffaa00' : '#ff0055'; 
+  }
+  
   cur.times.push(performance.now() - (v10LastNoteAt || performance.now()));
-  if (sdActive) { sdPairAns++; if (!ok) sdPairMiss[answerer - 1] = true; }
+  
+  if (sdActive) { 
+    sdPairAns++; 
+    if (!ok) sdPairMiss[answerer - 1] = true; 
+  }
   
   // CANVIAR TORN IMMEDIATAMENT
   battleCurrentPlayer = answerer === 1 ? 2 : 1;
-  updateBattleAccuracy(); updateBattleScoreboard();
+  console.log('[TONAL BATTLE] Torn canviat a:', battleCurrentPlayer);
   
-  v10PendingFlash = setTimeout(() => { v10PendingFlash = null; if (battleMode) v10Flash(fmsg, fcol); }, 400);
-  v10PendingTurn = setTimeout(() => { v10PendingTurn = null; if (battleMode) showBattleTurn(); }, 900);
+  updateBattleAccuracy(); 
+  updateBattleScoreboard();
+  
+  v10PendingFlash = setTimeout(() => { 
+    v10PendingFlash = null; 
+    if (battleMode) v10Flash(fmsg, fcol); 
+  }, 400);
+  
+  v10PendingTurn = setTimeout(() => { 
+    v10PendingTurn = null; 
+    if (battleMode) showBattleTurn(); 
+  }, 900);
   
   if (sdActive && sdPairAns >= 2) {
     const m1 = sdPairMiss[0], m2 = sdPairMiss[1];
-    if (m1 !== m2) { sdWinner = m1 ? 2 : 1; stopEarTraining(false); }
-    else {
-      sdPairMiss = [false, false]; sdPairAns = 0; sdTotalPairs++;
-      if (sdTotalPairs >= 30) { showBattleResultModal(); stopEarTraining(false); }
+    if (m1 !== m2) { 
+      sdWinner = m1 ? 2 : 1; 
+      stopEarTraining(false); 
+    } else {
+      sdPairMiss = [false, false]; 
+      sdPairAns = 0; 
+      sdTotalPairs++;
+      if (sdTotalPairs >= 30) { 
+        showBattleResultModal(); 
+        stopEarTraining(false); 
+      }
     }
   }
 }
@@ -1268,14 +1313,30 @@ function renderFilterPanel() {
 // ⚠️ VERSIÓ CORREGIDA PER EVITAR SOLAPAMENTS A L'IPAD
 function ensureFilterInfo() {
   if (filterInfoEl) return filterInfoEl;
-  filterInfoEl = document.createElement('div'); filterInfoEl.id = 'ear-filter-info';
+  
+  filterInfoEl = document.createElement('div');
+  filterInfoEl.id = 'ear-filter-info';
+  
   filterInfoEl.style.cssText = `
-    position: fixed; top: 10px; left: 50%; transform: translateX(-50%); z-index: 400;
-    background: #12161cee; border: 1px solid #39d98a; color: #7ff0b4; border-radius: 8px;
-    padding: 4px 12px; font-size: 12px; font-weight: bold; display: none; white-space: nowrap;
+    position: fixed; 
+    top: 80px; 
+    left: 50%; 
+    transform: translateX(-50%); 
+    z-index: 400; 
+    background: #12161cee; 
+    border: 1px solid #39d98a; 
+    color: #7ff0b4; 
+    border-radius: 8px; 
+    padding: 4px 12px; 
+    font-size: 12px; 
+    font-weight: bold; 
+    display: none; 
+    white-space: nowrap;
     box-shadow: 0 4px 10px rgba(0,0,0,0.5);
   `;
+  
   document.body.appendChild(filterInfoEl);
+  
   return filterInfoEl;
 }
 
