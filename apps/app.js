@@ -1771,14 +1771,16 @@ function generateEarSequence() {
 }
 
 function startEarTraining() {
-  if (otherTabActive()) {
+  // A l'iPad no hi ha MIDI, i en mode Battle no cal comprovar pestanyes
+  if (!battleMode && otherTabActive()) {
     multiTabWarning.classList.add('visible');
     setTimeout(() => multiTabWarning.classList.remove('visible'), 3000);
     return;
   }
-     claimActiveTab();
-     getSharedCtx();
-     earTrainingActive = true;
+  
+  claimActiveTab();
+  getSharedCtx();
+  earTrainingActive = true;
   earPanel.classList.add('running');
   
   earTimeRemaining = parseInt($('ear-duration-full').value) * 60;
