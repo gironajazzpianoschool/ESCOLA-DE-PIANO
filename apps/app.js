@@ -222,7 +222,7 @@ const translations = {
     battle_tie:"🤝 Empat!",
     battle_your_turn:"Torn de {X}",
     sudden_death_title:"MORT SÚBITA",
-    sudden_death_text:"Empat! Qui falli quan l'altre encerti, perd.",
+    sudden_death_text:"Empat! Qui falli quan l'altre encerti, perd.",sd_accept:"⚔️ ACCEPTAR",sd_decline:"🏳️ VEURE RESULTAT",
     v10_flash_nice:"MOLT BÉ!",
     v10_flash_miss:"FALLADA!",
     v10_timeout:"TEMPS!",
@@ -370,7 +370,7 @@ const translations = {
     battle_tie:"🤝 ¡Empate!",
     battle_your_turn:"Turno de {X}",
     sudden_death_title:"MUERTE SÚBITA",
-    sudden_death_text:"¡Empate! Quien falle cuando el otro acierte, pierde.",
+    sudden_death_text:"¡Empate! Quien falle cuando el otro acierte, pierde.",sd_accept:"⚔️ ACEPTAR",sd_decline:"🏳️ VER RESULTADO",
     v10_flash_nice:"¡BIEN!",
     v10_flash_miss:"¡FALLO!",
     v10_timeout:"¡TIEMPO!",
@@ -518,7 +518,7 @@ const translations = {
     battle_tie:"🤝 Tie!",
     battle_your_turn:"{X}'s turn",
     sudden_death_title:"SUDDEN DEATH",
-    sudden_death_text:"Tie! Whoever misses while other hits, loses.",
+    sudden_death_text:"Tie! Whoever misses while other hits, loses.",sd_accept:"⚔️ ACCEPT",sd_decline:"🏳️ SEE RESULT",
     v10_flash_nice:"NICE!",
     v10_flash_miss:"MISS!",
     v10_timeout:"TIME!",
@@ -2153,6 +2153,11 @@ function stopEarTraining(fadeOut = false) {
   $('ear-timer-full').textContent = formatTime(durVal * 60);
   
   if (wasBattle) {
+    /* Empat → proposem la mort súbita abans de tancar */
+    if (earUserHasPlayed && !sdActive && bp1.total > 0 && bp1.correct === bp2.correct) {
+      showSuddenDeathProposal();
+      return;
+    }
     cleanupBattleUI();
     
     if (earUserHasPlayed) {
@@ -3605,6 +3610,8 @@ function cleanupOnExit() {
   });
   const im = $('instructions-modal');
   if (im) im.classList.remove('visible');
+  const sdm = $('sudden-death-modal');
+  if (sdm) sdm.classList.remove('visible');
   
   setManualPanelVisible(false);
   activeManualNotes.clear();
@@ -3907,6 +3914,36 @@ $('btn-toggle-manual-ear').addEventListener('click', toggleManualPanel);
 document.addEventListener('fullscreenchange', updateFullscreenButtons);
 document.addEventListener('webkitfullscreenchange', updateFullscreenButtons);
 
+/* ══ MORT SÚBITA ══ */
+function showSuddenDeathProposal() {
+  $('sudden-death-modal').classList.add('visible');
+}
+
+function hideSuddenDeathProposal() {
+  $('sudden-death-modal').classList.remove('visible');
+}
+
+function startSuddenDeath() {
+  hideSuddenDeathProposal();
+  sdActive = true;
+  sdWinner = null;
+  sdPairMiss = [false, false];
+  sdPairAns = 0;
+  sdTotalPairs = 0;
+  startEarTraining();
+  showBattleTurn();
+}
+
+function declineSuddenDeath() {
+  hideSuddenDeathProposal();
+  cleanupBattleUI();
+  updateBattleAccuracy();
+  showBattleResultModal();
+}
+
+$('btn-sd-accept').addEventListener('click', startSuddenDeath);
+$('btn-sd-decline').addEventListener('click', declineSuddenDeath);
+
 /* Batalla */
 $('btn-battle-start').addEventListener('click', startBattle);
 $('btn-battle-cancel').addEventListener('click', hideBattleModal);
@@ -3961,6 +3998,11 @@ document.querySelectorAll('.lang-btn').forEach(btn => {
 /* ══════════════════════════════════════════════════════════════ */
 document.addEventListener('keydown', e => {
   if (!$('password-modal').classList.contains('hidden')) return;
+  
+  if ($('sudden-death-modal').classList.contains('visible')) {
+    if (e.key === 'Escape') { e.preventDefault(); declineSuddenDeath(); }
+    return;
+  }
   
   if (battleModal && battleModal.classList.contains('visible')) {
     if (e.key === 'Escape') { e.preventDefault(); hideBattleModal(); }
