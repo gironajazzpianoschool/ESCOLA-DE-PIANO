@@ -1769,16 +1769,69 @@ function generateEarSequence() {
   
   return s;
 }
+function startBattle() {
+  battlePlayer1Name = $('battle-player1-name').value.trim() || (t('player') + ' 1');
+  battlePlayer2Name = $('battle-player2-name').value.trim() || (t('player') + ' 2');
+  
+  bp1 = {correct:0, total:0, times:[]};
+  bp2 = {correct:0, total:0, times:[]};
+  
+  battleCurrentPlayer = 1;
+  battleMode = true;
+  
+  sdActive = false;
+  sdCount = 0;
+  sdWinner = null;
+  sdPairMiss = [false, false];
+  sdPairAns = 0;
+  sdTotalPairs = 0;
+  naturalEnd = false;
+  
+  hideBattleModal();
+  document.body.classList.add('battle-on');
+  
+  battleScoreboard.classList.add('visible');
+  p1Box.classList.add('visible');
+  p2Box.classList.add('visible');
+  
+  proposedAnswerBox.classList.remove('visible');
+  accuracyPanel.classList.remove('visible');
+  resultModal.classList.remove('visible');
+  hideAllFeedback();
+  
+  $('p1-name-label').textContent = battlePlayer1Name;
+  $('p2-name-label').textContent = battlePlayer2Name;
+  
+  updateBattleScoreboard();
+  updateBattleAccuracy();
+  positionBattleBoxes();
+  
+  // Netejar el localStorage abans d'iniciar la batalla
+  localStorage.removeItem(CONFIG.STORAGE_KEYS.MIDI_TAB);
+  
+  startEarTraining();
+  showBattleTurn();
+}
 
 function startEarTraining() {
-  // A l'iPad no hi ha MIDI, i en mode Battle no cal comprovar pestanyes
-  if (!battleMode && otherTabActive()) {
+  // A l'iPad (tablet) no hi ha MIDI, no cal comprovar pestanyes
+  // En mode Battle tampoc cal comprovar-ho
+  const isTablet = IS_IPAD || IS_ANDROID_TABLET;
+  const shouldCheckTab = !battleMode && !isTablet;
+  
+  console.log('[TONAL] startEarTraining - battleMode:', battleMode, 'isTablet:', isTablet, 'shouldCheckTab:', shouldCheckTab);
+  
+  if (shouldCheckTab && otherTabActive()) {
+    console.log('[TONAL] Altra pestanya activa, cancel·lant');
     multiTabWarning.classList.add('visible');
     setTimeout(() => multiTabWarning.classList.remove('visible'), 3000);
     return;
   }
   
+  // Forçar que aquesta pestanya sigui l'activa
   claimActiveTab();
+  console.log('[TONAL] Pestanya reclamada:', TAB_ID);
+  
   getSharedCtx();
   earTrainingActive = true;
   earPanel.classList.add('running');
