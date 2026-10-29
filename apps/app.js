@@ -33,8 +33,9 @@ const IS_IPAD = /iPad/.test(UA) || (navigator.platform === 'MacIntel' && navigat
 const IS_ANDROID_TABLET = /Android/.test(UA) && !/Mobile/.test(UA);
 const IS_TABLET = IS_IPAD || IS_ANDROID_TABLET;
 const IS_SMARTPHONE = /iPhone|iPod/.test(UA) || (/Android/.test(UA) && /Mobile/.test(UA));
-const IS_PC = !IS_TABLET && !IS_SMARTPHONE;
-
+const IS_MAC = /Macintosh|MacIntel/.test(navigator.platform) && !IS_IPAD;
+const IS_PC = !IS_TABLET && !IS_SMARTPHONE && !IS_MAC;
+const IS_LIMITED_DEVICE = IS_TABLET || (IS_MAC && !('requestMIDIAccess' in navigator));
 /* ══ 2. TRADUCCIONS ══ */
 const translations = {
 ca:{pw_title:"🔐 Accés Restringit",pw_placeholder:"Introdueix la contrasenya",pw_button:"Entrar",pw_error:"Contrasenya incorrecta. Intent {X}/{Y}",pw_denied:"Accés denegat: massa intents fallits",start_midi:"🎹 LABORATORI AUDITIU",start_ear:"🎧 ENTRENAMENT AUDITIU",waiting_midi:"Esperant connexió MIDI...",midi_connected:"MIDI connectat!",midi_port:"MIDI: ",piano:"Piano",sustain:"Sustain",delay_label:"Retard: ",delay:"Retard",normal:"Normal",lead:"Lead",bass:"Baix",multi:"Combinat",adjust_zoom:"Ajustar",edit:"Edita",back:"← Enrere",fullscreen:"Pantalla Completa",exit_fullscreen:"Surt de Pantalla",edit_mode:"Mode Edició",save:"Desa",reset:"Reinicia",cancel:"Cancel·la",saved_ok:"Desat correctament!",proposed_answer:"🎯 Resposta Proposada",accuracy:"🎯 Precisió",test_complete:"🎯 Prova Completada!",ok:"D'ACORD",key:"Tonalitat",duration:"Durada",pedal_vol:"Vol. Pedal",notes:"Notes",diatonic:"Diatòniques",non_diatonic:"No-Diat",all_notes:"Totes",test_mode:"TEST",practice_mode:"PRÀCTICA",listen_mode:"ESCOLTA",battle_mode:"BATALLA",start:"INICIA",stop:"ATURA",listen_tonic:"Escolta la tònica...",listen_cadence:"Escolta la cadència completa de la tonalitat",multi_tab_warning:"⚠️ MIDI ja actiu en una altra pestanya",reset_confirm:"Tornar a la disposició original?",piano_on:"🎹 Piano Intern: ACTIVAT",piano_off:"🔇 Piano Intern: DESACTIVAT",ear_info:"Rang: C2 - C7<br>Seqüència aleatòria",let_s_go:"Som-hi!",word_notes:"notes",mode_prefix:"Mode: ",word_major:"Major",min:"min",sec:"s",manual:"Manual",manual_control:"Control Manual",easy:"Fàcil",hard:"Difícil",instrument:"Instrument",inst_piano:"Piano",inst_soft:"Piano Suau",inst_epiano:"E-Piano",inst_organ:"Orgue",inst_strings:"Corda",inst_flute:"Flauta",test_sound:"▶ Prova",sc_title:"🎹 CONTROLS DE SO",sc_volume:"Volum",sc_fadein:"Fade In",sc_attack:"Atac",sc_decay:"Decaiment",sc_sustain:"Cos",sc_duration:"Durada",sc_bright:"Brillantor",info_title:"ℹ️ Què és TONAL EMOTIONS?",info_text:"TONAL EMOTIONS és l'eina del bloc auditiu del nivell fonamental de l'escola online Girona Jazz Piano School®. El seu objectiu és entrenar l'oïda associant cada grau de l'escala a una emoció o sensació.<br><br>🎹 LABORATORI AUDITIU: visualitza les imatges de les notes que toques (modes Normal, Principal, Baix, Combinat, Retard, Ajustar i Editar).<br>🎧 ENTRENAMENT AUDITIU: quatre modes: ESCOLTA, PRÀCTICA, TEST i BATALLA.<br><br>Tria tonalitat, tipus de notes i dificultat: FÀCIL (amb la cadència I-IV-V-I de referència) o DIFÍCIL (només amb la tònica de fons).",hardcore_title:"MODE HARDCORE",hardcore_text:"Sense la referència de la cadència, reconèixer notes diatòniques i no diatòniques barrejades ja comença a ser exigent: sense oïda absoluta, cal una oïda relativa molt ben entrenada. Només per a valents!",result_excel:"🎉 Felicitats! Tens una oïda molt ben entrenada! Segueix així!",result_diat:"Has encertat el {X}% de les notes. 💡 Recomanació: Intenta entrenar amb notes No-Diatòniques per millorar encara més!",result_non_diat:"Has encertat el {X}% de les notes. 💡 Recomanació: Intenta entrenar amb TOTES les notes per posar-te a prova!",result_good:"Has encertat el {X}% de les notes. Bona feina!",result_keep:"Has encertat el {X}% de les notes. No et rendeixis! Segueix practicant i milloraràs. 💪",result_crack:"🏆 Ets un CRACK! Has encertat TOTES les notes! O tens oïda absoluta o una oïda relativa molt ben entrenada! 🎵",result_short:"💡 Consell: Prova de fer sessions més curtes (2-3 min) i augmenta gradualment. La constància és clau!",result_filtered:"Has encertat el {X}% amb una selecció reduïda de notes. 💡 Quan et sentis a punt, activa més notes amb el botó 🎯 per seguir creixent!",pause_title:"⏸️ Pausa",pause_message:"Prova en pausa. Què vols fer?",resume:"▶ Continuar",abort:"⏹ Abortar",pause_cheat:"⚠️ Massa pauses! La prova es finalitza per possibles trampes.",help_title:"📖 Instruccions del Laboratori Auditiu",
@@ -342,13 +343,23 @@ function startDelayProcess(note){
 
 /* ══ 7. MIDI ══ */
 function getMIDIAccess(){ if(!midiAccessPromise){ midiAccessPromise=navigator.requestMIDIAccess().catch(err=>{midiAccessPromise=null;throw err;}); } return midiAccessPromise; }
+
 async function initMIDI(){
   if(IS_TABLET){
-    // En tablets, no intentem connectar MIDI
-    statusElement.textContent='🎹 Mode Tablet (MIDI no disponible)';
+    statusElement.textContent=' Mode Tablet (MIDI no disponible)';
     statusElement.style.color='#ffaa00';
     return;
   }
+  
+  if(IS_MAC && !('requestMIDIAccess' in navigator)){
+    statusElement.textContent='🎹 Mac: Utilitza el teclat manual';
+    statusElement.style.color='#ffaa00';
+    setTimeout(()=>{
+      alert('🎹 Estàs utilitzant TONAL EMOTIONS des d\'un Mac.\n\nCom que el MIDI no està disponible, hauràs d\'utilitzar el control manual (teclat a pantalla) per tocar les notes.\n\nPer a totes les funcionalitats, et recomanem utilitzar un PC amb connexió MIDI.');
+    },500);
+    return;
+  }
+  
   try{
     const ma=await getMIDIAccess();
     statusElement.textContent=t('midi_connected');
@@ -367,6 +378,7 @@ async function initMIDI(){
     statusElement.style.color='#00ff66';
   }
 }
+
 function getNoteToShow(){
   if(exclusiveMode==='normal'){ if(pressedStack.length) return pressedStack[pressedStack.length-1]; if(sustainPedalActive&&normalSustainHold!==null) return normalSustainHold; return null; }
   if(activeNotes.size===0) return null;
@@ -898,7 +910,11 @@ function updateFilterInfo(){
 }
 function hideFilterInfo(){ if(filterInfoEl) filterInfoEl.style.display='none'; }
 function toggleManualPanel(){
-  if(earMode.classList.contains('active')&&earModeType==='listen') return;
+  // En mode Listen, no permetre obrir el control manual
+  if(earMode.classList.contains('active') && earModeType==='listen'){
+    return;
+  }
+  
   manualPanelVisible=!manualPanelVisible;
   manualPanel.classList.toggle('visible',manualPanelVisible);
   if(earMode.classList.contains('active')) manualPanel.classList.add('ear-position'); else manualPanel.classList.remove('ear-position');
@@ -911,6 +927,7 @@ function toggleManualPanel(){
   }
   updateManualButtonsVisibility();
 }
+
 function activateManualNote(d){
   if(activeManualNotes.has(d)) return;
   activeManualNotes.add(d);
@@ -1101,7 +1118,6 @@ function applyTabletLayout(mode){
     manualPanel.style.display='block';
     manualPanel.classList.add('visible');
     manualPanelVisible=true;
-    // Assegurar que el panell estigui a la posició correcta
     manualPanel.classList.remove('ear-position');
   }
   
@@ -1109,34 +1125,59 @@ function applyTabletLayout(mode){
   const cont=document.querySelector('.manual-buttons');
   if(cont) cont.style.gridTemplateColumns='repeat(6,1fr)';
   
-  // Mostrar avís MIDI només com a info (no error)
+  // Mostrar avís MIDI (més avall per no tapar-se)
   if(mode==='midi'){
     const w=document.createElement('div');
-    w.style.cssText='position:fixed;top:80px;left:50%;transform:translateX(-50%);background:rgba(255,170,0,0.9);color:#000;padding:10px 20px;border-radius:10px;font-weight:700;font-size:13px;z-index:99999;box-shadow:0 4px 12px rgba(0,0,0,0.5);';
-    w.innerHTML='⚠️ MIDI no disponible en iPad. Utilitza el teclat manual de sota.';
+    w.style.cssText='position:fixed;top:150px;left:50%;transform:translateX(-50%);background:rgba(255,170,0,0.95);color:#000;padding:12px 24px;border-radius:12px;font-weight:700;font-size:14px;z-index:99999;box-shadow:0 6px 20px rgba(0,0,0,0.6);text-align:center;max-width:80%;';
+    w.innerHTML='⚠️ MIDI no disponible en iPad<br>Utilitza el teclat manual de sota';
     document.body.appendChild(w);
-    setTimeout(()=>w.remove(),5000);
+    setTimeout(()=>{
+      w.style.transition='opacity 1s';
+      w.style.opacity='0';
+      setTimeout(()=>w.remove(),1000);
+    },5000);
   }
 }
 
 function removeTabletLayout(){
-  if(IS_PC && manualPanel){
+  if(manualPanel){
     manualPanel.classList.remove('visible');
-    manualPanelVisible=false;
+    manualPanel.style.display='none';
   }
+  manualPanelVisible=false;
 }
+
+function cleanupOnExit(){
+  // Tanca tots els modals
+  if(resultModal) resultModal.classList.remove('visible');
+  if(pauseModal) pauseModal.classList.remove('visible');
+  if(infoModal) infoModal.classList.remove('visible');
+  if($('instructions-modal')) $('instructions-modal').classList.remove('visible');
+  if(battleModal) battleModal.classList.remove('visible');
+  if(battleResultModal) battleResultModal.classList.remove('visible');
+  if(hardcoreWarning) hardcoreWarning.classList.remove('visible');
+  
+  // Amaga el control manual SEMPRE en sortir
+  if(manualPanel){
+    manualPanel.classList.remove('visible');
+    manualPanel.style.display='none';
+  }
+  manualPanelVisible=false;
+  activeManualNotes.clear();
+  numHeld={};
+  
+  // Atura qualsevol melodia
+  stopProva();
+  
+  // Neteja estats de tablet
+  if(IS_TABLET) removeTabletLayout();
+}
+
 function requestFullscreen(){
   if(!document.fullscreenElement){
     const elem=document.documentElement;
-    if(elem.requestFullscreen){
-      elem.requestFullscreen().catch(err=>{
-        console.log('Fullscreen no disponible:',err);
-      });
-    }else if(elem.webkitRequestFullscreen){
-      elem.webkitRequestFullscreen().catch(err=>{
-        console.log('Fullscreen no disponible:',err);
-      });
-    }
+    if(elem.requestFullscreen) elem.requestFullscreen().catch(()=>{});
+    else if(elem.webkitRequestFullscreen) elem.webkitRequestFullscreen().catch(()=>{});
   }
 }
 
