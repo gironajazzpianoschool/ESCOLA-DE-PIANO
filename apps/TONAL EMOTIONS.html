@@ -604,6 +604,103 @@ html.smartphone-mode #btn-ear-start-full {
   grid-column: 1 / -1 !important;
   justify-self: center !important;
 }
+/* ═══════════════════════════════════════════════ */
+/* TABLET / iPAD: LAYOUT OPTIMITZAT                */
+/* ═══════════════════════════════════════════════ */
+@media (min-width: 768px) and (max-width: 1366px) and (pointer: coarse),
+       (min-width: 768px) and (pointer: coarse) {
+
+  /* Amagar botons innecessaris en Laboratori */
+  #btn-delay, #btn-lead, #btn-bass, #btn-multi,
+  #btn-complete, #btn-edit { display: none !important; }
+
+  /* Amagar Sustain i Piano a Ear Training */
+  #btn-ear-piano, #ear-sustain-led, #ear-sustain-label { display: none !important; }
+
+  /* Amagar botó Manual (el control sempre visible) */
+  #btn-toggle-manual, #btn-toggle-manual-ear { display: none !important; }
+
+  /* Botó Pantalla Completa: icona gran, sense text, sense fons */
+  #btn-fullscreen-midi, #btn-fullscreen-ear {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    width: 48px !important;
+    height: 48px !important;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    color: transparent !important;
+    font-size: 0 !important;
+    padding: 0 !important;
+    bottom: 20px !important;
+    left: 180px !important;
+    z-index: 101 !important;
+  }
+  #btn-fullscreen-midi::before, #btn-fullscreen-ear::before {
+    content: '🖥️';
+    font-size: 32px !important;
+    color: rgba(255,255,255,0.7) !important;
+  }
+  #btn-fullscreen-midi span, #btn-fullscreen-ear span { display: none !important; }
+
+  /* Control manual sempre visible a Ear Training */
+  #manual-panel {
+    display: block !important;
+    position: fixed !important;
+    bottom: 80px !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    background: rgba(18,18,26,0.85) !important;
+    border: 1px solid rgba(140,82,255,0.3) !important;
+    border-radius: 16px !important;
+    padding: 12px 16px !important;
+    z-index: 1000 !important;
+  }
+  #manual-panel h3 { display: none !important; }
+
+  /* Botons inferiors recol·locats */
+  #btn-back-midi, #btn-back-ear {
+    bottom: 20px !important;
+    left: 20px !important;
+  }
+
+  /* Ajustar panell ear per no superposar */
+  #ear-panel-full {
+    top: 10px !important;
+    left: 10px !important;
+    width: 260px !important;
+  }
+
+  /* Ajustar posició botons mode a dalt */
+  #btn-normal {
+    position: absolute !important;
+    top: 20px !important;
+    left: 20px !important;
+    right: auto !important;
+  }
+
+  /* Missatge MIDI no disponible */
+  .midi-warning-tablet {
+    position: fixed;
+    top: 80px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #ffaa00;
+    color: #000;
+    padding: 10px 20px;
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 13px;
+    z-index: 99999;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+    animation: fadeOut 4s forwards;
+  }
+  @keyframes fadeOut {
+    0%, 70% { opacity: 1; }
+    100% { opacity: 0; visibility: hidden; }
+  }
+}
 </style>
 </head>
 <body>
