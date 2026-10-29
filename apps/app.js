@@ -64,6 +64,7 @@ let earFilterPanelVisible=false, filterBtn=null, filterPanel=null, filterTitleEl
 let activeManualNotes=new Set(), numHeld={}, pendingAcc=0, pendingAccTO=null;
 let emotionTextEl=null, tonicBtnEl=null, tonicTipEl=null, tonicVolEl=null;
 let tonicPedalOscs=[], tonicPedalGains=[], tonicPedalMasterGain=null, tonicPedalFilter=null;
+let provaTimers=[], provaSustain=true, provaPlaying=false, provaBtnActive=null;
 
 const $ = id => document.getElementById(id);
 const startScreen=$('start-screen'), midiMode=$('midi-mode'), earMode=$('ear-mode'), multiTabWarning=$('multi-tab-warning');
@@ -308,15 +309,7 @@ function startDelayProcess(note){
     }
   },50);
 }
-function stopProva(){
-  if(earTrainingActive){ stopEarTraining(false); return; }
-  if(showTimeout){clearTimeout(showTimeout);showTimeout=null;}
-  cancelDelayProcess();
-  activeNotes.clear(); heldByPedal.clear(); pressedStack=[]; normalSustainHold=null;
-  if(imgElement) imgElement.classList.remove('visible');
-  Object.values(wrappers).forEach(w=>{ w.classList.remove('visible','active-note'); w.style.opacity='0'; if(w.noteNumber) w.noteNumber.classList.remove('visible','active-note'); });
-  stopAllPianoNotes();
-}
+
 
 /* ══ 7. MIDI ══ */
 function getMIDIAccess(){ if(!midiAccessPromise){ midiAccessPromise=navigator.requestMIDIAccess().catch(err=>{midiAccessPromise=null;throw err;}); } return midiAccessPromise; }
@@ -1107,6 +1100,58 @@ $('btn-ear-piano').addEventListener('click',()=>{
   else{ pianoToast.textContent=t('piano_off'); pianoToast.style.background='#444'; stopAllPianoNotes(); }
   updatePianoButtons(); pianoToast.style.display='block'; setTimeout(()=>pianoToast.style.display='none',2000);
 });
+function stopProva(){
+  provaTimers.forEach(t0 => clearTimeout(t0));
+  provaTimers = [];
+  stopAllPianoNotes();
+  heldByPedal.clear();
+  provaSustain = true;
+  if ($('sustain-hint')) $('sustain-hint').classList.remove('visible');
+  provaPlaying = false;
+  provaBtnActive = null;
+  
+  const btn = $('sc-test');
+  if (btn) {
+    btn.textContent = t('test_sound');
+    btn.classList.remove('stop');
+  }
+}
+
+function playMelody(arr, scale, btn, label, volMult = 1, useSustain = true) {
+  if (provaPlaying) stopProva();
+  if (!arr || !arr.length) return;
+  if (!internalPianoEnabled) { 
+    internalPianoEnabled = true; 
+    updatePianoButtons(); 
+  }
+  getSharedCtx();
+  provaPlaying = true; 
+  provaBtnActive = btn; 
+  provaSustain = useSustain;
+  
+  // AQUI ESTAVA EL PROBLEMA: Només canviem el botó si existeix
+  if (btn) {
+    btn.textContent = '⏹ STOP';
+    btn.classList.add('stop');
+  }
+  
+  const base = 0.3 * volMult;
+  const offset = arr[0][0];
+  const START_DELAY = 1;
+  let last = 0;
+  
+  arr.forEach(([t0, n, d]) => {
+    const tAdj = (t0 - offset) * scale + START_DELAY;
+    provaTimers.push(setTimeout(() => startPianoNote(n, base, useSustain), tAdj * 1000));
+    provaTimers.push(setTimeout(() => {
+      if (provaSustain && sustainPedalActive) heldByPedal.add(n);
+      else stopPianoNote(n);
+    }, (tAdj + Math.max(0.3, d * scale)) * 1000));
+    last = Math.max(last, tAdj + Math.max(0.3, d * scale));
+  });
+  
+  provaTimers.push(setTimeout(() => stopProva(), (last + 1.5) * 1000));
+}
 $('pedal-volume-slider').addEventListener('input',e=>updatePedalVolumeDirect(parseInt(e.target.value)));
 ['sc-volume','sc-fadein','sc-attack','sc-decay','sc-sustain','sc-duration','sc-bright'].forEach(id=>{
   $(id).addEventListener('input',e=>{
@@ -1124,13 +1169,13 @@ $('sc-instrument').addEventListener('change',e=>{ pianoTuning.instrument=e.targe
 $('sc-reset').addEventListener('click',()=>{ Object.assign(pianoTuning,PIANO_DEFAULTS); syncSoundSliders(); refreshSoundLabels(); });
 $('sc-test').addEventListener('click',()=>{
   const btn=$('sc-test');
-  if(btn.classList.contains('stop')){ stopAllPianoNotes(); btn.classList.remove('stop'); btn.textContent=t('test_sound'); return; }
-  btn.classList.add('stop'); btn.textContent='⏹ Stop';
-  [60,64,67,72].forEach((n,i)=>{
-    setTimeout(()=>{ if(btn.classList.contains('stop')) startPianoNote(n,0.5); }, i*400);
-    setTimeout(()=>{ stopPianoNote(n); }, i*400+800);
-  });
-  setTimeout(()=>{ btn.classList.remove('stop'); btn.textContent=t('test_sound'); },2000);
+  if(provaPlaying&&provaBtnActive===btn){ stopProva(); return; }
+  if(typeof BACH_PRELUDE!=='undefined'){
+    playMelody(BACH_PRELUDE, BACH_TEMPO_SCALE||1, btn, t('test_sound'), 1, true);
+  } else {
+    alert('⚠️ melodies.js no carregat o BACH_PRELUDE no definit');
+  }
+  if($('sustain-hint')){ $('sustain-hint').classList.add('visible'); positionSustainHint(); }
 });
 $('btn-zoom-in').addEventListener('click',()=>{ if(currentZoom<120){ currentZoom+=10; applyZoom(); saveZoom(); if($('sound-controls').style.display==='flex'){ positionZoomControls(); if($('sustain-hint').classList.contains('visible')) positionSustainHint(); } } });
 $('btn-zoom-out').addEventListener('click',()=>{ if(currentZoom>80){ currentZoom-=10; applyZoom(); saveZoom(); if($('sound-controls').style.display==='flex'){ positionZoomControls(); if($('sustain-hint').classList.contains('visible')) positionSustainHint(); } } });
@@ -1173,11 +1218,33 @@ btnToggleManual.addEventListener('click',toggleManualPanel);
 btnToggleManualEar.addEventListener('click',toggleManualPanel);
 $('btn-battle-start').addEventListener('click',startBattle);
 $('btn-battle-cancel').addEventListener('click',hideBattleModal);
-$('btn-battle-close').addEventListener('click',()=>battleResultModal.classList.remove('visible'));
+['battle-player1-name','battle-player2-name'].forEach(id=>{
+  $(id).addEventListener('keydown',e=>{ if(e.key==='Enter'){ e.preventDefault(); startBattle(); } });
+});$('btn-battle-close').addEventListener('click',()=>battleResultModal.classList.remove('visible'));
 $('btn-close-result').addEventListener('click',()=>{ resultModal.classList.remove('visible'); if(earModeType==='test') accuracyPanel.classList.remove('visible'); });
-$('btn-close-info').addEventListener('click',()=>infoModal.classList.remove('visible'));
-$('btn-close-instructions').addEventListener('click',()=>$('instructions-modal').classList.remove('visible'));
-$('btn-info').addEventListener('click',()=>{ infoModal.classList.add('visible'); });
+$('btn-close-info').addEventListener('click', () => {
+  infoModal.classList.remove('visible');
+  stopProva();
+});$('btn-close-instructions').addEventListener('click',()=>$('instructions-modal').classList.remove('visible'));
+$('btn-info').addEventListener('click', () => {
+  if (!infoModal) {
+    console.error('❌ infoModal no existeix al DOM');
+    return;
+  }
+  infoModal.classList.add('visible');
+  
+  if (typeof playMelody === 'function' && typeof DEBUSSY !== 'undefined') {
+    setTimeout(() => {
+      try {
+        playMelody(DEBUSSY, DEBUSSY_TEMPO_SCALE || 1, null, '', 0.5, false);
+      } catch (e) {
+        console.error('❌ Error tocant Debussy:', e);
+      }
+    }, 100);
+  } else {
+    console.warn('⚠️ playMelody o DEBUSSY no disponibles');
+  }
+});
 $('btn-help-midi').addEventListener('click',()=>{ $('instructions-content').innerHTML=t('help_midi'); $('instructions-modal').classList.add('visible'); });
 $('btn-help-ear').addEventListener('click',()=>{ $('instructions-content').innerHTML=t('help_ear'); $('instructions-modal').classList.add('visible'); });
 document.querySelectorAll('.lang-btn').forEach(btn=>{ btn.addEventListener('click',()=>{ currentLang=btn.dataset.lang; updateLanguageUI(); }); });
