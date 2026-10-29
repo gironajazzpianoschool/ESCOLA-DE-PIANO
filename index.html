@@ -186,6 +186,38 @@ main { position: relative; padding: 20px 5vw; max-width: 1300px; margin: auto; }
 .vid-order-btn svg { width: 14px; height: 14px; }
 .add-vid-btn { border: 2px dashed var(--gold); background: rgba(232,176,75,0.05); border-radius: 12px; padding: 20px; color: var(--gold); cursor: pointer; font-weight: 700; font-size: 13px; transition: all .2s; display: flex; align-items: center; justify-content: center; min-height: 100px; }
 .add-vid-btn:hover { background: rgba(232,176,75,0.15); }
+/* ── Drag & Drop ── */
+.vid-drag { position: absolute; top: 10px; left: 8px; width: 20px; height: 20px; border-radius: 5px; background: transparent; border: none; color: var(--mut); display: flex; align-items: center; justify-content: center; font-size: 12px; cursor: grab; z-index: 7; user-select: none; touch-action: none; transition: all .2s; opacity: .5; }
+.vid-drag:hover { opacity: 1; color: var(--gold); transform: scale(1.15); }
+body.editmode .vid { padding-left: 34px; }
+.vid-drag.dragging { cursor: grabbing; opacity: .5; }
+.vid.dragging-src { opacity: .35; border-style: dashed; }
+.vgrid.drop-hover { outline: 2px dashed var(--gold); outline-offset: 4px; border-radius: 12px; }
+.vid.drop-before { box-shadow: -4px 0 0 0 var(--gold); }
+.vid.drop-after { box-shadow: 4px 0 0 0 var(--gold); }
+#drag-ghost { position: fixed; z-index: 999999; pointer-events: none; background: var(--card); border: 2px solid var(--gold); border-radius: 10px; padding: 8px 12px; font-size: 12px; font-weight: 700; color: var(--gold); box-shadow: 0 8px 24px rgba(0,0,0,.6); max-width: 240px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+#drag-blockbar { position: fixed; top: 10px; left: 50%; transform: translateX(-50%); z-index: 999998; display: none; gap: 6px; background: var(--card); border: 1px solid var(--gold); border-radius: 12px; padding: 8px 10px; box-shadow: 0 8px 24px rgba(0,0,0,.6); }
+#drag-blockbar.on { display: flex; }
+.drag-blockbtn { background: var(--bg); border: 1px solid var(--line); color: var(--mut); border-radius: 8px; padding: 6px 12px; font-size: 12px; font-weight: 700; cursor: pointer; }
+.drag-blockbtn.over { border-color: var(--gold); color: var(--gold); background: rgba(232,176,75,.12); }
+/* ── Editor de Partitures ── */
+.docsmodal { position: fixed; inset: 0; background: rgba(5,6,10,.96); z-index: 70; display: none; align-items: center; justify-content: center; padding: 4vw; }
+.docsmodal.on { display: flex; }
+.docsbox { background: var(--card); border: 1px solid var(--gold); border-radius: var(--rad-lg); padding: 22px; width: min(760px, 94vw); max-height: 88vh; overflow-y: auto; box-shadow: 0 10px 32px rgba(232,176,75,.2); }
+.docsbox h2 { color: var(--gold); font-size: 16px; margin-bottom: 14px; display: flex; justify-content: space-between; align-items: center; }
+.docsbox h2 button { background: none; border: none; color: var(--mut); font-size: 20px; cursor: pointer; }
+.docrow { display: flex; align-items: center; gap: 8px; background: var(--bg); border: 1px solid var(--line); border-radius: 8px; padding: 8px 10px; margin-bottom: 8px; flex-wrap: wrap; }
+.docrow .dico { font-size: 18px; }
+.docrow .dname { flex: 1; min-width: 140px; font-weight: 600; font-size: var(--fs-btn); }
+.docrow input { background: var(--bg); border: 1px solid var(--line); border-radius: 6px; color: var(--ink); padding: 5px 8px; font-size: 12px; }
+.docrow input.dn { flex: 1; min-width: 120px; }
+.docrow input.dl { flex: 1.4; min-width: 150px; }
+.docrow button { background: none; border: 1px solid var(--line); color: var(--mut); border-radius: 6px; padding: 4px 8px; cursor: pointer; font-size: 13px; transition: all .2s; }
+.docrow button:hover { border-color: var(--gold); color: var(--gold); }
+.docrow button.del:hover { border-color: var(--danger); color: var(--danger); }
+.docpreview { width: 100%; height: 320px; border: 1px solid var(--line); border-radius: 8px; margin-top: 8px; background: #000; }
+.docsbox .addrow { border: 2px dashed var(--gold); background: rgba(232,176,75,.05); color: var(--gold); border-radius: 10px; padding: 12px; text-align: center; cursor: pointer; font-weight: 700; margin-top: 10px; }
+.docsbox .addrow:hover { background: rgba(232,176,75,.15); }
 
 /* ============================================================
    8. APPS I FAQ
@@ -535,6 +567,10 @@ function isSmartphone() {
   return false;
 }
 
+function isTabletDevice() {
+  return isMobileDevice() && !isSmartphone();
+}
+
 var BO = ['w', 't', 'g', 'r', 'a', 'p'];
 var BC = { t: '#e8b04b', g: '#39d98a', r: '#4cc9f0', a: '#8c52ff', p: '#ff2bd6' };
 var DI = { d: '📄', s: '🎼', a: '' };
@@ -793,6 +829,11 @@ function celGiftTxtImp() {
 }
 function helpText(i, k, fallback) { var o = OV.h && OV.h[i]; if (o && o[k] && o[k][LS.lang]) return o[k][LS.lang]; return fallback; }
 function vidTitle(v, id) { var o = OV.t[id]; return (o && o[LS.lang]) ? esc(o[LS.lang]) : v[li()]; }
+function secName(si) {
+  var o = OV.n && OV.n[si];
+  if (o && o[LS.lang]) return esc(o[LS.lang]);
+  return D[si] ? D[si].n[LS.lang] : '';
+}
 function vidDesc(v, id, b) { var o = OV.d[id]; return (o && o[LS.lang]) ? esc(o[LS.lang]) : t().desc[b]; }
 function driveSrc(v, id) {
   var L = (OV.l[id] && OV.l[id][LS.lang]) || OV.l[id];
@@ -850,6 +891,32 @@ function reorderVideo(videoId, newOrder) {
   var target = newOrder - 1;
   if (target < 0 || target >= numbered.length || target === cur) return;
   swapOrder(videoId, numbered[target]);
+}
+/* ================================================================
+   5b. BLOC VIRTUAL (OV.bl) I MOVIMENT DE VÍDEOS
+   ================================================================ */
+function vidBlockById(id) { return (OV.bl && OV.bl[id]) || id.split('.')[2]; }
+function vidBlock(x) { return vidBlockById(x.id); }
+
+function moveVideo(id, destBlock, beforeId) {
+  if (editModeOn) collectAll();
+  OV.bl = OV.bl || {};
+  if (destBlock) OV.bl[id] = destBlock;
+  initializeOrder();
+  var i = OV.order.indexOf(id);
+  if (i >= 0) OV.order.splice(i, 1);
+  if (beforeId) {
+    var j = OV.order.indexOf(beforeId);
+    if (j >= 0) OV.order.splice(j, 0, id);
+    else OV.order.push(id);
+  } else {
+    OV.order.push(id);
+  }
+  render();
+}
+
+function resetVideoBlock(id) {
+  if (OV.bl && OV.bl[id]) { delete OV.bl[id]; render(); }
 }
 function getVideoImportance(videoId) {
   if (!OV.imp || typeof OV.imp !== 'object') OV.imp = {};
@@ -959,7 +1026,10 @@ function mkAdj(docs, si, ui, b) {
     rows += '<div class="doc" style="flex-direction:column;align-items:stretch;padding:8px 10px"><div style="display:flex;align-items:center;gap:8px"><span style="font-size:14px">' + (DI[dc[2]] || '📄') + '</span><span style="flex:1;font-weight:600">' + dc[li()] + '</span>' + linkHtml + '</div>' + editHtml + '</div>';
   });
   box.innerHTML = headerHTML + rows;
-  btn.onclick = function () { box.classList.toggle('on'); };
+  btn.onclick = function () {
+    if (editModeOn) { openDocsEditor(si, ui, b); return; }
+    box.classList.toggle('on');
+  };
   if (editModeOn) {
     setTimeout(function () {
       var addBtn = box.querySelector('.add-doc-btn');
@@ -1057,6 +1127,8 @@ $('adjSelOk').onclick = function () {
 };
 document.addEventListener('keydown', function (e) {
   if (e.key !== 'Escape') return;
+  var dm = $('docsModal');
+  if (dm) { dm.remove(); render(); return; }
   if ($('adjSelModal').classList.contains('on')) $('adjSelCancel').onclick();
   else if ($('faqModal').classList.contains('on')) $('faqModal').classList.remove('on');
 });
@@ -1096,17 +1168,33 @@ function collectAll() {
     OV.h[i][k] = OV.h[i][k] || {};
     OV.h[i][k][LS.lang] = txt;
   });
+  document.querySelectorAll('[data-ovsid]').forEach(function (el) {
+    var si = el.dataset.ovsid, txt = el.innerText.trim();
+    OV.n = OV.n || {};
+    OV.n[si] = OV.n[si] || {};
+    OV.n[si][LS.lang] = txt;
+  });
 }
-
 function applyLinkLabel(row, id) {
   var b = row.querySelector('.lkbtn');
   if (!b) return;
-  var hasLink = (OV.l[id] && OV.l[id][LS.lang]) || OV.l[id];
-  b.textContent = hasLink ? '🔗✔' : '🔗';
+  var hasCustom = OV.l[id] && OV.l[id][LS.lang];
+  var hasFallback = OV.l[id];
+  if (hasCustom) {
+    b.textContent = '🔗✔';
+    b.title = LS.lang === 'ca' ? 'Link personalitzat (clica per editar)' : 'Link personalizado (clic para editar)';
+    b.style.borderColor = '#39d98a';
+    b.style.color = '#39d98a';
+  } else {
+    b.textContent = '🔗';
+    b.title = t().linkPrompt.replace(/:$/, '');
+    b.style.borderColor = '';
+    b.style.color = '';
+  }
 }
 
 function applyEditState() {
-  document.querySelectorAll('.vt[data-ovid],.vd[data-ovid],.faqtxt[data-fqi],.faq-item p[data-fqi],.appcard h3[data-ovaid],.appcard p[data-ovaid],.help-title[data-hi],.help-para[data-hi],.cel-title[data-ovaid],.cel-gift[data-ovaid]').forEach(function (el) {
+  document.querySelectorAll('.vt[data-ovid],.vd[data-ovid],.stagetag[data-ovsid],.faqtxt[data-fqi],.faq-item p[data-fqi],.appcard h3[data-ovaid],.appcard p[data-ovaid],.help-title[data-hi],.help-para[data-hi],.cel-title[data-ovaid],.cel-gift[data-ovaid],.gift-card h3[data-ovid]').forEach(function (el) {
     if (editModeOn) { el.contentEditable = 'true'; el.classList.add('editing'); }
     else { el.removeAttribute('contenteditable'); el.classList.remove('editing'); }
   });
@@ -1122,9 +1210,14 @@ function applyEditState() {
         b.onclick = function (e) {
           e.stopPropagation();
           var cur = (OV.l[id] && OV.l[id][LS.lang]) || OV.l[id] || '';
-          var val = prompt(t().linkPrompt, cur);
+          var val = prompt(t().linkPrompt + '\n\n' + (LS.lang === 'ca' ? 'Actual:' : 'Actual:') + '\n' + (cur || '—'), cur);
           if (val === null) return;
           val = val.trim();
+          // Validació bàsica de format Google Drive
+          if (val && !(/^https?:\/\//.test(val) || /^[a-zA-Z0-9_-]{20,}$/.test(val))) {
+            alert(LS.lang === 'ca' ? '⚠️ Format no vàlid. Ha de ser un ID de Drive (ex: 1B0keL0UC...) o una URL completa.' : '⚠️ Formato no válido. Debe ser un ID de Drive o una URL completa.');
+            return;
+          }
           if (!val) {
             if (OV.l[id] && OV.l[id][LS.lang]) delete OV.l[id][LS.lang];
             if (OV.l[id] && Object.keys(OV.l[id]).length === 0) delete OV.l[id];
@@ -1153,9 +1246,30 @@ function applyEditState() {
           acts.appendChild(vb);
         }
       }
+      var pvx = row.querySelector('.pvbtn');
+      if (!pvx) {
+        var pv = document.createElement('button');
+        pv.className = 'pvbtn'; pv.type = 'button';
+        pv.textContent = '👁️';
+        pv.title = LS.lang === 'ca' ? 'Preview del vídeo (comprovar que és el correcte)' : 'Preview del vídeo (comprobar que es el correcto)';
+        pv.onclick = function (e) {
+          e.stopPropagation();
+          var inl = row.querySelector('.inl');
+          var ifr = inl.querySelector('iframe');
+          if (inl.classList.contains('on')) { inl.classList.remove('on'); ifr.src = ''; return; }
+          var vobj = findVidById(id);
+          var src = vobj ? driveSrc(vobj.v, id) : null;
+          if (!src) { showToast(t().soon); return; }
+          ifr.src = src;
+          inl.classList.add('on');
+        };
+        acts.appendChild(pv);
+      }
     } else {
       if (ex) ex.remove();
       if (vex) vex.remove();
+      var pvx2 = row.querySelector('.pvbtn');
+      if (pvx2) pvx2.remove();
     }
   });
 }
@@ -1169,11 +1283,11 @@ function toggleEditMode(force) {
   editModeOn = newState;
   if (!editModeOn) collectAll();
   $('mEdit').classList.toggle('on', editModeOn);
+  document.body.classList.toggle('editmode', editModeOn);
   render();
 }
 
-function fallbackDownload(html) {
-  var b = new Blob([html], { type: 'text/html' });
+function fallbackDownload(html) {  var b = new Blob([html], { type: 'text/html' });
   var a = document.createElement('a');
   a.href = URL.createObjectURL(b);
   a.download = 'index.html';
@@ -1192,6 +1306,16 @@ function saveAsFile() {
   html = html.replace(/\/\*OV-START\*\/[\s\S]*?\/\*OV-END\*\//, '/*OV-START*/' + JSON.stringify(OV) + ';/*OV-END*/');
   toggleEditMode(wasEdit);
   render();
+  // A iPad/Tablet: compartir el fitxer real per adjuntar-lo a Mail, AirDrop, etc.
+  if (isTabletDevice() && navigator.share && navigator.canShare) {
+    var fileShare = new File([html], 'index.html', { type: 'text/html' });
+    if (navigator.canShare({ files: [fileShare] })) {
+      navigator.share({ files: [fileShare], title: 'index.html' })
+        .then(function () { showToast(LS.lang === 'ca' ? '📧 Fitxer preparat! Tria Mail per enviar-lo adjunt.' : '📧 ¡Fichero listo! Elige Mail para enviarlo adjunto.'); })
+        .catch(function (e) { if (e && e.name !== 'AbortError') fallbackDownload(html); });
+      return;
+    }
+  }
   if (window.showSaveFilePicker) {
     showSaveFilePicker({ suggestedName: 'index.html', types: [{ description: 'Pàgina HTML', accept: { 'text/html': ['.html'] } }] })
       .then(function (h) { return h.createWritable(); })
@@ -1214,6 +1338,7 @@ function makeVid(v, id, track, tag) {
   var row = document.createElement('div');
   row.className = 'vid';
   row.id = 'v_' + id;
+  row.dataset.vid = id;
   var orderNum = getVideoOrder(id);
   var importance = getVideoImportance(id);
   var importanceIcon = importance === 'important' ? '⭐' : '⭕';
@@ -1223,7 +1348,10 @@ function makeVid(v, id, track, tag) {
   if (editModeOn) {
     importanceTitle += ' · ' + (LS.lang === 'ca' ? 'Clica per alternar ⭐/⭕' : 'Clic para alternar ⭐/⭕');
   }
-  var numberHtml = '', importanceHtml = '';
+  var numberHtml = '', importanceHtml = '', dragHtml = '';
+  if (editModeOn && !isGiftId(id)) {
+    dragHtml = '<div class="vid-drag" title="' + (LS.lang === 'ca' ? 'Arrossega per moure (dins o entre blocs)' : 'Arrastra para mover (dentro o entre bloques)') + '">✋</div>';
+  }
   if (!isGiftId(id)) {
     if (editModeOn) {
       importanceHtml = '<div class="vid-importance editable" title="' + importanceTitle + '">' + importanceIcon + '</div>';
@@ -1238,7 +1366,8 @@ function makeVid(v, id, track, tag) {
   var hasNotes = false;
   try { hasNotes = lsJSON(nkey, []).length > 0; } catch (e) {}
   var ntClass = 'nt' + (hasNotes ? ' has-notes' : '');
-  row.innerHTML = (tag ? '<div class="stagetag">' + tag + '</div>' : '') + numberHtml + importanceHtml +
+  var siTag = parseInt(id.split('.')[0], 10);
+  row.innerHTML = (tag ? '<div class="stagetag" data-ovsid="' + siTag + '" data-ovsk="n">' + tag + '</div>' : '') + dragHtml + numberHtml + importanceHtml +
     '<div style="position:relative" class="vr"><button class="play">▶</button><div class="vt" data-ovid="' + id + '" data-ovk="t">' + vidTitle(v, id) + '</div></div>' +
     '<div class="acts"><button class="ck' + (LS.done[id] ? ' done' : '') + '">' + (LS.done[id] ? t().undo : (track ? t().doneCont : t().mark)) + '</button><button class="bk' + (isBookmarked(id) ? ' bookmarked' : '') + '">' + (isBookmarked(id) ? t().bookmarked : t().bookmark) + '</button><button class="' + ntClass + '">' + ICON_NOTE + ' ' + t().notes.replace(/^\s*📝\s*/, '') + '</button></div>' +
     '<div class="inl"><iframe allow="autoplay" src=""></iframe><div class="inlb"><button class="mx">⛶</button><button class="cl"></button></div></div>' +
@@ -1449,8 +1578,61 @@ function renderTrack() {
     GIFT.forEach(function (g, i) {
       var card = document.createElement('div');
       card.className = 'gift-card';
-      card.innerHTML = '<h3>' + vidTitle(g, 'gift.' + i) + '</h3><p>' + (LS.lang === 'ca' ? 'Masterclass exclusiva' : 'Masterclass exclusiva') + '</p>';
-      card.onclick = function () { var src = driveSrc(g, 'gift.' + i); if (src) openFullscreenVideo(src); else showToast(t().soon); };
+      card.style.position = 'relative';
+      card.innerHTML = '<h3 data-ovid="gift.' + i + '" data-ovk="t">' + vidTitle(g, 'gift.' + i) + '</h3><p>' + (LS.lang === 'ca' ? 'Masterclass exclusiva' : 'Masterclass exclusiva') + '</p>';      card.onclick = function () { var src = driveSrc(g, 'gift.' + i); if (src) openFullscreenVideo(src); else showToast(t().soon); };
+      
+      if (editModeOn) {
+        var editBar = document.createElement('div');
+        editBar.style.cssText = 'position:absolute;top:8px;right:8px;display:flex;gap:6px;z-index:5;';
+        
+        var lkBtn = document.createElement('button');
+        lkBtn.className = 'lkbtn';
+        lkBtn.type = 'button';
+        var curGift = (OV.l['gift.' + i] && OV.l['gift.' + i][LS.lang]) || OV.l['gift.' + i] || '';
+        lkBtn.textContent = curGift ? '🔗✔' : '🔗';
+        lkBtn.style.cssText = 'background:rgba(10,12,16,.85);border:1px solid var(--gold);color:var(--gold);border-radius:6px;padding:4px 8px;font-size:12px;cursor:pointer;';
+        if (curGift) { lkBtn.style.borderColor = '#39d98a'; lkBtn.style.color = '#39d98a'; }
+        lkBtn.onclick = function (e) {
+          e.stopPropagation();
+          var val = prompt(t().linkPrompt + '\n\n' + (LS.lang === 'ca' ? 'Masterclass ' + (i+1) + '. Actual:' : 'Masterclass ' + (i+1) + '. Actual:') + '\n' + (curGift || '—'), curGift);
+          if (val === null) return;
+          val = val.trim();
+          if (!val) {
+            if (OV.l['gift.' + i] && OV.l['gift.' + i][LS.lang]) delete OV.l['gift.' + i][LS.lang];
+            if (OV.l['gift.' + i] && Object.keys(OV.l['gift.' + i]).length === 0) delete OV.l['gift.' + i];
+            lkBtn.textContent = '🔗'; lkBtn.style.borderColor = 'var(--gold)'; lkBtn.style.color = 'var(--gold)';
+            return;
+          }
+          var m = val.match(/\/d\/([a-zA-Z0-9_-]+)/);
+          if (m) val = m[1];
+          else { var m2 = val.match(/[?&]id=([a-zA-Z0-9_-]+)/); if (m2) val = m2[1]; }
+          OV.l = OV.l || {};
+          OV.l['gift.' + i] = OV.l['gift.' + i] || {};
+          OV.l['gift.' + i][LS.lang] = val;
+          lkBtn.textContent = '🔗✔'; lkBtn.style.borderColor = '#39d98a'; lkBtn.style.color = '#39d98a';
+          showToast(LS.lang === 'ca' ? '✔ Link de la masterclass actualitzat' : '✔ Link de la masterclass actualizado');
+        };
+        
+        var tBtn = document.createElement('button');
+        tBtn.type = 'button';
+        tBtn.textContent = '✏️';
+        tBtn.title = LS.lang === 'ca' ? 'Editar títol' : 'Editar título';
+        tBtn.style.cssText = 'background:rgba(10,12,16,.85);border:1px solid var(--gold);color:var(--gold);border-radius:6px;padding:4px 8px;font-size:12px;cursor:pointer;';
+        tBtn.onclick = function (e) {
+          e.stopPropagation();
+          var curTitle = vidTitle(g, 'gift.' + i);
+          var newTitle = prompt(LS.lang === 'ca' ? 'Nou títol de la masterclass:' : 'Nuevo título de la masterclass:', curTitle);
+          if (newTitle === null || !newTitle.trim()) return;
+          OV.t = OV.t || {};
+          OV.t['gift.' + i] = OV.t['gift.' + i] || {};
+          OV.t['gift.' + i][LS.lang] = newTitle.trim();
+          render();
+        };
+        
+        editBar.appendChild(lkBtn);
+        editBar.appendChild(tBtn);
+        card.appendChild(editBar);
+      }
       giftGrid.appendChild(card);
     });
     celebration.appendChild(giftGrid);
@@ -1470,7 +1652,7 @@ function renderTrack() {
   var tipB = LS.lang === 'ca' ? 'Percentatge de vídeos importants (⭐) completats d\'aquest bloc' : 'Porcentaje de vídeos importantes (⭐) completados de este bloque';
   var tipT = LS.lang === 'ca' ? 'Percentatge de vídeos importants (⭐) completats del nivell' : 'Porcentaje de vídeos importantes (⭐) completados del nivel';
   BO.filter(function (b) { return b !== 'w'; }).forEach(function (b) {
-    var list = imp.filter(function (x) { return x.b === b; });
+    var list = imp.filter(function (x) { return vidBlock(x) === b; });
     var p = list.length ? prog(list).p : 100;
     h += '<div class="donut" title="' + tipB + '">' + donut(p, BC[b]) + '<div class="lbl">' + t().blocks[b] + '</div></div>';
   });
@@ -1531,7 +1713,7 @@ function renderFree() {
         btn.title = LS.lang === 'ca' ? 'Vídeos que has marcat per repassar' : 'Vídeos que has marcado para repasar';
         btn.innerHTML = '<span class="bname">' + t().blocks.b + '</span><span class="bmini"><span class="bico">🔖</span><span class="bcount">' + n + '</span></span>';
       } else {
-        var vidsInBlock = all.filter(function (x) { return x.b === b; });
+        var vidsInBlock = all.filter(function (x) { return vidBlock(x) === b; });
         var p = vidsInBlock.length ? prog(vidsInBlock).p : 0;
         btn.title = LS.lang === 'ca' ? 'Percentatge de tot el material d\'aquest bloc completat (importants i opcionals)' : 'Porcentaje de todo el material de este bloque completado (importantes y opcionales)';
         var miniChart = '<svg width="22" height="22" viewBox="0 0 24 24" style="flex:none"><circle cx="12" cy="12" r="11" fill="#242a35"/>' + pieSlice(12, 12, 11, p, (p === 100 ? '#39d98a' : BC[b])) + '</svg>';
@@ -1561,12 +1743,16 @@ function renderFree() {
     if (!s.u) return;
     if (freeLevel === 0 && si !== 0) return;
     s.u.forEach(function (u, ui) {
-      var bl = u[freeBlock];
-      if (bl && bl.v) bl.v.forEach(function (v, vi) {
-        var key = v[li()];
-        if (seen[key]) return;
-        seen[key] = 1;
-        vids.push({ v: v, id: si + '.' + ui + '.' + freeBlock + '.' + vi, tag: s.n[LS.lang], si: si, ui: ui });
+      BO.forEach(function (bb) {
+        var bl = u[bb];
+        if (bl && bl.v) bl.v.forEach(function (v, vi) {
+          var id = si + '.' + ui + '.' + bb + '.' + vi;
+          if (vidBlockById(id) !== freeBlock) return;
+          var key = v[li()];
+          if (seen[key]) return;
+          seen[key] = 1;
+          vids.push({ v: v, id: id, tag: secName(si), si: si, ui: ui, b: bb });
+        });
       });
     });
   });
@@ -1593,31 +1779,16 @@ function renderFree() {
   if (docs.length) { var ap2 = mkAdj(docs, freeLevel, targetUi, freeBlock); head.appendChild(ap2.btn); fv.appendChild(head); fv.appendChild(ap2.box); } else { fv.appendChild(head); }
   var grid = document.createElement('div');
   grid.className = 'vgrid';
+  grid.dataset.block = freeBlock;
   vids.forEach(function (x) {
     var vidEl = makeVid(x.v, x.id, false, x.tag);
+    vidEl.dataset.block = freeBlock;
     if (editModeOn) {
       var vIdx = -1;
       for (var i = 0; i < vids.length; i++) { if (vids[i].id === x.id) { vIdx = i; break; } }
       var editBtns = document.createElement('div');
       editBtns.style.cssText = 'position:absolute;top:48px;right:8px;display:flex;gap:8px;z-index:10';
-      if (vIdx > 0) {
-        var upBtn = document.createElement('button');
-        upBtn.className = 'vid-order-btn';
-        upBtn.innerHTML = '<svg viewBox="0 0 24 24"><path d="M7 14l5-5 5 5z" fill="#141414"/></svg>';
-        upBtn.title = (LS.lang === 'ca' ? 'Pujar' : 'Subir');
-        upBtn.onclick = function (e) { e.stopPropagation(); swapOrder(x.id, vids[vIdx - 1].id); };
-        editBtns.appendChild(upBtn);
-      }
-      if (vIdx < vids.length - 1) {
-        var downBtn = document.createElement('button');
-        downBtn.className = 'vid-order-btn';
-        downBtn.innerHTML = '<svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z" fill="#141414"/></svg>';
-        downBtn.title = (LS.lang === 'ca' ? 'Baixar' : 'Bajar');
-        downBtn.onclick = function (e) { e.stopPropagation(); swapOrder(x.id, vids[vIdx + 1].id); };
-        editBtns.appendChild(downBtn);
-      }
-      var delBtn = document.createElement('button');
-      delBtn.className = 'vid-del-btn';
+      var delBtn = document.createElement('button');      delBtn.className = 'vid-del-btn';
       delBtn.innerHTML = '🗑️';
       delBtn.title = (LS.lang === 'ca' ? 'Eliminar vídeo' : 'Eliminar vídeo');
       delBtn.onclick = function (e) {
@@ -1853,6 +2024,7 @@ $('btnUser').onclick = function () {
   LS.done = {};
   editModeOn = false;
   $('mEdit').classList.remove('on');
+  document.body.classList.remove('editmode');
   showLogin();
 };
 
@@ -1868,6 +2040,10 @@ function setLabels() {
   $('mHelp').title = LS.lang === 'ca' ? 'Com funciona' : 'Cómo funciona';
   $('mInfo').title = LS.lang === 'ca' ? 'Preguntes freqüents' : 'Preguntas frecuentes';
   $('mEdit').textContent = t().edit;
+  $('mSave').textContent = isTabletDevice() ? '📧' : '💾';
+  $('mSave').title = isTabletDevice()
+    ? (LS.lang === 'ca' ? 'Enviar index.html per email' : 'Enviar index.html por email')
+    : (LS.lang === 'ca' ? 'Guardar' : 'Guardar');
   $('overlayText').textContent = t().overlayText;
   $('langCur').textContent = (LS.lang === 'ca') ? 'CAT' : 'ESP';
   
@@ -2048,14 +2224,257 @@ document.addEventListener('mouseleave', function () {
 });
 
 /* ================================================================
+   11b. DRAG & DROP DE VÍDEOS (Pointer Events: ratolí + tàctil)
+   ================================================================ */
+var dragState = null;
+var blockBar = null;
+
+function ensureBlockBar() {
+  if (blockBar) return blockBar;
+  blockBar = document.createElement('div');
+  blockBar.id = 'drag-blockbar';
+  BO.filter(function (b) { return b !== 'w'; }).forEach(function (b) {
+    var btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'drag-blockbtn';
+    btn.dataset.b = b;
+    btn.textContent = t().blocks[b];
+    blockBar.appendChild(btn);
+  });
+  document.body.appendChild(blockBar);
+  return blockBar;
+}
+
+function initDragDrop() {  document.addEventListener('pointerdown', function (e) {
+    if (!editModeOn) return;
+    var handle = e.target.closest('.vid-drag');
+    if (!handle) return;
+    var row = handle.closest('.vid');
+    if (!row || !row.dataset.vid) return;
+    e.preventDefault();
+    var id = row.dataset.vid;
+    var ghost = document.createElement('div');
+    ghost.id = 'drag-ghost';
+    ghost.textContent = '⠿ ' + (row.querySelector('.vt') ? row.querySelector('.vt').textContent : id);
+    document.body.appendChild(ghost);
+    dragState = { id: id, ghost: ghost, row: row, startX: e.clientX, startY: e.clientY, moved: false };
+    row.classList.add('dragging-src');
+    handle.setPointerCapture && handle.setPointerCapture(e.pointerId);
+    positionGhost(e);
+  }, true);
+
+  document.addEventListener('pointermove', function (e) {
+    if (!dragState) return;
+    e.preventDefault();
+    if (!dragState.moved && Math.abs(e.clientX - dragState.startX) < 5 && Math.abs(e.clientY - dragState.startY) < 5) return;
+    dragState.moved = true;
+    positionGhost(e);
+    clearDropHints();
+    var el = document.elementFromPoint(e.clientX, e.clientY);
+    if (!el) return;
+    ensureBlockBar();
+    blockBar.classList.add('on');
+    var bbtn = el.closest('.drag-blockbtn');
+    var target = el.closest('.vid');
+    var gridEl = el.closest('.vgrid');
+    if (bbtn) {
+      clearDropHints();
+      bbtn.classList.add('over');
+      dragState.over = { type: 'blockbtn', block: bbtn.dataset.b };
+    } else if (target && target !== dragState.row && target.dataset.vid) {      var r = target.getBoundingClientRect();
+      var before = (e.clientX < r.left + r.width / 2);
+      target.classList.add(before ? 'drop-before' : 'drop-after');
+      dragState.over = { type: 'vid', id: target.dataset.vid, before: before };
+    } else if (gridEl) {
+      gridEl.classList.add('drop-hover');
+      dragState.over = { type: 'grid', block: gridEl.dataset.block, before: null };
+    } else {
+      dragState.over = null;
+    }
+  }, { passive: false });
+
+  document.addEventListener('pointerup', function (e) {
+    if (!dragState) return;
+    var st = dragState;
+    dragState = null;
+    if (st.ghost) st.ghost.remove();
+    st.row.classList.remove('dragging-src');
+    clearDropHints();
+    if (blockBar) blockBar.classList.remove('on');
+    if (!st.moved || !st.over) return;
+    var destBlock = null, beforeId = null;
+    if (st.over.type === 'blockbtn') {
+      moveVideo(st.id, st.over.block, null);
+      showToast((LS.lang === 'ca' ? '✔ Vídeo mogut al bloc: ' : '✔ Vídeo movido al bloque: ') + t().blocks[st.over.block]);
+      return;
+    }
+    if (st.over.type === 'vid') {
+      beforeId = st.over.before ? st.over.id : nextVidIdInDom(st.over.id);
+      var trow = document.querySelector('.vid[data-vid="' + st.over.id + '"]');
+      destBlock = trow ? trow.dataset.block : null;
+    } else {
+      destBlock = st.over.block;
+      beforeId = null;
+    }
+    if (destBlock || beforeId) {
+      moveVideo(st.id, destBlock, beforeId);
+      showToast(LS.lang === 'ca' ? '✔ Vídeo reubicat' : '✔ Vídeo reubicado');
+    }
+  });
+
+  document.addEventListener('pointercancel', function () {
+    if (!dragState) return;
+    if (blockBar) blockBar.classList.remove('on');
+    if (dragState.ghost) dragState.ghost.remove();    dragState.row.classList.remove('dragging-src');
+    clearDropHints();
+    dragState = null;
+  });
+}
+
+function positionGhost(e) {
+  if (!dragState || !dragState.ghost) return;
+  dragState.ghost.style.left = (e.clientX + 14) + 'px';
+  dragState.ghost.style.top = (e.clientY + 14) + 'px';
+}
+
+function clearDropHints() {
+  document.querySelectorAll('.vid.drop-before,.vid.drop-after').forEach(function (el) { el.classList.remove('drop-before', 'drop-after'); });
+  document.querySelectorAll('.vgrid.drop-hover').forEach(function (el) { el.classList.remove('drop-hover'); });
+  document.querySelectorAll('.drag-blockbtn.over').forEach(function (el) { el.classList.remove('over'); });
+}
+
+function nextVidIdInDom(id) {
+  var row = document.querySelector('.vid[data-vid="' + id + '"]');
+  if (!row) return null;
+  var nxt = row.nextElementSibling;
+  while (nxt) {
+    if (nxt.classList && nxt.classList.contains('vid') && nxt.dataset.vid) return nxt.dataset.vid;
+    nxt = nxt.nextElementSibling;
+  }
+  return null;
+}
+/* ================================================================
+   11c. EDITOR DE PARTITURES / ADJUNTS
+   ================================================================ */
+function openDocsEditor(level, uiUnused, b) {
+  // Recórrer TOTS els nivells (igual que el botó "Adjunts (N)") i deduplicar per nom
+  var items = [], seen = {};
+  D.forEach(function (s, si) {
+    if (!s.u) return;
+    if (freeLevel === 0 && si !== 0) return;
+    s.u.forEach(function (u, ui) {
+      var bl = u[b];
+      if (bl && bl.d) bl.d.forEach(function (dc, idx) {
+        var key = dc[li()];
+        if (seen[key]) return;
+        seen[key] = 1;
+        items.push({ dc: dc, si: si, ui: ui, idx: idx });
+      });
+    });
+  });
+
+  var old = $('docsModal');
+  if (old) old.remove();
+  var wrap = document.createElement('div');
+  wrap.className = 'docsmodal on';
+  wrap.id = 'docsModal';
+  var box = document.createElement('div');
+  box.className = 'docsbox';
+  box.innerHTML = '<h2><span>🎼 ' + (LS.lang === 'ca' ? 'Partitures i adjunts del bloc' : 'Partituras y adjuntos del bloque') + ': ' + t().blocks[b] + ' (' + items.length + ')</span><button type="button" id="docsClose">✕</button></h2><div id="docsList"></div><div class="addrow" id="docsAdd">+ ' + (LS.lang === 'ca' ? 'Afegir partitura / adjunt' : 'Añadir partitura / adjunt') + '</div>';
+  wrap.appendChild(box);
+  document.body.appendChild(wrap);
+
+  function rebuild() {
+    items = []; seen = {};
+    D.forEach(function (s, si) {
+      if (!s.u) return;
+      if (freeLevel === 0 && si !== 0) return;
+      s.u.forEach(function (u, ui) {
+        var bl = u[b];
+        if (bl && bl.d) bl.d.forEach(function (dc, idx) {
+          var key = dc[li()];
+          if (seen[key]) return; seen[key] = 1;
+          items.push({ dc: dc, si: si, ui: ui, idx: idx });
+        });
+      });
+    });
+  }
+
+  function paint() {
+    var list = box.querySelector('#docsList');
+    list.innerHTML = '';
+    items.forEach(function (it) {
+      var dc = it.dc;
+      var driveId = getAdjLink(it.si, it.ui, b, it.idx);
+      var row = document.createElement('div');
+      row.className = 'docrow';
+      row.innerHTML =
+        '<span class="dico">' + (DI[dc[2]] || '📄') + '</span>' +
+        '<input class="dn" value="' + esc(dc[li()]) + '" placeholder="' + (LS.lang === 'ca' ? 'Nom' : 'Nombre') + '">' +
+        '<input class="dl" value="' + (driveId || '') + '" placeholder="ID / URL Drive">' +
+        '<button type="button" class="prev" title="Preview">👁️</button>' +
+        '<button type="button" class="del" title="Eliminar">🗑️</button>';
+      row.querySelector('.dn').onchange = function () {
+        var nm = this.value.trim(); if (!nm) return;
+        var real = docsOf(it.si, it.ui, b)[it.idx];
+        if (!real) return;
+        var lang = li(); real[lang] = nm; if (!real[lang === 0 ? 1 : 0]) real[lang === 0 ? 1 : 0] = nm;
+      };
+      row.querySelector('.dl').onchange = function () { setAdjLink(it.si, it.ui, b, it.idx, parseDriveId(this.value)); };
+      row.querySelector('.prev').onclick = function () {
+        var ex = row.querySelector('.docpreview');
+        if (ex) { ex.remove(); return; }
+        var did = getAdjLink(it.si, it.ui, b, it.idx);
+        if (!did) { showToast(LS.lang === 'ca' ? '⚠️ Aquest adjunt no té link' : '⚠️ Este adjunto no tiene link'); return; }
+        var fr = document.createElement('iframe');
+        fr.className = 'docpreview';
+        fr.src = 'https://drive.google.com/file/d/' + did + '/preview';
+        row.appendChild(fr);
+      };
+      row.querySelector('.del').onclick = function () {
+        if (!confirm(LS.lang === 'ca' ? 'Eliminar aquest adjunt?' : '¿Eliminar este adjunto?')) return;
+        setAdjLink(it.si, it.ui, b, it.idx, null);
+        docsOf(it.si, it.ui, b).splice(it.idx, 1);
+        rebuild();
+        paint();
+      };
+      list.appendChild(row);
+    });
+  }
+  paint();
+
+  box.querySelector('#docsClose').onclick = function () { wrap.remove(); render(); };
+  wrap.addEventListener('click', function (e) { if (e.target === wrap) { wrap.remove(); render(); } });
+  box.querySelector('#docsAdd').onclick = function () {
+    var name = prompt(LS.lang === 'ca' ? 'Nom del document:' : 'Nombre del documento:', LS.lang === 'ca' ? 'Nova partitura' : 'Nueva partitura');
+    if (!name) return;
+    var link = prompt('ID / URL de Google Drive (opcional):', '');
+    var targetSi = freeLevel, targetUi = 0;
+    if (D[targetSi] && D[targetSi].u) {
+      for (var u2 = 0; u2 < D[targetSi].u.length; u2++) {
+        var bl3 = D[targetSi].u[u2][b];
+        if (bl3 && bl3.d && bl3.d.length > 0) { targetUi = u2; break; }
+      }
+    }
+    var dst = D[targetSi].u[targetUi][b];
+    if (!dst) dst = D[targetSi].u[targetUi][b] = { v: [], d: [] };
+    if (!dst.d) dst.d = [];
+    dst.d.push([name, name, 's']);
+    if (link && link.trim()) setAdjLink(targetSi, targetUi, b, dst.d.length - 1, parseDriveId(link));
+    rebuild();
+    paint();
+  };
+}
+
+/* ================================================================
    12. ARRENCADA
    ================================================================ */
 try {
   setLabels();
   loadDone();
+  initDragDrop();
   render();
-} catch (e) {
-  var f = document.getElementById('fatal');
+} catch (e) {  var f = document.getElementById('fatal');
   f.style.display = 'block';
   f.textContent = '️ Error init: ' + e.message;
 }
